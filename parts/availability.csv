@@ -1,0 +1,85 @@
+refs,qty,need,value,footprint,kind,status,dk_status,mpn,mfr,dkpn,stock,ok,lead_weeks,dk_package,datasheet,dk_url,match,candidates,needs_david,package,tolerance,voltage,dielectric,tolerance_hint,dielectric_hint,notes
+C1;C108;C115;C116;C120;C121;C122;C123;C15;C152;C153;C154;C158;C159;C160;C161;C17;C18;C2;C207;C21;C210;C211;C212;C219;C221;C223;C224;C225;C23;C24;C25;C252;C27;C30;C301;C302;C4;C41;C43;C49;C58;C6;C63;C73;C74;C75,47,235,100n,SMD_0402,generic,generic-spec-only,,,,,,n/a,,,,,,,,0402,,,,,,generic passive value from BOM; tolerance/voltage/dielectric not in BOM
+C10;C13;C36,3,15,2.2n,SMD_0402,generic,generic-spec-only,,,,,,n/a,,,,,,,,0402,,,,,,generic passive value from BOM; tolerance/voltage/dielectric not in BOM
+C100;C101;C102;C106;C162;C248;C26;C303;C306;C60;C61;C62;C64;C70;C71;C76;C77;C78;C79;C80;C81;C82;C83;C84;C85;C86;C87;C88;C93;C94;C98,31,155,10u,SMD_0805,generic,generic-spec-only,,,,,,n/a,,,,,,,,0805,,,,,,generic passive value from BOM; tolerance/voltage/dielectric not in BOM
+C103;C104;C32,3,15,DNP,SMD_0805,dnp,DNP,,,,,,n/a,,,,,,,,,,,,,,DNP in BOM
+C109;C11;C110;C111;C112;C113;C114;C3;C300;C44;C5;C53;C7;C8,14,70,10p,SMD_0402,generic,generic-spec-only,,,,,,n/a,,,,,,,,0402,,,,,,generic passive value from BOM; tolerance/voltage/dielectric not in BOM
+C117;C118;C119;C163;C164;C165;C166;C167;C168;C180;C213,11,55,100p,SMD_0402,generic,generic-spec-only,,,,,,n/a,,,,,,,,0402,,,,,,generic passive value from BOM; tolerance/voltage/dielectric not in BOM
+C12;C19;C20;C217;C218;C222;C249;C89,8,40,1u,SMD_0603,generic,generic-spec-only,,,,,,n/a,,,,,,,,0603,,,,,,generic passive value from BOM; tolerance/voltage/dielectric not in BOM
+C14;C304;C305;C307,4,20,220p,SMD_0402,generic,generic-spec-only,,,,,,n/a,,,,,,,,0402,,,,,,generic passive value from BOM; tolerance/voltage/dielectric not in BOM
+C155;C156;C157;C183;C185;C186;C188;C194;C195,9,45,4.7u,SMD_0603,generic,generic-spec-only,,,,,,n/a,,,,,,,,0603,,,,,,generic passive value from BOM; tolerance/voltage/dielectric not in BOM
+C16;C179;C206;C28;C37;C38;C9;C95,8,40,10n,SMD_0402,generic,generic-spec-only,,,,,,n/a,,,,,,,,0402,,,,,,generic passive value from BOM; tolerance/voltage/dielectric not in BOM
+C170;C171;C187;C189;C190;C191;C192;C193;C197;C198;C199;C200;C201;C202;C203;C204;C205;C250;C251;C96;C97;C99,22,110,470n,SMD_0402,generic,generic-spec-only,,,,,,n/a,,,,,,,,0402,,,,,,generic passive value from BOM; tolerance/voltage/dielectric not in BOM
+C181,1,5,100u,SMD_1210,generic,generic-spec-only,,,,,,n/a,,,,,,,,1210,,,,,,generic passive value from BOM; tolerance/voltage/dielectric not in BOM
+C182;C184;C196,3,15,47u,SMD_1206,generic,generic-spec-only,,,,,,n/a,,,,,,,,1206,,,,,,generic passive value from BOM; tolerance/voltage/dielectric not in BOM
+C208;C209,2,10,15p,SMD_0402,generic,generic-spec-only,,,,,,n/a,,,,,,,,0402,,,,,,generic passive value from BOM; tolerance/voltage/dielectric not in BOM
+C216;C22;C220;C31,4,20,2.2u,SMD_0603,generic,generic-spec-only,,,,,,n/a,,,,,,,,0603,,,,,,generic passive value from BOM; tolerance/voltage/dielectric not in BOM
+C29;R10;R50;R69,4,20,DNP,SMD_0402,dnp,DNP,,,,,,n/a,,,,,,,,,,,,,,DNP in BOM
+C33;C34;C39;C40,4,20,5p,SMD_0402,generic,generic-spec-only,,,,,,n/a,,,,,,,,0402,,,,,,generic passive value from BOM; tolerance/voltage/dielectric not in BOM
+C42;C46;C52;C55,4,20,18p,SMD_0402,generic,generic-spec-only,,,,,,n/a,,,,,,,,0402,,,,,,generic passive value from BOM; tolerance/voltage/dielectric not in BOM
+C48;C57,2,10,0.5p,SMD_0402,generic,generic-spec-only,,,,,,n/a,,,,,,,,0402,,,,,,generic passive value from BOM; tolerance/voltage/dielectric not in BOM
+CON1,1,5,SD_Card_DM3BT,DM3BT-DSF-PEJS,mpn,No-result,,,,,0,NO,,,,,NO RESULT,,,,,,,,,
+CON2,1,5,BARREL_JACK,BarrelJack,mpn,No-result,,,,,0,NO,,,,,NO RESULT,,,,,,,,,
+D1;D2;D3;D5;D6;D7,6,30,LED,Diode_0603,generic,generic-spec-only,,,,,,n/a,,,,,,,,0603,,,,,,"LED: colour, Vf, current not in schematic"
+F1;F2,2,10,Via,RF_via,nopart,no-part,,,,,,n/a,,,,,,,,,,,,,,RF via footprint (PCB feature)
+FB1;FB12;FB13;FB14;FB2;FB3;FB4;FB5;FB6;FB7;FB8,11,55,BLM18PG181SN1D,SMD_0603,mpn,Active,Active,BLM18PG181SN1D,Murata Electronics,490-5263-1-ND,424356,yes,29,,https://pim.murata.com/asset/pim4/ferriteBeadInductortypefilter/ENFA0003_PDF_FERRITEBEADINDUCTORTYPEFILTER?lastModifiedDatetime=20250707190934,https://www.digikey.com/en/products/detail/murata-electronics/BLM18PG181SN1D/1634634,exact,,,,,,,,,
+FB11,1,5,MPZ2012S101AT000,SMD_0805,mpn,Active,Active,MPZ2012S101AT000,TDK,445-MPZ2012S101AT000CT-ND,0,CHECK,15,,https://product.tdk.com/system/files/dam/doc/product/emc/emc/beads/catalog/beads_commercial_power_mpz2012_en.pdf?ref_disty=digikey,https://www.digikey.com/en/products/detail/tdk/MPZ2012S101AT000/571874,exact,,,,,,,,,
+J1,1,5,USB_C_Receptacle_USB2.0,USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal,generic,needs-David,,,,,,n/a,,,,,,,1,,,,,,,USB-C receptacle footprint names GCT USB4105-xx-A; exact suffix variant not in BOM
+J2,1,5,Connector_02x08,PinHeader_2x8_P2.5mm,nopart,no-part,,,,,,n/a,,,,,,,,,,,,,,"generic pin header (mechanical, no vendor-specific MPN in schematic)"
+L1;L3,2,10,LQW15AN9N9J80D,SMD_0402,mpn,Active,Active,LQW15AN9N9J80D,Murata Electronics,490-7690-1-ND,766,yes,25,-,https://pim.murata.com/asset/pim4/inductor/JELF243A-0100_PDF_INDUCTOR,https://www.digikey.com/en/products/detail/murata-electronics/LQW15AN9N9J80D/4292403,exact,,,,,,,,,
+L12;L13;L14;L15,4,20,2.2u,SMD_0805,generic,generic-spec-only,,,,,,n/a,,,,,,,,0805,,,,,,generic passive value from BOM; tolerance/voltage/dielectric not in BOM
+L2;L4,2,10,0.6n,SMD_0402,generic,generic-spec-only,,,,,,n/a,,,,,,,,0402,,,,,,generic passive value from BOM; tolerance/voltage/dielectric not in BOM
+L5;L6;L7,3,15,33u (SRR6040A-330M),SRR6040A,mpn,NFND,Not For New Designs,SRR6040A-330M,Bourns Inc.,SRR6040A-330MCT-ND,777,CHECK,16,-,https://www.bourns.com/docs/Product-Datasheets/SRR6040A.pdf,https://www.digikey.com/en/products/detail/bourns-inc/SRR6040A-330M/5031023,exact,,,,,,,,,"BOM value is ""33u (SRR6040A-330M)""; MPN extracted"
+P1;P2;U15,3,15,SMA,CONSMA003.062,mpn,No-result,,,,,0,NO,,,,,NO RESULT,,,,,,,,,
+P5;P7;P8,3,15,CONN_01X01,MountingHole_3.2mm_M3_Pad_Via_mod,nopart,no-part,,,,,,n/a,,,,,,,,,,,,,,mounting hole (mechanical)
+R1,1,5,5.49k,SMD_0402,generic,generic-spec-only,,,,,,n/a,,,,,,,,0402,,,,,,generic passive value from BOM; tolerance/voltage/dielectric not in BOM
+R100;R17;R51;R52;R53;R54;R97;R98;R99,9,45,49.9,SMD_0402,generic,generic-spec-only,,,,,,n/a,,,,,,,,0402,,,,,,generic passive value from BOM; tolerance/voltage/dielectric not in BOM
+R104;R29;R30;R39;R40;R73;R83;R92,8,40,10k,SMD_0402,generic,generic-spec-only,,,,,,n/a,,,,,,,,0402,,,,,,generic passive value from BOM; tolerance/voltage/dielectric not in BOM
+R109;R111;R24;R25;R27;R300;R301;R4;R72,9,45,1k,SMD_0402,generic,generic-spec-only,,,,,,n/a,,,,,,,,0402,,,,,,generic passive value from BOM; tolerance/voltage/dielectric not in BOM
+R11;R12;R9,3,15,16.9,SMD_0402,generic,generic-spec-only,,,,,,n/a,,,,,,,,0402,,,,,,generic passive value from BOM; tolerance/voltage/dielectric not in BOM
+R110;R114;R115;R18;R19;R20;R41;R42;R55;R56;R57;R58;R63;R64;R7;R70;R80;R81;R93,19,95,0,SMD_0402,generic,generic-spec-only,,,,,,n/a,,,,,,,,0402,,,,,,generic passive value from BOM; tolerance/voltage/dielectric not in BOM
+R112;R117;R118;R14;R5;R6;R82;R91,8,40,4.7k,SMD_0402,generic,generic-spec-only,,,,,,n/a,,,,,,,,0402,,,,,,generic passive value from BOM; tolerance/voltage/dielectric not in BOM
+R13;R130;R15;R16;R21;R84;R85;R88,8,40,33,SMD_0402,generic,generic-spec-only,,,,,,n/a,,,,,,,,0402,,,,,,generic passive value from BOM; tolerance/voltage/dielectric not in BOM
+R2;R48,2,10,3.3K,SMD_0402,generic,generic-spec-only,,,,,,n/a,,,,,,,,0402,,,,,,generic passive value from BOM; tolerance/voltage/dielectric not in BOM
+R22;R23,2,10,100,SMD_0402,generic,generic-spec-only,,,,,,n/a,,,,,,,,0402,,,,,,generic passive value from BOM; tolerance/voltage/dielectric not in BOM
+R26;R28;R31;R38,4,20,500,SMD_0402,generic,generic-spec-only,,,,,,n/a,,,,,,,,0402,,,,,,generic passive value from BOM; tolerance/voltage/dielectric not in BOM
+R3;R8,2,10,5.1k,SMD_0402,generic,generic-spec-only,,,,,,n/a,,,,,,,,0402,,,,,,generic passive value from BOM; tolerance/voltage/dielectric not in BOM
+R302,1,5,27,SMD_0402,generic,generic-spec-only,,,,,,n/a,,,,,,,,0402,,,,,,generic passive value from BOM; tolerance/voltage/dielectric not in BOM
+R303;R305,2,10,2,SMD_0603,generic,generic-spec-only,,,,,,n/a,,,,,,,,0603,,,,,,generic passive value from BOM; tolerance/voltage/dielectric not in BOM
+R304,1,5,27.4k,SMD_0402,generic,generic-spec-only,,,,,,n/a,,,,,,,,0402,,,,,,generic passive value from BOM; tolerance/voltage/dielectric not in BOM
+R32,1,5,68k,SMD_0402,generic,generic-spec-only,,,,,,n/a,,,,,,,,0402,,,,,,generic passive value from BOM; tolerance/voltage/dielectric not in BOM
+R33;R34;R36,3,15,100k,SMD_0402,generic,generic-spec-only,,,,,,n/a,,,,,,,,0402,,,,,,generic passive value from BOM; tolerance/voltage/dielectric not in BOM
+R35;R46;R47,3,15,18.7K,SMD_0402,generic,generic-spec-only,,,,,,n/a,,,,,,,,0402,,,,,,generic passive value from BOM; tolerance/voltage/dielectric not in BOM
+R37;R71,2,10,12k,SMD_0402,generic,generic-spec-only,,,,,,n/a,,,,,,,,0402,,,,,,generic passive value from BOM; tolerance/voltage/dielectric not in BOM
+R43,1,5,18k,SMD_0402,generic,generic-spec-only,,,,,,n/a,,,,,,,,0402,,,,,,generic passive value from BOM; tolerance/voltage/dielectric not in BOM
+R44;R49,2,10,2k,SMD_0402,generic,generic-spec-only,,,,,,n/a,,,,,,,,0402,,,,,,generic passive value from BOM; tolerance/voltage/dielectric not in BOM
+R45,1,5,49.9k,SMD_0402,generic,generic-spec-only,,,,,,n/a,,,,,,,,0402,,,,,,generic passive value from BOM; tolerance/voltage/dielectric not in BOM
+R79,1,5,2.2k,SMD_0402,generic,generic-spec-only,,,,,,n/a,,,,,,,,0402,,,,,,generic passive value from BOM; tolerance/voltage/dielectric not in BOM
+SW1;SW2,2,10,B3U-1000P,EVP-AWBA2A,mpn,Active,Active,B3U-1000P,Aratas (Formerly Omron Components),SW1020CT-ND,127886,yes,26,,https://omronfs.omron.com/en_US/ecb/products/pdf/en-b3u.pdf,https://www.digikey.com/en/products/detail/aratas-formerly-omron-components/B3U-1000P/1534338,exact,,,,,,,,,BOM value is Omron B3U-1000P; footprint field names Panasonic EVP-AWBA2A (different vendor equivalent) -- searched BOM value
+U1,1,5,ADF4158,VFQFN-24,mpn,No-result,,,,,0,NO,,,,,NO RESULT,,,,,,,,,
+U10,1,5,HMC431LP4,VQFN-24,mpn,Active,Active,HMC431LP4ETR,Analog Devices Inc.,1127-1036-1-ND,0,CHECK,10,24-QFN (4x4),https://www.analog.com/media/en/technical-documentation/data-sheets/hmc431.pdf,https://www.digikey.com/en/products/detail/analog-devices-inc/HMC431LP4ETR/3452258,exact,,,,,,,,,VCO; LP4 = 24-VQFN package (matches footprint); ETR suffix per fmcw3 precedent (hw-02 suffix_decisions.csv)
+U11;U16,2,10,SKY65404,XFDFN-6,mpn,No-result,,,,,0,NO,,,,,NO RESULT,,,,,,,,,
+U12,1,5,PAT1220-3dB,PAT1220,mpn,No-result,,,,,0,NO,,,,,NO RESULT,,,,,,,,,
+U13;U9,2,10,TRF37A73,DFN-8-1EP_2x2mm_Pitch0.5mm,mpn,No-result,,,,,0,NO,,,,,NO RESULT,,,,,,,,,
+U14,1,5,TQP5525,QFN-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm_ThermalVias,mpn,No-result,,,,,0,NO,,,,,NO RESULT,,,,,,,,,
+U17;U18;U19,3,15,LMR51420,SOT23_6,mpn,No-result,,,,,0,NO,,,,,NO RESULT,,,,,,,,,
+U2;U31;U34;U35;U38;U4;U41;U42;U43;U44;U46;U47;U48;U49;U5,15,75,SolderPad_1_Circle,SolderPad_1_1.0mm_SMD_Circle,nopart,no-part,,,,,,n/a,,,,,,,,,,,,,,test point / solder pad (PCB feature)
+U20;U39,2,10,LP5907-3.0,SOT-23-5,mpn,No-result,,,,,0,NO,,,,,NO RESULT,,,,,,,,,
+U21,1,5,LP2985A-10DBVR,SOT-23-5,mpn,Active,Active,LP2985A-10DBVR,Texas Instruments,296-24264-1-ND,2970,yes,12,SOT-23-5,https://www.ti.com/general/docs/suppproductinfo.tsp?distId=10&gotoUrl=https%3A%2F%2Fwww.ti.com%2Flit%2Fgpn%2Flp2985,https://www.digikey.com/en/products/detail/texas-instruments/LP2985A-10DBVR/2038541,exact,,,,,,,,,
+U22;U23;U24,3,15,LD3920,DFN-8-1EP_4x4mm_P0.8mm_EP2.3x3.24mm,mpn,No-result,,,,,0,NO,,,,,NO RESULT,,,,,,,,,
+U25,1,5,LD3920_33,DFN-6-1EP_3x3mm_P0.95mm_EP1.7x2.6mm,mpn,No-result,,,,,0,NO,,,,,NO RESULT,,,,,,,,,BOM value LD3920_33 -- fixed-voltage variant suffix as given; not independently verified
+U26;U27;U28,3,15,5400BL15B0050001E,5400BL15B050E,mpn,Active,Active,5400BL15B0050001E,Johanson Technology Inc.,712-5400BL15B0050001ECT-ND,6878,yes,18,,https://www.johansontechnology.com/datasheets/5400BL15B050/5400BL15B050.pdf,https://www.digikey.com/en/products/detail/johanson-technology-inc/5400BL15B0050001E/1560729,exact,,,,,,,,,
+U29,1,5,ADL5802,QFN-24-1EP_4x4mm_Pitch0.5mm,mpn,No-result,,,,,0,NO,,,,,NO RESULT,,,,,,,,,
+U3,1,5,PAT1220-6dB,PAT1220,mpn,No-result,,,,,0,NO,,,,,NO RESULT,,,,,,,,,
+U30,1,5,XC7A35T-1FTG256C,FTG256,mpn,Active,Active,XC7A35T-1FTG256C,AMD,122-1910-ND,0,CHECK,52,256-FTBGA (17x17),https://docs.amd.com/v/u/en-US/ds181_Artix_7_Data_Sheet,https://www.digikey.com/en/products/detail/amd/XC7A35T-1FTG256C/5039074,exact,,,,,,,,,
+U32,1,5,93LC46B,SOT-23-6,mpn,No-result,,,,,0,NO,,,,,NO RESULT,,,,,,,,,93LC46B suffix (I/OT etc.) not specified in BOM value
+U33,1,5,FT2232H,LQFP-64_10x10mm_Pitch0.5mm,mpn,Active,Active,FT2232HL-REEL,"FTDI, Future Technology Devices International Ltd",768-1024-1-ND,0,CHECK,50,64-LQFP (10x10),https://ftdichip.com/wp-content/uploads/2025/11/DS_FT2232H.pdf,https://www.digikey.com/en/products/detail/ftdi-future-technology-devices-international-ltd/FT2232HL-REEL/1986053,exact,,,,,,,,,"USB bridge; LQFP-64 10x10 footprint = HL suffix (L=LQFP, Q=QFN); FT2232HL-TRAY is the tray pack; per fmcw3 precedent (hw-02 suffix_decisions.csv)"
+U36,1,5,SolderPad_1_Circle,SolderPad_1_1.5mm_SMD_Circle,nopart,no-part,,,,,,n/a,,,,,,,,,,,,,,test point / solder pad (PCB feature)
+U40,1,5,W25Q128JV,DFN-S-8-1EP_6x5mm_Pitch1.27mm,mpn,No-result,,,,,0,NO,,,,,NO RESULT,,,,,,,,,
+U45,1,5,LT6232,SSOP16_3.9x4.9mm_P0.635mm,mpn,No-result,,,,,0,NO,,,,,NO RESULT,,,,,,,,,
+U6,1,5,PL133-37,SOT23_6,mpn,No-result,,,,,0,NO,,,,,NO RESULT,,,,,,,,,
+U7,1,5,TLV172DCK,SOT-353_SC-70-5,mpn,No-result,,,,,0,NO,,,,,NO RESULT,,,,,,,,,
+U8,1,5,LTC2292,QFN-64-1EP_9x9mm_Pitch0.5mm,mpn,needs-David,,,,,,n/a,,,,,candidates,"LTC2292CUP#PBF [Active, stock 60, LTC2292CUP#PBF-ND]; LTC2292IUP#PBF [Active, stock 344, 505-LTC2292IUP#PBF-ND]",needs-David,,,,,,,"dual ADC, 64-QFN 9x9 = UP package; C (0-70C) vs I (-40-85C) temp grade not in BOM; per fmcw3 precedent (hw-02 suffix_decisions.csv)"
+Y1,1,5,ABM10-167-12.000MHZ-T3,ABM10,mpn,Active,Active,ABM10-167-12.000MHZ-T3,Abracon LLC,535-13521-1-ND,19864,yes,14,4-SMD (2.5x2),https://abracon.com/Resonators/ABM10-167-12.000MHz.pdf,https://www.digikey.com/en/products/detail/abracon-llc/ABM10-167-12-000MHZ-T3/6140264,exact,,,,,,,,,
+Y2,1,5,ECS ECS-TXO-32CSMV-400,Oscillator_SMD_ECS_2520MV-xxx-xx-4Pin_2.5x2.0mm,mpn,No-result,,,,,0,NO,,,,,NO RESULT,,,,,,,,,"BOM value duplicates vendor prefix (""ECS ECS-TXO-32CSMV-400"")"
+Z1,1,5,15dB COUPLER,Directional_Coupler_15dB_0.169mm_v2,nopart,no-part,,,,,,n/a,,,,,,,,,,,,,,printed directional coupler (PCB copper feature)

@@ -1,0 +1,7 @@
+# KiCad local/session state
+*.kicad_prl
+*.lck
+~*.lck
+
+# DigiKey API credentials (never commit)
+.digikey.env
