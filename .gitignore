@@ -5,3 +5,6 @@
 
 # DigiKey API credentials (never commit)
 .digikey.env
+
+# KiCad 10 local history snapshots
+.history/
