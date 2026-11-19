@@ -89,14 +89,14 @@ Step 1: fnd-01 Status done, no kicad process. Exported netlist.net (kicadsexpr) 
 ### 2026-11-19
 Unblocked: was blocked: step 8: The fnd-02 push guard hook blocks tag pushes ('refs/tags/archive/*') and, by extension, the branch deletions, even though the directive's Allowed commands list them. Please either relax the hook for those refspecs or run the tag creation, push and 'git push origin --delete ...' yourself. My recommendation is to allow 'refs/tags/archive/*' pushes and the one named '--delete' command in the hook, then re-run step 8. I will then do the tag, verification and README work.
 
-## Step 4: library tables
+##### Step 4: library tables
 - kicad/sym-lib-table now lists only `fmcw3` (${KIPRJMOD}/libs/fmcw3.lib, legacy); kicad/fp-lib-table only `fmcw3` (${KIPRJMOD}/fmcw3.pretty). Was 183 symbol libs + `Footprints`, all under /home/ck/.
 - Resolving: all 20 `fmcw3:` symbol lib_ids exist in libs/fmcw3.lib; all `fmcw3:` footprints used exist in fmcw3.pretty.
 - Not resolvable from repo tables (for layout-review). Symbols still work because each sheet embeds its lib_symbols, but a library-table lookup fails for: `fmcw3-rescue:*` (BARREL_JACK C CONN_01X01 FILTER GND INDUCTOR INDUCTOR_SMALL LED R SW_PUSH; lib now only in legacy/fmcw3-rescue.lib, not in table), and ck's personal libs: Connector_02x08, ECS-TXO-32CSMV, GND, ld3920_33, LD3920, LMR51420, LT6232, PL133_37, Resistor, SolderPad_1_Circle, TQP5525. KiCad stock libs (Connector, Device, Jumper) resolve via global tables.
 - Footprint libs not in repo: `Footprints:*` (BarrelJack, Diode_0603, Directional_Coupler_15dB_0.169mm_v2, PinHeader_2x8_P2.5mm, SMD_0402/0603/0805/1206/1210, SolderPad_*, SOT23_6, SSOP16_3.9x4.9mm_P0.635mm; ~320 board parts, mostly passives; PCB embeds the footprints). Obsolete stock names: Housings_DFN_QFN:*, Housings_QFP:LQFP-64, TO_SOT_Packages_SMD:SOT-353_SC-70-5 (renamed in KiCad 6+, now Package_*). Stock and resolve in KiCad 10: Connector_USB, Oscillator, Package_DFN_QFN. Also a bare `DM3BT-DSF-PEJS` (no library) and `MODULE` in sch Footprint fields.
 - Schematic/board: untouched since the move (pure renames).
 
-## Step 6: proof of no electrical change
+##### Step 6: proof of no electrical change
 - Exported kicad/fmcw3.kicad_sch to runs/fnd-02/after/netlist.net (kicadsexpr). Diff vs before/netlist.net ignoring (date), (source), (tool): only difference is the `(libraries ...)` block, which lost the 11 ck-personal library entries (Connector_02x08, ECS-TXO-32CSMV, ... TQP5525) because step 4 trimmed the lib tables. Library metadata, not connectivity. Components and nets sections identical.
 Verify: not run
 Independent review: not recorded
