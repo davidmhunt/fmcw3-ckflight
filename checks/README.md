@@ -34,4 +34,7 @@ ERC total is unchanged (1118); 32 symbols moved from "library symbol issue" to "
 symbol differs from schematic copy" because their libraries now resolve. Pre-existing
 findings are left for goal `layout-review`.
 
-Netlist equality (before vs after the move): see step 6 (`runs/fnd-02/`).
+Netlist equality (before vs after the move, step 6): components and nets are identical.
+The only difference is the netlist `(libraries ...)` block, which lost 11 libraries that
+existed only at `/home/ck` on upstream's machine and cannot be restored. The user accepted
+this on 2026-11-19 as library metadata, not an electrical change.

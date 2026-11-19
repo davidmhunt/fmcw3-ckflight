@@ -48,3 +48,16 @@ Upstream is `ckflight/FMCW3-Kicad` (author Cenk Keskin); its README is kept as
 host software `FMCW_RADAR`, `FMCW_RADAR_2v2`.
 
 Licensed under GPLv3, as upstream states; full text in `LICENSE`.
+
+## Archived upstream branches
+
+The upstream branches below were tagged (annotated) and then deleted from `origin`; each
+tag points at the former branch tip.
+
+| Branch | Tagged commit | Tag | Merged into main |
+|---|---|---|---|
+| `jlcpcb_v2` | `100aed1743` | `archive/jlcpcb_v2` | yes |
+| `jlcpcb_version` | `3af22f786f` | `archive/jlcpcb_version` | yes |
+| `lt6232_implement` | `256c33f6f3` | `archive/lt6232_implement` | yes |
+| `lt6232_ld3920_33` | `546dfd13b2` | `archive/lt6232_ld3920_33` | yes |
+| `oshpark_version` | `e39d97a5c4` | `archive/oshpark_version` | no |
