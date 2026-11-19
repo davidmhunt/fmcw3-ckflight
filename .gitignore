@@ -8,3 +8,6 @@
 
 # KiCad 10 local history snapshots
 .history/
+
+# friday: untracked findings from measure-only steps
+runs/
