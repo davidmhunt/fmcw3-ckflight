@@ -4,7 +4,7 @@
 ~*.lck
 
 # DigiKey API credentials (never commit)
-.digikey.env
+.env
 
 # KiCad 10 local history snapshots
 .history/
