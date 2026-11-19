@@ -11,3 +11,6 @@
 
 # friday: untracked findings from measure-only steps
 runs/
+
+# KiCad local state
+fp-info-cache
