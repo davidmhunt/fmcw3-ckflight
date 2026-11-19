@@ -1,5 +1,5 @@
 # fnd-01: Survey legacy files, upstream branches and the firmware repo before cleanup
-Status: awaiting review
+Status: done
 Goal: foundation
 Node: any
 Deliverable: doc
@@ -69,6 +69,8 @@ XML / `$Comp` blocks of the v2 .sch files); comparison keyed on refdes, value, f
 connectivity (set of (ref,pin) per net, name-independent). Scripts were in the session scratchpad.
 "Current" below means the working tree at 76be142 (schematics are KiCad 9 format v20250114,
 generator_version 9.0; fmcw3.kicad_pcb re-saved KiCad 10, v20260206).
+
+Accepted by user: 2026-11-19 Accepted with decisions recorded in the survey; firmware items TBD, folded into later goals
 
 ## Dates and KiCad versions (git add/last-change dates; working-tree mtimes are all the checkout time)
 | path | first commit | last change | format / tool |
