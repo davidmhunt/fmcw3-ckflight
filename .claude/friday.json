@@ -1,0 +1,10 @@
+{
+  "bash_file_io": "deny",
+  "rules": [
+    "Never edit kicad/*.kicad_sch or kicad/*.kicad_pcb while the user has the project open in KiCad: check `pgrep -a kicad` first and stop as needs_user if it is running.",
+    "Never read `.env` into output, print its values, or commit it; tools read keys from it at run time only.",
+    "Never regenerate or modify `production/` in place; new fab outputs go to new paths and are recorded with `friday result write --file`.",
+    "Electrical design decisions (part and footprint choice, routing, placement, ordering, sending to a fab) are the user's: prepare options and evidence, do not decide or apply them unless a directive states the decided change.",
+    "Never Verify on an exact DRC warning count: `solder_mask_bridge` jitters by +/-1 on identical input."
+  ]
+}
