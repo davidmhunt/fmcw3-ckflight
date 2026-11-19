@@ -1,5 +1,5 @@
 # fnd-02: Restructure the repo (KiCad project into kicad/, legacy cleanup, one README)
-Status: blocked: step 8: The fnd-02 push guard hook blocks tag pushes ('refs/tags/archive/*') and, by extension, the branch deletions, even though the directive's Allowed commands list them. Please either relax the hook for those refspecs or run the tag creation, push and 'git push origin --delete ...' yourself. My recommendation is to allow 'refs/tags/archive/*' pushes and the one named '--delete' command in the hook, then re-run step 8. I will then do the tag, verification and README work.
+Status: approved
 Goal: foundation
 Node: any
 Deliverable: code
@@ -85,6 +85,9 @@ Commits:
 - 24362f0 fnd-02: merge READMEs, add LICENSE, placeholder folders, update CLAUDE.md (step 7)
 Notes:
 Step 1: fnd-01 Status done, no kicad process. Exported netlist.net (kicadsexpr) and bom.csv to runs/fnd-02/before/ from untouched fmcw3.kicad_sch. Tree unchanged.
+
+### 2026-11-19
+Unblocked: was blocked: step 8: The fnd-02 push guard hook blocks tag pushes ('refs/tags/archive/*') and, by extension, the branch deletions, even though the directive's Allowed commands list them. Please either relax the hook for those refspecs or run the tag creation, push and 'git push origin --delete ...' yourself. My recommendation is to allow 'refs/tags/archive/*' pushes and the one named '--delete' command in the hook, then re-run step 8. I will then do the tag, verification and README work.
 
 ## Step 4: library tables
 - kicad/sym-lib-table now lists only `fmcw3` (${KIPRJMOD}/libs/fmcw3.lib, legacy); kicad/fp-lib-table only `fmcw3` (${KIPRJMOD}/fmcw3.pretty). Was 183 symbol libs + `Footprints`, all under /home/ck/.
