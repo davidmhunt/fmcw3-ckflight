@@ -1,5 +1,5 @@
 # fnd-02: Restructure the repo (KiCad project into kicad/, legacy cleanup, one README)
-Status: blocked: review gaps remain: commit 221b9d15224d12989546f63041eba5830f351439 (docs/surveys/upstream-survey.md): 'friday commits fnd-02' still lists this commit as 'untracked'. It sits in the review range, has no 'Directive: fnd-02' trailer, and changes docs/surveys/upstream-survey.md, which is not a plan doc. Its subject says it belongs to fnd-01: it records the user's Safe-to-delete decisions, which step 3 relies on. Under the review rules any untracked line is a gap.
+Status: approved
 Goal: foundation
 Node: any
 Deliverable: code
@@ -113,6 +113,9 @@ Commits:
 - d34d777 fnd-02: point check_digikey.py and parts/README at .env (matches .gitignore, CLAUDE.md)
 Notes:
 Step 1: fnd-01 Status done, no kicad process. Exported netlist.net (kicadsexpr) and bom.csv to runs/fnd-02/before/ from untouched fmcw3.kicad_sch. Tree unchanged.
+
+### 2026-11-19
+Unblocked: was blocked: review gaps remain: commit 221b9d15224d12989546f63041eba5830f351439 (docs/surveys/upstream-survey.md): 'friday commits fnd-02' still lists this commit as 'untracked'. It sits in the review range, has no 'Directive: fnd-02' trailer, and changes docs/surveys/upstream-survey.md, which is not a plan doc. Its subject says it belongs to fnd-01: it records the user's Safe-to-delete decisions, which step 3 relies on. Under the review rules any untracked line is a gap.
 
 ## Step 4: library tables
 - kicad/sym-lib-table now lists only `fmcw3` (${KIPRJMOD}/libs/fmcw3.lib, legacy); kicad/fp-lib-table only `fmcw3` (${KIPRJMOD}/fmcw3.pretty). Was 183 symbol libs + `Footprints`, all under /home/ck/.
