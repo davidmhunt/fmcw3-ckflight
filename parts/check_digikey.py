@@ -1,6 +1,6 @@
 """Check DigiKey stock/lifecycle for the fmcw3-ckflight BOM (parts.csv).
 
-Credentials are read from ../.digikey.env (the fmcw3 repo root; gitignored).
+Credentials are read from ../.env (the fmcw3 repo root; gitignored).
 Usage: python parts/check_digikey.py [--boards N]   (run from the fmcw3 repo root)
 """
 import argparse
@@ -13,7 +13,7 @@ import urllib.request
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-ENV = HERE.parent / ".digikey.env"
+ENV = HERE.parent / ".env"
 BASE = "https://api.digikey.com"
 
 
