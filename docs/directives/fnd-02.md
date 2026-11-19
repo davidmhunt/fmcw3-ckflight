@@ -72,7 +72,8 @@ holds when the netlist exported after the move equals the one exported before, a
 ## Allowed commands
 - `git tag -a archive/* origin/* -m *`
 - `git push origin refs/tags/archive/*`
-- `git push origin --delete jlcpcb_v2 jlcpcb_version lt6232_implement lt6232_ld3920_33 oshpark_version`
+
+The remote branch deletion in step 8 is outside the push guard; the user ran it by hand on 2026-11-19.
 
 ## Log
 
@@ -141,14 +142,14 @@ Step 1: fnd-01 Status done, no kicad process. Exported netlist.net (kicadsexpr) 
 Verify: Verify passed: checks/run_checks.sh PASS (ERC errors 1/1, DRC errors 4/4, unconnected 0, parity 0); kicad/fmcw3.kicad_pcb present; no tracked .lck or backups
 Independent review: Independent review: one gap fixed (d34d777, .env rename in check_digikey.py and parts/README). Remaining note: 221b9d1 is listed untracked; it is the main session's fnd-01 commit recording the user's Safe-to-delete decisions (made between fnd-01 finish and accept), not fnd-02 work; left as is rather than rewriting pushed history.
 
-## Step 4: library tables
+##### Step 4: library tables
 - kicad/sym-lib-table now lists only `fmcw3` (${KIPRJMOD}/libs/fmcw3.lib, legacy); kicad/fp-lib-table only `fmcw3` (${KIPRJMOD}/fmcw3.pretty). Was 183 symbol libs + `Footprints`, all under /home/ck/.
 - Resolving: all 20 `fmcw3:` symbol lib_ids exist in libs/fmcw3.lib; all `fmcw3:` footprints used exist in fmcw3.pretty.
 - Not resolvable from repo tables (for layout-review). Symbols still work because each sheet embeds its lib_symbols, but a library-table lookup fails for: `fmcw3-rescue:*` (BARREL_JACK C CONN_01X01 FILTER GND INDUCTOR INDUCTOR_SMALL LED R SW_PUSH; lib now only in legacy/fmcw3-rescue.lib, not in table), and ck's personal libs: Connector_02x08, ECS-TXO-32CSMV, GND, ld3920_33, LD3920, LMR51420, LT6232, PL133_37, Resistor, SolderPad_1_Circle, TQP5525. KiCad stock libs (Connector, Device, Jumper) resolve via global tables.
 - Footprint libs not in repo: `Footprints:*` (BarrelJack, Diode_0603, Directional_Coupler_15dB_0.169mm_v2, PinHeader_2x8_P2.5mm, SMD_0402/0603/0805/1206/1210, SolderPad_*, SOT23_6, SSOP16_3.9x4.9mm_P0.635mm; ~320 board parts, mostly passives; PCB embeds the footprints). Obsolete stock names: Housings_DFN_QFN:*, Housings_QFP:LQFP-64, TO_SOT_Packages_SMD:SOT-353_SC-70-5 (renamed in KiCad 6+, now Package_*). Stock and resolve in KiCad 10: Connector_USB, Oscillator, Package_DFN_QFN. Also a bare `DM3BT-DSF-PEJS` (no library) and `MODULE` in sch Footprint fields.
 - Schematic/board: untouched since the move (pure renames).
 
-## Step 6: proof of no electrical change
+##### Step 6: proof of no electrical change
 - Exported kicad/fmcw3.kicad_sch to runs/fnd-02/after/netlist.net (kicadsexpr). Diff vs before/netlist.net ignoring (date), (source), (tool): only difference is the `(libraries ...)` block, which lost the 11 ck-personal library entries (Connector_02x08, ECS-TXO-32CSMV, ... TQP5525) because step 4 trimmed the lib tables. Library metadata, not connectivity. Components and nets sections identical.
 Verify: Verify passed: checks/run_checks.sh && test -f kicad/fmcw3.kicad_pcb && test ! -e fmcw3.kicad_pcb && test -z ''(git ls-files '*.lck' fmcw3-backups rescue-backup)'
 Independent review: not recorded
