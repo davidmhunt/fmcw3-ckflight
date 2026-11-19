@@ -145,12 +145,21 @@ No legacy file holds a refdes, net or part needed by the current project.
 | `fmcw3.csv` | yes | 2026-05-24 BOM with DNP lines; superseded by `parts/parts.csv` |
 | `fmcw3-cache.lib` | yes | 42 retired symbols; current schematics embed their symbols |
 | `fmcw3-rescue.lib` | yes | 13 retired symbols |
-| `libs/` (`fmcw3.lib`, `.bak`, `.bck`, `.dcm`) | yes | unused personal symbol library; kept in git history. Optionally keep `fmcw3.lib` if part ideas matter (item 4) |
+| `libs/` (`fmcw3.lib`, `.bak`, `.bck`, `.dcm`) | no | user decision 2026-11-19: keep as the part-ideas reference (item 4) until goal `parts` is done; moves to `kicad/libs/` with the project |
 | `rescue-backup/` | yes | 2023 KiCad 5 migration backup, all superseded; in git history |
 | `fmcw3-backups/` (25 zips) | yes | the last equals the tree; earlier revisions are in git history. Caveat: only snapshots in git history, so delete only after the user is content with that |
 | `production/backups/` | yes | byte-identical copy of `production/` members |
 | `production/` (rest) | no | as-ordered 35T fab package; CLAUDE.md forbids regenerating in place |
 | `fmcw3.pretty/` | no | current footprint library (16 of 75 used; pruning is a separate decision) |
 | `sym-lib-table`, `fp-lib-table` | no | current project config (they hold stale absolute paths; fix separately, not delete) |
-| `~_autosave-fmcw3.kicad_pcb.lck` | no | CLAUDE.md: deliberately left in place |
-| `fmcw3.pdf`, `*.plt` | no | not in this survey's scope; CLAUDE.md marks them read-only upstream exports (not assessed here) |
+| `~_autosave-fmcw3.kicad_pcb.lck` | yes | stray lock file from `lt6232_implement` (see Branches); no content, makes the GUI think the board is open. User decision 2026-11-19: delete |
+| `fmcw3.pdf`, `*.plt` | yes | upstream plot exports of an older board state, regenerable from `kicad/`. User decision 2026-11-19: archive to `legacy/` |
+
+### Decisions (user review, 2026-11-19)
+- Every kept path needs a stated reason; an old CLAUDE.md rule is not one. The lock file, `fmcw3.pdf` and `*.plt`
+  are therefore yes (above).
+- `fmcw3-backups/`: deleting is accepted; git history is the record.
+- `libs/`: kept until goal `parts` is done, then reconsidered.
+- Branches: keep a branch only if it holds work not in `main`. The four merged branches are 0 commits ahead of
+  `origin/main`; `oshpark_version` holds 3 commits whose content is in or superseded by `main`.
+  The project carries one design, built on the JLCPCB stackup.
