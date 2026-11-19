@@ -1,7 +1,7 @@
 {
     "$schema": "https://schemas.kicad.org/erc.v1.json",
     "coordinate_units": "mm",
-    "date": "2026-10-01T17:29:05",
+    "date": "2026-11-19T15:49:25",
     "ignored_checks": [
         {
             "description": "Global label only appears once in the schematic",
@@ -117,7 +117,7 @@
                     "type": "lib_symbol_issues"
                 },
                 {
-                    "description": "The symbol library 'GND' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/GND.lib'",
+                    "description": "The current configuration does not include the symbol library 'GND'",
                     "items": [
                         {
                             "description": "Symbol #PWR0183 [GND]",
@@ -147,7 +147,7 @@
                     "type": "endpoint_off_grid"
                 },
                 {
-                    "description": "The symbol library 'ECS-TXO-32CSMV' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/ECS-TXO-32CSMV.kicad_sym'",
+                    "description": "The current configuration does not include the symbol library 'ECS-TXO-32CSMV'",
                     "items": [
                         {
                             "description": "Symbol Y2 [ECS-TXO-32CSMV]",
@@ -192,7 +192,7 @@
                     "type": "endpoint_off_grid"
                 },
                 {
-                    "description": "The symbol library 'GND' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/GND.lib'",
+                    "description": "The current configuration does not include the symbol library 'GND'",
                     "items": [
                         {
                             "description": "Symbol #PWR0184 [GND]",
@@ -222,7 +222,7 @@
                     "type": "footprint_link_issues"
                 },
                 {
-                    "description": "The symbol library 'Resistor' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/Resistor.lib'",
+                    "description": "The current configuration does not include the symbol library 'Resistor'",
                     "items": [
                         {
                             "description": "Symbol R19 [Resistor]",
@@ -237,7 +237,7 @@
                     "type": "lib_symbol_issues"
                 },
                 {
-                    "description": "The symbol library 'GND' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/GND.lib'",
+                    "description": "The current configuration does not include the symbol library 'GND'",
                     "items": [
                         {
                             "description": "Symbol #PWR0190 [GND]",
@@ -297,7 +297,7 @@
                     "type": "footprint_link_issues"
                 },
                 {
-                    "description": "The symbol library 'PL133_37' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/PL133_37.kicad_sym'",
+                    "description": "The current configuration does not include the symbol library 'PL133_37'",
                     "items": [
                         {
                             "description": "Symbol U6 [PL133_37]",
@@ -1062,7 +1062,7 @@
                     "type": "endpoint_off_grid"
                 },
                 {
-                    "description": "The symbol library 'GND' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/GND.lib'",
+                    "description": "The current configuration does not include the symbol library 'GND'",
                     "items": [
                         {
                             "description": "Symbol #PWR0131 [GND]",
@@ -1107,7 +1107,7 @@
                     "type": "endpoint_off_grid"
                 },
                 {
-                    "description": "The symbol library 'GND' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/GND.lib'",
+                    "description": "The current configuration does not include the symbol library 'GND'",
                     "items": [
                         {
                             "description": "Symbol #PWR06 [GND]",
@@ -1152,7 +1152,7 @@
                     "type": "endpoint_off_grid"
                 },
                 {
-                    "description": "The symbol library 'GND' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/GND.lib'",
+                    "description": "The current configuration does not include the symbol library 'GND'",
                     "items": [
                         {
                             "description": "Symbol #PWR0157 [GND]",
@@ -1287,7 +1287,7 @@
                     "type": "footprint_link_issues"
                 },
                 {
-                    "description": "The symbol library 'LMR51420' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/LMR51420.kicad_sym'",
+                    "description": "The current configuration does not include the symbol library 'LMR51420'",
                     "items": [
                         {
                             "description": "Symbol U18 [LMR51420]",
@@ -1317,7 +1317,7 @@
                     "type": "footprint_link_issues"
                 },
                 {
-                    "description": "The symbol library 'LMR51420' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/LMR51420.kicad_sym'",
+                    "description": "The current configuration does not include the symbol library 'LMR51420'",
                     "items": [
                         {
                             "description": "Symbol U19 [LMR51420]",
@@ -1347,7 +1347,7 @@
                     "type": "footprint_link_issues"
                 },
                 {
-                    "description": "The symbol library 'LMR51420' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/LMR51420.kicad_sym'",
+                    "description": "The current configuration does not include the symbol library 'LMR51420'",
                     "items": [
                         {
                             "description": "Symbol U17 [LMR51420]",
@@ -1362,7 +1362,7 @@
                     "type": "lib_symbol_issues"
                 },
                 {
-                    "description": "The current configuration does not include the symbol library 'fmcw3'",
+                    "description": "Symbol 'LP5907' doesn't match copy in library 'fmcw3'",
                     "items": [
                         {
                             "description": "Symbol U20 [LP5907]",
@@ -1374,7 +1374,7 @@
                         }
                     ],
                     "severity": "warning",
-                    "type": "lib_symbol_issues"
+                    "type": "lib_symbol_mismatch"
                 },
                 {
                     "description": "The current configuration does not include the symbol library 'fmcw3-rescue'",
@@ -2622,7 +2622,7 @@
                     "type": "lib_symbol_issues"
                 },
                 {
-                    "description": "The current configuration does not include the symbol library 'fmcw3'",
+                    "description": "Symbol 'LP2985' doesn't match copy in library 'fmcw3'",
                     "items": [
                         {
                             "description": "Symbol U21 [LP2985]",
@@ -2634,7 +2634,7 @@
                         }
                     ],
                     "severity": "warning",
-                    "type": "lib_symbol_issues"
+                    "type": "lib_symbol_mismatch"
                 },
                 {
                     "description": "Symbol pin or wire end off connection grid",
@@ -4017,7 +4017,7 @@
                     "type": "lib_symbol_issues"
                 },
                 {
-                    "description": "The symbol library 'GND' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/GND.lib'",
+                    "description": "The current configuration does not include the symbol library 'GND'",
                     "items": [
                         {
                             "description": "Symbol #PWR017 [GND]",
@@ -4497,7 +4497,7 @@
                     "type": "lib_symbol_issues"
                 },
                 {
-                    "description": "The symbol library 'ld3920_33' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/ld3920_33.kicad_sym'",
+                    "description": "The current configuration does not include the symbol library 'ld3920_33'",
                     "items": [
                         {
                             "description": "Symbol U25 [LD3920_33]",
@@ -4512,7 +4512,7 @@
                     "type": "lib_symbol_issues"
                 },
                 {
-                    "description": "The symbol library 'GND' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/GND.lib'",
+                    "description": "The current configuration does not include the symbol library 'GND'",
                     "items": [
                         {
                             "description": "Symbol #PWR039 [GND]",
@@ -4767,7 +4767,7 @@
                     "type": "endpoint_off_grid"
                 },
                 {
-                    "description": "The symbol library 'GND' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/GND.lib'",
+                    "description": "The current configuration does not include the symbol library 'GND'",
                     "items": [
                         {
                             "description": "Symbol #PWR05 [GND]",
@@ -4797,7 +4797,7 @@
                     "type": "endpoint_off_grid"
                 },
                 {
-                    "description": "The symbol library 'GND' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/GND.lib'",
+                    "description": "The current configuration does not include the symbol library 'GND'",
                     "items": [
                         {
                             "description": "Symbol #PWR03 [GND]",
@@ -4827,7 +4827,7 @@
                     "type": "endpoint_off_grid"
                 },
                 {
-                    "description": "The symbol library 'GND' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/GND.lib'",
+                    "description": "The current configuration does not include the symbol library 'GND'",
                     "items": [
                         {
                             "description": "Symbol #PWR04 [GND]",
@@ -5367,7 +5367,7 @@
                     "type": "lib_symbol_issues"
                 },
                 {
-                    "description": "The symbol library 'GND' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/GND.lib'",
+                    "description": "The current configuration does not include the symbol library 'GND'",
                     "items": [
                         {
                             "description": "Symbol #PWR038 [GND]",
@@ -6222,7 +6222,7 @@
                     "type": "lib_symbol_issues"
                 },
                 {
-                    "description": "The current configuration does not include the symbol library 'fmcw3'",
+                    "description": "Symbol 'XC7A15T-1FTG256C' doesn't match copy in library 'fmcw3'",
                     "items": [
                         {
                             "description": "Symbol U30 [XC7A15T-1FTG256C]",
@@ -6234,10 +6234,10 @@
                         }
                     ],
                     "severity": "warning",
-                    "type": "lib_symbol_issues"
+                    "type": "lib_symbol_mismatch"
                 },
                 {
-                    "description": "The current configuration does not include the symbol library 'fmcw3'",
+                    "description": "Symbol 'XC7A15T-1FTG256C' doesn't match copy in library 'fmcw3'",
                     "items": [
                         {
                             "description": "Symbol U30 [XC7A15T-1FTG256C]",
@@ -6249,7 +6249,7 @@
                         }
                     ],
                     "severity": "warning",
-                    "type": "lib_symbol_issues"
+                    "type": "lib_symbol_mismatch"
                 },
                 {
                     "description": "The current configuration does not include the symbol library 'fmcw3-rescue'",
@@ -6267,7 +6267,7 @@
                     "type": "lib_symbol_issues"
                 },
                 {
-                    "description": "The current configuration does not include the symbol library 'fmcw3'",
+                    "description": "Symbol 'XC7A15T-1FTG256C' doesn't match copy in library 'fmcw3'",
                     "items": [
                         {
                             "description": "Symbol U30 [XC7A15T-1FTG256C]",
@@ -6279,7 +6279,7 @@
                         }
                     ],
                     "severity": "warning",
-                    "type": "lib_symbol_issues"
+                    "type": "lib_symbol_mismatch"
                 },
                 {
                     "description": "The current configuration does not include the footprint library 'Footprints'",
@@ -6297,7 +6297,7 @@
                     "type": "footprint_link_issues"
                 },
                 {
-                    "description": "The symbol library 'SolderPad_1_Circle' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/SolderPad_1_Circle.lib'",
+                    "description": "The current configuration does not include the symbol library 'SolderPad_1_Circle'",
                     "items": [
                         {
                             "description": "Symbol U4 [SolderPad_1_Circle]",
@@ -6327,7 +6327,7 @@
                     "type": "footprint_link_issues"
                 },
                 {
-                    "description": "The symbol library 'SolderPad_1_Circle' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/SolderPad_1_Circle.lib'",
+                    "description": "The current configuration does not include the symbol library 'SolderPad_1_Circle'",
                     "items": [
                         {
                             "description": "Symbol U35 [SolderPad_1_Circle]",
@@ -6357,7 +6357,7 @@
                     "type": "footprint_link_issues"
                 },
                 {
-                    "description": "The symbol library 'SolderPad_1_Circle' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/SolderPad_1_Circle.lib'",
+                    "description": "The current configuration does not include the symbol library 'SolderPad_1_Circle'",
                     "items": [
                         {
                             "description": "Symbol U38 [SolderPad_1_Circle]",
@@ -6387,7 +6387,7 @@
                     "type": "footprint_link_issues"
                 },
                 {
-                    "description": "The symbol library 'SolderPad_1_Circle' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/SolderPad_1_Circle.lib'",
+                    "description": "The current configuration does not include the symbol library 'SolderPad_1_Circle'",
                     "items": [
                         {
                             "description": "Symbol U41 [SolderPad_1_Circle]",
@@ -6417,7 +6417,7 @@
                     "type": "footprint_link_issues"
                 },
                 {
-                    "description": "The symbol library 'SolderPad_1_Circle' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/SolderPad_1_Circle.lib'",
+                    "description": "The current configuration does not include the symbol library 'SolderPad_1_Circle'",
                     "items": [
                         {
                             "description": "Symbol U42 [SolderPad_1_Circle]",
@@ -6537,7 +6537,7 @@
                     "type": "footprint_link_issues"
                 },
                 {
-                    "description": "The current configuration does not include the symbol library 'fmcw3'",
+                    "description": "Symbol 'XC7A15T-1FTG256C' doesn't match copy in library 'fmcw3'",
                     "items": [
                         {
                             "description": "Symbol U30 [XC7A15T-1FTG256C]",
@@ -6549,10 +6549,10 @@
                         }
                     ],
                     "severity": "warning",
-                    "type": "lib_symbol_issues"
+                    "type": "lib_symbol_mismatch"
                 },
                 {
-                    "description": "The current configuration does not include the symbol library 'fmcw3'",
+                    "description": "Symbol 'XC7A15T-1FTG256C' doesn't match copy in library 'fmcw3'",
                     "items": [
                         {
                             "description": "Symbol U30 [XC7A15T-1FTG256C]",
@@ -6564,7 +6564,7 @@
                         }
                     ],
                     "severity": "warning",
-                    "type": "lib_symbol_issues"
+                    "type": "lib_symbol_mismatch"
                 },
                 {
                     "description": "The current configuration does not include the footprint library 'Footprints'",
@@ -6582,7 +6582,7 @@
                     "type": "footprint_link_issues"
                 },
                 {
-                    "description": "The symbol library 'SolderPad_1_Circle' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/SolderPad_1_Circle.lib'",
+                    "description": "The current configuration does not include the symbol library 'SolderPad_1_Circle'",
                     "items": [
                         {
                             "description": "Symbol U43 [SolderPad_1_Circle]",
@@ -6612,7 +6612,7 @@
                     "type": "footprint_link_issues"
                 },
                 {
-                    "description": "The symbol library 'SolderPad_1_Circle' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/SolderPad_1_Circle.lib'",
+                    "description": "The current configuration does not include the symbol library 'SolderPad_1_Circle'",
                     "items": [
                         {
                             "description": "Symbol U44 [SolderPad_1_Circle]",
@@ -6777,7 +6777,7 @@
                     "type": "lib_symbol_issues"
                 },
                 {
-                    "description": "The current configuration does not include the symbol library 'fmcw3'",
+                    "description": "Symbol 'XC7A15T-1FTG256C' doesn't match copy in library 'fmcw3'",
                     "items": [
                         {
                             "description": "Symbol U30 [XC7A15T-1FTG256C]",
@@ -6789,10 +6789,10 @@
                         }
                     ],
                     "severity": "warning",
-                    "type": "lib_symbol_issues"
+                    "type": "lib_symbol_mismatch"
                 },
                 {
-                    "description": "The current configuration does not include the symbol library 'fmcw3'",
+                    "description": "Symbol 'XC7A15T-1FTG256C' doesn't match copy in library 'fmcw3'",
                     "items": [
                         {
                             "description": "Symbol U30 [XC7A15T-1FTG256C]",
@@ -6804,7 +6804,7 @@
                         }
                     ],
                     "severity": "warning",
-                    "type": "lib_symbol_issues"
+                    "type": "lib_symbol_mismatch"
                 },
                 {
                     "description": "The current configuration does not include the footprint library 'Footprints'",
@@ -7062,7 +7062,7 @@
                     "type": "footprint_link_issues"
                 },
                 {
-                    "description": "The current configuration does not include the symbol library 'fmcw3'",
+                    "description": "Symbol 'W25Q32JV' doesn't match copy in library 'fmcw3'",
                     "items": [
                         {
                             "description": "Symbol U40 [W25Q32JV]",
@@ -7074,7 +7074,7 @@
                         }
                     ],
                     "severity": "warning",
-                    "type": "lib_symbol_issues"
+                    "type": "lib_symbol_mismatch"
                 },
                 {
                     "description": "The current configuration does not include the symbol library 'fmcw3-rescue'",
@@ -7392,7 +7392,7 @@
                     "type": "lib_symbol_issues"
                 },
                 {
-                    "description": "The symbol library 'GND' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/GND.lib'",
+                    "description": "The current configuration does not include the symbol library 'GND'",
                     "items": [
                         {
                             "description": "Symbol #PWR029 [GND]",
@@ -7452,7 +7452,7 @@
                     "type": "footprint_link_issues"
                 },
                 {
-                    "description": "The symbol library 'Connector_02x08' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/Connector_02x08.lib'",
+                    "description": "The current configuration does not include the symbol library 'Connector_02x08'",
                     "items": [
                         {
                             "description": "Symbol J2 [Connector_02x08]",
@@ -7827,7 +7827,7 @@
                     "type": "lib_symbol_issues"
                 },
                 {
-                    "description": "The symbol library 'GND' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/GND.lib'",
+                    "description": "The current configuration does not include the symbol library 'GND'",
                     "items": [
                         {
                             "description": "Symbol #PWR011 [GND]",
@@ -8322,7 +8322,7 @@
                     "type": "lib_symbol_issues"
                 },
                 {
-                    "description": "The current configuration does not include the symbol library 'fmcw3'",
+                    "description": "Symbol 'SD_Card_DM3BT' doesn't match copy in library 'fmcw3'",
                     "items": [
                         {
                             "description": "Symbol CON1 [SD_Card_DM3BT]",
@@ -8334,7 +8334,7 @@
                         }
                     ],
                     "severity": "warning",
-                    "type": "lib_symbol_issues"
+                    "type": "lib_symbol_mismatch"
                 },
                 {
                     "description": "The current configuration does not include the footprint library 'Footprints'",
@@ -8817,7 +8817,7 @@
                     "type": "lib_symbol_issues"
                 },
                 {
-                    "description": "The current configuration does not include the symbol library 'fmcw3'",
+                    "description": "Symbol 'LP5907' doesn't match copy in library 'fmcw3'",
                     "items": [
                         {
                             "description": "Symbol U39 [LP5907]",
@@ -8829,7 +8829,7 @@
                         }
                     ],
                     "severity": "warning",
-                    "type": "lib_symbol_issues"
+                    "type": "lib_symbol_mismatch"
                 },
                 {
                     "description": "The current configuration does not include the symbol library 'fmcw3-rescue'",
@@ -9522,7 +9522,7 @@
                     "type": "footprint_link_issues"
                 },
                 {
-                    "description": "The current configuration does not include the symbol library 'fmcw3'",
+                    "description": "Symbol 'LTC229X' doesn't match copy in library 'fmcw3'",
                     "items": [
                         {
                             "description": "Symbol U8 [LTC229X]",
@@ -9534,7 +9534,7 @@
                         }
                     ],
                     "severity": "warning",
-                    "type": "lib_symbol_issues"
+                    "type": "lib_symbol_mismatch"
                 },
                 {
                     "description": "The current configuration does not include the footprint library 'Footprints'",
@@ -10272,7 +10272,7 @@
                     "type": "footprint_link_issues"
                 },
                 {
-                    "description": "The symbol library 'Resistor' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/Resistor.lib'",
+                    "description": "The current configuration does not include the symbol library 'Resistor'",
                     "items": [
                         {
                             "description": "Symbol R3 [Resistor]",
@@ -10302,7 +10302,7 @@
                     "type": "footprint_link_issues"
                 },
                 {
-                    "description": "The symbol library 'Resistor' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/Resistor.lib'",
+                    "description": "The current configuration does not include the symbol library 'Resistor'",
                     "items": [
                         {
                             "description": "Symbol R8 [Resistor]",
@@ -10542,7 +10542,7 @@
                     "type": "lib_symbol_issues"
                 },
                 {
-                    "description": "The current configuration does not include the symbol library 'fmcw3'",
+                    "description": "Symbol 'XTAL_SMD4' doesn't match copy in library 'fmcw3'",
                     "items": [
                         {
                             "description": "Symbol Y1 [XTAL_SMD4]",
@@ -10554,10 +10554,10 @@
                         }
                     ],
                     "severity": "warning",
-                    "type": "lib_symbol_issues"
+                    "type": "lib_symbol_mismatch"
                 },
                 {
-                    "description": "The current configuration does not include the symbol library 'fmcw3'",
+                    "description": "Symbol '93LC46B' doesn't match copy in library 'fmcw3'",
                     "items": [
                         {
                             "description": "Symbol U32 [93LC46B]",
@@ -10569,7 +10569,7 @@
                         }
                     ],
                     "severity": "warning",
-                    "type": "lib_symbol_issues"
+                    "type": "lib_symbol_mismatch"
                 },
                 {
                     "description": "The current configuration does not include the footprint library 'Footprints'",
@@ -11187,7 +11187,7 @@
                     "type": "footprint_link_issues"
                 },
                 {
-                    "description": "The current configuration does not include the symbol library 'fmcw3'",
+                    "description": "Symbol 'FT2232H' doesn't match copy in library 'fmcw3'",
                     "items": [
                         {
                             "description": "Symbol U33 [FT2232H]",
@@ -11199,7 +11199,7 @@
                         }
                     ],
                     "severity": "warning",
-                    "type": "lib_symbol_issues"
+                    "type": "lib_symbol_mismatch"
                 },
                 {
                     "description": "The current configuration does not include the symbol library 'fmcw3-rescue'",
@@ -11577,7 +11577,7 @@
                     "type": "lib_symbol_issues"
                 },
                 {
-                    "description": "The current configuration does not include the symbol library 'fmcw3'",
+                    "description": "Symbol 'Via' doesn't match copy in library 'fmcw3'",
                     "items": [
                         {
                             "description": "Symbol F1 [Via]",
@@ -11589,10 +11589,10 @@
                         }
                     ],
                     "severity": "warning",
-                    "type": "lib_symbol_issues"
+                    "type": "lib_symbol_mismatch"
                 },
                 {
-                    "description": "The current configuration does not include the symbol library 'fmcw3'",
+                    "description": "Symbol 'Via' doesn't match copy in library 'fmcw3'",
                     "items": [
                         {
                             "description": "Symbol F2 [Via]",
@@ -11604,7 +11604,7 @@
                         }
                     ],
                     "severity": "warning",
-                    "type": "lib_symbol_issues"
+                    "type": "lib_symbol_mismatch"
                 },
                 {
                     "description": "The current configuration does not include the symbol library 'fmcw3-rescue'",
@@ -11667,7 +11667,7 @@
                     "type": "lib_symbol_issues"
                 },
                 {
-                    "description": "The current configuration does not include the symbol library 'fmcw3'",
+                    "description": "Symbol '5400BL15B050E' doesn't match copy in library 'fmcw3'",
                     "items": [
                         {
                             "description": "Symbol U26 [5400BL15B050E]",
@@ -11679,10 +11679,10 @@
                         }
                     ],
                     "severity": "warning",
-                    "type": "lib_symbol_issues"
+                    "type": "lib_symbol_mismatch"
                 },
                 {
-                    "description": "The current configuration does not include the symbol library 'fmcw3'",
+                    "description": "Symbol '5400BL15B050E' doesn't match copy in library 'fmcw3'",
                     "items": [
                         {
                             "description": "Symbol U27 [5400BL15B050E]",
@@ -11694,10 +11694,10 @@
                         }
                     ],
                     "severity": "warning",
-                    "type": "lib_symbol_issues"
+                    "type": "lib_symbol_mismatch"
                 },
                 {
-                    "description": "The current configuration does not include the symbol library 'fmcw3'",
+                    "description": "Symbol '5400BL15B050E' doesn't match copy in library 'fmcw3'",
                     "items": [
                         {
                             "description": "Symbol U28 [5400BL15B050E]",
@@ -11709,7 +11709,7 @@
                         }
                     ],
                     "severity": "warning",
-                    "type": "lib_symbol_issues"
+                    "type": "lib_symbol_mismatch"
                 },
                 {
                     "description": "The current configuration does not include the footprint library 'Footprints'",
@@ -12117,7 +12117,7 @@
                     "type": "footprint_link_issues"
                 },
                 {
-                    "description": "The current configuration does not include the symbol library 'fmcw3'",
+                    "description": "Symbol 'ADL5802' doesn't match copy in library 'fmcw3'",
                     "items": [
                         {
                             "description": "Symbol U29 [ADL5802]",
@@ -12129,7 +12129,7 @@
                         }
                     ],
                     "severity": "warning",
-                    "type": "lib_symbol_issues"
+                    "type": "lib_symbol_mismatch"
                 },
                 {
                     "description": "The current configuration does not include the footprint library 'Footprints'",
@@ -12672,7 +12672,7 @@
                     "type": "footprint_link_issues"
                 },
                 {
-                    "description": "The symbol library 'SolderPad_1_Circle' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/SolderPad_1_Circle.lib'",
+                    "description": "The current configuration does not include the symbol library 'SolderPad_1_Circle'",
                     "items": [
                         {
                             "description": "Symbol U46 [SolderPad_1_Circle]",
@@ -12732,7 +12732,7 @@
                     "type": "footprint_link_issues"
                 },
                 {
-                    "description": "The symbol library 'SolderPad_1_Circle' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/SolderPad_1_Circle.lib'",
+                    "description": "The current configuration does not include the symbol library 'SolderPad_1_Circle'",
                     "items": [
                         {
                             "description": "Symbol U47 [SolderPad_1_Circle]",
@@ -12762,7 +12762,7 @@
                     "type": "footprint_link_issues"
                 },
                 {
-                    "description": "The symbol library 'SolderPad_1_Circle' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/SolderPad_1_Circle.lib'",
+                    "description": "The current configuration does not include the symbol library 'SolderPad_1_Circle'",
                     "items": [
                         {
                             "description": "Symbol U48 [SolderPad_1_Circle]",
@@ -12822,7 +12822,7 @@
                     "type": "footprint_link_issues"
                 },
                 {
-                    "description": "The symbol library 'SolderPad_1_Circle' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/SolderPad_1_Circle.lib'",
+                    "description": "The current configuration does not include the symbol library 'SolderPad_1_Circle'",
                     "items": [
                         {
                             "description": "Symbol U49 [SolderPad_1_Circle]",
@@ -13257,7 +13257,7 @@
                     "type": "lib_symbol_issues"
                 },
                 {
-                    "description": "The symbol library 'GND' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/GND.lib'",
+                    "description": "The current configuration does not include the symbol library 'GND'",
                     "items": [
                         {
                             "description": "Symbol #PWR034 [GND]",
@@ -13272,7 +13272,7 @@
                     "type": "lib_symbol_issues"
                 },
                 {
-                    "description": "The symbol library 'GND' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/GND.lib'",
+                    "description": "The current configuration does not include the symbol library 'GND'",
                     "items": [
                         {
                             "description": "Symbol #PWR030 [GND]",
@@ -13467,7 +13467,7 @@
                     "type": "lib_symbol_issues"
                 },
                 {
-                    "description": "The symbol library 'GND' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/GND.lib'",
+                    "description": "The current configuration does not include the symbol library 'GND'",
                     "items": [
                         {
                             "description": "Symbol #PWR013 [GND]",
@@ -13557,7 +13557,7 @@
                     "type": "footprint_link_issues"
                 },
                 {
-                    "description": "The symbol library 'LT6232' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/LT6232.lib'",
+                    "description": "The current configuration does not include the symbol library 'LT6232'",
                     "items": [
                         {
                             "description": "Symbol U45 [LT6232]",
@@ -13587,7 +13587,7 @@
                     "type": "footprint_link_issues"
                 },
                 {
-                    "description": "The symbol library 'LT6232' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/LT6232.lib'",
+                    "description": "The current configuration does not include the symbol library 'LT6232'",
                     "items": [
                         {
                             "description": "Symbol U45 [LT6232]",
@@ -13797,7 +13797,7 @@
                     "type": "footprint_link_issues"
                 },
                 {
-                    "description": "The symbol library 'LT6232' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/LT6232.lib'",
+                    "description": "The current configuration does not include the symbol library 'LT6232'",
                     "items": [
                         {
                             "description": "Symbol U45 [LT6232]",
@@ -13827,7 +13827,7 @@
                     "type": "footprint_link_issues"
                 },
                 {
-                    "description": "The symbol library 'LT6232' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/LT6232.lib'",
+                    "description": "The current configuration does not include the symbol library 'LT6232'",
                     "items": [
                         {
                             "description": "Symbol U45 [LT6232]",
@@ -13902,7 +13902,7 @@
                     "type": "lib_symbol_issues"
                 },
                 {
-                    "description": "The symbol library 'GND' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/GND.lib'",
+                    "description": "The current configuration does not include the symbol library 'GND'",
                     "items": [
                         {
                             "description": "Symbol #PWR012 [GND]",
@@ -14052,7 +14052,7 @@
                     "type": "footprint_link_issues"
                 },
                 {
-                    "description": "The symbol library 'SolderPad_1_Circle' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/SolderPad_1_Circle.lib'",
+                    "description": "The current configuration does not include the symbol library 'SolderPad_1_Circle'",
                     "items": [
                         {
                             "description": "Symbol U5 [SolderPad_1_Circle]",
@@ -14112,7 +14112,7 @@
                     "type": "footprint_link_issues"
                 },
                 {
-                    "description": "The symbol library 'SolderPad_1_Circle' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/SolderPad_1_Circle.lib'",
+                    "description": "The current configuration does not include the symbol library 'SolderPad_1_Circle'",
                     "items": [
                         {
                             "description": "Symbol U2 [SolderPad_1_Circle]",
@@ -14142,7 +14142,7 @@
                     "type": "footprint_link_issues"
                 },
                 {
-                    "description": "The symbol library 'SolderPad_1_Circle' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/SolderPad_1_Circle.lib'",
+                    "description": "The current configuration does not include the symbol library 'SolderPad_1_Circle'",
                     "items": [
                         {
                             "description": "Symbol U31 [SolderPad_1_Circle]",
@@ -14202,7 +14202,7 @@
                     "type": "footprint_link_issues"
                 },
                 {
-                    "description": "The symbol library 'SolderPad_1_Circle' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/SolderPad_1_Circle.lib'",
+                    "description": "The current configuration does not include the symbol library 'SolderPad_1_Circle'",
                     "items": [
                         {
                             "description": "Symbol U34 [SolderPad_1_Circle]",
@@ -14217,7 +14217,7 @@
                     "type": "lib_symbol_issues"
                 },
                 {
-                    "description": "The current configuration does not include the symbol library 'fmcw3'",
+                    "description": "Symbol 'ADF4158' doesn't match copy in library 'fmcw3'",
                     "items": [
                         {
                             "description": "Symbol U1 [ADF4158]",
@@ -14229,7 +14229,7 @@
                         }
                     ],
                     "severity": "warning",
-                    "type": "lib_symbol_issues"
+                    "type": "lib_symbol_mismatch"
                 },
                 {
                     "description": "The current configuration does not include the symbol library 'fmcw3-rescue'",
@@ -15012,7 +15012,7 @@
                     "type": "footprint_link_issues"
                 },
                 {
-                    "description": "The current configuration does not include the symbol library 'fmcw3'",
+                    "description": "Symbol 'TLV172DCK' doesn't match copy in library 'fmcw3'",
                     "items": [
                         {
                             "description": "Symbol U7 [TLV172DCK]",
@@ -15024,7 +15024,7 @@
                         }
                     ],
                     "severity": "warning",
-                    "type": "lib_symbol_issues"
+                    "type": "lib_symbol_mismatch"
                 },
                 {
                     "description": "The current configuration does not include the footprint library 'Footprints'",
@@ -15222,7 +15222,7 @@
                     "type": "lib_symbol_issues"
                 },
                 {
-                    "description": "The current configuration does not include the symbol library 'fmcw3'",
+                    "description": "Symbol 'HMC431LP4' doesn't match copy in library 'fmcw3'",
                     "items": [
                         {
                             "description": "Symbol U10 [HMC431LP4]",
@@ -15234,7 +15234,7 @@
                         }
                     ],
                     "severity": "warning",
-                    "type": "lib_symbol_issues"
+                    "type": "lib_symbol_mismatch"
                 },
                 {
                     "description": "The current configuration does not include the symbol library 'fmcw3-rescue'",
@@ -15342,7 +15342,7 @@
                     "type": "lib_symbol_issues"
                 },
                 {
-                    "description": "The current configuration does not include the symbol library 'fmcw3'",
+                    "description": "Symbol 'PAT1220' doesn't match copy in library 'fmcw3'",
                     "items": [
                         {
                             "description": "Symbol U12 [PAT1220]",
@@ -15354,7 +15354,7 @@
                         }
                     ],
                     "severity": "warning",
-                    "type": "lib_symbol_issues"
+                    "type": "lib_symbol_mismatch"
                 },
                 {
                     "description": "The current configuration does not include the symbol library 'fmcw3-rescue'",
@@ -15372,7 +15372,7 @@
                     "type": "lib_symbol_issues"
                 },
                 {
-                    "description": "The symbol library 'GND' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/GND.lib'",
+                    "description": "The current configuration does not include the symbol library 'GND'",
                     "items": [
                         {
                             "description": "Symbol #PWR0102 [GND]",
@@ -15432,7 +15432,7 @@
                     "type": "footprint_link_issues"
                 },
                 {
-                    "description": "The symbol library 'GND' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/GND.lib'",
+                    "description": "The current configuration does not include the symbol library 'GND'",
                     "items": [
                         {
                             "description": "Symbol #PWR0101 [GND]",
@@ -15507,7 +15507,7 @@
                     "type": "lib_symbol_issues"
                 },
                 {
-                    "description": "The symbol library 'GND' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/GND.lib'",
+                    "description": "The current configuration does not include the symbol library 'GND'",
                     "items": [
                         {
                             "description": "Symbol #PWR0103 [GND]",
@@ -15612,7 +15612,7 @@
                     "type": "lib_symbol_issues"
                 },
                 {
-                    "description": "The symbol library 'GND' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/GND.lib'",
+                    "description": "The current configuration does not include the symbol library 'GND'",
                     "items": [
                         {
                             "description": "Symbol #PWR025 [GND]",
@@ -15657,7 +15657,7 @@
                     "type": "lib_symbol_issues"
                 },
                 {
-                    "description": "The symbol library 'GND' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/GND.lib'",
+                    "description": "The current configuration does not include the symbol library 'GND'",
                     "items": [
                         {
                             "description": "Symbol #PWR0104 [GND]",
@@ -15672,7 +15672,7 @@
                     "type": "lib_symbol_issues"
                 },
                 {
-                    "description": "The symbol library 'TQP5525' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/TQP5525.kicad_sym'",
+                    "description": "The current configuration does not include the symbol library 'TQP5525'",
                     "items": [
                         {
                             "description": "Symbol U14 [TQP5525]",
@@ -15717,7 +15717,7 @@
                     "type": "lib_symbol_issues"
                 },
                 {
-                    "description": "The symbol library 'GND' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/GND.lib'",
+                    "description": "The current configuration does not include the symbol library 'GND'",
                     "items": [
                         {
                             "description": "Symbol #PWR0105 [GND]",
@@ -15792,7 +15792,7 @@
                     "type": "lib_symbol_issues"
                 },
                 {
-                    "description": "The symbol library 'GND' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/GND.lib'",
+                    "description": "The current configuration does not include the symbol library 'GND'",
                     "items": [
                         {
                             "description": "Symbol #PWR0106 [GND]",
@@ -15897,7 +15897,7 @@
                     "type": "lib_symbol_issues"
                 },
                 {
-                    "description": "The symbol library 'GND' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/GND.lib'",
+                    "description": "The current configuration does not include the symbol library 'GND'",
                     "items": [
                         {
                             "description": "Symbol #PWR061 [GND]",
@@ -15957,7 +15957,7 @@
                     "type": "footprint_link_issues"
                 },
                 {
-                    "description": "The symbol library 'SolderPad_1_Circle' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/SolderPad_1_Circle.lib'",
+                    "description": "The current configuration does not include the symbol library 'SolderPad_1_Circle'",
                     "items": [
                         {
                             "description": "Symbol U36 [SolderPad_1_Circle]",
@@ -16032,7 +16032,7 @@
                     "type": "lib_symbol_issues"
                 },
                 {
-                    "description": "The current configuration does not include the symbol library 'fmcw3'",
+                    "description": "Symbol 'PAT1220' doesn't match copy in library 'fmcw3'",
                     "items": [
                         {
                             "description": "Symbol U3 [PAT1220]",
@@ -16044,10 +16044,10 @@
                         }
                     ],
                     "severity": "warning",
-                    "type": "lib_symbol_issues"
+                    "type": "lib_symbol_mismatch"
                 },
                 {
-                    "description": "The symbol library 'GND' was not found at '/home/ck/Desktop/Workspace/Kicad Workspace/_LIBRARY AND FOOTPRINT/Library/GND.lib'",
+                    "description": "The current configuration does not include the symbol library 'GND'",
                     "items": [
                         {
                             "description": "Symbol #PWR0107 [GND]",
@@ -16077,7 +16077,7 @@
                     "type": "footprint_link_issues"
                 },
                 {
-                    "description": "The current configuration does not include the symbol library 'fmcw3'",
+                    "description": "Symbol 'BRANCHLINE' doesn't match copy in library 'fmcw3'",
                     "items": [
                         {
                             "description": "Symbol Z1 [BRANCHLINE]",
@@ -16089,7 +16089,7 @@
                         }
                     ],
                     "severity": "warning",
-                    "type": "lib_symbol_issues"
+                    "type": "lib_symbol_mismatch"
                 },
                 {
                     "description": "The current configuration does not include the symbol library 'fmcw3-rescue'",
@@ -16152,7 +16152,7 @@
                     "type": "lib_symbol_issues"
                 },
                 {
-                    "description": "The current configuration does not include the symbol library 'fmcw3'",
+                    "description": "Symbol 'SMA' doesn't match copy in library 'fmcw3'",
                     "items": [
                         {
                             "description": "Symbol U15 [SMA]",
@@ -16164,7 +16164,7 @@
                         }
                     ],
                     "severity": "warning",
-                    "type": "lib_symbol_issues"
+                    "type": "lib_symbol_mismatch"
                 },
                 {
                     "description": "The current configuration does not include the symbol library 'fmcw3-rescue'",
@@ -16377,7 +16377,7 @@
                     "type": "lib_symbol_issues"
                 },
                 {
-                    "description": "The current configuration does not include the symbol library 'fmcw3'",
+                    "description": "Symbol 'TRF37A75' doesn't match copy in library 'fmcw3'",
                     "items": [
                         {
                             "description": "Symbol U13 [TRF37A75]",
@@ -16389,7 +16389,7 @@
                         }
                     ],
                     "severity": "warning",
-                    "type": "lib_symbol_issues"
+                    "type": "lib_symbol_mismatch"
                 },
                 {
                     "description": "The current configuration does not include the footprint library 'Footprints'",
@@ -16527,7 +16527,7 @@
                     "type": "lib_symbol_issues"
                 },
                 {
-                    "description": "The current configuration does not include the symbol library 'fmcw3'",
+                    "description": "Symbol 'SKY65404' doesn't match copy in library 'fmcw3'",
                     "items": [
                         {
                             "description": "Symbol U16 [SKY65404]",
@@ -16539,7 +16539,7 @@
                         }
                     ],
                     "severity": "warning",
-                    "type": "lib_symbol_issues"
+                    "type": "lib_symbol_mismatch"
                 },
                 {
                     "description": "The current configuration does not include the symbol library 'fmcw3-rescue'",
@@ -16722,7 +16722,7 @@
                     "type": "lib_symbol_issues"
                 },
                 {
-                    "description": "The current configuration does not include the symbol library 'fmcw3'",
+                    "description": "Symbol 'SMA' doesn't match copy in library 'fmcw3'",
                     "items": [
                         {
                             "description": "Symbol P2 [SMA]",
@@ -16734,7 +16734,7 @@
                         }
                     ],
                     "severity": "warning",
-                    "type": "lib_symbol_issues"
+                    "type": "lib_symbol_mismatch"
                 },
                 {
                     "description": "The current configuration does not include the symbol library 'fmcw3-rescue'",
