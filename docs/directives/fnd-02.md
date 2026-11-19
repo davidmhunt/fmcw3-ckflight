@@ -45,7 +45,15 @@ holds when the netlist exported after the move equals the one exported before, a
    Commit the review-plan PDF in `docs/references/`. Create empty-with-README
    folders `analysis/`, `reports/`, `datasheets/`, `docker/`. Update `CLAUDE.md` to the new
    paths, commands and rules (remove the lock-file and legacy rules that no longer apply; rename
-   `.digikey.env` to `.env`), and `.gitignore` accordingly.
+   `.digikey.env` to `.env`), and `.gitignore` accordingly. In `CLAUDE.md` the board's FPGA is
+   XC7A100T (U30, per `docs/surveys/upstream-survey.md`), not XC7A35T; `production/` is the
+   as-ordered 35T build.
+8. Upstream branches (amendment approved by the user 2026-11-19). For each of `jlcpcb_v2`,
+   `jlcpcb_version`, `lt6232_implement`, `lt6232_ld3920_33`, `oshpark_version`: create an annotated
+   tag `archive/<branch>` on `origin/<branch>`'s tip with a one-line message (merged into main or
+   not, per the survey), push the tags, confirm each tag resolves to the same SHA as the branch,
+   then delete the remote branch. Record branch, SHA and tag in the root `README.md` under a
+   short "Archived upstream branches" note.
 
 ## Review
 - Open `kicad/fmcw3.kicad_pro` in the KiCad 10 GUI: the schematic and board open without a
@@ -53,11 +61,17 @@ holds when the netlist exported after the move equals the one exported before, a
   resolve from the project (Preferences, Manage Libraries, Project Specific tab).
 - Read the root `README.md` and look at the root folder listing: is this the layout you wanted.
 - Read `checks/README.md`: the before/after ERC/DRC counts, and the netlist-equality result.
+- `git ls-remote --tags origin 'archive/*'` lists five tags; the five branches are gone from GitHub.
 
 ## Out of scope
 - Any edit inside a `.kicad_sch` or `.kicad_pcb` file.
 - Regenerating or moving `production/`.
 - Fixing ERC/DRC findings (goal `layout-review`).
 - Updating the Falcon parent repo's submodule paths, or syncing with upstream.
+
+## Allowed commands
+- `git tag -a archive/* origin/* -m *`
+- `git push origin refs/tags/archive/*`
+- `git push origin --delete jlcpcb_v2 jlcpcb_version lt6232_implement lt6232_ld3920_33 oshpark_version`
 
 ## Log
