@@ -28,6 +28,15 @@ ERC/DRC, spurs), used as a submodule of the Falcon parent repo under `hardware/`
 ./run uv run pytest tests -q          # Python tests
 ```
 
+Reports and decks (convention in `analysis/README.md`, target sets in `analysis/targets/`):
+
+```
+./run tools/build_report.py analysis/00_baseline                    # build reports/00_baseline.pdf and .pptx
+./run tools/build_report.py analysis/00_baseline --targets NAME     # use analysis/targets/NAME.yaml
+./run tools/build_report.py analysis/00_baseline --check            # figures, references, slide overflow
+./run uv run pytest tests -q                                        # targets, overflow check, fixture build
+```
+
 `./run` uses Docker when available and falls back to native; see `docs/setup.md`. It exits 0 only when error counts are not above the baseline and
 DRC has 0 unconnected items and 0 schematic-parity issues. The upstream design is not
 ERC/DRC clean; see `checks/README.md`.
