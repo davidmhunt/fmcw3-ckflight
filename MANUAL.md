@@ -114,18 +114,19 @@ run `./run tools/fetch_sources.py --record` to pin its hash, and `--check` to ve
 
 ## 7. Tools you run elsewhere
 
-These are GUI-only, licensed or web tools, used by you, mostly on a Windows machine, from a
-checklist that says what to enter and what to record back into the repo:
-[`docs/gui-tool-checklists.md`](docs/gui-tool-checklists.md).
+These are GUI-only, licensed or web tools, used by you, mostly on a Windows machine. Where a
+checklist exists it says what to enter and what to record back into the repo; the checklists are
+in [`docs/gui-tool-checklists.md`](docs/gui-tool-checklists.md). CST Studio Suite and TI WEBENCH
+have no checklist yet.
 
-| Tool | Where | Used for |
-|---|---|---|
-| CST Studio Suite Learning Edition | your Windows machine | 3D EM where its size limits allow; `.s2p` results committed, or listed in a manifest if too large |
-| ADIsimPLL | Windows (ADI) | validating the PLL model (sim-03) |
-| ADIsimRF | Windows (ADI) | RF cascade cross-check (rf-01) |
-| Saturn PCB Toolkit | Windows (email form) | impedance hand check (rf-02) |
-| TI WEBENCH | browser, TI account | buck cross-check (sim-02) |
-| JLCPCB impedance calculator | browser, https://jlcpcb.com/pcb-impedance-calculator | final trace widths for JLCPCB's stackups (rf-02) |
+| Tool | Link | Checklist | Used for |
+|---|---|---|---|
+| CST Studio Suite Learning Edition | already installed on your Windows machine (Dassault Systèmes student licence) | none yet | 3D EM where its size limits allow; `.s2p` results committed, or listed in a manifest if too large |
+| ADIsimPLL | the ADIsimPLL page on analog.com (Windows; not verified from here, find the installer on the page) | [ADIsimPLL](docs/gui-tool-checklists.md#adisimpll-adf4158-chirp-pll-review-plan-phase-6-item-4-and-phase-7) | validating the PLL model (sim-03) |
+| ADIsimRF | the ADIsimRF page on analog.com (Windows; not verified from here, find the installer on the page) | [ADIsimRF](docs/gui-tool-checklists.md#adisimrf-rf-cascade-review-plan-phase-2) | RF cascade cross-check (rf-01) |
+| Saturn PCB Toolkit | https://saturnpcb.com/saturn-pcb-toolkit/ (Windows; Download button opens an email form) | [Saturn PCB Toolkit](docs/gui-tool-checklists.md#saturn-pcb-toolkit-impedance-cross-check-review-plan-phase-3) | impedance hand check (rf-02) |
+| TI WEBENCH | https://webench.ti.com (browser, TI account) | none yet | buck cross-check (sim-02) |
+| JLCPCB impedance calculator | https://jlcpcb.com/pcb-impedance-calculator (browser) | [JLCPCB impedance calculator](docs/gui-tool-checklists.md#jlcpcb-impedance-calculator-the-fabs-own-reference-browser-user-run) | final trace widths for JLCPCB's stackups (rf-02) |
 
 ## 8. Datasheets, models and references
 
