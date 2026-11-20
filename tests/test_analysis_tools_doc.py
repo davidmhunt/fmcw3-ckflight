@@ -41,3 +41,14 @@ def test_cited_manifest_ids_exist():
     assert cited, "## References cites no manifest id (expected backticked ids)"
     unknown = sorted(cited - manifest_ids())
     assert not unknown, f"ids cited in ## References but in no manifest: {unknown}"
+
+
+def test_cited_ids_have_verified_items():
+    refs = section(DOC.read_text(), "## References")
+    cited = set(re.findall(r"`([A-Za-z0-9][A-Za-z0-9._-]*)`", refs))
+    verified = set()
+    for rel in MANIFESTS:
+        data = yaml.safe_load((ROOT / rel).read_text()) or {}
+        verified |= {e["id"] for e in data.get("entries") or [] if e.get("verified")}
+    missing = sorted(cited - verified)
+    assert not missing, f"ids in ## References with no verified item: {missing}"

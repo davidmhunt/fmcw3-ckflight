@@ -192,8 +192,16 @@ verified item (equation, quote) are in the manifest.
 | `wikipedia-microstrip` | https://en.wikipedia.org/w/index.php?title=Microstrip&oldid=1356129625&action=raw | section Characteristic impedance (secondary source, fixed revision) | microstrip Z0 (rf-02) |
 | `kicad-10.0.5-microstrip` | https://raw.githubusercontent.com/KiCad/kicad-source-mirror/10.0.5/common/transline_calculations/microstrip.cpp | functions Z0_homogeneous and SynthesizeWidth | the KiCad calculator you compare against (rf-02) |
 | `kicad-10.0.5-coplanar` | https://raw.githubusercontent.com/KiCad/kicad-source-mirror/10.0.5/pcb_calculator/transline/coplanar.cpp | function calcAnalyze, including the backMetal (CPWG) branch | CPWG Z0 (rf-02) |
-| `ti-lp5907-1p8-pspice` (datasheets manifest) | https://www.ti.com/lit/zip/snvmap9 | model run in LTspice and ngspice (tests/test_sim_smoke.py); not a verified-items reference | LP5907 model |
-| `ti-lmr51420xf-pspice` (datasheets manifest) | https://www.ti.com/lit/zip/slum825 | model found encrypted (tests/test_sim_smoke.py) | LMR51420 model |
+
+## Vendor models (not references)
+
+These are in `datasheets/manifest.yaml` with a hash and licence but carry no `verified` items, so
+they are not in `## References`. They are tools' inputs, not sources for an equation or number.
+
+- `ti-lp5907-1p8-pspice` (https://www.ti.com/lit/zip/snvmap9): run in LTspice and ngspice by
+  `tests/test_sim_smoke.py`. Used for the LP5907 model.
+- `ti-lmr51420xf-pspice` (https://www.ti.com/lit/zip/slum825): found encrypted by
+  `tests/test_sim_smoke.py`. Not usable as is.
 
 Not yet in the manifest (paywalled or no working link; see the comment block in
 `docs/references/manifest.yaml`): Hammerstad and Jensen 1980 (doi 10.1109/MWSYM.1980.1124303),
