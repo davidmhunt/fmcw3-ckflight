@@ -1,5 +1,5 @@
 # fnd-08: LTspice GUI from the sim container, and PSpice for TI under Wine
-Status: blocked: step 2: Did the LTspice window open and did the plot work on your screen (the MIT-SHM error may have broken rendering)? If not, I recommend a step 1 fix: add '--ipc=host' (or disable MIT-SHM) to the --sim-gui docker command and its test, then re-run. If it did work, tell me and I will write 'friday result write fnd-08 --metric sim_gui_shown=1' (otherwise =0).
+Status: approved
 Goal: foundation
 Node: any
 Deliverable: code
@@ -76,3 +76,6 @@ Notes:
 Verify: not run
 Independent review: not recorded
 Blocked: step 2: Did the LTspice window open and did the plot work on your screen (the MIT-SHM error may have broken rendering)? If not, I recommend a step 1 fix: add '--ipc=host' (or disable MIT-SHM) to the --sim-gui docker command and its test, then re-run. If it did work, tell me and I will write 'friday result write fnd-08 --metric sim_gui_shown=1' (otherwise =0).
+
+### 2026-11-20
+Unblocked: was blocked: step 2: Did the LTspice window open and did the plot work on your screen (the MIT-SHM error may have broken rendering)? If not, I recommend a step 1 fix: add '--ipc=host' (or disable MIT-SHM) to the --sim-gui docker command and its test, then re-run. If it did work, tell me and I will write 'friday result write fnd-08 --metric sim_gui_shown=1' (otherwise =0).
