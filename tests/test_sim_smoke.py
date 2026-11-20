@@ -82,6 +82,68 @@ def test_scikit_rf_two_stage_cascade():
     assert "PASS cascade_s21_db=17.000" in out
 
 
+@pytest.fixture(scope="module")
+def ltspice_results():
+    """Run tests/sim/ltspice_smoke.py once (LTspice under Wine, through spicelib); parse its lines.
+
+    The TI models come from the datasheets manifest (tools/fetch_sources.py); without them the
+    TI cases fail with 'not supplied' and their tests skip.
+    """
+    zips = [str(p.relative_to(ROOT)) for p in
+            [ROOT / "datasheets/files/ti/snvmap9.zip", ROOT / "datasheets/files/ti/slum825.zip"]
+            if p.is_file()]
+    out = sim(["sh", "-c", "mkdir -p /tmp/lts && xvfb-run -a python3 tests/sim/ltspice_smoke.py "
+               "/tmp/lts " + " ".join(zips)], timeout=1500)
+    res = {}
+    for m in re.finditer(r"^RESULT (\S+) (PASS|FAIL) (.*)$", out, re.M):
+        res[m.group(1)] = (m.group(2) == "PASS", m.group(3))
+    return res
+
+
+def _need(res, name):
+    assert name in res, "no RESULT line for %s" % name
+    ok, detail = res[name]
+    if not ok and "not supplied" in detail:
+        pytest.skip(detail)
+    return ok, detail
+
+
+def test_ltspice_spicelib_rc_lowpass_matches_formula(ltspice_results):
+    ok, detail = _need(ltspice_results, "rc_ltspice")
+    assert ok, detail
+
+
+def test_ltspice_adi_model_runs(ltspice_results):
+    # LT6231 from LTspice's bundled LTC2.lib; the LT6232 symbol there points at this subckt.
+    for name in ("adi_lt6231_dc", "adi_lt6231"):
+        ok, detail = _need(ltspice_results, name)
+        assert ok, detail
+
+
+def test_adi_ltc_model_does_not_load_in_ngspice(ltspice_results):
+    # Why ADI LTC*.lib models need LTspice: their A-devices (OTA) are LTspice-only.
+    ok, detail = _need(ltspice_results, "adi_in_ngspice")
+    assert not ok and "MIF-ERROR" in detail, detail
+
+
+def test_ti_pspice_model_runs_in_ltspice_and_ngspice_and_agrees(ltspice_results):
+    for name in ("ti_ltspice", "ti_ngspice", "ti_compare"):
+        ok, detail = _need(ltspice_results, name)
+        assert ok, "%s: %s" % (name, detail)
+
+
+def test_mixed_ti_ldo_adi_opamp_runs_in_ltspice(ltspice_results):
+    ok, detail = _need(ltspice_results, "mixed_ti_ldo_adi_opamp")
+    assert ok, detail
+
+
+def test_encrypted_ti_model_fails_in_both_engines(ltspice_results):
+    # TI's LMR51420XF model is encrypted (Cadence $CDNENCSTART): neither engine can read it.
+    for name in ("ti_enc_ltspice", "ti_enc_ngspice"):
+        ok, detail = _need(ltspice_results, name)
+        assert not ok, "unexpected: %s loaded the encrypted model" % name
+
+
 def test_openems_microstrip_about_50_ohm():
     out = sim(["sh", "-c", "mkdir -p /tmp/msl && python3 tests/sim/openems_msl.py /tmp/msl"],
               timeout=1500)

@@ -2,4 +2,22 @@
 # Fields: id, kind, title, url (public), access (direct|form|login), file, sha256, licence,
 # commit (yes|no). commit: no files live under datasheets/files/ (gitignored).
 # Filled for the critical parts by directive par-02.
-entries: []
+entries:
+- id: ti-lp5907-1p8-pspice
+  kind: vendor-model
+  title: TI LP5907 1.8 V unencrypted PSpice transient model (SNVMAP9)
+  url: https://www.ti.com/lit/zip/snvmap9
+  access: direct
+  file: datasheets/files/ti/snvmap9.zip
+  sha256: 99f32ef32c8718f9e1eca4df2b1e93e5e77ecffe9a00dabe31292bd10444d9f4
+  licence: TI model terms (provided as is for customer design use); not redistributed here
+  commit: 'no'
+- id: ti-lmr51420xf-pspice
+  kind: vendor-model
+  title: TI LMR51420XF PSpice transient model (SLUM825; TI-encrypted)
+  url: https://www.ti.com/lit/zip/slum825
+  access: direct
+  file: datasheets/files/ti/slum825.zip
+  sha256: b5f26ecc5d1af073b155c1e9d4954f4000de0cb9b68d0aff44f514e946b23f60
+  licence: TI model terms (provided as is for customer design use); not redistributed here
+  commit: 'no'

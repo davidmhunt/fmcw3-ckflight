@@ -41,6 +41,31 @@ RUN dpkg --add-architecture i386 \
  && apt-get install -y --no-install-recommends wine32:i386 \
  && rm -rf /var/lib/apt/lists/*
 
+# spicelib drives LTspice (and ngspice) from Python.
+RUN /opt/simvenv/bin/pip install --no-cache-dir spicelib
+
+# LTspice under Wine, installed unattended at build time. The installer is downloaded here
+# (ADI's public link, no registration) and deleted again; it is never committed.
+# - The prefix is /opt/wineprefix, made world-writable: Wine insists the prefix dir belongs to
+#   the caller, so tests/sim/ltspice_smoke.py builds a per-run dir of symlinks into it.
+# - LTspice's first run shows a "share usage data" dialog that blocks batch mode; the ini key
+#   CaptureAnalytics=false answers it. That run also unpacks lib.zip (the ADI model library).
+ENV WINEPREFIX=/opt/wineprefix WINEDEBUG=-all
+RUN curl -fsSL -o /tmp/LTspice64.msi https://ltspice.analog.com/software/LTspice64.msi \
+ && xvfb-run -a wine msiexec /i Z:\\tmp\\LTspice64.msi /qn \
+ && wineserver -w \
+ && rm /tmp/LTspice64.msi \
+ && mkdir -p /opt/wineprefix/drive_c/users/root/AppData/Roaming \
+ && printf '[Options]\nCaptureAnalytics=false\n' \
+      > /opt/wineprefix/drive_c/users/root/AppData/Roaming/LTspice.ini \
+ && printf '* warm-up\nV1 a 0 1\nR1 a 0 1k\n.op\n.end\n' > /tmp/warm.net \
+ && xvfb-run -a wine 'C:\Program Files\ADI\LTspice\LTspice.exe' -b 'Z:\tmp\warm.net' \
+ && wineserver -w \
+ && test -f /opt/wineprefix/drive_c/users/root/AppData/Local/LTspice/lib/sub/LTC2.lib \
+ && rm -f /tmp/warm.* \
+ && chmod -R a+rwX /opt/wineprefix
+ENV LTSPICE_PREFIX=/opt/wineprefix
+
 ENV HOME=/tmp
 WORKDIR /work
 CMD ["bash"]
