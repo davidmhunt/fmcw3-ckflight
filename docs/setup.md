@@ -112,3 +112,11 @@ Never run a tool that edits `kicad/*.kicad_sch` or `kicad/*.kicad_pcb` while KiC
 open. KiCad keeps its own copy in memory and will overwrite the tool's changes (or the reverse) on
 save. Check with `pgrep -a kicad` (Linux/macOS); if it prints anything, close KiCad first. Read-only
 runs (ERC/DRC exports to a separate output file) are safe, but close the GUI anyway when in doubt.
+
+## 6. Following along in KiCad (IPC API)
+
+To watch the agent select parts and nets, and make board-only edits live, enable KiCad's API
+server (Preferences → Plugins). The client runs natively: `./run --native tools/kicad_ipc.py
+status`. On KiCad 10, live edits need the Schematic Editor closed, and schematic changes still
+need KiCad closed. See [`docs/kicad-ipc.md`](kicad-ipc.md) for the setup, the commands and what
+works.
