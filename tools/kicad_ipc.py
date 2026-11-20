@@ -1,3 +1,4 @@
+#!/usr/bin/env -S uv run --quiet --group ipc python
 """Drive a running KiCad 10 session through its IPC API (kicad-python, `kipy`).
 
 Library plus CLI.  Run natively, because the API socket belongs to the GUI on the host:
@@ -202,6 +203,33 @@ def show(kicad, refs: Sequence[str] = (), nets: Sequence[str] = (), *,
     return out
 
 
+# ------------------------------------------------------------ edit guards
+
+def require_no_schematic_open(kicad) -> None:
+    """Refuse a board edit while the Schematic Editor is open (KiCad 10 freezes, then quits)."""
+    if list(kicad.get_open_documents(DOCTYPE_SCHEMATIC)):
+        raise IpcError(
+            "refusing: board edits through IPC need the Schematic Editor closed on KiCad 10, "
+            "because KiCad freezes on begin_commit otherwise; close the Schematic Editor "
+            "and retry"
+        )
+
+
+def require_schematic_api(kicad) -> None:
+    """Refuse schematic edits below KiCad 11, which has no schematic API."""
+    if _vtuple(kicad.get_version())[0] < 11:
+        raise IpcError(
+            "refusing: there is no schematic API in KiCad 10 (it arrives in KiCad 11); "
+            "close KiCad and use file-level edits of the .kicad_sch instead"
+        )
+
+
+def begin_board_commit(kicad, board):
+    """Start a board commit after the guard; the only way this tool begins one on a board."""
+    require_no_schematic_open(kicad)
+    return board.begin_commit()
+
+
 # --------------------------------------------------------------- set-fields
 
 def read_csv(path: str | Path) -> list[tuple[str, str, str]]:
@@ -240,6 +268,7 @@ def set_fields(kicad, rows: Sequence[tuple[str, str, str]], *, dry_run: bool = F
                open_sch: Callable = _open_sch, message: str = "kicad_ipc set-fields") -> list[str]:
     """Set fields in the open schematic in one commit.  Returns the diff lines per ref."""
     check_version(kicad)
+    require_schematic_api(kicad)
     s = open_sch(kicad)
     by_ref = {_ref(sym): sym for sym in s.get_symbols()}
     missing = sorted({r for r, _, _ in rows if r not in by_ref})

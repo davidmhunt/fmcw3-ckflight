@@ -37,6 +37,11 @@ class FakeKiCad:
         return self._docs.get(t, [])
 
 
+def K11(**kw):
+    """A fake KiCad 11 session (the first with a schematic API)."""
+    return FakeKiCad(kicad=(11, 0, 0), api=(11, 0, 0), **kw)
+
+
 def doc_for(project):
     p = Path(project)
     return NS(project=NS(path=str(p), name=p.stem))
@@ -164,7 +169,7 @@ def test_set_fields_one_commit_no_save():
     r13 = sym("R13", "id-r13", user=[existing])
     r14 = sym("R14", "id-r14")
     s = FakeSch([r13, r14])
-    diff = k.set_fields(FakeKiCad(), rows_r13(), open_sch=lambda _k: s)
+    diff = k.set_fields(K11(), rows_r13(), open_sch=lambda _k: s)
     assert s.calls.count("begin_commit") == 1
     assert s.calls.count("push_commit") == 1
     assert s.calls.index("begin_commit") < s.calls.index("update_items") < s.calls.index("push_commit")
@@ -178,7 +183,7 @@ def test_set_fields_one_commit_no_save():
 def test_set_fields_dry_run_changes_nothing():
     r13 = sym("R13", "id-r13", user=[field("IPC_TEST", "0")])
     s = FakeSch([r13])
-    diff = k.set_fields(FakeKiCad(), rows_r13(), dry_run=True, open_sch=lambda _k: s)
+    diff = k.set_fields(K11(), rows_r13(), dry_run=True, open_sch=lambda _k: s)
     assert s.calls == []
     assert r13.user_fields[0].text.value == "0"
     assert r13.value_field.text.value == "1k"
@@ -188,7 +193,7 @@ def test_set_fields_dry_run_changes_nothing():
 def test_set_fields_unknown_ref_commits_nothing():
     s = FakeSch([sym("R13", "id-r13")])
     with pytest.raises(k.IpcError, match="R99"):
-        k.set_fields(FakeKiCad(), [("R99", "Value", "1")], open_sch=lambda _k: s)
+        k.set_fields(K11(), [("R99", "Value", "1")], open_sch=lambda _k: s)
     assert s.calls == []
 
 
@@ -201,7 +206,7 @@ def test_set_fields_drops_commit_on_failure():
 
     s.update_items = bad
     with pytest.raises(RuntimeError):
-        k.set_fields(FakeKiCad(), [("R13", "Value", "2k")], open_sch=lambda _k: s)
+        k.set_fields(K11(), [("R13", "Value", "2k")], open_sch=lambda _k: s)
     assert "drop_commit" in s.calls and "push_commit" not in s.calls
 
 
@@ -261,3 +266,29 @@ def test_version_mismatch_refused(kicad, api):
 
 def test_version_accepts_older_patch():
     k.check_version(FakeKiCad(kicad=(10, 0, 5), api=(10, 0, 6)))
+
+
+# ------------------------------------------------------------- edit guards
+
+def test_board_edit_refused_when_schematic_open():
+    kc = FakeKiCad(docs={k.DOCTYPE_SCHEMATIC: [doc_for(PROJECT)], k.DOCTYPE_PCB: [doc_for(PROJECT)]})
+    board = FakeBoard([], [], {})
+    with pytest.raises(k.IpcError, match="Schematic Editor closed"):
+        k.begin_board_commit(kc, board)
+    assert board.calls == []
+
+
+def test_board_edit_allowed_with_only_pcb_open():
+    kc = FakeKiCad(docs={k.DOCTYPE_PCB: [doc_for(PROJECT)]})
+    board = FakeBoard([], [], {})
+    assert k.begin_board_commit(kc, board) == "C1"
+    assert board.calls == ["begin_commit"]
+
+
+def test_set_fields_refused_on_kicad_10_even_dry_run():
+    s = FakeSch([sym("R13", "id-r13")])
+    for dry in (False, True):
+        with pytest.raises(k.IpcError, match="no schematic API in KiCad 10"):
+            k.set_fields(FakeKiCad(), rows_r13(), dry_run=dry,
+                         open_sch=lambda _k: pytest.fail("must not open"))
+    assert s.calls == []
