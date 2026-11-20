@@ -1,5 +1,5 @@
 # fnd-04: Report and deck pipeline with target sets and a baseline report
-Status: awaiting review
+Status: blocked: Step 8: deck pdf export; targets split into design and performance groups
 Goal: foundation
 Node: any
 Deliverable: code
@@ -126,3 +126,5 @@ Notes:
 - Nothing was pushed to a branch; only the LFS batch upload was attempted.
 Verify: Verify passed: ./run uv run pytest tests -q && ./run tools/build_report.py analysis/00_baseline --check
 Independent review: no gaps
+
+Rejected by user: 2026-11-20 Step 8: deck pdf export; targets split into design and performance groups
