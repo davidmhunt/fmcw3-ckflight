@@ -1,5 +1,5 @@
 # fnd-04: Report and deck pipeline with target sets and a baseline report
-Status: awaiting review
+Status: done
 Goal: foundation
 Node: any
 Deliverable: code
@@ -167,3 +167,5 @@ Notes:
 - Nothing was pushed to a branch; only the LFS batch upload was attempted.
 Verify: Verify passed: ./run uv run pytest tests -q && ./run tools/build_report.py analysis/00_baseline --check
 Independent review: gaps fixed in second review: 1. /home/david/Documents/pcb_work/fmcw3-ckflight/tools/targets.py:97-99: The band check rejects valid target sets. It computes the band width in floating point, '(fmax - fmin) * 1e9', and compares it strictly with 'bw > span_hz', with no tolerance. For many common band edges this span comes out a little under the true value, so a chirp bandwidth exactly equal to 'freq_max - freq_min' fails the schema check. Step 8 only asks it to fail when the bandwidth *exceeds* the band. The default set passes only because 5.875 - 5.725 happens to round up (150000000.00000036). The tests cover just that case, at /home/david/Documents/pcb_work/fmcw3-ckflight/tests/test_targets.py in test_bandwidth_must_fit_band. (evidence: Running './run uv run python -c ...' with freq_min_ghz=5.75, freq_max_ghz=5.85 and chirp_bandwidth_hz=100e6 makes tg.validate return ['targets: chirp_bandwidth_hz (1e+08) exceeds freq_max_ghz - freq_min_ghz (1e+08 Hz)']. Also, (5.85-5.75)*1e9 = 99999999.9999996 and (5.8-5.7)*1e9 = 99999999.99999964. A user who sets the bandwidth to the full band, as the default does, would be wrongly rejected and the report build would stop.)
+
+Accepted by user: 2026-11-20
