@@ -1,12 +1,12 @@
 {
   "cmd": "live trial on runs/fnd-06/scratch, KiCad 10.0.5, kicad-python 0.8.0",
-  "commit": "b99cba4c045cb037cb39d9c9e354f74fb609bf30",
+  "commit": "8969bb2230825ba41f8d2c4657bc35348b376103",
   "dirty": true,
   "files": [
     {
       "path": "docs/kicad-ipc.md",
-      "sha256": "4eb688d661277fbba6dd232363d18bd867c30c79c4c567bb29d34a0701fbd869",
-      "size": 5093
+      "sha256": "825bfe2234d1cfebf796deae5f9834ce302274e1d7e14583af0b466e09af6f3b",
+      "size": 5407
     }
   ],
   "id": "fnd-06",
@@ -21,6 +21,6 @@
     "trial_complete": 1
   },
   "node": "laptop",
-  "note": "Re-recorded after review edits to docs/kicad-ipc.md; same trial.",
-  "time": "2026-11-20T20:30:01Z"
+  "note": "Re-recorded after doc corrections; same trial.",
+  "time": "2026-11-20T20:30:35Z"
 }
