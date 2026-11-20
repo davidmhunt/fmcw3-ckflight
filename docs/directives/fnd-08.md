@@ -28,9 +28,19 @@ from `./run --sim-gui` and the PSpice trial is recorded as pass or fail with its
 2. Live check with you. Run `./run --sim-gui ltspice tests/sim/` on an existing smoke-test
    netlist, ask you to confirm that the LTspice window opened and the plot works, then run
    `friday result write fnd-08 --metric sim_gui_shown=<0|1>`.
-3. PSpice for TI under Wine. List its installer in `datasheets/manifest.yaml`. It probably
-   needs a TI account, so it is likely user-fetch: you download it once, and the pipeline
-   checks its hash. Then:
+3. PSpice for TI under Wine. (Amended 2026-11-20 at the user's request.) First add a top-level
+   `software/` folder for downloaded tool installers, separate from datasheets:
+   - `software/manifest.yaml` is a third manifest read by `tools/fetch_sources.py`, with the
+     same fields and checks;
+   - files go under `software/files/`, which is gitignored;
+   - `software/README.md` explains where to save a user-fetched installer and how to pin it.
+
+   Move the PSpice for TI entry there from `datasheets/manifest.yaml`. The LTspice installer,
+   which the image build downloads, is also listed there for its link and hash. Update
+   `tests/test_sources.py`, `.gitignore` and the docs.
+
+   The installer probably needs a TI account, so it is likely user-fetch: you download it once
+   into `software/files/`, and the pipeline checks its hash. Then:
    - install it unattended under xvfb in `fmcw3-sim`, as a separate build stage, never
      committing the installer;
    - check for a batch mode (for example `psp_cmd`);

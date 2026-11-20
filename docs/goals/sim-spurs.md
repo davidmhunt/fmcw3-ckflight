@@ -25,4 +25,14 @@ each report rebuilds for a target set with one command and states pass or fail a
   - PLL modelled at the firmware's 40 MHz PFD, and the corrected one if rf-01 finds it too high (sim-03).
   - Shared 40 MHz TCXO for FPGA and ADC: jitter vs ADC SNR, harmonics as spurs (sim-04).
 
+## Rules
+- Every simulated circuit is committed both as a netlist and as an LTspice schematic (`.asc`),
+  so the user can open and probe it with `./run --sim-gui ltspice <file>.asc`. The agent draws
+  the first version; the user may tidy or modify it, and scripts edit values through spicelib
+  without redrawing. The netlist and the `.asc` must describe the same circuit, checked by a test
+  that compares their netlists. (User decision 2026-11-20.)
+- Every writeup shows the KiCad schematic sheet the simulated circuit comes from, exported with
+  `kicad-cli sch export svg`, next to the simulated circuit, naming the board refdes each model
+  part stands for.
+
 ## Log

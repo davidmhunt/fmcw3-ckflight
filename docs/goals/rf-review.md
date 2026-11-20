@@ -23,4 +23,12 @@ with one command and list their findings and open decisions.
   - One design only, on the JLCPCB stackup (rf-02).
   - Overstress on ADF_DATA and the mixer enable is checked in lay-02.
 
+## Rules
+- Every circuit-level simulation (for example the passive checks in rf-01) is committed both as a
+  netlist and as an LTspice schematic (`.asc`) that the user can open with `./run --sim-gui
+  ltspice <file>.asc`. The agent draws the first version; the user may modify it. A test checks
+  that the two describe the same circuit. (User decision 2026-11-20.)
+- Every writeup shows the KiCad schematic sheet or board area it analyses, exported with
+  `kicad-cli sch export svg` or `kicad-cli pcb export svg`, naming the refdes and nets involved.
+
 ## Log
