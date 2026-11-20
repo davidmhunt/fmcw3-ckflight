@@ -1,5 +1,5 @@
 # fnd-07: Switch the KiCad editing rules to IPC-when-open
-Status: approved
+Status: done
 Goal: foundation
 Node: any
 Deliverable: code
@@ -43,3 +43,11 @@ edits. Batch work runs through `kicad-cli` in Docker. It holds when `CLAUDE.md` 
 - Editing other directives.
 
 ## Log
+
+### 2026-11-20
+Commits:
+- f44b735 fnd-07 step 1: replace never-edit-while-open rule with IPC-when-open rules
+- 5200950 fnd-07 step 2: README, setup and Division of labour describe IPC-when-open edits
+- 39f30af fnd-07 step 3: test_rules checks friday.json and CLAUDE.md carry the IPC-when-open rules
+Verify: Verify passed: friday check --all && ./run uv run pytest tests -q
+Independent review: no gaps
