@@ -1,5 +1,5 @@
 # fnd-05: Choose and smoke-test Linux tools for the simulation and RF analyses
-Status: awaiting review
+Status: done
 Goal: foundation
 Node: any
 Deliverable: doc
@@ -301,3 +301,5 @@ Notes:
 - Manifest: datasheets/manifest.yaml now has ti-lp5907-1p8-pspice and ti-lmr51420xf-pspice (direct, commit no, files under datasheets/files/ti/, sha256 recorded). Installer is deleted at build and never committed; the image is about 7 GB.
 Verify: Verify passed: ./run --sim pytest tests/test_sim_smoke.py (sim tests run in fmcw3-sim, incl. LTspice via spicelib), ./run uv run pytest tests (36 passed, 10 sim skipped outside the sim image), fetch_sources --check ok
 Independent review: Independent review: Acceptance met. Fixed: two vendor-model ids moved out of References (no verified items), test added. Remaining notes: plan commit 5c230bf (steps 5-11) was approved by the user in session on 2026-11-20 ('let's try what you recommended... spicelib'), recorded in its commit message and the reject reason; 5195480 carries fnd-01 carry-overs, disclosed in 2b979c8.
+
+Accepted by user: 2026-11-20
