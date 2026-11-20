@@ -1,5 +1,5 @@
 # fnd-05: Choose and smoke-test Linux tools for the simulation and RF analyses
-Status: blocked: review gaps remain: plan commit 5c230bf (docs/directives/fnd-05.md lines 7, 38-93, 106-114): This plan edit was made after the directive started, and it changes the directive's Verify line, adds steps 5-11, adds Acceptance bullets and adds the ## Rules section. Under the review rules that is a gap unless the user approved it. The evidence points to approval but I cannot confirm it from the repo, so the caller should check with the user and close this.
+Status: approved
 Goal: foundation
 Node: any
 Deliverable: doc
@@ -236,3 +236,6 @@ Notes:
 Verify: Verify passed: ./run --sim python3 -m pytest tests/test_sim_smoke.py -q && ./run uv run pytest tests -q && ./run tools/fetch_sources.py --check
 Independent review: not recorded
 Blocked: review gaps remain: plan commit 5c230bf (docs/directives/fnd-05.md lines 7, 38-93, 106-114): This plan edit was made after the directive started, and it changes the directive's Verify line, adds steps 5-11, adds Acceptance bullets and adds the ## Rules section. Under the review rules that is a gap unless the user approved it. The evidence points to approval but I cannot confirm it from the repo, so the caller should check with the user and close this.
+
+### 2026-11-20
+Unblocked: was blocked: review gaps remain: plan commit 5c230bf (docs/directives/fnd-05.md lines 7, 38-93, 106-114): This plan edit was made after the directive started, and it changes the directive's Verify line, adds steps 5-11, adds Acceptance bullets and adds the ## Rules section. Under the review rules that is a gap unless the user approved it. The evidence points to approval but I cannot confirm it from the repo, so the caller should check with the user and close this.
