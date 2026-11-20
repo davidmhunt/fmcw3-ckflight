@@ -1,5 +1,5 @@
 # fnd-06: KiCad IPC client and a live trial with the user watching
-Status: approved
+Status: blocked: step 4: Please open /home/david/Documents/pcb_work/fmcw3-ckflight/runs/fnd-06/scratch/fmcw3.kicad_pro in KiCad 10.0.5. Open both the schematic editor and the board editor, and enable the API server (Preferences > Plugins). Then tell me to continue and I will run the live trial. I also recommend running step 5 first so docs/kicad-ipc.md exists when the results are recorded. Should I do that, or write the capability table into the doc after the trial?
 Goal: foundation
 Node: any
 Deliverable: code
@@ -69,3 +69,12 @@ recorded with what works and what does not.
 - `friday result write fnd-06 *`
 
 ## Log
+
+### 2026-11-20
+Commits:
+- de99dcf fnd-06: pin kicad-python 0.8.0 (API 10.0.6, accepts KiCad 10.0.5) as uv group ipc
+- e515ba0 fnd-06: tools/kicad_ipc.py status, show and set-fields over the KiCad IPC API
+- 303af00 fnd-06: tests/test_kicad_ipc.py with fake clients (status, set-fields, dry-run, show, version refusal)
+Verify: not run
+Independent review: not recorded
+Blocked: step 4: Please open /home/david/Documents/pcb_work/fmcw3-ckflight/runs/fnd-06/scratch/fmcw3.kicad_pro in KiCad 10.0.5. Open both the schematic editor and the board editor, and enable the API server (Preferences > Plugins). Then tell me to continue and I will run the live trial. I also recommend running step 5 first so docs/kicad-ipc.md exists when the results are recorded. Should I do that, or write the capability table into the doc after the trial?
