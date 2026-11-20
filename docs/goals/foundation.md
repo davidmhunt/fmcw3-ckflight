@@ -1,5 +1,5 @@
 # foundation: Clean repo layout, repeatable environment and report pipeline
-Status: blocked: fnd-06
+Status: running
 Base: falcon_development
 Land: pr
 
