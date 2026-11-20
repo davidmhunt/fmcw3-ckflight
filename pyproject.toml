@@ -16,3 +16,8 @@ package = false
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+
+[dependency-groups]
+ipc = [
+    "kicad-python==0.8.0",
+]
