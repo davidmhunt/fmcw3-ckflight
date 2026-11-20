@@ -28,12 +28,14 @@ ERC/DRC, spurs), used as a submodule of the Falcon parent repo under `hardware/`
 ./run uv run pytest tests -q          # Python tests
 ```
 
-Reports and decks (convention in `analysis/README.md`, target sets in `analysis/targets/`):
+Reports and decks (convention in `analysis/README.md`, target sets in `analysis/targets/`).
+Built `reports/*.pdf` and `.pptx` are gitignored: built locally, never committed.
 
 ```
 ./run tools/build_report.py analysis/00_baseline                    # build reports/00_baseline.pdf and .pptx
 ./run tools/build_report.py analysis/00_baseline --targets NAME     # use analysis/targets/NAME.yaml
 ./run tools/build_report.py analysis/00_baseline --check            # figures, references, slide overflow
+./run tools/build_all.py [--check]                                  # rebuild every analysis with a deck.yaml
 ./run uv run pytest tests -q                                        # targets, overflow check, fixture build
 ```
 

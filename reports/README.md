@@ -3,10 +3,18 @@
 Built report PDFs and `.pptx` decks for the analyses in `analysis/`. ERC/DRC output lives in
 `checks/`, not here.
 
-## Storage: normal git files, not LFS
+## Built locally, never committed
 
-Git LFS was tried and refused: `origin` is a public fork, and GitHub rejects LFS uploads to it
-("can not upload new objects to public fork"). So there is no LFS rule in `.gitattributes`, and
-built `.pdf` and `.pptx` files are committed as normal git files. Rebuild with
-`./run tools/build_report.py analysis/NN_name`. If the repo moves to a non-fork remote, LFS can
-be enabled with `git lfs track "reports/*.pdf" "reports/*.pptx"` and `git lfs migrate`.
+`reports/*.pdf` and `reports/*.pptx` are gitignored. Git LFS was tried and refused (`origin` is
+a public fork, and GitHub rejects LFS uploads to it), and binaries do not belong in normal git
+history, so the sources are committed and the outputs are rebuilt on demand.
+
+Rebuild everything (every `analysis/NN_*/` with a `deck.yaml`):
+
+```
+./run tools/build_all.py              # build all into reports/
+./run tools/build_all.py --check      # validate all, build nothing
+./run tools/build_report.py analysis/NN_name [--targets NAME] [--check]   # one analysis
+```
+
+Only this README is tracked in this folder.

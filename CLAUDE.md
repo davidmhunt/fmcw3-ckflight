@@ -20,6 +20,8 @@ Firmware lives in a separate repo (`davidmhunt/fmcw3-ckflight-fw`). Licence: GPL
 - DRC by hand: `kicad-cli pcb drc --format json -o OUT.json kicad/fmcw3.kicad_pcb`
 - Reports: `./run tools/build_report.py analysis/NN_name [--targets NAME] [--check]` builds
   `reports/NN_name.pdf` and `.pptx` from `writeup.md` and `deck.yaml` (never `report.md`).
+  `./run tools/build_all.py [--check]` rebuilds every analysis. Built files are gitignored:
+  never commit `reports/*.pdf` or `.pptx`.
   Tests: `./run uv run pytest tests -q`. Target sets: `analysis/targets/*.yaml`, loaded by
   `tools/targets.py`.
 - Root sheet is `kicad/fmcw3.kicad_sch`; sub-sheets are `adc clock fpga fpga_config mixer
