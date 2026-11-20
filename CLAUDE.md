@@ -57,6 +57,11 @@ Firmware lives in a separate repo (`davidmhunt/fmcw3-ckflight-fw`). Licence: GPL
   read the files headless so reports rebuild without the GUI. When the project is open, use
   `tools/kicad_ipc.py show` to select what is being discussed so the user can follow along.
 
+## Keep MANUAL.md current
+- A directive that adds or changes a tool, a software download or a `./run` mode updates
+  `MANUAL.md` in the same directive. The reviewer treats a stale manual as a gap.
+  `tests/test_manual.py` enforces the coverage.
+
 ## Division of labour
 - The agent: run ERC/DRC, exports, BOM/availability checks, apply written-down part changes. When
   the project is open in KiCad, the agent may make written-down board edits live through IPC

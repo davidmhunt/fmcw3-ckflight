@@ -9,6 +9,7 @@
     "Never regenerate or modify `production/` in place; new fab outputs go to new paths and are recorded with `friday result write --file`.",
     "Electrical design decisions (part and footprint choice, routing, placement, ordering, sending to a fab) are the user's: prepare options and evidence, do not decide or apply them unless a directive states the decided change.",
     "Never Verify on an exact DRC warning count: `solder_mask_bridge` jitters by +/-1 on identical input.",
-    "An analysis write-up source is `analysis/NN_name/writeup.md`, never `report.md` or another report-named file: Claude Code refuses to let subagents write report files. Built outputs stay `reports/NN_name.pdf` and `.pptx`."
+    "An analysis write-up source is `analysis/NN_name/writeup.md`, never `report.md` or another report-named file: Claude Code refuses to let subagents write report files. Built outputs stay `reports/NN_name.pdf` and `.pptx`.",
+    "A directive that adds or changes a tool, a software download or a `./run` mode updates `MANUAL.md` in the same directive; the reviewer treats a stale manual as a gap."
   ]
 }
