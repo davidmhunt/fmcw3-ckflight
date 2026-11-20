@@ -1,5 +1,5 @@
 # fnd-04: Report and deck pipeline with target sets and a baseline report
-Status: approved
+Status: blocked: review gaps remain: commit 221b9d15224d12989546f63041eba5830f351439 (docs/surveys/upstream-survey.md): 'friday commits fnd-04' still lists this commit as untracked: it has no 'Directive:' trailer and touches more than plan docs.; commit e88157fffb023671f97b40eafb599110544f9fa5 (.claude/friday.json): 'friday commits fnd-04' still lists this commit as untracked: it has no 'Directive:' trailer and touches more than plan docs.
 Goal: foundation
 Node: any
 Deliverable: code
@@ -55,3 +55,22 @@ the repo, with no hand-made figure.
 - `git lfs track *`
 
 ## Log
+
+### 2026-11-20
+Commits:
+- 0c6c9bc fnd-04: analysis folder convention in analysis/README.md; ignore build/
+- 25fa072 fnd-04: tools/build_report.py and shared deck template, with tests
+- efd92ec fnd-04: target sets (default.yaml, schema check, tools/targets.py); reports print the set used
+- c6c2652 fnd-04: LFS refused by public fork; reports stay normal git files, documented in reports/README.md
+- 5450efb Plan: fnd-04 analysis source is writeup.md, not report.md (user-approved amendment); repo rule
+- 558144a fnd-04: baseline report (reports/00_baseline.pdf/.pptx); analysis source is writeup.md
+- dfe3a56 fnd-04: document report build and test commands in README.md and CLAUDE.md
+- 934b30b fnd-04: report tables, counts and target set come from build/ and --targets, not typed by hand
+Notes:
+- Step 4 LFS test: tracked reports/*.pdf and reports/*.pptx, staged a 23-byte test object (oid abfaac6fb092...), ran `git lfs push origin --object-id <oid>`.
+- GitHub refused: "@davidmhunt can not upload new objects to public fork davidmhunt/fmcw3-ckflight".
+- Fallback taken: no LFS rules in .gitattributes (removed), test file unstaged and deleted, built reports will be committed as normal git files. Documented in reports/README.md.
+- Nothing was pushed to a branch; only the LFS batch upload was attempted.
+Verify: Verify passed: ./run uv run pytest tests -q && ./run tools/build_report.py analysis/00_baseline --check
+Independent review: not recorded
+Blocked: review gaps remain: commit 221b9d15224d12989546f63041eba5830f351439 (docs/surveys/upstream-survey.md): 'friday commits fnd-04' still lists this commit as untracked: it has no 'Directive:' trailer and touches more than plan docs.; commit e88157fffb023671f97b40eafb599110544f9fa5 (.claude/friday.json): 'friday commits fnd-04' still lists this commit as untracked: it has no 'Directive:' trailer and touches more than plan docs.
