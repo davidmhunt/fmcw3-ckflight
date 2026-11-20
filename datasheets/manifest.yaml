@@ -12,6 +12,15 @@ entries:
   sha256: 99f32ef32c8718f9e1eca4df2b1e93e5e77ecffe9a00dabe31292bd10444d9f4
   licence: TI model terms (provided as is for customer design use); not redistributed here
   commit: 'no'
+- id: ti-pspice-for-ti-installer
+  kind: tool-installer
+  title: PSpice for TI installer (Windows; needs a TI account; user-fetch, never committed)
+  url: https://www.ti.com/tool/PSPICE-FOR-TI
+  access: login
+  file: datasheets/files/ti/pspice-for-ti-installer.zip
+  sha256: ''
+  licence: TI software licence (free with a TI account); not redistributed here
+  commit: 'no'
 - id: ti-lmr51420xf-pspice
   kind: vendor-model
   title: TI LMR51420XF PSpice transient model (SLUM825; TI-encrypted)
