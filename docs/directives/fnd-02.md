@@ -1,5 +1,5 @@
 # fnd-02: Restructure the repo (KiCad project into kicad/, legacy cleanup, one README)
-Status: awaiting review
+Status: done
 Goal: foundation
 Node: any
 Deliverable: code
@@ -154,3 +154,5 @@ Independent review: Independent review: one gap fixed (d34d777, .env rename in c
 Verify: Verify passed: checks/run_checks.sh && test -f kicad/fmcw3.kicad_pcb && test ! -e fmcw3.kicad_pcb && test -z ''(git ls-files '*.lck' fmcw3-backups rescue-backup)'
 Independent review: not recorded
 Blocked: review gaps remain: commit 221b9d15224d12989546f63041eba5830f351439 (docs/surveys/upstream-survey.md): 'friday commits fnd-02' still lists this commit as 'untracked'. It sits in the review range, has no 'Directive: fnd-02' trailer, and changes docs/surveys/upstream-survey.md, which is not a plan doc. Its subject says it belongs to fnd-01: it records the user's Safe-to-delete decisions, which step 3 relies on. Under the review rules any untracked line is a gap.
+
+Accepted by user: 2026-11-20
