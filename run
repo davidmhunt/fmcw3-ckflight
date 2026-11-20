@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+# ./run [--docker|--native] <cmd...>
+# Runs a command in the pinned fmcw3-tools container (repo mounted at /work, caller's uid,
+# .env passed when present) or natively on the host. With no flag: Docker when it is
+# available, otherwise native. The image is built on first use.
+set -euo pipefail
+
+IMAGE=fmcw3-tools
+ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+
+mode=auto
+case "${1:-}" in
+  --docker) mode=docker; shift ;;
+  --native) mode=native; shift ;;
+  -h|--help|"")
+    echo "usage: ./run [--docker|--native] <cmd...>" >&2
+    [ -n "${1:-}" ] && exit 0
+    exit 2 ;;
+  --) shift ;;
+esac
+[ $# -gt 0 ] || { echo "run: no command given" >&2; exit 2; }
+
+docker_ok() { command -v docker >/dev/null 2>&1 && docker info >/dev/null 2>&1; }
+
+if [ "$mode" = auto ]; then
+  if docker_ok; then mode=docker; else
+    echo "run: Docker not available, running natively" >&2
+    mode=native
+  fi
+fi
+
+if [ "$mode" = native ]; then
+  cd "$ROOT"
+  exec "$@"
+fi
+
+docker_ok || { echo "run: --docker requested but Docker is not usable" >&2; exit 1; }
+
+if ! docker image inspect "$IMAGE" >/dev/null 2>&1; then
+  echo "run: building image $IMAGE (first use)" >&2
+  docker build -t "$IMAGE" "$ROOT/docker" >&2
+fi
+
+args=(--rm -u "$(id -u):$(id -g)" -v "$ROOT:/work" -w /work
+      -e GIT_CONFIG_COUNT=1 -e GIT_CONFIG_KEY_0=safe.directory -e GIT_CONFIG_VALUE_0=/work)
+[ -f "$ROOT/.env" ] && args+=(--env-file "$ROOT/.env")
+[ -t 0 ] && [ -t 1 ] && args+=(-it)
+
+exec docker run "${args[@]}" "$IMAGE" "$@"
