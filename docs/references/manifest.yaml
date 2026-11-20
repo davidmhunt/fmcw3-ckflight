@@ -2,4 +2,189 @@
 # Fields: id, kind, title, url (public), access (direct|form|login), file, sha256, licence,
 # commit (yes|no), verified (list of {page, item, quote} read from the downloaded file).
 # commit: no files live under docs/references/files/ (gitignored). Filled by fnd-05 step 9.
-entries: []
+#
+# Each `verified` quote was checked against the downloaded file (pdftotext for PDFs; page is the
+# PDF page index, which equals the printed page number for these files). Equations that pdftotext
+# garbles are cited by the neighbouring sentence instead of the equation glyphs.
+#
+# User-fetch (paywalled; NOT in `entries` because `fetch_sources.py --check` fails on a missing
+# file; add each entry here once the user has saved the file under docs/references/files/):
+#   hammerstad-jensen-1980: E. Hammerstad and O. Jensen, "Accurate Models for Microstrip
+#     Computer-Aided Design", 1980 IEEE MTT-S Int. Microwave Symp. Digest, pp. 407-409,
+#     doi 10.1109/MWSYM.1980.1124303 (IEEE Xplore). Needed for: microstrip Z0 and eps_eff.
+#   simons-cpw-2001: R. N. Simons, "Coplanar Waveguide Circuits, Components, and Systems",
+#     Wiley 2001, ISBN 9780471161219 (book). Needed for: grounded-CPW (CPWG) Z0 and eps_eff.
+#   wadell-1991: B. C. Wadell, "Transmission Line Design Handbook", Artech House 1991
+#     (book). Needed for: independent microstrip and CPWG formulas.
+#   banerjee-pll: D. Banerjee, "PLL Performance, Simulation and Design" (free from the former
+#     National Semiconductor, now TI). No working public URL was found on 2026-11-20 (the
+#     guessed ti.com/lit paths for snaa106 returned 404); TI SWRA029 below is used instead.
+entries:
+- id: ti-slva477c
+  kind: app-note
+  title: Basic Calculation of a Buck Converter's Power Stage (TI SLVA477C, B. Hauke)
+  url: https://www.ti.com/lit/an/slva477/slva477.pdf
+  access: direct
+  file: docs/references/files/ti-slva477c-buck-power-stage.pdf
+  sha256: 7997d9374f72a961c337c455b06b3c227d6333732bb13f078783097057f6a969
+  licence: TI copyright; free download, not redistributed here
+  commit: 'no'
+  covers: buck power stage (duty cycle, inductor ripple, peak switch current, inductor selection)
+  verified:
+  - page: 2
+    item: Equation 1, maximum duty cycle D = VOUT / (VIN(max) x efficiency)
+    quote: The maximum input voltage is used because this leads to the maximum switch current.
+  - page: 2
+    item: Equation 2, inductor ripple current dIL = (VIN(max) - VOUT) x D / (fS x L), fS the minimum switching frequency
+    quote: The next step in calculating the maximum switch current is to determine the inductor ripple current.
+  - page: 3
+    item: Equation 4, peak switch current ISW(max) = dIL/2 + IOUT(max), the inductor must exceed it
+    quote: This is the peak current, the inductor, the integrated switch(es), and the external diode have to withstand.
+  - page: 3
+    item: Equation 5 and 6, inductor value from an estimated ripple of 20 to 40 percent of IOUT
+    quote: A good estimation for the inductor ripple current is 20% to 40% of the output current.
+- id: ti-swra029
+  kind: app-note
+  title: Fractional/Integer-N PLL Basics (TI Technical Brief SWRA029)
+  url: https://www.ti.com/lit/an/swra029/swra029.pdf
+  access: direct
+  file: docs/references/files/ti-swra029-pll-basics.pdf
+  sha256: b3e70686bce698545d88f2afeb4e6f7a63349fb392c345f9fa5797374e3f1652
+  licence: TI copyright; free download, not redistributed here
+  commit: 'no'
+  covers: PLL loop filter (passive 2nd to 4th order), phase margin, phase noise and the 20log(N) rule
+  verified:
+  - page: 15
+    item: composite output phase noise is the sum of all noise sources through their transfer functions
+    quote: The composite phase noise of the signal we generate with our synthesizer can be easily calculated by the sum effect of all noise sources on the output.
+  - page: 22
+    item: Equation 17, impedance of the third-order charge-pump loop filter Z(s)
+    quote: For third order loops, (and higher), we must calculate the loop phase margin, to insure
+  - page: 24
+    item: Equation 20 and 21, open-loop gain and phase margin of the third-order loop
+    quote: The two controlling time constants are now T1=R1C1 and T2= R1C1C2/(C1+C2).
+  - page: 24
+    item: phase margin definition and the 40 to 45 degree target
+    quote: Phase margin is defined as the open loop phase difference from 180 degrees at the frequency at which the open loop amplitude gain is unity.
+  - page: 43
+    item: divider noise rule, 20log(N)
+    quote: multiplication by N causes loss of 20log(N) in phase noise performance; division improves by the same number.
+- id: mitll-radar-equation
+  kind: lecture
+  title: Introduction to Radar Systems, lecture 2, The Radar Equation (MIT Lincoln Laboratory, ODonnell 2002)
+  url: https://www.ll.mit.edu/sites/default/files/outreach/doc/2018-07/lecture%202.pdf
+  access: direct
+  file: docs/references/files/mitll-radar-equation-lecture2.pdf
+  sha256: 8516e0f290c3a5863d84f450d5a3ebb4d159a3ab571f8df94efbdafb01cb639b
+  licence: MIT Lincoln Laboratory courseware, no redistribution grant seen; not redistributed here
+  commit: 'no'
+  covers: radar range equation, S/N = Pt G^2 lambda^2 sigma / ((4 pi)^3 R^4 k Ts Bn L)
+  verified:
+  - page: 10
+    item: noise power N = k Ts Bn and the S/N form of the range equation (equation read from the rendered slide)
+    quote: Average Noise Power N = k Ts Bn
+  - page: 10
+    item: S/N is the detection measure
+    quote: Signal to Noise Ratio (S/N or SNR) is the standard measure of a radar’s ability to detect a given target at a given range from the radar
+- id: wikipedia-friis-noise
+  kind: encyclopedia
+  title: Friis formulas for noise (Wikipedia, revision 1264867328, 2024-12-23, wikitext)
+  url: https://en.wikipedia.org/w/index.php?title=Friis_formulas_for_noise&oldid=1264867328&action=raw
+  access: direct
+  file: docs/references/files/wikipedia-friis-formulas-for-noise-1264867328.wikitext
+  sha256: a8996f318b26a5af7424fd1a4dcbd2a76ac9fb58b3d3cacb65d3692ba15c6a7c
+  licence: CC BY-SA 4.0 (Wikipedia contributors); secondary source, fetched at a fixed revision
+  commit: 'no'
+  covers: Friis cascade noise factor and noise temperature; a primary text (Pozar, Kraus) is still preferable
+  verified:
+  - page: section The Friis formula for noise factor
+    item: F_total = F1 + (F2-1)/G1 + (F3-1)/(G1 G2) + ... , factors and gains as ratios
+    quote: Both magnitudes are expressed as ratios, not in decibels.
+  - page: section The Friis formula for noise temperature
+    item: T_eq = T1 + T2/G1 + T3/(G1 G2) + ...
+    quote: T_\text{eq} = T_1 + \frac{T_2}{G_1} + \frac{T_3}{G_1 G_2} + \cdots
+- id: minicircuits-an00-009
+  kind: app-note
+  title: Understanding Mixers - Terms Defined, and Measuring Performance (Mini-Circuits AN-00-009 Rev A)
+  url: https://www.minicircuits.com/app/AN00-009.pdf
+  access: direct
+  file: docs/references/files/minicircuits-an00-009-understanding-mixers.pdf
+  sha256: 500a68a6a32fb330a80e45def376ca3a09094f643514e16308a6fb3eec2cb706
+  licence: Mini-Circuits copyright; free download, not redistributed here
+  commit: 'no'
+  covers: mixing products and spurs (two-tone third-order IM frequencies, IP3, rule-of-thumb IM level)
+  verified:
+  - page: 3
+    item: third-order IM product frequencies at the IF
+    quote: The third-order spectral components at the IF output are generated as a result of the following third-order frequency terms
+  - page: 5
+    item: output IP3 from the IM3 suppression, referred to the input by adding conversion loss
+    quote: IP3 (dBm) = |IM3 - POUT| (dB) / 2 + POUT (dBm)
+  - page: 6
+    item: rule-of-thumb IM level, worked example giving -62 dBm at the input
+    quote: Intermodulation power equals +16 dBm − 78 dB = -62 dBm, referred to the input.
+- id: minicircuits-an00-011
+  kind: app-note
+  title: Frequently asked questions about mixers (Mini-Circuits AN-00-011)
+  url: https://www.minicircuits.com/app/AN00-011.pdf
+  access: direct
+  file: docs/references/files/minicircuits-an00-011-mixer-faq.pdf
+  sha256: 6774218b5a18383b7a07833cc76b89784e216bb3c9fa618ea876cf7ee68f1cdc
+  licence: Mini-Circuits copyright; free download, not redistributed here
+  commit: 'no'
+  covers: mixing products, the (m x LO) +/- (n x RF) harmonics table
+  verified:
+  - page: 1
+    item: mixer spur products are specified as (m x LO) +/- (n x RF) in a harmonics table
+    quote: Harmonics table on the website shows its (m × LO) ± (n × RF) products will meet my design requirements.
+- id: wikipedia-microstrip
+  kind: encyclopedia
+  title: Microstrip (Wikipedia, revision 1356129625, 2026-05-25, wikitext)
+  url: https://en.wikipedia.org/w/index.php?title=Microstrip&oldid=1356129625&action=raw
+  access: direct
+  file: docs/references/files/wikipedia-microstrip-1356129625.wikitext
+  sha256: 95152052354062a16c6f14a3cd8cd0b96f0fa2bdd481e23a254cd59c30a89d07
+  licence: CC BY-SA 4.0 (Wikipedia contributors); secondary source, fetched at a fixed revision
+  commit: 'no'
+  covers: microstrip Z0 and eps_eff closed forms (Wheeler, Hammerstad 1975); Hammerstad-Jensen 1980 is user-fetch
+  verified:
+  - page: section Characteristic impedance
+    item: Hammerstad 1975 Z0 for w/h <= 1, citing Garg, Bahl and Bozzi p. 95
+    quote: \dfrac{Z_0}{2 \pi \sqrt{\varepsilon_\textrm{eff}}} \ln\left( 8 \dfrac{h}{w} + \dfrac{w}{4h} \right)
+  - page: section Characteristic impedance
+    item: effective dielectric constant filling factor q
+    quote: q &= \frac{1}{ \sqrt{1 + 12 (h/w)} } + q_2
+- id: kicad-10.0.5-microstrip
+  kind: source-code
+  title: KiCad 10.0.5 PCB Calculator, microstrip (common/transline_calculations/microstrip.cpp)
+  url: https://raw.githubusercontent.com/KiCad/kicad-source-mirror/10.0.5/common/transline_calculations/microstrip.cpp
+  access: direct
+  file: docs/references/files/kicad-10.0.5-microstrip-calcs.cpp
+  sha256: bbc553dd9f74217b868d3025e10a418df2b9bd898e9ad20bc8fc421e86a2a277
+  licence: GPL-2.0-or-later (file header); not committed here
+  commit: 'no'
+  covers: the KiCad calculator microstrip Z0 the user compares against by hand; implementation reference, not a derivation
+  verified:
+  - page: function MICROSTRIP::Z0_homogeneous
+    item: static Z0 of a homogeneous microstrip. The code cites no paper; that these constants are the Hammerstad-Jensen 1980 f(u) is not confirmed until that paper is fetched
+    quote: const double freq = 6.0 + ( 2.0 * M_PI - 6.0 ) * exp( -pow( 30.666 / u, 0.7528 ) );
+  - page: function MICROSTRIP::SynthesizeWidth
+    item: closed-form width for a target Z0 (wide-line branch when a > 1.52)
+    quote: if( a > 1.52 )
+- id: kicad-10.0.5-coplanar
+  kind: source-code
+  title: KiCad 10.0.5 PCB Calculator, coplanar waveguide and grounded CPW (pcb_calculator/transline/coplanar.cpp)
+  url: https://raw.githubusercontent.com/KiCad/kicad-source-mirror/10.0.5/pcb_calculator/transline/coplanar.cpp
+  access: direct
+  file: docs/references/files/kicad-10.0.5-coplanar.cpp
+  sha256: 940f864d0b196867ff8611e45ce8b03feefc69c26b73991fe4c657cf82564e44
+  licence: GPL-2.0-or-later (file header); not committed here
+  commit: 'no'
+  covers: conductor-backed CPW (CPWG) Z0 and eps_eff by elliptic-integral ratios; implementation reference, no paper cited in the file
+  verified:
+  - page: function COPLANAR::calcAnalyze, backMetal branch
+    item: k3 from tanh terms, q3 = K(k3)/K(k3'), qz = 1/(q1+q3), er0 = 1 + q3 qz (er-1), Z factor ZF0/2 qz
+    quote: er0       = 1 + q3 * qz * ( m_parameters[EPSILONR_PRM] - 1 );
+  - page: function COPLANAR::calcAnalyze
+    item: first modulus k1 = w / (w + 2s), q1 = K(k1)/K(k1')
+    quote: q1   = kk1 / kpk1;
