@@ -33,11 +33,14 @@ stays on `kicad-cli` in Docker (`./run`).
   - `ipc` when KiCad has the project open (default `kicad/fmcw3.kicad_pro`);
   - `closed` when no KiCad process runs;
   - `other` when KiCad runs without this project or the API does not answer.
-- **`show --refs R... --nets N... [--pcb]`** selects those items in the PCB Editor, so you can see
-  what is being discussed.
+- **`show --refs R... --nets N... [--pcb | --sch]`** selects those items so you can see what is
+  being discussed. On KiCad 10 it selects on the board only, and prints a note that the schematic
+  was skipped. An explicit `--sch` fails with a clear error.
 - **`set-fields CSV [--dry-run]`** sets schematic symbol fields as one commit and never saves. It is
   for KiCad 11. On KiCad 10 it refuses, including `--dry-run`, because reading symbols also needs
-  the schematic API (see below).
+  the schematic API (see below). It has never run against a real schematic. KiCad 11 also needs
+  a new `kicad-python` pin: 0.8.0 (API 10.0.6) would refuse a KiCad 11 session, and its
+  schematic module does not import.
 - Any future board edit goes through `begin_board_commit()` in the tool, which refuses while the
   Schematic Editor is open.
 
@@ -48,6 +51,16 @@ Schematic Editor is open, because KiCad freezes otherwise (see below).
 
 The trial ran on a scratch copy, `runs/fnd-06/scratch/`, with you watching. Each operation ran
 as its own command with a timeout.
+
+The planned step, a test field `IPC_TEST` on R13 set through `set-fields` in the schematic, was
+impossible on KiCad 10. Two board edits were made in its place:
+- a board text change, undone with Ctrl+Z, which you confirmed;
+- R13's footprint Value changed to `IPC_TEST` with only the PCB Editor open. It was not undone
+  separately: KiCad then quit during the next test (with the Schematic Editor open), so the
+  unsaved change was discarded.
+
+The scratch files on disk stayed byte-identical to `kicad/` throughout, because nothing was ever
+saved.
 
 | Operation | Editor | PCB Editor only | Schematic Editor also open |
 |---|---|---|---|

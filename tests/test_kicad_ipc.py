@@ -42,6 +42,26 @@ def K11(**kw):
     return FakeKiCad(kicad=(11, 0, 0), api=(11, 0, 0), **kw)
 
 
+@pytest.mark.parametrize("version,argv,want", [
+    ((10, 0, 5), [], dict(sch=False, pcb=True)),          # default: board only on KiCad 10
+    ((10, 0, 5), ["--pcb"], dict(sch=False, pcb=True)),
+    ((10, 0, 5), ["--sch"], dict(sch=True, pcb=False)),   # explicit: let it fail clearly
+    ((11, 0, 0), [], dict(sch=True, pcb=True)),           # KiCad 11: both editors
+])
+def test_show_cli_defaults_to_board_below_kicad_11(monkeypatch, capsys, version, argv, want):
+    got = {}
+    monkeypatch.setattr(k, "connect", lambda: FakeKiCad(kicad=version, api=version))
+
+    def fake_show(kicad, refs, nets, *, sch, pcb):
+        got.update(sch=sch, pcb=pcb)
+        return {}
+    monkeypatch.setattr(k, "show", fake_show)
+    assert k.main(["show", "--refs", "U30", *argv]) == 0
+    assert got == want
+    if version[0] < 11 and not argv:
+        assert "schematic selection skipped" in capsys.readouterr().out
+
+
 def doc_for(project):
     p = Path(project)
     return NS(project=NS(path=str(p), name=p.stem))

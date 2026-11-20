@@ -324,7 +324,14 @@ def main(argv: Sequence[str] | None = None) -> int:
     try:
         kicad = connect()
         if a.cmd == "show":
-            res = show(kicad, a.refs, a.nets, sch=not a.pcb, pcb=not a.sch)
+            # Below KiCad 11 there is no schematic API: default to the board only, and let an
+            # explicit --sch fail with a clear error instead of after a partial selection.
+            major = _vtuple(kicad.get_version())[0]
+            want_sch = not a.pcb and (a.sch or major >= 11)
+            if not a.pcb and not a.sch and major < 11:
+                print(f"note: schematic selection skipped (no schematic API before KiCad 11; "
+                      f"this is KiCad {major})")
+            res = show(kicad, a.refs, a.nets, sch=want_sch, pcb=not a.sch)
             for editor, found in res.items():
                 for key, ids in found.items():
                     print(f"{editor} {key}: {len(ids)} item(s)")
