@@ -10,6 +10,12 @@ review-plan Phases 2, 3, 6 and 7. Smoke tests ran on 2026-11-20 in the `fmcw3-si
 - LTspice 26.1.1 under Wine, driven through spicelib 1.6.4 (installed at image build; the
   installer is downloaded there and never committed).
 
+GUI route: `./run --sim-gui <cmd>` runs a command in this image with a window on your X11
+desktop, and `./run --sim-gui ltspice [file]` starts LTspice under Wine, opening an `.asc` or
+`.net` file from the repo (X access for your own user only, revoked on exit; `--print` shows the
+docker command). See `docs/setup.md`. LTspice's interactive plot is therefore available to you;
+batch runs still go through spicelib.
+
 The first build takes about 25 minutes (the image is about 7 GB). The candidate survey and raw
 outputs are in `runs/fnd-05/notes.md`, which is untracked.
 

@@ -35,6 +35,21 @@ Windows) and run `git lfs install`; then `git lfs pull` in any checkout that has
 
 With no flag, `./run` uses Docker when it is usable and falls back to native otherwise.
 
+### GUI tools from the sim container (`--sim-gui`)
+
+`./run --sim-gui <cmd>` runs a command in the `fmcw3-sim` image with a window on your desktop
+(an X11 session, `DISPLAY` set; it needs `xhost`, package `x11-xserver-utils`). It mounts
+`/tmp/.X11-unix`, passes `DISPLAY`, runs as your uid like `./run`, and grants X access only to your
+own user (`xhost +SI:localuser:<user>`), revoked when the command exits. It never runs `xhost +`.
+
+```
+./run --sim-gui ltspice                          # LTspice under Wine
+./run --sim-gui ltspice tests/sim/rc_lowpass.cir # open a netlist (.asc or .net/.cir) from the repo
+./run --sim-gui --print ltspice                  # show the docker command, run nothing
+```
+
+The file must be inside the repo. `tests/test_run_sim_gui.py` checks the printed command.
+
 ## 3. Native path
 
 ### KiCad 10.0.5 on Ubuntu
