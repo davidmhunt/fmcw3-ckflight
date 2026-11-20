@@ -31,6 +31,8 @@ fi
 
 if [ "$mode" = native ]; then
   cd "$ROOT"
+  # A host PYTHONPATH (e.g. ROS) leaks site-packages into pytest/uv and breaks plugin loading.
+  unset PYTHONPATH
   exec "$@"
 fi
 

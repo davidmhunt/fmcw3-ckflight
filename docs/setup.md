@@ -69,7 +69,9 @@ curl -LsSf https://astral.sh/uv/install.sh | sh     # or: pipx install uv
 uv sync                                              # creates .venv from pyproject.toml/uv.lock
 ```
 
-`./run uv run pytest tests -q` then runs the tests natively (`--native`) or in Docker.
+`./run uv run pytest tests -q` then runs the tests natively (`--native`) or in Docker. The native
+branch of `./run` unsets `PYTHONPATH` so a host ROS or similar install cannot leak into pytest. If
+pytest reports that `/tmp/pytest-of-$USER` is not owned by you, remove it or pass `--basetemp=DIR`.
 
 ### Running the checks natively
 
