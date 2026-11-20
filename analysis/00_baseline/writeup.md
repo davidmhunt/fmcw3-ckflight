@@ -61,7 +61,7 @@ resolution as part of the BOM work.
 
 # 5. Open decisions for the user
 
-1. Target values: confirm the default set or give your own. Evidence: all 9 are assumed.
+1. Target values: confirm the default set or give your own. Evidence: every value is assumed.
    Recommendation: set them before `rf-review` starts; this report is unaffected.
 2. Triage: approve goal `layout-review` to give each type above a disposition.
    Recommendation: approve; start with the 5 errors and the U40 WP/HOLD pins.

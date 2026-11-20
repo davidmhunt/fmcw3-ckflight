@@ -5,8 +5,10 @@ usage: build_report.py <analysis dir> [--targets NAME] [--check] [--out DIR]
 
 Runs <dir>/figures.py (cwd = the analysis dir, env FMCW_TARGETS = target set name), then
 --check: validates deck.yaml and writeup.md references and text fit, builds nothing;
-otherwise: builds the PDF with pandoc and the deck with python-pptx.
-Run through ./run so pandoc and LaTeX are available.
+otherwise: builds the PDF with pandoc, the deck with python-pptx and the deck as a PDF
+(reports/NN_name_ppt.pdf) with LibreOffice Impress headless. A targets slide (design targets
+first) follows the title slide of every deck. Run through ./run so pandoc, LaTeX and
+LibreOffice are available.
 """
 from __future__ import annotations
 
@@ -18,6 +20,7 @@ import re
 import shutil
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 import yaml
@@ -89,7 +92,7 @@ def check_report(adir: Path, ts: dict | None = None) -> list[str]:
         if not (adir / ref).exists():
             errs.append(f"writeup.md: unresolved reference {ref}")
     try:
-        expand_report(text, adir / "build", ts or {"name": "?", "parameters": {}})
+        expand_report(text, adir / "build", ts or {"name": "?"})
     except ValueError as e:
         errs.append(f"writeup.md: {e}")
     return errs
@@ -118,7 +121,9 @@ def expand_report(text: str, build: Path, ts: dict) -> str:
     def sub(m: re.Match) -> str:
         kind, arg = m.group(1), m.group(2)
         if kind == "targets":
-            return f"Target set used: {tg.describe(ts)}.\n\n{tg.format_table(ts)}" if ts["parameters"] else ""
+            return (f"Target set used: {tg.describe(ts)}. Design targets first, then performance "
+                    f"targets; range resolution is derived, not set.\n\n{tg.format_table(ts)}"
+                    if ts.get("design") else "")
         if kind == "table" and arg:
             f = build / arg
             if not f.is_file():
@@ -152,6 +157,50 @@ def build_pptx(slides: list[dict], build: Path, out: Path) -> None:
     prs.save(str(out))
 
 
+TARGETS_CSV = "targets_design.csv"
+PERF_CSV = "targets_performance.csv"
+
+
+def with_targets_slide(slides: list[dict], build: Path, ts: dict) -> list[dict]:
+    """Write the target tables into build/ and put a design-targets slide (with the derived
+    range resolution), then a performance-targets slide if the set has any, right after the
+    title slide, so the design targets are printed first in every deck."""
+    build.mkdir(exist_ok=True)
+    for name, groups in ((TARGETS_CSV, ("design", "derived")), (PERF_CSV, ("performance",))):
+        with open(build / name, "w", newline="") as f:
+            csv.writer(f).writerows(tg.rows(ts, groups))
+    if any(s.get("table") == TARGETS_CSV for s in slides):
+        return slides
+    new = [{"layout": "table", "title": f"Design targets: {ts['name']}", "table": TARGETS_CSV,
+            "note": f"{tg.describe(ts)}. Range resolution is derived from the bandwidth, not set."}]
+    if ts.get("performance"):
+        new.append({"layout": "table", "title": f"Performance targets: {ts['name']}", "table": PERF_CSV,
+                    "note": "Optional extras, printed after the design targets."})
+    at = 1 if slides and slides[0].get("layout") == "title" else 0
+    return slides[:at] + new + slides[at:]
+
+
+def soffice_bin() -> str | None:
+    return shutil.which("soffice") or shutil.which("libreoffice")
+
+
+def build_deck_pdf(pptx: Path, out: Path) -> None:
+    """Export the deck to a PDF with LibreOffice Impress headless (out = reports/NN_name_ppt.pdf)."""
+    exe = soffice_bin()
+    if not exe:
+        raise SystemExit("error: soffice not found (LibreOffice Impress; run through ./run)")
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp_p = Path(tmp)
+        r = subprocess.run(
+            [exe, f"-env:UserInstallation={(tmp_p / 'profile').as_uri()}", "--headless",
+             "--convert-to", "pdf", "--outdir", str(tmp_p), str(pptx)],
+            capture_output=True, text=True)
+        produced = tmp_p / (pptx.stem + ".pdf")
+        if r.returncode or not produced.is_file():
+            raise SystemExit(f"error: LibreOffice export failed ({r.returncode}): {r.stderr.strip()}")
+        shutil.move(str(produced), str(out))
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("analysis_dir")
@@ -171,8 +220,10 @@ def main(argv: list[str] | None = None) -> int:
     print(tg.format_table(ts))
     run_figures(adir, a.targets)
     build = adir / "build"
-    slides = load_deck(adir)
+    slides = with_targets_slide(load_deck(adir), build, ts)
     errs = check_deck(slides, build) + check_report(adir, ts)
+    if a.check and not soffice_bin():
+        errs.append("soffice not found: the deck PDF export needs LibreOffice Impress (run through ./run)")
     if errs:
         print("check failed:", file=sys.stderr)
         for e in errs:
@@ -185,7 +236,9 @@ def main(argv: list[str] | None = None) -> int:
     out.mkdir(parents=True, exist_ok=True)
     build_pdf(adir, out / f"{adir.name}.pdf", ts)
     build_pptx(slides, build, out / f"{adir.name}.pptx")
-    print(f"built {out / (adir.name + '.pdf')} and {out / (adir.name + '.pptx')}")
+    build_deck_pdf(out / f"{adir.name}.pptx", out / f"{adir.name}_ppt.pdf")
+    print(f"built {out / (adir.name + '.pdf')}, {out / (adir.name + '.pptx')} "
+          f"and {out / (adir.name + '_ppt.pdf')}")
     return 0
 
 

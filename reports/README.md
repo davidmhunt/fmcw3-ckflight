@@ -1,11 +1,14 @@
 # reports/
 
-Built report PDFs and `.pptx` decks for the analyses in `analysis/`. ERC/DRC output lives in
-`checks/`, not here.
+Built report PDFs, `.pptx` decks and deck PDFs for the analyses in `analysis/`. ERC/DRC output
+lives in `checks/`, not here. Each analysis `NN_name` builds `NN_name.pdf` (the write-up),
+`NN_name.pptx` (the deck) and `NN_name_ppt.pdf` (the deck exported by LibreOffice Impress
+headless, in the `fmcw3-tools` image).
 
 ## Built locally, never committed
 
-`reports/*.pdf` and `reports/*.pptx` are gitignored. Git LFS was tried and refused (`origin` is
+`reports/*.pdf` and `reports/*.pptx` are gitignored (so is `NN_name_ppt.pdf`, and LibreOffice
+`.~lock*` files). Git LFS was tried and refused (`origin` is
 a public fork, and GitHub rejects LFS uploads to it), and binaries do not belong in normal git
 history, so the sources are committed and the outputs are rebuilt on demand.
 

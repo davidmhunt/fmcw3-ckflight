@@ -7,6 +7,7 @@ RUN apt-get update \
  && apt-get install -y --no-install-recommends \
       python3 python3-venv python3-pip pandoc git git-lfs ca-certificates curl \
       texlive-latex-base texlive-latex-recommended texlive-fonts-recommended lmodern \
+      libreoffice-impress fonts-dejavu-core \
  && rm -rf /var/lib/apt/lists/*
 
 # uv, installed from PyPI into a system location.

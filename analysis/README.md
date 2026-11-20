@@ -27,7 +27,9 @@ Every report starts with these five sections, in this order:
 
 1. Question: what the analysis answers, in one or two sentences.
 2. Inputs and assumptions: the target set name (`analysis/targets/<name>.yaml`) and its values as
-   used, plus any other input and its source. Values still marked `assumed` are said to be so.
+   used (`{{targets}}` prints them: design group first, then performance, with range resolution
+   shown as derived), plus any other input and its source. Values still marked `assumed` are
+   said to be so. Every deck gets design and performance target slides right after the title.
 3. Method: how the answer is computed, short enough to be repeated by hand.
 4. Findings: results, referencing figures and tables from `build/`.
 5. Open decisions for the user: each decision, the options, the evidence and a recommendation.

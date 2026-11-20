@@ -32,7 +32,7 @@ Reports and decks (convention in `analysis/README.md`, target sets in `analysis/
 Built `reports/*.pdf` and `.pptx` are gitignored: built locally, never committed.
 
 ```
-./run tools/build_report.py analysis/00_baseline                    # build reports/00_baseline.pdf and .pptx
+./run tools/build_report.py analysis/00_baseline                    # build reports/00_baseline.pdf, .pptx and _ppt.pdf (deck as PDF)
 ./run tools/build_report.py analysis/00_baseline --targets NAME     # use analysis/targets/NAME.yaml
 ./run tools/build_report.py analysis/00_baseline --check            # figures, references, slide overflow
 ./run tools/build_all.py [--check]                                  # rebuild every analysis with a deck.yaml

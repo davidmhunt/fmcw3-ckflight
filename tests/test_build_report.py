@@ -82,7 +82,7 @@ def test_expand_targets_table_and_fact(tmp_path):
     (tmp_path / "facts.json").write_text('{"n": 7}')
     ts = tg.load("default")
     out = br.expand_report("{{targets}}\n\n{{table:t.csv}}\n\nn={{fact:n}}", tmp_path, ts)
-    assert "max_range_m" in out and tg.describe(ts) in out
+    assert "max_range_m" in out and tg.describe(ts) in out and "range_resolution_m" in out
     assert "| 1 | x\\|y |" in out and "n=7" in out
 
 
@@ -114,7 +114,7 @@ def test_build_pptx(fixture, tmp_path):
     out.mkdir()
     br.build_pptx(br.load_deck(fixture), fixture / "build", out / "x.pptx")
     prs = Presentation(str(out / "x.pptx"))
-    assert len(prs.slides) == 5
+    assert len(prs.slides) == 5  # build_pptx draws exactly the slides it is given
     assert prs.slide_width / prs.slide_height == pytest.approx(16 / 9, rel=1e-3)
     assert prs.slides[1].notes_slide.notes_text_frame.text == "hello"
 
@@ -125,3 +125,4 @@ def test_full_build(fixture, tmp_path):
     assert br.main([str(fixture), "--out", str(out)]) == 0
     assert (out / "99_fix.pdf").stat().st_size > 0
     assert (out / "99_fix.pptx").stat().st_size > 0
+    assert (out / "99_fix_ppt.pdf").stat().st_size > 0

@@ -10,7 +10,7 @@ slides:
     bullets:
       - "Question: what is the state of the board as inherited?"
       - "Input: checks/baseline.json (KiCad 10.0.5, native run)"
-      - "Target set: default, 9 of 9 values assumed; no result here depends on them"
+      - "Target set: default, all values assumed (targets slides follow); no result here depends on them"
       - "Upstream is not ERC/DRC clean; nothing has been fixed yet"
     note: The gate in checks/run_checks.sh passes when errors are not above this baseline.
   - layout: table

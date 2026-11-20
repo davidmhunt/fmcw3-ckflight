@@ -18,6 +18,8 @@ analysis/*/build/
 # built reports and decks: rebuilt locally, never committed (tools/build_all.py)
 reports/*.pdf
 reports/*.pptx
+# LibreOffice lock files
+.~lock*
 
 # KiCad local state
 fp-info-cache
