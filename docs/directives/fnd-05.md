@@ -4,7 +4,7 @@ Goal: foundation
 Node: any
 Deliverable: doc
 Accept: user
-Verify: test -s docs/analysis-tools.md && grep -q '^## Verdict' docs/analysis-tools.md && grep -q '^## Tools the user must obtain' docs/analysis-tools.md && ./run uv run pytest tests/test_sim_smoke.py -q
+Verify: ./run --sim python3 -m pytest tests/test_sim_smoke.py -q && ./run uv run pytest tests -q && ./run tools/fetch_sources.py --check
 Hardware: none
 
 ## Goal
@@ -35,6 +35,62 @@ analysis backed by a smoke test that was actually run, and lists anything the us
    registration-walled, with the link and what it is needed for).
 4. Propose amendments to the `sim-spurs` and `rf-review` directives that follow from the
    verdict, as a list at the end of the doc. Do not edit those directives here.
+5. (Steps 5 to 11 are an amendment the user approved on 2026-11-20 after the first review.
+   Prefer validated tools: industry or vendor tools first, and the repo's own code only where
+   none fits, each piece backed by a downloaded and checked source.)
+   Sources pipeline. `tools/fetch_sources.py` reads two manifests:
+   - `datasheets/manifest.yaml` for datasheets and vendor models;
+   - `docs/references/manifest.yaml` for papers, textbooks, app notes and documents.
+
+   Each entry has: id, kind, title, a public `url` (so other repos can fetch the same file),
+   `access` (`direct`, `form` or `login`), file path, sha256, licence, and `commit: yes/no`.
+   Reference entries also have `verified:` items (page, the equation or worked example, a short
+   quote), filled in by reading the downloaded file.
+
+   The script downloads `direct` entries, prints a to-do list with links for `form` and `login`
+   entries for the user, and stores files under gitignored paths unless the licence allows
+   committing. `--check` fails on a missing file, a hash mismatch, or a reference with no
+   `verified` item. Add `tests/test_sources.py` with fixtures (no network).
+
+   This pipeline replaces par-02's planned manifest format; par-02 fills it for the critical parts.
+6. `./run --sim <cmd>`: run the command in the `fmcw3-sim` image with the repo mounted, the same
+   way `./run` runs `fmcw3-tools`. `tests/test_sim_smoke.py` must pass through it, not skip.
+7. LTspice through `spicelib` under Wine, in `fmcw3-sim`. Install LTspice non-interactively at
+   image build, downloading the installer there and never committing it. Smoke tests:
+   - an RC low-pass run through `spicelib` and LTspice, matching the formula;
+   - an ADI model from LTspice's bundled library, or LT6232 if the user has supplied it through
+     the manifest, running in LTspice;
+   - one TI PSpice-format model (public, or the user's LMR51420, LP5907 or LD3920 zip) running
+     in both LTspice and ngspice, with the two results compared.
+
+   The last test settles circuits where ADI and TI parts interact, for example a TI LDO feeding
+   an ADI op-amp or VCO. These run in LTspice if TI models run there. Record pass or fail with the
+   error text.
+8. Wine trials for ADIsimPLL, ADIsimRF and Saturn PCB Toolkit: download (or list as user-fetch),
+   install unattended under xvfb, and record whether each installs and whether it has any batch
+   or command-line mode. For a GUI-only tool, write a short checklist the user follows (inputs,
+   and the outputs to record in the repo). Record the JLCPCB online impedance calculator as the
+   fab's own reference for its stackups (browser, user-run).
+9. References. For each calculation the later analyses implement themselves (microstrip and
+   grounded-CPW impedance, the Friis cascade, the radar range equation, the buck power stage, PLL
+   loop filter and phase noise, mixing products and spurs), add at least one source to
+   `docs/references/manifest.yaml`. Prefer free downloads (TI SLVA477, Banerjee's "PLL
+   Performance, Simulation and Design", ADI and Mini-Circuits app notes). List paywalled ones,
+   such as Hammerstad and Jensen 1980, as user-fetch. Fetch each one and fill in its `verified`
+   items from the file itself.
+10. `tests/test_analysis_tools_doc.py`: `docs/analysis-tools.md` has `## Verdict`,
+    `## Tools the user must obtain` and `## References`, and every manifest id cited in it exists
+    in a manifest. This is a test, not a grep in Verify, because the `bash_file_io` hook denies a
+    Verify line that reads files (friday issue #33).
+11. Update `docs/analysis-tools.md` with Edit (the file exists; Claude Code refuses subagent Write
+    of report-style files):
+    - rows for spicelib and LTspice, ADIsimPLL, ADIsimRF, Saturn, the JLCPCB calculator, and
+      commercial full-wave solvers (CST, HFSS) with what they would add over openEMS;
+    - the Verdict, now preferring validated tools: LTspice for ADI-model and mixed ADI+TI
+      circuits, ngspice for TI-only circuits, vendor and fab calculators as references, and the
+      repo's own code only for sweeps those tools cannot do, each tied to a reference id;
+    - `## References` listing manifest ids, links and verified pages;
+    - updated user-fetch items and amendments.
 
 ## Acceptance
 - Every tool named in review-plan Phases 3 and 6 (LTspice, TI WEBENCH, TI PSpice model,
@@ -43,6 +99,19 @@ analysis backed by a smoke test that was actually run, and lists anything the us
   and output in the doc.
 - `## Verdict` names exactly one primary tool per analysis and says why.
 - `## Tools the user must obtain` is present, even if it says none.
+- LTspice through `spicelib` has a pass backed by a test in `tests/test_sim_smoke.py`, or a fail
+  with its error text.
+- The verdict for mixed ADI and TI circuits names one engine and is backed by the cross-engine
+  TI model test or a stated failure.
+- Every entry in `## References` has a manifest id and a public link, and the manifest has at
+  least one `verified` item for it that was read from the downloaded file.
+- ADIsimPLL, ADIsimRF and Saturn PCB Toolkit each have a row with an install result, and CST or
+  HFSS has a row comparing it with openEMS.
+
+## Rules
+- Never commit an installer, a vendor model or a PDF whose licence does not allow it.
+- A reference counts only after it has been downloaded and checked against the file, never from
+  memory.
 
 ## Review
 - Open `docs/analysis-tools.md`, `## Verdict` and `## Tools the user must obtain`: do you accept
