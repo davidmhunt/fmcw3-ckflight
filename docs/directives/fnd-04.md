@@ -15,12 +15,13 @@ the repo, with no hand-made figure.
 
 ## Steps
 1. Convention, documented in `analysis/README.md`: each analysis is `analysis/NN_name/` with
-   `report.md` (the full write-up), `deck.yaml` (slide list: title, bullets, figure or table
+   `writeup.md` (the full write-up; not `report.md`, which Claude Code refuses to let subagents
+   write; amendment approved by the user 2026-11-20), `deck.yaml` (slide list: title, bullets, figure or table
    reference, speaker note), `figures.py` (regenerates every figure and table into `build/`,
    gitignored) and optional data files. Every report starts with: question, inputs and
    assumptions (target set name and values), method, findings, open decisions for the user.
 2. `tools/build_report.py <analysis dir> [--targets NAME] [--check]`: runs `figures.py`, builds
-   `reports/NN_name.pdf` from `report.md` with pandoc, and `reports/NN_name.pptx` from
+   `reports/NN_name.pdf` from `writeup.md` with pandoc, and `reports/NN_name.pptx` from
    `deck.yaml` with python-pptx using one shared 16:9 template (`tools/deck_template.py`:
    title, bullet, figure, table and "decisions needed" layouts). `--check` fails on a missing
    figure, an unresolved reference, or text that overflows a slide's text box (estimate from
