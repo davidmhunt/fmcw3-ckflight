@@ -1,5 +1,5 @@
 # fnd-04: Report and deck pipeline with target sets and a baseline report
-Status: blocked: review gaps remain: commit 221b9d15224d12989546f63041eba5830f351439 (docs/surveys/upstream-survey.md): 'friday commits fnd-04' still lists this commit as untracked: it has no 'Directive:' trailer and touches more than plan docs.; commit e88157fffb023671f97b40eafb599110544f9fa5 (.claude/friday.json): 'friday commits fnd-04' still lists this commit as untracked: it has no 'Directive:' trailer and touches more than plan docs.
+Status: approved
 Goal: foundation
 Node: any
 Deliverable: code
@@ -74,3 +74,6 @@ Notes:
 Verify: Verify passed: ./run uv run pytest tests -q && ./run tools/build_report.py analysis/00_baseline --check
 Independent review: not recorded
 Blocked: review gaps remain: commit 221b9d15224d12989546f63041eba5830f351439 (docs/surveys/upstream-survey.md): 'friday commits fnd-04' still lists this commit as untracked: it has no 'Directive:' trailer and touches more than plan docs.; commit e88157fffb023671f97b40eafb599110544f9fa5 (.claude/friday.json): 'friday commits fnd-04' still lists this commit as untracked: it has no 'Directive:' trailer and touches more than plan docs.
+
+### 2026-11-20
+Unblocked: was blocked: review gaps remain: commit 221b9d15224d12989546f63041eba5830f351439 (docs/surveys/upstream-survey.md): 'friday commits fnd-04' still lists this commit as untracked: it has no 'Directive:' trailer and touches more than plan docs.; commit e88157fffb023671f97b40eafb599110544f9fa5 (.claude/friday.json): 'friday commits fnd-04' still lists this commit as untracked: it has no 'Directive:' trailer and touches more than plan docs.
