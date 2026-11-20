@@ -20,6 +20,7 @@ both pass on a fresh clone following `docs/setup.md`.
 6. fnd-06: KiCad IPC client and a live trial with the user watching
 7. fnd-07: Switch the KiCad editing rules to IPC-when-open
 8. fnd-08: LTspice GUI from the sim container, and PSpice for TI under Wine
+9. fnd-09: Workspace manual (MANUAL.md) and a rule that keeps it current
 
 ## Roadmap
 This is the first of five goals, each one PR into `falcon_development`; a single PR from
