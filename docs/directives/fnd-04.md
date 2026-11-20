@@ -1,5 +1,5 @@
 # fnd-04: Report and deck pipeline with target sets and a baseline report
-Status: approved
+Status: awaiting review
 Goal: foundation
 Node: any
 Deliverable: code
@@ -107,3 +107,22 @@ Rejected by user: 2026-11-20 Amended step 7: built reports not committed, rebuil
 
 ### 2026-11-20
 Unblocked: was blocked: Amended step 7: built reports not committed, rebuild by script
+
+### 2026-11-20
+Commits:
+- 0c6c9bc fnd-04: analysis folder convention in analysis/README.md; ignore build/
+- 25fa072 fnd-04: tools/build_report.py and shared deck template, with tests
+- efd92ec fnd-04: target sets (default.yaml, schema check, tools/targets.py); reports print the set used
+- c6c2652 fnd-04: LFS refused by public fork; reports stay normal git files, documented in reports/README.md
+- 5450efb Plan: fnd-04 analysis source is writeup.md, not report.md (user-approved amendment); repo rule
+- 558144a fnd-04: baseline report (reports/00_baseline.pdf/.pptx); analysis source is writeup.md
+- dfe3a56 fnd-04: document report build and test commands in README.md and CLAUDE.md
+- 934b30b fnd-04: report tables, counts and target set come from build/ and --targets, not typed by hand
+- 1a8dd5b fnd-04: built reports not committed; tools/build_all.py rebuilds all analyses
+Notes:
+- Step 4 LFS test: tracked reports/*.pdf and reports/*.pptx, staged a 23-byte test object (oid abfaac6fb092...), ran `git lfs push origin --object-id <oid>`.
+- GitHub refused: "@davidmhunt can not upload new objects to public fork davidmhunt/fmcw3-ckflight".
+- Fallback taken: no LFS rules in .gitattributes (removed), test file unstaged and deleted, built reports will be committed as normal git files. Documented in reports/README.md.
+- Nothing was pushed to a branch; only the LFS batch upload was attempted.
+Verify: Verify passed: ./run uv run pytest tests -q && ./run tools/build_report.py analysis/00_baseline --check
+Independent review: no gaps
