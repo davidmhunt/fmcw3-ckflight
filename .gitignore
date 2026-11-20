@@ -22,5 +22,9 @@ reports/*.pptx
 # KiCad local state
 fp-info-cache
 
+# downloaded sources whose licence does not allow committing (tools/fetch_sources.py)
+datasheets/files/
+docs/references/files/
+
 # Python bytecode
 __pycache__/

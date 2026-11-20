@@ -1,0 +1,5 @@
+# Datasheets and vendor models. Read by tools/fetch_sources.py (see its docstring).
+# Fields: id, kind, title, url (public), access (direct|form|login), file, sha256, licence,
+# commit (yes|no). commit: no files live under datasheets/files/ (gitignored).
+# Filled for the critical parts by directive par-02.
+entries: []

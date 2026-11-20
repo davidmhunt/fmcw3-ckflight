@@ -1,0 +1,5 @@
+# Papers, textbooks, app notes and documents. Read by tools/fetch_sources.py.
+# Fields: id, kind, title, url (public), access (direct|form|login), file, sha256, licence,
+# commit (yes|no), verified (list of {page, item, quote} read from the downloaded file).
+# commit: no files live under docs/references/files/ (gitignored). Filled by fnd-05 step 9.
+entries: []
