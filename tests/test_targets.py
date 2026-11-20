@@ -32,6 +32,13 @@ def test_bandwidth_must_fit_band():
     d = copy.deepcopy(tg.load("default"))
     d["design"]["chirp_bandwidth_hz"]["value"] = 150e6
     assert tg.validate(d) == []
+    for lo, hi in ((5.75, 5.85), (5.7, 5.8)):  # float span rounds just under 100e6
+        d["design"]["freq_min_ghz"]["value"] = lo
+        d["design"]["freq_max_ghz"]["value"] = hi
+        d["design"]["chirp_bandwidth_hz"]["value"] = 100e6
+        assert tg.validate(d) == []
+    d["design"]["freq_min_ghz"]["value"] = 5.725
+    d["design"]["freq_max_ghz"]["value"] = 5.875
     d["design"]["chirp_bandwidth_hz"]["value"] = 200e6
     assert any("exceeds freq_max_ghz - freq_min_ghz" in m for m in tg.validate(d))
     d["design"]["chirp_bandwidth_hz"]["value"] = 100e6

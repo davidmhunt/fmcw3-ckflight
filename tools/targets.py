@@ -96,7 +96,9 @@ def validate(data, label: str = "targets") -> list[str]:
     else:
         span_hz = (fmax - fmin) * 1e9
         bw = d["chirp_bandwidth_hz"]["value"]
-        if bw > span_hz:
+        # GHz edges are inexact in binary floating point; allow 1 Hz of slack so a
+        # bandwidth equal to the band is accepted.
+        if bw > span_hz + 1.0:
             errs.append(f"{label}: chirp_bandwidth_hz ({bw:g}) exceeds freq_max_ghz - freq_min_ghz "
                         f"({span_hz:g} Hz)")
     return errs
