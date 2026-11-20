@@ -82,6 +82,32 @@ def main() -> None:
                      if check == "drc" else "-")
             w.writerow([check.upper(), d["errors"], tot - d["errors"], other])
 
+    meta = {"lib_symbol_issues", "footprint_link_issues", "endpoint_off_grid",
+            "lib_symbol_mismatch", "lib_footprint_issues"}
+    total = sum(r[3] for r in rows)
+    bulk = sum(r[3] for r in rows if r[1] in meta)
+    count = {r[1]: r[3] for r in rows}
+    facts = {
+        "total_items": total,
+        "metadata_items": bulk,
+        "errors_total": sum(data[c]["errors"] for c in ("erc", "drc")),
+        "isolated_copper": count["isolated_copper"],
+        "pin_to_pin": count["pin_to_pin"],
+    }
+    (build / "facts.json").write_text(json.dumps(facts, indent=1) + "\n")
+
+    with open(build / "folder_map.csv", "w", newline="") as f:
+        w = csv.writer(f)
+        w.writerow(["Folder", "Content"])
+        w.writerows([
+            ["`kicad/`", "KiCad 10 project, root sheet `fmcw3.kicad_sch`"],
+            ["`production/`", "As-ordered XC7A35T fab package, never regenerated"],
+            ["`checks/`", "ERC/DRC gate, baseline and recorded reports"],
+            ["`analysis/`, `reports/`, `tools/`", "Report sources, built PDF and decks, pipeline"],
+            ["`parts/`, `datasheets/`, `docs/`, `legacy/`, `docker/`, `runs/`",
+             "BOM, manifests, plans, old exports"],
+        ])
+
     with open(build / "roadmap.csv", "w", newline="") as f:
         w = csv.writer(f)
         w.writerow(["Goal", "Covers", "Review-plan phase"])

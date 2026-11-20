@@ -11,6 +11,8 @@ Run through ./run so pandoc and LaTeX are available.
 from __future__ import annotations
 
 import argparse
+import csv
+import json
 import os
 import re
 import shutil
@@ -73,26 +75,72 @@ def check_deck(slides: list[dict], build: Path) -> list[str]:
     return errs
 
 
-def check_report(adir: Path) -> list[str]:
-    """Unresolved references in writeup.md: local links/images that do not exist."""
+def check_report(adir: Path, ts: dict | None = None) -> list[str]:
+    """Problems in writeup.md: unresolved local links/images and unresolved placeholders."""
     p = adir / "writeup.md"
     if not p.is_file():
         return [f"{p} not found"]
+    text = p.read_text()
     errs = []
-    for m in _LINK.finditer(p.read_text()):
+    for m in _LINK.finditer(text):
         ref = m.group(1)
         if re.match(r"^(https?:|mailto:|#)", ref):
             continue
         if not (adir / ref).exists():
             errs.append(f"writeup.md: unresolved reference {ref}")
+    try:
+        expand_report(text, adir / "build", ts or {"name": "?", "parameters": {}})
+    except ValueError as e:
+        errs.append(f"writeup.md: {e}")
     return errs
 
 
-def build_pdf(adir: Path, out: Path) -> None:
+def _csv_table(path: Path) -> str:
+    with open(path, newline="") as f:
+        rows = list(csv.reader(f))
+    esc = lambda c: c.replace("|", "\\|")  # noqa: E731
+    out = ["| " + " | ".join(esc(c) for c in rows[0]) + " |",
+           "|" + "|".join("---" for _ in rows[0]) + "|"]
+    out += ["| " + " | ".join(esc(c) for c in r) + " |" for r in rows[1:]]
+    return "\n".join(out)
+
+
+_PLACEHOLDER = re.compile(r"\{\{\s*([a-z_]+)(?::([^}\s]+))?\s*\}\}")
+
+
+def expand_report(text: str, build: Path, ts: dict) -> str:
+    """Replace placeholders in writeup.md with generated content, so nothing is typed by hand.
+
+    {{targets}}      the target set used (name, status count, value table), from --targets
+    {{table:F.csv}}  build/F.csv as a markdown table
+    {{fact:KEY}}     KEY from build/facts.json (written by figures.py)
+    """
+    def sub(m: re.Match) -> str:
+        kind, arg = m.group(1), m.group(2)
+        if kind == "targets":
+            return f"Target set used: {tg.describe(ts)}.\n\n{tg.format_table(ts)}" if ts["parameters"] else ""
+        if kind == "table" and arg:
+            f = build / arg
+            if not f.is_file():
+                raise ValueError(f"missing table build/{arg}")
+            return _csv_table(f)
+        if kind == "fact" and arg:
+            f = build / "facts.json"
+            facts = json.loads(f.read_text()) if f.is_file() else {}
+            if arg not in facts:
+                raise ValueError(f"unknown fact {arg!r} (build/facts.json)")
+            return str(facts[arg])
+        raise ValueError(f"bad placeholder {m.group(0)}")
+    return _PLACEHOLDER.sub(sub, text)
+
+
+def build_pdf(adir: Path, out: Path, ts: dict) -> None:
     if not shutil.which("pandoc"):
         raise SystemExit("error: pandoc not found (run through ./run)")
+    expanded = adir / "build" / "writeup.expanded.md"
+    expanded.write_text(expand_report((adir / "writeup.md").read_text(), adir / "build", ts))
     subprocess.run(
-        ["pandoc", "writeup.md", "-o", str(out), "--resource-path", str(adir),
+        ["pandoc", str(expanded.relative_to(adir)), "-o", str(out), "--resource-path", str(adir),
          "-V", "geometry:margin=2.2cm"],
         cwd=adir, check=True)
 
@@ -124,7 +172,7 @@ def main(argv: list[str] | None = None) -> int:
     run_figures(adir, a.targets)
     build = adir / "build"
     slides = load_deck(adir)
-    errs = check_deck(slides, build) + check_report(adir)
+    errs = check_deck(slides, build) + check_report(adir, ts)
     if errs:
         print("check failed:", file=sys.stderr)
         for e in errs:
@@ -135,7 +183,7 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     out = Path(a.out)
     out.mkdir(parents=True, exist_ok=True)
-    build_pdf(adir, out / f"{adir.name}.pdf")
+    build_pdf(adir, out / f"{adir.name}.pdf", ts)
     build_pptx(slides, build, out / f"{adir.name}.pptx")
     print(f"built {out / (adir.name + '.pdf')} and {out / (adir.name + '.pptx')}")
     return 0

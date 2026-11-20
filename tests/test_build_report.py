@@ -76,6 +76,30 @@ def test_check_unresolved_reference(fixture, capsys):
     assert "unresolved reference build/gone.png" in capsys.readouterr().err
 
 
+def test_expand_targets_table_and_fact(tmp_path):
+    import targets as tg
+    (tmp_path / "t.csv").write_text("a,b\n1,x|y\n")
+    (tmp_path / "facts.json").write_text('{"n": 7}')
+    ts = tg.load("default")
+    out = br.expand_report("{{targets}}\n\n{{table:t.csv}}\n\nn={{fact:n}}", tmp_path, ts)
+    assert "max_range_m" in out and tg.describe(ts) in out
+    assert "| 1 | x\\|y |" in out and "n=7" in out
+
+
+def test_expand_unknown_placeholder_fails(tmp_path):
+    import targets as tg
+    ts = tg.load("default")
+    for bad in ("{{table:nope.csv}}", "{{fact:nope}}", "{{wat}}"):
+        with pytest.raises(ValueError):
+            br.expand_report(bad, tmp_path, ts)
+
+
+def test_check_unresolved_placeholder(fixture, capsys):
+    (fixture / "writeup.md").write_text(REPORT + "\n{{table:gone.csv}}\n")
+    assert br.main([str(fixture), "--check"]) == 1
+    assert "missing table build/gone.csv" in capsys.readouterr().err
+
+
 def test_check_overflow(fixture, capsys):
     (fixture / "deck.yaml").write_text(
         "slides:\n  - layout: bullet\n    title: T\n    bullets: [%s]\n" % ("word " * 400))
