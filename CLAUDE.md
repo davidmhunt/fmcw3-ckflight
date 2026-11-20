@@ -42,7 +42,20 @@ Firmware lives in a separate repo (`davidmhunt/fmcw3-ckflight-fw`). Licence: GPL
   `friday result write --file`.
 - `.env` holds DigiKey API credentials for `parts/check_digikey.py`. Never read it into
   output, never commit it.
-- Never edit `.kicad_sch`/`.kicad_pcb` while the user has the project open in KiCad.
+- Before changing anything under `kicad/`, run `./run --native tools/kicad_ipc.py status`.
+  `closed`: file-level edits are allowed. `other`: stop and ask the user. `ipc`:
+  - board edits go only through `tools/kicad_ipc.py` (IPC), as one undoable commit, never
+    saving, and only while the Schematic Editor is closed (the tool refuses otherwise; KiCad
+    10 freezes); the user reviews in the GUI and saves;
+  - schematic edits are never live on KiCad 10 (no schematic API until KiCad 11).
+  (Amended after the fnd-06 live trial; see `docs/kicad-ipc.md`.)
+- Never write `kicad/*.kicad_sch` or `kicad/*.kicad_pcb` directly while KiCad has the project open.
+- If an edit is needed that IPC cannot do while the project is open (any schematic change, or
+  a board edit while the user needs the Schematic Editor open), stop and ask the user to close
+  KiCad, or just the Schematic Editor; after the edit, ask them to reopen it.
+- Batch operations (ERC, DRC, exports, report builds) use `kicad-cli` through `./run`. Analyses
+  read the files headless so reports rebuild without the GUI. When the project is open, use
+  `tools/kicad_ipc.py show` to select what is being discussed so the user can follow along.
 
 ## Division of labour
 - The agent: run ERC/DRC, exports, BOM/availability checks, apply written-down part changes.
