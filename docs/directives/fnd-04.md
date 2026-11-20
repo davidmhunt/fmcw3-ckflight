@@ -1,5 +1,5 @@
 # fnd-04: Report and deck pipeline with target sets and a baseline report
-Status: approved
+Status: awaiting review
 Goal: foundation
 Node: any
 Deliverable: code
@@ -146,3 +146,24 @@ Rejected by user: 2026-11-20 Step 8: deck pdf export; targets split into design 
 
 ### 2026-11-20
 Unblocked: was blocked: Step 8: deck pdf export; targets split into design and performance groups
+
+### 2026-11-20
+Commits:
+- 0c6c9bc fnd-04: analysis folder convention in analysis/README.md; ignore build/
+- 25fa072 fnd-04: tools/build_report.py and shared deck template, with tests
+- efd92ec fnd-04: target sets (default.yaml, schema check, tools/targets.py); reports print the set used
+- c6c2652 fnd-04: LFS refused by public fork; reports stay normal git files, documented in reports/README.md
+- 5450efb Plan: fnd-04 analysis source is writeup.md, not report.md (user-approved amendment); repo rule
+- 558144a fnd-04: baseline report (reports/00_baseline.pdf/.pptx); analysis source is writeup.md
+- dfe3a56 fnd-04: document report build and test commands in README.md and CLAUDE.md
+- 934b30b fnd-04: report tables, counts and target set come from build/ and --targets, not typed by hand
+- 1a8dd5b fnd-04: built reports not committed; tools/build_all.py rebuilds all analyses
+- 82ac8b5 fnd-04: deck PDF export via LibreOffice; targets split into design and performance, range resolution derived
+- 5025121 fnd-04: tolerate float rounding in band check so bandwidth equal to the band passes
+Notes:
+- Step 4 LFS test: tracked reports/*.pdf and reports/*.pptx, staged a 23-byte test object (oid abfaac6fb092...), ran `git lfs push origin --object-id <oid>`.
+- GitHub refused: "@davidmhunt can not upload new objects to public fork davidmhunt/fmcw3-ckflight".
+- Fallback taken: no LFS rules in .gitattributes (removed), test file unstaged and deleted, built reports will be committed as normal git files. Documented in reports/README.md.
+- Nothing was pushed to a branch; only the LFS batch upload was attempted.
+Verify: Verify passed: ./run uv run pytest tests -q && ./run tools/build_report.py analysis/00_baseline --check
+Independent review: gaps fixed in second review: 1. /home/david/Documents/pcb_work/fmcw3-ckflight/tools/targets.py:97-99: The band check rejects valid target sets. It computes the band width in floating point, '(fmax - fmin) * 1e9', and compares it strictly with 'bw > span_hz', with no tolerance. For many common band edges this span comes out a little under the true value, so a chirp bandwidth exactly equal to 'freq_max - freq_min' fails the schema check. Step 8 only asks it to fail when the bandwidth *exceeds* the band. The default set passes only because 5.875 - 5.725 happens to round up (150000000.00000036). The tests cover just that case, at /home/david/Documents/pcb_work/fmcw3-ckflight/tests/test_targets.py in test_bandwidth_must_fit_band. (evidence: Running './run uv run python -c ...' with freq_min_ghz=5.75, freq_max_ghz=5.85 and chirp_bandwidth_hz=100e6 makes tg.validate return ['targets: chirp_bandwidth_hz (1e+08) exceeds freq_max_ghz - freq_min_ghz (1e+08 Hz)']. Also, (5.85-5.75)*1e9 = 99999999.9999996 and (5.8-5.7)*1e9 = 99999999.99999964. A user who sets the bandwidth to the full band, as the default does, would be wrongly rejected and the report build would stop.)
