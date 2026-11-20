@@ -6,6 +6,9 @@ ADL5802 mixer and ADA4940 IF amplifiers, LTC2292 ADC, FT2232H USB FIFO. KiCad 10
 `kicad/`. This fork is a review of the design (parts, RF chain, impedance, testability,
 ERC/DRC, spurs), used as a submodule of the Falcon parent repo under `hardware/`.
 
+**New here? Start with [`MANUAL.md`](MANUAL.md)**: setup, every `./run` mode, every tool and
+every software download in one place.
+
 ## Folder map
 
 | Path | What |
@@ -15,7 +18,8 @@ ERC/DRC, spurs), used as a submodule of the Falcon parent repo under `hardware/`
 | `checks/` | ERC/DRC gate (`run_checks.sh`), `baseline.json`, recorded reports. |
 | `parts/` | BOM groups, DigiKey availability check. |
 | `docs/` | `goals/`, `directives/` (friday plan), `surveys/`, `references/` (review plan), `upstream-readme.md`. |
-| `analysis/`, `reports/`, `datasheets/`, `docker/` | Placeholders, each with its own README. |
+| `analysis/`, `reports/`, `datasheets/`, `docker/` | Analyses, built reports (gitignored), datasheet and model manifest, Docker images; each has its own README. |
+| `software/` | Tool installers: `manifest.yaml` (committed), downloads in `software/files/` (gitignored). See `MANUAL.md`. |
 | `legacy/` | Upstream's old exports, unused; see `legacy/README.md`. |
 
 ## Running the checks
