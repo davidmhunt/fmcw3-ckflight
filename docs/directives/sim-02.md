@@ -21,7 +21,8 @@ when each has a result against a limit written beforehand.
 2. IF chain: netlist the mixer output to ADC input path (JP9-JP12, U45, JP5-JP8) from the
    schematic; AC response, gain, input-referred noise, and output swing versus the LTC2292 input
    range. Compare the passband with the beat-frequency range and the roll-off with Nyquist for
-   the target set.
+   the target set, using the firmware's numbers as design intent: 40 MSPS, decimate 20 to 2 MSPS
+   per channel, 500 samples per 250 us chirp, 400 kHz HPF (survey: `docs/surveys/upstream-survey.md`).
 3. Tests: the equations against the datasheet's worked example; the filter corner against a
    hand calculation.
 4. Report and deck.

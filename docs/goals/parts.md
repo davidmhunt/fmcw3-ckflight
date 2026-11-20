@@ -19,5 +19,11 @@ availability report lists no unresolved line.
 - Written 2026-11-19 with goal `foundation`; re-check against `docs/surveys/upstream-survey.md`
   and the foundation layout before approval.
 - Needs the user's DigiKey API keys in `.env` (see `docs/setup.md`).
+- Carry-overs from fnd-01 (`docs/surveys/upstream-survey.md`), to be decided later by the user
+  (2026-11-19):
+  - FPGA XC7A35T vs XC7A100T: price, stock and 35T pin validity (par-03).
+  - `production/` is the as-ordered 35T build (R26/R28/R31/R38 = 500 ohm, now 1k); any new order
+    needs a new fab package at a new path.
+  - `kicad/libs/fmcw3.lib` (retired part ideas) is kept until this goal is done, then reconsidered (par-03).
 
 ## Log

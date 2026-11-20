@@ -17,5 +17,9 @@ build and each ends with a list of proposed design changes for the user to accep
 ## Notes
 - Written 2026-11-19; re-check against the post-restructure baseline in `checks/` before approval.
 - Design changes proposed here are collected for a later design-change goal; none are made here.
+- Carry-overs from fnd-01 (`docs/surveys/upstream-survey.md`), to be decided later by the user
+  (2026-11-19):
+  - Overstress history on FPGA pin M2 (adf_data) and the mixer enable: protection (lay-02).
+  - A new fab package is needed before any order: `production/` is the 35T build.
 
 ## Log

@@ -1,0 +1,15 @@
+Non-inverting amplifier, gain 1 + 9k/1k = 10, using the macro-model from opamp_model.lib
+.include opamp_model.lib
+Vcc vcc 0 5
+Vee vee 0 0
+V1 in 0 DC 0.2 AC 1
+X1 in fb vcc vee out genopamp
+Rf out fb 9k
+Rg fb 0 1k
+.control
+op
+print v(out)
+ac dec 20 1k 1G
+meas ac g_lf find vdb(out) at=10k
+.endc
+.end

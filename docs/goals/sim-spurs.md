@@ -19,5 +19,10 @@ each report rebuilds for a target set with one command and states pass or fail a
 - Written 2026-11-19 before the tool choice. The tools named here (ngspice, Python models) are
   placeholders until fnd-05's verdict; amend before approval. The user has Linux only.
 - sim-02 depends on the inductor chosen in par-03.
+- Carry-overs from fnd-01 (`docs/surveys/upstream-survey.md`), to be decided later by the user
+  (2026-11-19):
+  - IF filter vs the firmware's 2 MSPS per channel and 400 kHz HPF (sim-02).
+  - PLL modelled at the firmware's 40 MHz PFD, and the corrected one if rf-01 finds it too high (sim-03).
+  - Shared 40 MHz TCXO for FPGA and ADC: jitter vs ADC SNR, harmonics as spurs (sim-04).
 
 ## Log

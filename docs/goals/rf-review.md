@@ -16,5 +16,11 @@ with one command and list their findings and open decisions.
 ## Notes
 - Written 2026-11-19; re-check against `docs/analysis-tools.md` (fnd-05) and the datasheet
   manifest (par-02) before approval. Needs the user's target set in `analysis/targets/`.
+- Carry-overs from fnd-01 (`docs/surveys/upstream-survey.md`), to be decided later by the user
+  (2026-11-19):
+  - ADF4158 PFD 40 MHz vs a 32 MHz comment in the firmware (rf-01; loop filter in sim-03).
+  - IF and ADC numbers from the firmware as design intent (rf-01).
+  - One design only, on the JLCPCB stackup (rf-02).
+  - Overstress on ADF_DATA and the mixer enable is checked in lay-02.
 
 ## Log

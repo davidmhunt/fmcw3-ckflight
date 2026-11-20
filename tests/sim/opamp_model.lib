@@ -1,0 +1,17 @@
+* Generic two-pole op-amp macro-model in the subcircuit style vendors ship (NOT a vendor model).
+* Used only to prove that ngspice loads a .lib subckt and runs it; GBW 100 MHz-class, rail-to-rail clamp.
+* pins: in+ in- vcc vee out
+.subckt genopamp inp inn vcc vee out
+Rin inp inn 1Meg
+* gain stage: 1e5 dc gain, pole at 1 kHz (GBW 100 MHz)
+G1 0 n1 inp inn 1m
+R1 n1 0 100Meg
+C1 n1 0 1.5915494p
+* second pole at 300 MHz, buffered
+E2 n2 0 n1 0 1
+R2 n2 n3 1k
+C2 n3 0 0.53051648p
+* output stage with clamp to rails
+B1 n4 0 V=min(max(V(n3), V(vee)+0.1), V(vcc)-0.1)
+Rout n4 out 10
+.ends genopamp
