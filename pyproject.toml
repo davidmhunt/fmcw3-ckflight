@@ -1,0 +1,18 @@
+[project]
+name = "fmcw3-ckflight-tools"
+version = "0.1.0"
+description = "Python tooling for the fmcw3-ckflight hardware repo (checks, parts, reports)"
+requires-python = ">=3.10"
+dependencies = [
+    "pytest",
+    "pyyaml",
+    "python-pptx",
+    "matplotlib",
+    "requests",
+]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
