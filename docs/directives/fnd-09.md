@@ -1,5 +1,5 @@
 # fnd-09: Workspace manual (MANUAL.md) and a rule that keeps it current
-Status: proposed
+Status: approved
 Goal: foundation
 Node: any
 Deliverable: doc
