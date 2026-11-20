@@ -12,5 +12,8 @@
 # friday: untracked findings from measure-only steps
 runs/
 
+# generated analysis figures and tables
+analysis/*/build/
+
 # KiCad local state
 fp-info-cache
