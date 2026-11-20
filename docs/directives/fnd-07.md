@@ -16,13 +16,17 @@ edits. Batch work runs through `kicad-cli` in Docker. It holds when `CLAUDE.md` 
 1. In `.claude/friday.json` `rules` and in `CLAUDE.md`, replace the rule "Never edit
    kicad/*.kicad_sch or kicad/*.kicad_pcb while the user has the project open in KiCad" with:
    - Before changing anything under `kicad/`, run `./run --native tools/kicad_ipc.py status`.
-     `ipc`: change it only through `tools/kicad_ipc.py` (IPC), as one undoable commit, never
-     saving; the user reviews in the GUI and saves. `closed`: file-level edits are allowed.
-     `other`: stop and ask the user.
+     `closed`: file-level edits are allowed. `other`: stop and ask the user. `ipc`:
+     - board edits go only through `tools/kicad_ipc.py` (IPC), as one undoable commit, never
+       saving, and only while the Schematic Editor is closed (the tool refuses otherwise; KiCad
+       10 freezes); the user reviews in the GUI and saves;
+     - schematic edits are never live on KiCad 10 (no schematic API until KiCad 11).
+     (Amended after the fnd-06 live trial; see `docs/kicad-ipc.md`.)
    - Never write `kicad/*.kicad_sch` or `kicad/*.kicad_pcb` directly while KiCad has the project
      open.
-   - If an edit is needed that IPC cannot do while the project is open, stop and ask the user to
-     close KiCad; after the file edit, ask them to reopen it.
+   - If an edit is needed that IPC cannot do while the project is open (any schematic change, or
+     a board edit while the user needs the Schematic Editor open), stop and ask the user to close
+     KiCad, or just the Schematic Editor; after the edit, ask them to reopen it.
    - Batch operations (ERC, DRC, exports, report builds) use `kicad-cli` through `./run`. Analyses
      read the files headless so reports rebuild without the GUI. When the project is open, use
      `tools/kicad_ipc.py show` to select what is being discussed so the user can follow along.
