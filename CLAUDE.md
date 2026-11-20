@@ -10,8 +10,12 @@ Firmware lives in a separate repo (`davidmhunt/fmcw3-ckflight-fw`). Licence: GPL
 ## Tools
 - KiCad **10.0.5** (`kicad-cli` on PATH). The project is in KiCad 10 format; KiCad 9 cannot
   open `kicad/fmcw3.kicad_pcb`.
-- Checks: `checks/run_checks.sh` (ERC + DRC on `kicad/` against `checks/baseline.json`);
-  `checks/run_checks.sh --record` re-records the baseline and reports.
+- Run commands through the wrapper: `./run <cmd...>` (Docker image `fmcw3-tools` if available,
+  else native); `./run --docker ...` / `./run --native ...` force one. Tests:
+  `./run uv run pytest tests -q`.
+- Checks: `./run checks/run_checks.sh` (ERC + DRC on `kicad/` against `checks/baseline.json`);
+  `./run checks/run_checks.sh --record` re-records the baseline and reports (use `--native`;
+  Docker ERC has extra library-config warnings, see `checks/README.md`).
 - ERC by hand: `kicad-cli sch erc --format json -o OUT.json kicad/fmcw3.kicad_sch`
 - DRC by hand: `kicad-cli pcb drc --format json -o OUT.json kicad/fmcw3.kicad_pcb`
 - Root sheet is `kicad/fmcw3.kicad_sch`; sub-sheets are `adc clock fpga fpga_config mixer

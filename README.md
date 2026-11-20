@@ -21,11 +21,14 @@ ERC/DRC, spurs), used as a submodule of the Falcon parent repo under `hardware/`
 ## Running the checks
 
 ```
-checks/run_checks.sh            # ERC + DRC against checks/baseline.json
-checks/run_checks.sh --record   # re-record baseline and reports
+./run checks/run_checks.sh            # ERC + DRC against checks/baseline.json
+./run checks/run_checks.sh --record   # re-record baseline and reports
+./run --docker <cmd...>               # force the pinned fmcw3-tools image
+./run --native <cmd...>               # force the host (needs kicad-cli 10.0.5)
+./run uv run pytest tests -q          # Python tests
 ```
 
-Needs `kicad-cli` 10.0.5. It exits 0 only when error counts are not above the baseline and
+`./run` uses Docker when available and falls back to native; see `docs/setup.md`. It exits 0 only when error counts are not above the baseline and
 DRC has 0 unconnected items and 0 schematic-parity issues. The upstream design is not
 ERC/DRC clean; see `checks/README.md`.
 
