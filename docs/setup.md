@@ -106,12 +106,21 @@ Only `parts/check_digikey.py` (stock and lifecycle of the BOM) needs keys.
 passes it into the container; natively the script reads it from the repo root. The old
 `.digikey.env` name is no longer read.
 
-## 5. Rule: close the GUI when tools edit project files
+## 5. Rule: how project files are edited
 
-Never run a tool that edits `kicad/*.kicad_sch` or `kicad/*.kicad_pcb` while KiCad has the project
-open. KiCad keeps its own copy in memory and will overwrite the tool's changes (or the reverse) on
-save. Check with `pgrep -a kicad` (Linux/macOS); if it prints anything, close KiCad first. Read-only
-runs (ERC/DRC exports to a separate output file) are safe, but close the GUI anyway when in doubt.
+Never write `kicad/*.kicad_sch` or `kicad/*.kicad_pcb` directly while KiCad has the project open:
+KiCad keeps its own copy in memory and will overwrite the change (or the reverse) on save. Check
+with `./run --native tools/kicad_ipc.py status`:
+
+- `closed`: file-level edits are allowed.
+- `other`: stop and ask.
+- `ipc`: the agent may make written-down board edits live through IPC, as one undoable commit,
+  never saving, while you watch; you review in the GUI and save. This needs the Schematic Editor
+  closed. Schematic edits are never live on KiCad 10: close KiCad, or ask for the edit and
+  reopen afterwards.
+
+Which edits to make stays your decision (routing, placement, parts, electrical design); IPC only
+applies what is written down. Read-only runs (ERC/DRC exports to a separate output file) are safe.
 
 ## 6. Following along in KiCad (IPC API)
 

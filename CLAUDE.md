@@ -58,10 +58,13 @@ Firmware lives in a separate repo (`davidmhunt/fmcw3-ckflight-fw`). Licence: GPL
   `tools/kicad_ipc.py show` to select what is being discussed so the user can follow along.
 
 ## Division of labour
-- The agent: run ERC/DRC, exports, BOM/availability checks, apply written-down part changes.
+- The agent: run ERC/DRC, exports, BOM/availability checks, apply written-down part changes. When
+  the project is open in KiCad, the agent may make written-down board edits live through IPC
+  (`tools/kicad_ipc.py`) while the user watches; the user reviews and saves.
 - The user: routing, placement, part/footprint choice, any electrical design decision,
-  ordering and sending to a fab. Schematic or layout changes are `Accept: user` with a
-  `## Review` naming sheets, layers and refdes.
+  ordering and sending to a fab. These stay the user's even when IPC makes an edit easy.
+  Schematic or layout changes are `Accept: user` with a `## Review` naming sheets, layers and
+  refdes.
 
 ## Layout
 - `kicad/`: the KiCad project. `legacy/`: unused upstream exports (see its README).

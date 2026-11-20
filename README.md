@@ -39,6 +39,11 @@ Built `reports/*.pdf` and `.pptx` are gitignored: built locally, never committed
 ./run uv run pytest tests -q                                        # targets, overflow check, fixture build
 ```
 
+Editing rules for `kicad/`: check `./run --native tools/kicad_ipc.py status` first. With the project
+open, the agent makes written-down board edits live through IPC while you watch (you review and save;
+Schematic Editor closed); schematic edits need KiCad closed. Design decisions stay yours. See
+`docs/setup.md` and `docs/kicad-ipc.md`.
+
 `./run` uses Docker when available and falls back to native; see `docs/setup.md`. It exits 0 only when error counts are not above the baseline and
 DRC has 0 unconnected items and 0 schematic-parity issues. The upstream design is not
 ERC/DRC clean; see `checks/README.md`.
