@@ -1,5 +1,5 @@
 # fnd-08: LTspice GUI from the sim container, and PSpice for TI under Wine
-Status: approved
+Status: blocked: step 3: Please download the PSpice for TI installer once, signed in to your TI account. Go to https://www.ti.com/tool/PSPICE-FOR-TI, press Download or Get software, and take the full Windows installer (the zip or exe, not the web stub). Save it as /home/david/Documents/pcb_work/fmcw3-ckflight/datasheets/files/ti/pspice-for-ti-installer.zip. If TI gives you an .exe, tell me the real file name and I will change the manifest entry's 'file' to match. Then tell me, and I will run './run python3 tools/fetch_sources.py --record' to pin its hash and continue with step 3: a separate build stage in docker/Dockerfile.sim, the batch-mode check, and the LMR51420 (slum825) transient smoke test. My recommendation is to fetch it. If TI's licence or the installer refuses to run under Wine, I will record install=no with the error text and keep the hand-built averaged buck model for sim-02.
 Goal: foundation
 Node: any
 Deliverable: code
@@ -79,3 +79,17 @@ Blocked: step 2: Did the LTspice window open and did the plot work on your scree
 
 ### 2026-11-20
 Unblocked: was blocked: step 2: Did the LTspice window open and did the plot work on your screen (the MIT-SHM error may have broken rendering)? If not, I recommend a step 1 fix: add '--ipc=host' (or disable MIT-SHM) to the --sim-gui docker command and its test, then re-run. If it did work, tell me and I will write 'friday result write fnd-08 --metric sim_gui_shown=1' (otherwise =0).
+
+### 2026-11-20
+Commits:
+- 2e62903 fnd-08: ./run --sim-gui and ltspice shortcut (X11, own-user xhost, revoked on exit)
+- 0c9e41a fnd-08: record the live LTspice GUI check (user-confirmed)
+- f2dcac0 fnd-08: --sim-gui adds --ipc=host and SIM_GUI_DPI (default 144); LTspice-syntax example net
+- b7b74f4 fnd-08: list the PSpice for TI installer in the datasheets manifest (access: login, user-fetch)
+Notes:
+- step 2: ran ./run --sim-gui ltspice tests/sim/rc_lowpass.cir; xhost grant and revoke worked; the run ended with X Error BadValue (MIT-SHM, X_ShmPutImage, opcode 130/3), exit code 0.
+- likely cause: MIT-SHM across the container boundary (no --ipc=host); candidate fixes: add --ipc=host to the --sim-gui docker command, or disable shm. Not applied (step 1 code).
+- sim_gui_shown not written: no user confirmation that the window opened and the plot works.
+Verify: not run
+Independent review: not recorded
+Blocked: step 3: Please download the PSpice for TI installer once, signed in to your TI account. Go to https://www.ti.com/tool/PSPICE-FOR-TI, press Download or Get software, and take the full Windows installer (the zip or exe, not the web stub). Save it as /home/david/Documents/pcb_work/fmcw3-ckflight/datasheets/files/ti/pspice-for-ti-installer.zip. If TI gives you an .exe, tell me the real file name and I will change the manifest entry's 'file' to match. Then tell me, and I will run './run python3 tools/fetch_sources.py --record' to pin its hash and continue with step 3: a separate build stage in docker/Dockerfile.sim, the batch-mode check, and the LMR51420 (slum825) transient smoke test. My recommendation is to fetch it. If TI's licence or the installer refuses to run under Wine, I will record install=no with the error text and keep the hand-built averaged buck model for sim-02.
