@@ -1,12 +1,12 @@
 {
   "cmd": "live trial on runs/fnd-06/scratch, KiCad 10.0.5, kicad-python 0.8.0",
-  "commit": "107d636ab01797f0c154216a04d05187ab83d50e",
-  "dirty": false,
+  "commit": "b99cba4c045cb037cb39d9c9e354f74fb609bf30",
+  "dirty": true,
   "files": [
     {
       "path": "docs/kicad-ipc.md",
-      "sha256": "6b213458fc8247097b71b8170ff9f97e729d8678aeb5bd06534c485c05e19574",
-      "size": 4228
+      "sha256": "4eb688d661277fbba6dd232363d18bd867c30c79c4c567bb29d34a0701fbd869",
+      "size": 5093
     }
   ],
   "id": "fnd-06",
@@ -21,6 +21,6 @@
     "trial_complete": 1
   },
   "node": "laptop",
-  "note": "Board select/read work with both editors open; board edits work only with the Schematic Editor closed (freeze at begin_commit otherwise); no schematic API in KiCad 10.",
-  "time": "2026-11-20T20:27:16Z"
+  "note": "Re-recorded after review edits to docs/kicad-ipc.md; same trial.",
+  "time": "2026-11-20T20:30:01Z"
 }
