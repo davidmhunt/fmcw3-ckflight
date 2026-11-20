@@ -1,5 +1,5 @@
 # fnd-08: LTspice GUI from the sim container, and PSpice for TI under Wine
-Status: proposed
+Status: approved
 Goal: foundation
 Node: any
 Deliverable: code
