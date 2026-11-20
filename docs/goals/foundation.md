@@ -19,6 +19,7 @@ both pass on a fresh clone following `docs/setup.md`.
 5. fnd-05: Choose and smoke-test Linux tools for the simulation and RF analyses
 6. fnd-06: KiCad IPC client and a live trial with the user watching
 7. fnd-07: Switch the KiCad editing rules to IPC-when-open
+8. fnd-08: LTspice GUI from the sim container, and PSpice for TI under Wine
 
 ## Roadmap
 This is the first of five goals, each one PR into `falcon_development`; a single PR from
