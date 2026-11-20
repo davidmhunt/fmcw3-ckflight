@@ -59,8 +59,13 @@ impossible on KiCad 10. Two board edits were made in its place:
   separately: KiCad then quit during the next test (with the Schematic Editor open), so the
   unsaved change was discarded.
 
-The scratch files on disk stayed byte-identical to `kicad/` throughout, because nothing was ever
-saved.
+The tool never saves. Afterwards, neither scratch file contains `IPC_TEST`, so no test edit
+reached disk. Both scratch files were rewritten at 15:17–15:18 by a save from KiCad itself (not
+the tool), while the content was clean:
+- the board holds the same 10,264 items as `kicad/`, in a different order;
+- the schematic changed by 42 added and 10 removed lines in that re-save.
+
+`kicad/` was never opened or touched.
 
 | Operation | Editor | PCB Editor only | Schematic Editor also open |
 |---|---|---|---|
