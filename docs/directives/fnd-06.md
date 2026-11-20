@@ -1,5 +1,5 @@
 # fnd-06: KiCad IPC client and a live trial with the user watching
-Status: approved
+Status: awaiting review
 Goal: foundation
 Node: any
 Deliverable: code
@@ -81,3 +81,18 @@ Blocked: step 4: Please open /home/david/Documents/pcb_work/fmcw3-ckflight/runs/
 
 ### 2026-11-20
 Unblocked: was blocked: step 4: Please open /home/david/Documents/pcb_work/fmcw3-ckflight/runs/fnd-06/scratch/fmcw3.kicad_pro in KiCad 10.0.5. Open both the schematic editor and the board editor, and enable the API server (Preferences > Plugins). Then tell me to continue and I will run the live trial. I also recommend running step 5 first so docs/kicad-ipc.md exists when the results are recorded. Should I do that, or write the capability table into the doc after the trial?
+
+### 2026-11-20
+Commits:
+- de99dcf fnd-06: pin kicad-python 0.8.0 (API 10.0.6, accepts KiCad 10.0.5) as uv group ipc
+- e515ba0 fnd-06: tools/kicad_ipc.py status, show and set-fields over the KiCad IPC API
+- 303af00 fnd-06: tests/test_kicad_ipc.py with fake clients (status, set-fields, dry-run, show, version refusal)
+- c82b603 fnd-06: refuse IPC board edits with the Schematic Editor open, refuse set-fields below KiCad 11, add shebang
+- 107d636 fnd-06: docs/kicad-ipc.md (setup, commands, live trial results on KiCad 10.0.5) and docs/setup.md pointer
+- 744725b fnd-06: record live trial results (results/fnd-06.json)
+- b99cba4 fnd-06: show defaults to the board below KiCad 11; doc notes the KiCad 11 pin and the R13 trial substitution (independent review)
+- af220cb fnd-06: re-record results after doc update
+- 8969bb2 fnd-06: correct the scratch-file statement (KiCad re-saved the clean scratch copy; no IPC_TEST on disk)
+- 51e5c7d fnd-06: re-record results after doc correction
+Verify: Verify passed: tests/test_kicad_ipc.py 24 passed; friday result check fnd-06 trial_complete == 1 --files ok
+Independent review: Independent review: no blocking gaps. Fixed: show defaults to the board below KiCad 11 (+4 tests); doc notes the KiCad 11 pin, the R13 trial substitution, and that KiCad (not the tool) re-saved the clean scratch copy. Step 4 trial and step 5 doc were done in the main session with the user watching. Schematic select/edit impossible on KiCad 10 (sch_select=0, sch_field_edit=0).
