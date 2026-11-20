@@ -70,7 +70,10 @@ if [ "$gui" = 0 ]; then
 fi
 
 # --sim-gui: the container draws on the host X server (DISPLAY, /tmp/.X11-unix).
-args+=(-v /tmp/.X11-unix:/tmp/.X11-unix -e "DISPLAY=${DISPLAY:-:0}")
+# --ipc=host: without it Wine hits an X MIT-SHM BadValue on X_ShmPutImage.
+# SIM_GUI_DPI (default 144) sets Wine's LogPixels; at Wine's 96 DPI the text is too small.
+args+=(--ipc=host -v /tmp/.X11-unix:/tmp/.X11-unix -e "DISPLAY=${DISPLAY:-:0}"
+       -e "SIM_GUI_DPI=${SIM_GUI_DPI:-144}")
 if [ "$1" = ltspice ]; then
   shift
   set -- bash /work/tools/sim_gui_ltspice.sh "$@"

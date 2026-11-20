@@ -44,11 +44,16 @@ own user (`xhost +SI:localuser:<user>`), revoked when the command exits. It neve
 
 ```
 ./run --sim-gui ltspice                          # LTspice under Wine
-./run --sim-gui ltspice tests/sim/rc_lowpass.cir # open a netlist (.asc or .net/.cir) from the repo
+./run --sim-gui ltspice tests/sim/rc_lowpass_ltspice.net  # open a netlist (.asc or .net) from the repo
+SIM_GUI_DPI=192 ./run --sim-gui ltspice          # larger text (default 144)
 ./run --sim-gui --print ltspice                  # show the docker command, run nothing
 ```
 
-The file must be inside the repo. `tests/test_run_sim_gui.py` checks the printed command.
+The file must be inside the repo. Use LTspice syntax: `tests/sim/rc_lowpass.cir` is ngspice syntax
+(a `.control` block) and LTspice rejects it. The command adds `--ipc=host` (without it Wine hits an
+X MIT-SHM `BadValue` on `X_ShmPutImage`). `SIM_GUI_DPI` (default 144) sets Wine's `LogPixels` in the
+per-run prefix before LTspice starts, since text at Wine's 96 DPI is too small.
+`tests/test_run_sim_gui.py` checks the printed command.
 
 ## 3. Native path
 

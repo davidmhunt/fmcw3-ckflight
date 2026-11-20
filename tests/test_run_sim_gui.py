@@ -29,6 +29,27 @@ def test_generic_command():
     assert f"{ROOT}:/work" in c
 
 
+def test_ipc_host_for_x_shared_memory():
+    assert "--ipc=host" in printed("xclock")
+
+
+def test_dpi_default_and_override(monkeypatch):
+    monkeypatch.delenv("SIM_GUI_DPI", raising=False)
+    assert "SIM_GUI_DPI=144" in printed("xclock")
+    monkeypatch.setenv("SIM_GUI_DPI", "192")
+    assert "SIM_GUI_DPI=192" in printed("xclock")
+
+
+def test_helper_sets_logpixels_in_per_run_prefix():
+    text = (ROOT / "tools" / "sim_gui_ltspice.sh").read_text()
+    assert "LogPixels" in text and "Control Panel\\Desktop" in text and "SIM_GUI_DPI" in text
+
+
+def test_ltspice_net_example_is_ltspice_syntax():
+    net = (ROOT / "tests/sim/rc_lowpass_ltspice.net").read_text()
+    assert ".control" not in net and ".ac " in net
+
+
 def test_ltspice_shortcut_with_file():
     c = printed("ltspice", "tests/sim/rc_lowpass.cir")
     assert after_image(c) == HELPER + ["tests/sim/rc_lowpass.cir"]

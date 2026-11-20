@@ -19,6 +19,18 @@ for p in "$BAKED"/* "$BAKED"/.[!.]*; do
 done
 export WINEPREFIX=$pre WINEDEBUG=-all USER=root
 
+# Text at Wine's 96 DPI is too small: set LogPixels (SIM_GUI_DPI, default 144) in the per-run prefix.
+# The registry hives are root-owned symlinks into the baked prefix, so copy them first.
+dpi=${SIM_GUI_DPI:-144}
+case $dpi in ''|*[!0-9]*) echo "ltspice: SIM_GUI_DPI must be a number: $dpi" >&2; exit 1 ;; esac
+for h in user.reg system.reg; do
+  if [ -L "$pre/$h" ]; then cp --remove-destination "$(readlink -f "$pre/$h")" "$pre/$h"; chmod u+w "$pre/$h"; fi
+done
+wine reg add 'HKCU\Control Panel\Desktop' /v LogPixels /t REG_DWORD /d "$dpi" /f >/dev/null || true
+wine reg add 'HKCU\Software\Wine\Fonts' /v LogPixels /t REG_DWORD /d "$dpi" /f >/dev/null || true
+wine reg add 'HKLM\System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts' /v LogPixels /t REG_DWORD /d "$dpi" /f >/dev/null || true
+wineserver -w || true
+
 wine 'C:\Program Files\ADI\LTspice\LTspice.exe' "${args[@]}" || true
 wineserver -w || true
 rm -rf "$pre"
