@@ -1,5 +1,5 @@
 # fnd-06: KiCad IPC client and a live trial with the user watching
-Status: awaiting review
+Status: done
 Goal: foundation
 Node: any
 Deliverable: code
@@ -96,3 +96,5 @@ Commits:
 - 51e5c7d fnd-06: re-record results after doc correction
 Verify: Verify passed: tests/test_kicad_ipc.py 24 passed; friday result check fnd-06 trial_complete == 1 --files ok
 Independent review: Independent review: no blocking gaps. Fixed: show defaults to the board below KiCad 11 (+4 tests); doc notes the KiCad 11 pin, the R13 trial substitution, and that KiCad (not the tool) re-saved the clean scratch copy. Step 4 trial and step 5 doc were done in the main session with the user watching. Schematic select/edit impossible on KiCad 10 (sch_select=0, sch_field_edit=0).
+
+Accepted by user: 2026-11-20
