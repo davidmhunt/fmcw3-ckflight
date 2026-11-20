@@ -22,6 +22,7 @@ import yaml
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import deck_template as dt  # noqa: E402
+import targets as tg  # noqa: E402
 
 REPO = Path(__file__).resolve().parent.parent
 _LINK = re.compile(r"!?\[[^\]]*\]\(([^)\s]+)[^)]*\)")
@@ -114,6 +115,12 @@ def main(argv: list[str] | None = None) -> int:
     adir = Path(a.analysis_dir).resolve()
     if not adir.is_dir():
         raise SystemExit(f"error: {adir} is not a directory")
+    try:
+        ts = tg.load(a.targets)
+    except tg.TargetError as e:
+        raise SystemExit(f"error: {e}")
+    print(f"using {tg.describe(ts)}")
+    print(tg.format_table(ts))
     run_figures(adir, a.targets)
     build = adir / "build"
     slides = load_deck(adir)
