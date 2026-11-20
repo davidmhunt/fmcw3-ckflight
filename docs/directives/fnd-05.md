@@ -1,5 +1,5 @@
 # fnd-05: Choose and smoke-test Linux tools for the simulation and RF analyses
-Status: awaiting review
+Status: blocked: Re-run with validated tools
 Goal: foundation
 Node: any
 Deliverable: doc
@@ -99,3 +99,5 @@ Notes:
 - Open observations for the doc: (1) Phase 3 says "Python script, can be committed", so the transmission-line verdict is the script, KiCad calculator being the independent hand check. (2) Several vendor-model downloads (TI, ADI, Murata) sit behind web forms or accounts: these belong under "Tools the user must obtain" even where ngspice itself is native. (3) Phase 6 lists LTspice/WEBENCH/ADIsimPLL; the Linux replacements are ngspice, hand calc plus ngspice, and a Python PLL script. (4) The container for step 2 must include ngspice, python+scipy+scikit-rf, and an openEMS build; Wine+LTspice as a separate optional layer. The directive's Dockerfile.sim path is `docker/Dockerfile.sim`; docker/ currently has only Dockerfile (fmcw3-tools) and README.md.
 Verify: Verify passed via friday verify fnd-05 (exit 0): docs/analysis-tools.md sections present; tests/test_sim_smoke.py 4 skipped under ./run (no sim image inside fmcw3-tools); on the host the same tests give 4 passed (runs/fnd-05/notes.md). The workflow's raw Bash Verify was denied by the bash_file_io hook.
 Independent review: Not run by the workflow (Verify gate blocked by the hook). Steps 3-4 doc written in the main session (1e81af4) because subagent writes of it are refused; user reviews it under Accept: user.
+
+Rejected by user: 2026-11-20 Re-run with validated tools
