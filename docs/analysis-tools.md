@@ -38,7 +38,7 @@ See amendment 1 at the end.
 |---|---|---|---|---|---|
 | ADI LT6232 model in ngspice | LTspice model library | ngspice | ADI terms | **fail**: LT6232 is not in LTspice's bundled `lib/sub`, and the analog.com model URL timed out (curl exit 28; exit 92 HTTP/2 stream error). Substitute LT1007 from bundled `LTC.lib` in ngspice: `MIF-ERROR - unable to find definition of model` and `no such function 'uplim'`, also with `set ngbehavior=ltpsa` | ADI LTC.lib models use LTspice-only devices and functions. Fallback: a datasheet macro-model (GBW, output resistance, slew) in ngspice |
 | TI PSpice models (LMR51420, LP5907, LD3920) in ngspice PSpice mode (`set ngbehavior=psa`) | PSpice, WEBENCH simulation | ngspice | TI terms | not attempted: the ti.com zip download is behind a web form (`ti.com/lit/zip/snvmb09` returned 302) | The user must fetch the zips; encrypted models would not load. Fallback: behavioural LDO (PSRR curve from the datasheet) and an averaged buck model |
-| Ferrite-bead vendor models (Murata, TDK, Wurth) | vendor simulators | ngspice subcircuit netlists | vendor terms | not attempted: download forms | Fallback: RLC fit to the datasheet impedance curve |
+| Ferrite-bead vendor models (Murata, TDK, Wurth) | vendor simulators | ngspice subcircuit netlists | vendor terms | not attempted: no download tried. Murata SimSurfing is believed to be a free download; not confirmed | Fallback: RLC fit to the datasheet impedance curve |
 
 ## Buck design (Phase 6, item 2)
 
@@ -51,14 +51,14 @@ See amendment 1 at the end.
 
 | Tool | Replaces | How it runs | Licence | Smoke | Limits |
 |---|---|---|---|---|---|
-| ADIsimPLL | itself | Windows GUI; Wine at best | ADI freeware, registration | not attempted: registration-walled installer, no batch mode | Cross-check for the user only |
+| ADIsimPLL | itself | Windows GUI; Wine at best | ADI freeware | not attempted. Believed, not confirmed: a Windows GUI installer behind ADI registration, with no batch mode | Cross-check for the user only |
 | Python loop model (scipy.signal, numpy) | ADIsimPLL | `fmcw3-tools` or `fmcw3-sim` | repo (GPLv3) | not attempted here: written and tested in sim-03 against a textbook third-order loop | Must be derived and validated in sim-03 (`[heavy]` step) |
 
 ## RF cascade and S-parameters (Phase 2)
 
 | Tool | Replaces | How it runs | Licence | Smoke | Limits |
 |---|---|---|---|---|---|
-| scikit-rf 2.2.0 | spreadsheet cascades, vendor RF tools | Python; `fmcw3-sim` | BSD-3 | **pass**: -3 dB attenuator cascaded with a +20 dB amplifier gives S21 = +17.000 dB; Friis NF by hand; lossy line 0.1 Np/m x 0.2 m = -0.1737 dB (`test_scikit_rf_two_stage_cascade`) | Needs vendor `.s2p` files (par-02) for real stages |
+| scikit-rf 2.2.0 | spreadsheet cascades, vendor RF tools | Python; `fmcw3-sim` | BSD-3 | **pass**: -3 dB attenuator cascaded with a +20 dB amplifier gives S21 = +17.000 dB; lossy line 0.1 Np/m x 0.2 m = -0.1737 dB (`test_scikit_rf_two_stage_cascade`). The same test computes the Friis NF by hand without scikit-rf, so that part checks nothing about the tool | Needs vendor `.s2p` files (par-02) for real stages; reading a `.s2p` file is not smoke-tested |
 
 ## Transmission lines (Phase 3)
 
@@ -73,8 +73,9 @@ See amendment 1 at the end.
 
 One primary tool per later analysis:
 
-- **rf-01 (RF level plan): scikit-rf.** It passed the cascade check, runs unattended, and reads
-  vendor S-parameters.
+- **rf-01 (RF level plan): scikit-rf.** It passed the cascade check and runs unattended. Reading
+  vendor `.s2p` files is a documented library feature but was not smoke-tested here; rf-01's first
+  real stage file tests it.
 - **rf-02 (impedance): the repo's Python Hammerstad-Jensen and CPWG script.** Phase 3 asks for a
   committed script. scikit-rf media is the cross-check and the KiCad calculator is your hand check.
   **openEMS** (passed, 48.8 ohm) is used only for the SMA launch and the LO via.
@@ -82,8 +83,8 @@ One primary tool per later analysis:
   regulators use behavioural PSRR models from the datasheets until the vendor models are fetched.
 - **sim-02 (buck and IF filter): Python hand calculation for the buck and ngspice for the IF
   filter.** WEBENCH has no unattended route and the TI model is behind a download form.
-- **sim-03 (PLL): a Python loop model (scipy).** ADIsimPLL is Windows-only and registration-walled
-  with no batch mode.
+- **sim-03 (PLL): a Python loop model (scipy).** ADIsimPLL is believed to be a Windows-only GUI
+  with no batch mode (not confirmed), so it has no unattended route either way.
 - **sim-04 (frequency plan): plain Python.** No external tool is needed.
 
 LTspice is not chosen: under Wine it installs, but batch mode wrote no output.
