@@ -1,0 +1,13 @@
+{
+  "cmd": "./run --sim-gui ltspice runs/fnd-08/rc_lowpass_ltspice.net (with --ipc=host)",
+  "commit": "98f0b04136d8d8f6447f8d057fa1c36d2ddb78a0",
+  "dirty": false,
+  "files": [],
+  "id": "fnd-08",
+  "metrics": {
+    "sim_gui_shown": 1
+  },
+  "node": "laptop",
+  "note": "User confirmed 2026-11-20: LTspice 26.1.1 GUI opened on the host X11 display; AC run plotted V(out); .meas g_fc -3.01 dB at 1 kHz, g_dec -20.04 dB at 10 kHz; phase -45 deg at 1 kHz. Without --ipc=host the run hit an X MIT-SHM BadValue. Text small at Wine's 96 DPI.",
+  "time": "2026-11-20T21:57:19Z"
+}
