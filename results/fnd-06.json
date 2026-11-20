@@ -1,0 +1,26 @@
+{
+  "cmd": "live trial on runs/fnd-06/scratch, KiCad 10.0.5, kicad-python 0.8.0",
+  "commit": "107d636ab01797f0c154216a04d05187ab83d50e",
+  "dirty": false,
+  "files": [
+    {
+      "path": "docs/kicad-ipc.md",
+      "sha256": "6b213458fc8247097b71b8170ff9f97e729d8678aeb5bd06534c485c05e19574",
+      "size": 4228
+    }
+  ],
+  "id": "fnd-06",
+  "metrics": {
+    "headless": 0,
+    "pcb_edit_pcb_only": 1,
+    "pcb_edit_with_sch_open": 0,
+    "pcb_read": 1,
+    "pcb_select": 1,
+    "sch_field_edit": 0,
+    "sch_select": 0,
+    "trial_complete": 1
+  },
+  "node": "laptop",
+  "note": "Board select/read work with both editors open; board edits work only with the Schematic Editor closed (freeze at begin_commit otherwise); no schematic API in KiCad 10.",
+  "time": "2026-11-20T20:27:16Z"
+}
