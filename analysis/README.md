@@ -8,7 +8,7 @@ and `reports/NN_name.pptx`.
 
 ```
 analysis/NN_name/
-  report.md     the full write-up (pandoc Markdown, becomes the PDF)
+  writeup.md    the full write-up (pandoc Markdown, becomes the PDF)
   deck.yaml     the slide list (becomes the .pptx)
   figures.py    regenerates every figure and table into build/
   build/        generated figures and tables (gitignored, never hand-edited)
@@ -18,7 +18,10 @@ analysis/NN_name/
 No figure or table is made by hand: if it appears in the report or deck, `figures.py` wrote it
 into `build/`.
 
-## report.md
+## writeup.md
+
+The source is `writeup.md`, never `report.md` or another report-named file: Claude Code refuses
+to let subagents write report files. Built outputs stay `reports/NN_name.pdf` and `.pptx`.
 
 Every report starts with these five sections, in this order:
 

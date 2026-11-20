@@ -56,7 +56,7 @@ def test_report_prints_target_set(tmp_path, capsys):
     d.mkdir()
     (d / "figures.py").write_text("")
     (d / "deck.yaml").write_text("slides:\n  - {layout: bullet, title: T, bullets: [x]}\n")
-    (d / "report.md").write_text("# x\n")
+    (d / "writeup.md").write_text("# x\n")
     assert br.main([str(d), "--check"]) == 0
     assert "target set 'default'" in capsys.readouterr().out
     with pytest.raises(SystemExit):

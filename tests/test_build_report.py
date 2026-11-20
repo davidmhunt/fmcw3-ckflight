@@ -36,7 +36,7 @@ def fixture(tmp_path):
     d.mkdir()
     (d / "figures.py").write_text(FIGURES)
     (d / "deck.yaml").write_text(DECK)
-    (d / "report.md").write_text(REPORT)
+    (d / "writeup.md").write_text(REPORT)
     return d
 
 
@@ -71,7 +71,7 @@ def test_check_missing_figure(fixture, capsys):
 
 
 def test_check_unresolved_reference(fixture, capsys):
-    (fixture / "report.md").write_text(REPORT + "\n![x](build/gone.png)\n")
+    (fixture / "writeup.md").write_text(REPORT + "\n![x](build/gone.png)\n")
     assert br.main([str(fixture), "--check"]) == 1
     assert "unresolved reference build/gone.png" in capsys.readouterr().err
 

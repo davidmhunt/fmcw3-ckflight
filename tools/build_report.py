@@ -1,10 +1,10 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run --quiet
 """Turn an analysis folder into reports/NN_name.pdf and reports/NN_name.pptx.
 
 usage: build_report.py <analysis dir> [--targets NAME] [--check] [--out DIR]
 
 Runs <dir>/figures.py (cwd = the analysis dir, env FMCW_TARGETS = target set name), then
---check: validates deck.yaml and report.md references and text fit, builds nothing;
+--check: validates deck.yaml and writeup.md references and text fit, builds nothing;
 otherwise: builds the PDF with pandoc and the deck with python-pptx.
 Run through ./run so pandoc and LaTeX are available.
 """
@@ -74,8 +74,8 @@ def check_deck(slides: list[dict], build: Path) -> list[str]:
 
 
 def check_report(adir: Path) -> list[str]:
-    """Unresolved references in report.md: local links/images that do not exist."""
-    p = adir / "report.md"
+    """Unresolved references in writeup.md: local links/images that do not exist."""
+    p = adir / "writeup.md"
     if not p.is_file():
         return [f"{p} not found"]
     errs = []
@@ -84,7 +84,7 @@ def check_report(adir: Path) -> list[str]:
         if re.match(r"^(https?:|mailto:|#)", ref):
             continue
         if not (adir / ref).exists():
-            errs.append(f"report.md: unresolved reference {ref}")
+            errs.append(f"writeup.md: unresolved reference {ref}")
     return errs
 
 
@@ -92,7 +92,7 @@ def build_pdf(adir: Path, out: Path) -> None:
     if not shutil.which("pandoc"):
         raise SystemExit("error: pandoc not found (run through ./run)")
     subprocess.run(
-        ["pandoc", "report.md", "-o", str(out), "--resource-path", str(adir),
+        ["pandoc", "writeup.md", "-o", str(out), "--resource-path", str(adir),
          "-V", "geometry:margin=2.2cm"],
         cwd=adir, check=True)
 

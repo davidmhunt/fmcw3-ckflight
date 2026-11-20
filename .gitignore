@@ -17,3 +17,6 @@ analysis/*/build/
 
 # KiCad local state
 fp-info-cache
+
+# Python bytecode
+__pycache__/
