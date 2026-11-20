@@ -28,7 +28,9 @@ with evidence for each check and each critical part.
    budget per rail from datasheet typical and maximum currents, and regulator headroom and
    dissipation.
 4. Report and deck: one slide per check with an annotated board crop, a summary matrix (part by
-   check), and the proposed changes.
+   check), and the proposed changes. Measurements come from the board file read headless; when
+   the project is open in KiCad, `tools/kicad_ipc.py show` selects the parts and nets of each
+   check so the user can follow along (fnd-06).
 
 ## Acceptance
 - Each critical part in step 2 has a row in the summary matrix with a result for each check and a datasheet page.

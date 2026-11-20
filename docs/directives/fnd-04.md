@@ -39,9 +39,16 @@ the repo, with no hand-made figure.
    it, the folder map, the roadmap. Build it and commit `reports/00_baseline.pdf` and `.pptx`.
 6. Tests in `tests/`: target loading and schema errors, deck overflow check, a build of a tiny
    fixture analysis. Document the commands in `README.md` and `CLAUDE.md`.
+7. Built files are not committed (amendment approved by the user 2026-11-20, because the LFS
+   route in step 4 was refused). `git rm --cached` `reports/00_baseline.pdf` and `.pptx`, and
+   gitignore `reports/*.pdf` and `reports/*.pptx`. Add `tools/build_all.py`, which rebuilds every
+   `analysis/NN_*/` that has a `deck.yaml` into `reports/` and supports `--check`. Rewrite
+   `reports/README.md` (built locally, never committed, how to rebuild) and the matching lines in
+   `README.md` and `CLAUDE.md`. This replaces the commit parts of steps 4 and 5.
 
 ## Review
-- Open `reports/00_baseline.pptx` and `reports/00_baseline.pdf`: is the deck style, level of
+- Run `./run tools/build_all.py`, then open `reports/00_baseline.pptx` and
+  `reports/00_baseline.pdf`. `git status` shows no built file. Is the deck style, level of
   detail and slide density what you want for every later analysis. Say what to change now; the
   template is reused by all later goals.
 - Open `analysis/targets/default.yaml`: are these the right parameters to carry as targets.

@@ -17,6 +17,8 @@ both pass on a fresh clone following `docs/setup.md`.
 3. fnd-03: Repeatable environment (setup guide, pinned Docker image, run wrapper, .env)
 4. fnd-04: Report and deck pipeline with target sets and a baseline report
 5. fnd-05: Choose and smoke-test Linux tools for the simulation and RF analyses
+6. fnd-06: KiCad IPC client and a live trial with the user watching
+7. fnd-07: Switch the KiCad editing rules to IPC-when-open
 
 ## Roadmap
 This is the first of five goals, each one PR into `falcon_development`; a single PR from
@@ -39,9 +41,23 @@ are re-checked and approved one at a time.
 - Part numbers (MPN, DigiKey, LCSC) will live in schematic symbol fields (done in goal `parts`).
 - Datasheets: manifest plus download script; PDFs are not committed.
 - One `.env` for all API keys, with a committed `.env.example`.
-- Reports: markdown source, built PDF, and a `.pptx` deck per analysis; built files go through Git LFS.
+- Reports: markdown source, built PDF, and a `.pptx` deck per analysis. Superseded 2026-11-20: GitHub
+  refuses LFS uploads to this public fork, so built PDFs and decks are not committed at all; they are
+  gitignored and rebuilt by script (fnd-04 amendment).
 - System targets (range, chirp, TX power, antennas) are parameters in `analysis/targets/*.yaml`
   so every analysis can be re-run for a new target set.
 - The user has Linux only: analysis tools must run natively, in Docker, or under Wine.
+
+## Decisions (planning interview, 2026-11-20)
+- Analysis write-up sources are `writeup.md`, not `report.md` (Claude Code blocks subagents from
+  writing report files).
+- KiCad interaction: batch work (ERC, DRC, exports, report builds) uses `kicad-cli` in Docker.
+  Interactive work uses the KiCad IPC API against the user's open KiCad 10.0.5, so the user can
+  follow along. This reverses the old "never edit while KiCad is open" rule (fnd-06, fnd-07).
+- IPC edits are one undoable commit each, and the agent never saves; the user reviews and saves.
+- Analyses read the files headless so reports rebuild without the GUI. IPC is used to show
+  (select or highlight) what is being discussed.
+- If an edit IPC cannot do is needed while KiCad is open, the agent stops and asks the user to
+  close it.
 
 ## Log
