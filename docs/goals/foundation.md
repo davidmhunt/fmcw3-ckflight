@@ -59,5 +59,15 @@ are re-checked and approved one at a time.
   (select or highlight) what is being discussed.
 - If an edit IPC cannot do is needed while KiCad is open, the agent stops and asks the user to
   close it.
+- Analysis tools: prefer validated industry or vendor tools. The repo's own code is used only
+  where none fits, and only with a downloaded source checked against the file and a test that
+  reproduces a published worked example. LTspice (through spicelib, under Wine) runs ADI models
+  and mixed ADI+TI circuits; ngspice runs TI-only circuits (fnd-05 amendment).
+- Full-wave EM for 3D structures (SMA launch, vias, coupler, balun traces, isolation): the user's
+  CST Studio Suite Learning Edition where it applies, run by the user on their Windows machine
+  from a checklist the agent prepares. openEMS is the open, repeatable fallback and cross-check in
+  `fmcw3-sim`, and takes over where a model exceeds the Learning Edition's size limits. CST
+  results enter the repo as exported `.s2p` files recorded with `friday result write`. A file too
+  large for git is kept outside the repo, with its location and sha256 in the sources manifest.
 
 ## Log

@@ -45,6 +45,19 @@ the repo, with no hand-made figure.
    `analysis/NN_*/` that has a `deck.yaml` into `reports/` and supports `--check`. Rewrite
    `reports/README.md` (built locally, never committed, how to rebuild) and the matching lines in
    `README.md` and `CLAUDE.md`. This replaces the commit parts of steps 4 and 5.
+8. (Amendment approved by the user 2026-11-20 after reviewing the deck.)
+   - Deck PDF: every build also exports the deck to `reports/NN_name_ppt.pdf` with LibreOffice
+     Impress headless, added to the `fmcw3-tools` image. `build_all.py` and `--check` cover it;
+     it is gitignored like the other built files. Gitignore `.~lock*` (LibreOffice lock files).
+   - Targets in two groups in `analysis/targets/default.yaml`, both schema-checked:
+     - `design` (required; printed first in every writeup and deck): `freq_min_ghz` and
+       `freq_max_ghz` (assumed 5.725 and 5.875, the 5.8 GHz ISM band), chirp bandwidth, ADC
+       sample rate, TX power, TX/RX isolation, board quantity;
+     - `performance` (optional extras, printed after): max range, chirp duration, antenna gain.
+   - Range resolution is derived from the bandwidth (c / 2B) and printed as derived, never set.
+   - The schema check fails when the chirp bandwidth exceeds `freq_max - freq_min`.
+   - Values stay `assumed` until the user sets them. Update the tests and rebuild
+     `analysis/00_baseline`.
 
 ## Review
 - Run `./run tools/build_all.py`, then open `reports/00_baseline.pptx` and
@@ -52,6 +65,8 @@ the repo, with no hand-made figure.
   detail and slide density what you want for every later analysis. Say what to change now; the
   template is reused by all later goals.
 - Open `analysis/targets/default.yaml`: are these the right parameters to carry as targets.
+- Open `reports/00_baseline_ppt.pdf`: the slides as a PDF. Check that the design targets are
+  printed first and range resolution is shown as derived.
 
 ## Out of scope
 - Any new analysis beyond summarising the existing ERC/DRC baseline.
