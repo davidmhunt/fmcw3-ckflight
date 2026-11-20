@@ -151,8 +151,10 @@ downloaded from this host, so none has an install result; they are user checklis
 | CST Studio Suite Learning Edition (you have it, on your Windows machine) | Dassault Systèmes, student licence | rf-02: the SMA launch and LO via where the model fits the Learning Edition limits | openEMS |
 
 Downloaded models and PDFs go under the gitignored `datasheets/files/` and
-`docs/references/files/`, fetched by `./run tools/fetch_sources.py`; nothing is committed whose
-licence forbids it.
+`docs/references/files/`, fetched by `./run tools/fetch_sources.py`; tool installers (LTspice,
+PSpice for TI) go under the gitignored `software/files/` and are listed in
+`software/manifest.yaml` (see `software/README.md`). Nothing is committed whose licence forbids
+it.
 
 ## Proposed amendments to sim-spurs and rf-review
 

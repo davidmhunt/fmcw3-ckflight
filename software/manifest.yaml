@@ -1,0 +1,24 @@
+# Downloaded tool installers. Read by tools/fetch_sources.py (see its docstring).
+# Fields: id, kind, title, url (public), access (direct|form|login), file, sha256, licence,
+# commit (yes|no). commit: no files live under software/files/ (gitignored); an installer is
+# never committed. See software/README.md.
+entries:
+- id: adi-ltspice-installer
+  kind: tool-installer
+  title: LTspice 64-bit Windows installer (ADI public link, no registration; the fmcw3-sim image build
+    downloads it itself)
+  url: https://ltspice.analog.com/software/LTspice64.msi
+  access: direct
+  file: software/files/adi/LTspice64.msi
+  sha256: f22163f15420e43a2d5c66440e038ef031a9f019a181f396b95edcef5eebc357
+  licence: ADI freeware, not open source; not redistributed here
+  commit: 'no'
+- id: ti-pspice-for-ti-installer
+  kind: tool-installer
+  title: PSpice for TI installer (Windows; needs a TI account; user-fetch, never committed)
+  url: https://www.ti.com/tool/PSPICE-FOR-TI
+  access: login
+  file: software/files/ti/pspice-for-ti-installer.zip
+  sha256: ''
+  licence: TI software licence (free with a TI account); not redistributed here
+  commit: 'no'

@@ -10,7 +10,7 @@ import yaml
 
 ROOT = Path(__file__).resolve().parent.parent
 DOC = ROOT / "docs" / "analysis-tools.md"
-MANIFESTS = ("datasheets/manifest.yaml", "docs/references/manifest.yaml")
+MANIFESTS = ("datasheets/manifest.yaml", "software/manifest.yaml", "docs/references/manifest.yaml")
 SECTIONS = ("## Verdict", "## Tools the user must obtain", "## References")
 
 

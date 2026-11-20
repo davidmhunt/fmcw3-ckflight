@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Fetch and check the datasheets, vendor models and references the analyses rely on.
 
-Two manifests (YAML, top-level key `entries:`, a list):
+Three manifests (YAML, top-level key `entries:`, a list):
   datasheets/manifest.yaml        datasheets and vendor models
+  software/manifest.yaml          tool installers (see software/README.md)
   docs/references/manifest.yaml   papers, textbooks, app notes, documents
 
 Entry fields: id, kind, title, url (public), access (direct|form|login), file (path
@@ -28,6 +29,7 @@ import yaml
 ROOT = Path(__file__).resolve().parent.parent
 MANIFESTS = [
     ("datasheets/manifest.yaml", False),
+    ("software/manifest.yaml", False),
     ("docs/references/manifest.yaml", True),
 ]
 REQUIRED = ("id", "kind", "title", "url", "access", "file", "sha256", "licence", "commit")

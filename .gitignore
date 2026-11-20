@@ -27,6 +27,8 @@ fp-info-cache
 # downloaded sources whose licence does not allow committing (tools/fetch_sources.py)
 datasheets/files/
 docs/references/files/
+# downloaded tool installers (software/manifest.yaml); never committed
+software/files/
 
 # Python bytecode
 __pycache__/

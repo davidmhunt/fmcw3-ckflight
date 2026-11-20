@@ -79,6 +79,33 @@ def test_missing_field_and_bad_access_and_duplicate(tmp_path):
     assert any("duplicate" in p for p in fs.check_all(MANS, tmp_path))
 
 
+def test_real_manifests_include_software_and_it_is_gitignored():
+    root = Path(__file__).resolve().parent.parent
+    assert ("software/manifest.yaml", False) in fs.MANIFESTS
+    entries = fs.load(root / "software/manifest.yaml")
+    ids = {e["id"]: e for e in entries}
+    assert {"ti-pspice-for-ti-installer", "adi-ltspice-installer"} <= set(ids)
+    assert ids["ti-pspice-for-ti-installer"]["file"].startswith("software/files/")
+    # the installer moved out of the datasheets manifest
+    assert "ti-pspice-for-ti-installer" not in {
+        e["id"] for e in fs.load(root / "datasheets/manifest.yaml")}
+    assert "software/files/" in (root / ".gitignore").read_text().split()
+    for e in entries:
+        assert not fs.commit_flag(e)
+
+
+def test_software_manifest_entry_checks(tmp_path):
+    h = put(tmp_path, "software/files/ti/x.zip")
+    mans = [("sw.yaml", False)]
+    e = entry(id="sw", kind="tool-installer", access="login", file="software/files/ti/x.zip",
+              sha256=h)
+    (tmp_path / "sw.yaml").write_text(yaml.safe_dump({"entries": [e]}))
+    assert fs.check_all(mans, tmp_path) == []
+    e["file"] = "software/x.zip"
+    (tmp_path / "sw.yaml").write_text(yaml.safe_dump({"entries": [e]}))
+    assert any("files/" in p for p in fs.check_all(mans, tmp_path))
+
+
 def test_fetch_downloads_direct_records_hash_and_lists_todo(tmp_path):
     write(tmp_path, ds=[
         entry(),
