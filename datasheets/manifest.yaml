@@ -1,19 +1,8 @@
-# Datasheets and vendor models. Read by tools/fetch_sources.py (see its docstring).
-# Fields: id, kind, title, url (public), access (direct|form|login), file, sha256, licence,
-# commit (yes|no). commit: no files live under datasheets/files/ (gitignored).
-# Filled for the critical parts by directive par-02.
 entries:
 - id: st-ld39200-datasheet
   kind: datasheet
-  # par-02 step 2, checked against this file (Rev 3, Sept 2018): U22, U23, U24 (symbol "LD3920",
-  # value "LD3920") are the ADJ DFN8 4x4 part LD39200DPUR (Table 11). Footprint
-  # DFN-8-1EP_4x4mm_P0.8mm_EP2.3x3.24mm matches Table 9 (e 0.8; EP 2.3x3.24 is at the upper
-  # D2/E2 limits). Pins match Table 2: IN 7+8 tied, OUT 1+2 tied, ADJ 3 to a divider
-  # (Vout = 0.5 V x (1 + R1/R2)), GND 4 and pad 9 to GND, EN 6 with VIN, PG 5.
-  # U22 5V6 -> 5.0 V (R43 18k / R44 2k); U23 3V8 -> 1.83 V (R45 49.9k / R46 18.7k), PG to U25 EN;
-  # U24 3V8 -> 3.33 V (R47 18.7k / R48 3.3k); U22 and U24 leave PG open. All consistent.
-  # Gap: value "LD3920" is not an orderable code (should read LD39200DPUR); a part-field matter for par-03.
-  title: ST LD39200 2 A high PSRR LDO datasheet, DS10079 Rev 3 (U22, U23, U24 "LD3920" = LD39200DPUR, DFN8 4x4, ADJ; U25 "LD3920_33" = LD39200PU33R, DFN6 3x3, 3.3 V)
+  title: ST LD39200 2 A high PSRR LDO datasheet, DS10079 Rev 3 (U22, U23, U24 "LD3920" = LD39200DPUR,
+    DFN8 4x4, ADJ; U25 "LD3920_33" = LD39200PU33R, DFN6 3x3, 3.3 V)
   url: https://www.st.com/resource/en/datasheet/ld39200.pdf
   access: direct
   file: datasheets/files/st/ld39200.pdf
@@ -22,12 +11,12 @@ entries:
   commit: 'no'
 - id: adi-adf4158-datasheet
   kind: datasheet
-  title: ADI ADF4158 6.1 GHz fractional-N synthesizer with ramp, Rev. I (U1; web.archive.org capture
-    of the analog.com URL, 2025-11-17, because analog.com did not answer)
+  title: ADI ADF4158 6.1 GHz fractional-N synthesizer with ramp, Rev. I (U1; web.archive.org capture of
+    the analog.com URL, 2025-11-17, because analog.com did not answer)
   url: https://web.archive.org/web/20251117151940id_/https://www.analog.com/media/en/technical-documentation/data-sheets/adf4158.pdf
   access: direct
   file: datasheets/files/adi/adf4158.pdf
-  sha256: ''
+  sha256: 2560d0cbf414267eb7b7776840c86d7d0fbf7990bf769ae4351f58a5678d3919
   licence: ADI copyright; not redistributed here
   commit: 'no'
 - id: adi-hmc431lp4-datasheet
@@ -37,13 +26,13 @@ entries:
   url: https://web.archive.org/web/20241014082146id_/https://www.analog.com/media/en/technical-documentation/data-sheets/hmc431.pdf
   access: direct
   file: datasheets/files/adi/hmc431lp4.pdf
-  sha256: ''
+  sha256: c5a1cde939a0c30b5d200990fa0f1a031a676259f3117d4b0f658ed781eba5dc
   licence: ADI copyright; not redistributed here
   commit: 'no'
 - id: qorvo-tqp5525-datasheet
   kind: datasheet
-  title: Qorvo TQP5525 5 GHz power amplifier datasheet, latest revision (U14; qorvo.com sits behind a bot
-    challenge, so the user saves it from the product page, Data Sheet link)
+  title: Qorvo TQP5525 5 GHz power amplifier datasheet, latest revision (U14; qorvo.com sits behind a
+    bot challenge, so the user saves it from the product page, Data Sheet link)
   url: https://www.qorvo.com/products/p/TQP5525
   access: form
   file: datasheets/files/qorvo/tqp5525.pdf
@@ -52,12 +41,11 @@ entries:
   commit: 'no'
 - id: skyworks-sky65404-datasheet
   kind: datasheet
-  title: Skyworks SKY65404-31 5 GHz low-noise amplifier, document 201512O, March 5, 2021 (U11, U16
-    "SKY65404")
+  title: Skyworks SKY65404-31 5 GHz low-noise amplifier, document 201512O, March 5, 2021 (U11, U16 "SKY65404")
   url: https://www.skyworksinc.com/-/media/SkyWorks/Documents/Products/501-600/SKY65404-31_201512O.pdf
   access: direct
   file: datasheets/files/skyworks/sky65404-31.pdf
-  sha256: ''
+  sha256: 1825735b6ad3aec564f7fc7a6d0f6ef29e3ce2be7b88fff5b2224526b8457f13
   licence: Skyworks copyright; not redistributed here
   commit: 'no'
 - id: ti-trf37a73-datasheet
@@ -66,17 +54,17 @@ entries:
   url: https://www.ti.com/lit/ds/symlink/trf37a73.pdf
   access: direct
   file: datasheets/files/ti/trf37a73.pdf
-  sha256: ''
+  sha256: 776e5945eda48dd1008366ac0589030f2c740e1184d61d64e4ade5759cf564e3
   licence: TI copyright; not redistributed here
   commit: 'no'
 - id: adi-adl5802-datasheet
   kind: datasheet
-  title: ADI ADL5802 dual-channel 100 MHz to 6 GHz active mixer, Rev. C (U29; web.archive.org capture of
-    the analog.com URL, 2024-07-15, because analog.com did not answer)
+  title: ADI ADL5802 dual-channel 100 MHz to 6 GHz active mixer, Rev. C (U29; web.archive.org capture
+    of the analog.com URL, 2024-07-15, because analog.com did not answer)
   url: https://web.archive.org/web/20240715065415id_/https://www.analog.com/media/en/technical-documentation/data-sheets/ADL5802.pdf
   access: direct
   file: datasheets/files/adi/adl5802.pdf
-  sha256: ''
+  sha256: 4b435a1df5354bf63e68a6c213d64ff1f4d6c570fc74160e793608564a8fb7c2
   licence: ADI copyright; not redistributed here
   commit: 'no'
 - id: johanson-5400bl15b050-datasheet
@@ -86,7 +74,7 @@ entries:
   url: https://www.johansontechnology.com/datasheets/baluns/5400BL15B050.pdf
   access: direct
   file: datasheets/files/johanson/5400bl15b050.pdf
-  sha256: ''
+  sha256: 523539ab176758a7df02bae64647b2f0b4163459f27bccdc36fc9469f9420442
   licence: Johanson copyright; not redistributed here
   commit: 'no'
 - id: adi-lt6232-datasheet
@@ -96,7 +84,7 @@ entries:
   url: https://web.archive.org/web/20250123013939id_/https://www.analog.com/media/en/technical-documentation/data-sheets/623012fc.pdf
   access: direct
   file: datasheets/files/adi/lt6232.pdf
-  sha256: ''
+  sha256: 62978a516663990d7894d367bc84cb164bb953f3ed55763f5980945433216b24
   licence: ADI copyright; not redistributed here
   commit: 'no'
 - id: adi-ltc2292-datasheet
@@ -106,17 +94,17 @@ entries:
   url: https://web.archive.org/web/20240723073117id_/https://www.analog.com/media/en/technical-documentation/data-sheets/2294fa.pdf
   access: direct
   file: datasheets/files/adi/ltc2292.pdf
-  sha256: ''
+  sha256: dce5c8f4e99103691ae3c9c46dde2544e064955399443cb450d59458eb936480
   licence: ADI copyright; not redistributed here
   commit: 'no'
 - id: amd-ds181-artix7-datasheet
   kind: datasheet
-  title: AMD Artix-7 FPGAs data sheet DS181 v1.27.1, July 3, 2024 (U30 XC7A100T-1FTG256C as designed; the
-    ordered build used XC7A35T)
+  title: AMD Artix-7 FPGAs data sheet DS181 v1.27.1, July 3, 2024 (U30 XC7A100T-1FTG256C as designed;
+    the ordered build used XC7A35T)
   url: https://docs.amd.com/api/khub/documents/iAkxxTOk96ANLJqYf2hgrQ/content
   access: direct
   file: datasheets/files/amd/ds181-artix7.pdf
-  sha256: ''
+  sha256: 3f0cb482d645e217ae834e9370c1320300abb85a8046287250f9a48856aed070
   licence: AMD copyright; not redistributed here
   commit: 'no'
 - id: amd-ug475-pkg-pinout
@@ -125,7 +113,7 @@ entries:
   url: https://docs.amd.com/api/khub/documents/kHyYQ6XzXnQwR2O~gaV~MQ/content
   access: direct
   file: datasheets/files/amd/ug475-pkg-pinout.pdf
-  sha256: ''
+  sha256: 8ad92ec9cc50561a9f5f14df6337fc02f715e2ee32153d81d19f355c084397a4
   licence: AMD copyright; not redistributed here
   commit: 'no'
 - id: amd-xc7a100t-ftg256-pinout
@@ -134,7 +122,7 @@ entries:
   url: https://www.xilinx.com/support/packagefiles/a7packages/xc7a100tftg256pkg.txt
   access: direct
   file: datasheets/files/amd/xc7a100tftg256pkg.txt
-  sha256: ''
+  sha256: c505b0863da312ea46043aa58591ae5d581ea07c27bf06c0896c9de6ce25bce1
   licence: AMD copyright; not redistributed here
   commit: 'no'
 - id: amd-xc7a35t-ftg256-pinout
@@ -144,7 +132,7 @@ entries:
   url: https://www.xilinx.com/support/packagefiles/a7packages/xc7a35tftg256pkg.txt
   access: direct
   file: datasheets/files/amd/xc7a35tftg256pkg.txt
-  sha256: ''
+  sha256: de57fb088ba58b99088304622a09defc301da4fa66589a78024c19d80747039e
   licence: AMD copyright; not redistributed here
   commit: 'no'
 - id: ti-lmr51420-datasheet
@@ -154,7 +142,7 @@ entries:
   url: https://www.ti.com/lit/ds/symlink/lmr51420.pdf
   access: direct
   file: datasheets/files/ti/lmr51420.pdf
-  sha256: ''
+  sha256: 8cc7e8bc4ef9adbaaebf47d6059a847796b004ad3cd82ce99102a0fa590693ea
   licence: TI copyright; not redistributed here
   commit: 'no'
 - id: ti-lp5907-datasheet
@@ -163,7 +151,7 @@ entries:
   url: https://www.ti.com/lit/ds/symlink/lp5907.pdf
   access: direct
   file: datasheets/files/ti/lp5907.pdf
-  sha256: ''
+  sha256: f5deda2f0cd6f251622fa0fbb57fd0ddff831b797f96b9a0a53ed35059e1c4ba
   licence: TI copyright; not redistributed here
   commit: 'no'
 - id: ecs-txo-32csmv-datasheet
@@ -173,7 +161,7 @@ entries:
   url: https://ecsxtal.com/store/pdf/ECS-TXO-32CSMV.pdf
   access: direct
   file: datasheets/files/ecs/ecs-txo-32csmv.pdf
-  sha256: ''
+  sha256: c37046ada66d8357ec59dd9f001de8907978cef20e4761f7f3a4de64222a86fa
   licence: ECS copyright; not redistributed here
   commit: 'no'
 - id: microchip-pl133-37-datasheet
@@ -182,7 +170,7 @@ entries:
   url: https://ww1.microchip.com/downloads/en/DeviceDoc/PL133-37.pdf
   access: direct
   file: datasheets/files/microchip/pl133-37.pdf
-  sha256: ''
+  sha256: 6eef129a27ebeb1b6d4c5c55bf2847ce1d6d819d5e8406f0db08c37207e589ef
   licence: Microchip copyright; not redistributed here
   commit: 'no'
 - id: ftdi-ft2232h-datasheet
@@ -192,7 +180,7 @@ entries:
   url: https://web.archive.org/web/20250823184258id_/https://ftdichip.com/wp-content/uploads/2020/07/DS_FT2232H.pdf
   access: direct
   file: datasheets/files/ftdi/ds-ft2232h.pdf
-  sha256: ''
+  sha256: 8bc525e4ea8e5b040948500b1c62f2ddaa1d6b9a631b639b973c7158905a485e
   licence: FTDI copyright; not redistributed here
   commit: 'no'
 - id: winbond-w25q128jv-datasheet
@@ -201,7 +189,7 @@ entries:
   url: https://www.winbond.com/resource-files/w25q128jv%20revf%2003272018%20plus.pdf
   access: direct
   file: datasheets/files/winbond/w25q128jv.pdf
-  sha256: ''
+  sha256: 809f066e62bcde10b12c2202daf05f4776929ad7dc5f9d3b5131cdcc84502bc1
   licence: Winbond copyright; not redistributed here
   commit: 'no'
 - id: pat1220-attenuator-datasheet
@@ -251,4 +239,54 @@ entries:
   file: datasheets/files/ti/slum825.zip
   sha256: b5f26ecc5d1af073b155c1e9d4954f4000de0cb9b68d0aff44f514e946b23f60
   licence: TI model terms (provided as is for customer design use); not redistributed here
+  commit: 'no'
+- id: ti-trf37a73-sparams
+  kind: vendor-model
+  title: TI TRF37A73 measured S-parameters, Touchstone .s2p in a zip (SLAM237, HP8720D capture dated 27
+    May 2014; U9, U13)
+  url: https://www.ti.com/lit/zip/slam237
+  access: direct
+  file: datasheets/files/ti/slam237.zip
+  sha256: 8c344e138292e74d168b9f4c252821ca5438bfe45e0bfc2c175ae1b010d43f23
+  licence: TI model terms (provided as is for customer design use); not redistributed here
+  commit: 'no'
+- id: johanson-5400bl15b050-sparams
+  kind: vendor-model
+  title: Johanson 5400BL15B050 balun S-parameters (U26, U27, U28; the part page says S-parameters are
+    behind its info link, which is not in the static page, so the user saves the file)
+  url: https://www.johansontechnology.com/products/integrated-passives/baluns/5400bl15b0050001e/
+  access: form
+  file: datasheets/files/johanson/5400bl15b050.s2p
+  sha256: ''
+  licence: Johanson terms; not redistributed here
+  commit: 'no'
+- id: qorvo-tqp5525-sparams
+  kind: vendor-model
+  title: Qorvo TQP5525 S-parameters (U14; qorvo.com sits behind a bot challenge, so the user saves the
+    file from the product page if one is listed)
+  url: https://www.qorvo.com/products/p/TQP5525
+  access: form
+  file: datasheets/files/qorvo/tqp5525.s2p
+  sha256: ''
+  licence: Qorvo terms; not redistributed here
+  commit: 'no'
+- id: skyworks-sky65404-sparams
+  kind: vendor-model
+  title: Skyworks SKY65404-31 S-parameters (U11, U16; the product page shows no S-parameter link to a
+    scripted request, so the user saves the file if one is listed)
+  url: https://www.skyworksinc.com/en/Products/Amplifiers/SKY65404-31
+  access: form
+  file: datasheets/files/skyworks/sky65404-31.s2p
+  sha256: ''
+  licence: Skyworks terms; not redistributed here
+  commit: 'no'
+- id: adi-adl5802-sparams
+  kind: vendor-model
+  title: ADI ADL5802 S-parameters (U29; analog.com did not answer from this host, so the user saves the
+    file from the product page Design Resources if one is listed)
+  url: https://www.analog.com/en/products/adl5802.html
+  access: form
+  file: datasheets/files/adi/adl5802-sparams.zip
+  sha256: ''
+  licence: ADI terms; not redistributed here
   commit: 'no'
