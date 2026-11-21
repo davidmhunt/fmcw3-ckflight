@@ -22,7 +22,10 @@ the later analyses and the redesign need.)
    - why that analysis needs it;
    - the manifest id that satisfies it.
    The MPNs come from `parts/decisions.csv`. The replacement PA from par-07 is one row; while
-   par-07 is undecided, the row carries the MPN `TBD-par-07`.
+   par-07 is undecided, the row carries the MPN `TBD-par-07`. Every option still open in a
+   user choice that an analysis must check before the choice is final also gets rows. For example,
+   FB4's option BLM18KG221SN1D needs its Murata S-parameter and SPICE models for sim-01's 5 V
+   branch, and the QPA9501 is already on file. (Amended 2026-11-21 at the user's request.)
 2. Add a `vendor-model` entry to `datasheets/manifest.yaml` for every row that has none yet:
    - use the vendor's model page, or the DigiKey product page from par-06 as the user-fetch
      link;

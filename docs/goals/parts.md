@@ -48,5 +48,9 @@ availability report lists no unresolved line.
   them. Consign from DigiKey only when no JLC-stocked part fits, and say why none fits. Rank
   JLC-stocked options first in every comparison and recommendation. (The user, 2026-11-21:
   consignment delays the build a lot compared with ordering through JLCPCB.)
+- Record every proposed, chosen or applied change to the upstream board in
+  `docs/board-changes.md`: what changed, why, the evidence, the simulation or analysis that
+  covers it, and its status. A changed part with no covering simulation must say so. (The user,
+  2026-11-21: changes must be simulated and documented.)
 
 ## Log
