@@ -1,5 +1,5 @@
 # foundation: Clean repo layout, repeatable environment and report pipeline
-Status: running
+Status: done
 Base: falcon_development
 Land: pr
 
@@ -75,3 +75,4 @@ are re-checked and approved one at a time.
   large for git is kept outside the repo, with its location and sha256 in the sources manifest.
 
 ## Log
+- 2026-11-21: Landed: 9 directive(s) reverified on friday/foundation; PR into falcon_development.
