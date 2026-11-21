@@ -4,7 +4,7 @@ Goal: parts
 Node: any
 Deliverable: code
 Accept: user
-Verify: checks/run_checks.sh && ./run parts/bom.py --offline --check && ./run uv run pytest tests/test_apply_fields.py -q
+Verify: ./run checks/run_checks.sh && ./run parts/bom.py --offline --check && ./run uv run pytest tests/test_apply_fields.py -q
 Hardware: none
 
 ## Goal
@@ -16,13 +16,14 @@ schematic alone has an MPN on every placed part and the netlist is unchanged.
 2. `parts/apply_fields.py`: for each ref in `parts/decisions.csv` (with the user's par-03
    choices applied), build the field set `MPN`, `Manufacturer`, `DigiKey`, `LCSC`. Field edits
    only: no symbol, value, footprint, wire or position change. Dry-run mode prints the diff per
-   ref. Two backends, picked by `./run --native tools/kicad_ipc.py status` (fnd-06):
-   `ipc` (project open) writes through `tools/kicad_ipc.py set-fields` as one commit, the user
-   watching; `closed` edits the sheet files. Tested on a copy of one sheet and with the fake IPC
-   client.
-3. Apply. With `ipc`, ask the user to review the fields in the GUI and save; continue once they
-   have. Then export the netlist again and diff against step 1 (must be equal apart from the new
-   fields). Run `checks/run_checks.sh`.
+   ref. One backend: it edits the `.kicad_sch` files directly, and only when
+   `./run --native tools/kicad_ipc.py status` prints `closed`; otherwise it refuses. (Amended
+   2026-11-21 at the user's request: KiCad 10 has no schematic API (fnd-06 trial), so the IPC
+   `set-fields` path waits for KiCad 11.) Tested on a copy of one sheet: fields added, every
+   other byte of the S-expression unchanged apart from the new field nodes.
+3. Apply. If status is not `closed`, stop and ask the user to close KiCad. Apply, then export the
+   netlist again and diff against step 1 (must be equal apart from the new fields). Run
+   `./run checks/run_checks.sh`. Ask the user to reopen KiCad and spot-check (see Review).
 4. Remove the `parts/decisions.csv` merge path from `parts/bom.py` so the schematic is the only
    source; keep the CSV as the record of why. Re-run the BOM and commit `parts/out/`.
 
@@ -34,6 +35,11 @@ schematic alone has an MPN on every placed part and the netlist is unchanged.
 ## Out of scope
 - Value, footprint or part changes that alter the design (a later design-change goal).
 - Updating `production/`.
+
+## Rules
+- Never write `kicad/*.kicad_sch` while KiCad has the project open; `status` must print `closed`
+  immediately before the write.
+- Field edits only: no value, symbol, footprint, wire or position change.
 
 ## Allowed commands
 - `./run *`

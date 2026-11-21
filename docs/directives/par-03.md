@@ -13,9 +13,11 @@ out for the user to decide. It holds when `parts/decisions.csv` covers every pla
 `01_parts` report and deck build.
 
 ## Steps
-1. For each `No-result` line (20 at the last run), find the orderable suffix from the datasheet
-   ordering table whose package matches the footprint; record part, chosen code, datasheet page
-   and reason in `parts/decisions.csv`. Use LCSC numbers found on upstream's JLCPCB branches
+1. For each line par-01's live run left without an exact match (upstream's old run had 20
+   `No-result` lines), find the orderable suffix from the datasheet ordering table whose package
+   matches the footprint; record part, chosen code, datasheet manifest id and page, and reason in
+   `parts/decisions.csv`. The datasheet must be in `datasheets/manifest.yaml` (par-02) and read
+   from the downloaded file, never from memory. Use LCSC numbers found on upstream's JLCPCB branches
    (survey fnd-01) as a starting point, each re-checked.
 2. Prepare, but do not decide, the user's choices, each with options, stock, price and the
    consequence: XC7A35T or XC7A100T (U30): the schematic is the 100T, `production/` is the as-ordered 35T, the
@@ -26,10 +28,13 @@ out for the user to decide. It holds when `parts/decisions.csv` covers every pla
    kept until this goal is done) is still needed.
 3. Propose an MPN for each generic passive group (tolerance, voltage, dielectric stated; C0G for
    RF and filter capacitors), preferring JLCPCB Basic parts.
-4. Run `./run parts/bom.py --boards N` live and commit the outputs under `parts/out/`.
+4. Run `./run parts/bom.py` live (board count from the target set's `board_quantity`, 3 in
+   `default.yaml` as of 2026-11-21) and commit the outputs under `parts/out/`.
    `parts/check_decisions.py` exits 0 only when every placed line has a decision row or an
    entry in the user-choices list.
-5. `analysis/01_parts/`: report and deck. Slides: status summary chart, the lines JLCPCB can
+5. `analysis/01_parts/` (`writeup.md`, `deck.yaml`, `figures.py`): report and deck. When the
+   project is open in KiCad, use `tools/kicad_ipc.py show --refs ...` to point at the parts of
+   each choice while discussing it. Slides: status summary chart, the lines JLCPCB can
    assemble versus consign versus hand-solder, each user choice on its own slide, obsolete or
    risky parts, cost for N boards from both sources.
 

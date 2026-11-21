@@ -26,4 +26,13 @@ availability report lists no unresolved line.
     needs a new fab package at a new path.
   - `kicad/libs/fmcw3.lib` (retired part ideas) is kept until this goal is done, then reconsidered (par-03).
 
+## Decisions (re-check against foundation, 2026-11-21)
+- par-02 fills the existing sources pipeline (`datasheets/manifest.yaml`,
+  `tools/fetch_sources.py`) instead of adding a second manifest and script.
+- par-04 writes the schematic fields by file edit with KiCad closed; KiCad 10 has no schematic
+  API, so the IPC `set-fields` path waits for KiCad 11.
+- The DigiKey keys are in `.env`. The board count comes from the target set's `board_quantity`
+  (the user set it to 3 in `default.yaml` on 2026-11-21); `--boards` overrides it.
+- New command-line tools go into `MANUAL.md` (repo rule).
+
 ## Log
