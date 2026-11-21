@@ -1,5 +1,5 @@
 # fnd-08: LTspice GUI from the sim container, and PSpice for TI under Wine
-Status: approved
+Status: awaiting review
 Goal: foundation
 Node: any
 Deliverable: code
@@ -119,3 +119,18 @@ Blocked: step 3: Please save the PSpice for TI installer, once your TI access ar
 
 ### 2026-11-20
 Unblocked: was blocked: step 3: Please save the PSpice for TI installer, once your TI access arrives, as /home/david/Documents/pcb_work/fmcw3-ckflight/software/files/ti/pspice-for-ti-installer.zip. Get it from https://www.ti.com/tool/PSPICE-FOR-TI while signed in, and take the full Windows installer, not the web stub. If TI gives you an .exe, tell me the real file name and I will change the manifest entry's 'file'. Then tell me, and I will run './run tools/fetch_sources.py --record' to pin the hash and continue with the Wine install, the batch check and the slum825 smoke test. My recommendation is to fetch it; if the installer will not run under Wine, I will record install=no with the error text and keep the hand-built averaged buck model for sim-02.
+
+### 2026-11-20
+Commits:
+- 2e62903 fnd-08: ./run --sim-gui and ltspice shortcut (X11, own-user xhost, revoked on exit)
+- 0c9e41a fnd-08: record the live LTspice GUI check (user-confirmed)
+- f2dcac0 fnd-08: --sim-gui adds --ipc=host and SIM_GUI_DPI (default 144); LTspice-syntax example net
+- b7b74f4 fnd-08: list the PSpice for TI installer in the datasheets manifest (access: login, user-fetch)
+- c643fc2 fnd-08: software/ folder for tool installers; PSpice for TI and LTspice entries move there
+- 1900823 fnd-08: identify U25 as ST LD39200PU33R (datasheet in manifest); mark PSpice for TI rows deferred to sim-05
+Notes:
+- step 2: ran ./run --sim-gui ltspice tests/sim/rc_lowpass.cir; xhost grant and revoke worked; the run ended with X Error BadValue (MIT-SHM, X_ShmPutImage, opcode 130/3), exit code 0.
+- likely cause: MIT-SHM across the container boundary (no --ipc=host); candidate fixes: add --ipc=host to the --sim-gui docker command, or disable shm. Not applied (step 1 code).
+- sim_gui_shown not written: no user confirmation that the window opened and the plot works.
+Verify: Verify passed: ./run uv run pytest tests -q && ./run --sim python3 -m pytest tests/test_sim_smoke.py -q && friday result check fnd-08 --require 'sim_gui_shown == 1' --files
+Independent review: no gaps
