@@ -44,15 +44,27 @@ def test_every_software_id_in_downloads_table():
     assert not missing, f"software ids missing from the downloads table: {missing}"
 
 
-def test_every_cli_tool_named():
-    tools = [
+def _cli_tools(folder):
+    return [
         p
-        for p in sorted((ROOT / "tools").glob("*.py"))
+        for p in sorted((ROOT / folder).glob("*.py"))
         if '__name__ == "__main__"' in p.read_text() or "__name__ == '__main__'" in p.read_text()
     ]
+
+
+def test_every_cli_tool_named():
+    tools = _cli_tools("tools")
     assert tools, "no command-line tools found"
     missing = [f"tools/{p.name}" for p in tools if f"tools/{p.name}" not in MANUAL]
     assert not missing, f"tools missing from MANUAL.md: {missing}"
+
+
+def test_every_parts_tool_named():
+    tools = _cli_tools("parts")
+    assert {"bom.py", "check_digikey.py", "check_jlc.py"} <= {p.name for p in tools}
+    section = _manual_section("Parts and availability")
+    missing = [f"parts/{p.name}" for p in tools if f"parts/{p.name}" not in section]
+    assert not missing, f"parts tools missing from the Parts and availability section: {missing}"
 
 
 def test_relative_links_resolve():

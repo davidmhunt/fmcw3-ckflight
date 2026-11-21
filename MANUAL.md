@@ -147,7 +147,24 @@ Every calculation the repo implements itself cites a reference that was download
 against the file (page and equation recorded), never from memory. Files are committed only when
 their licence allows it.
 
-## 9. How work is planned and run
+## 9. Parts and availability
+
+One command groups the BOM from the schematic (read headless, nothing under `kicad/` is
+written) and checks every line against DigiKey and the JLCPCB parts library. Columns, match
+confidence and how to add keys: [`parts/README.md`](parts/README.md).
+
+- `./run parts/bom.py [--targets NAME] [--boards N] [--spares N] [--offline] [--check]`:
+  writes `parts/out/bom.csv`, `parts/out/availability.csv` (one verdict per line: JLC assemble,
+  consign from DigiKey, hand-solder, unresolved) and a JLCPCB BOM and CPL under
+  `parts/out/jlc/`. Boards default to `board_quantity` of the target set. `--offline` uses the
+  caches only; `--check` exits 1 on a placed part without an MPN.
+- `./run parts/check_digikey.py [--boards N] [--spares N] [--limit K]`: the DigiKey lookup alone.
+  Needs `DIGIKEY_CLIENT_ID` and `DIGIKEY_CLIENT_SECRET` in `.env` (never commit it).
+- `./run parts/check_jlc.py [--boards N] [--spares N] [--limit K] [--refresh | --offline]`: the
+  JLCPCB lookup alone. The first run downloads the parts database (about 190 MB, 830 MB
+  unpacked) into the gitignored `parts/cache/jlcpcb/`.
+
+## 10. How work is planned and run
 
 Work is planned and run with friday:
 - **Goals** in [`docs/goals/`](docs/goals/) are one PR each.
