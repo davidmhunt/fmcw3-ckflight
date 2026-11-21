@@ -17,8 +17,10 @@ availability report lists no unresolved line.
    fails (added 2026-11-21 at the user's request)
 5. par-07: Replacement candidates for the discontinued TQP5525 power amplifier (U14) (added
    2026-11-21 at the user's request)
-6. par-04: Write MPN, DigiKey and LCSC fields into the schematic symbols
-7. par-05: Ordering BOMs from the schematic that DigiKey and JLCPCB ingest directly (added
+6. par-08: Simulation models for every part the planned analyses need (added 2026-11-21 at the
+   user's request)
+7. par-04: Write MPN, DigiKey and LCSC fields into the schematic symbols
+8. par-05: Ordering BOMs from the schematic that DigiKey and JLCPCB ingest directly (added
    2026-11-21 at the user's request)
 
 ## Notes
