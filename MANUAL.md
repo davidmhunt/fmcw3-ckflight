@@ -140,6 +140,8 @@ There are three manifests, all read by `tools/fetch_sources.py`:
 - downloads every public entry;
 - prints a to-do list with links for entries behind a form or a login;
 - `--check` fails on a missing file, a hash mismatch, or a reference without `verified` items.
+  An entry behind a form or login that you have not fetched yet, with no hash pinned, is listed
+  as `PENDING` instead of failing; once its hash is pinned, a missing file fails.
 
 Every calculation the repo implements itself cites a reference that was downloaded and checked
 against the file (page and equation recorded), never from memory. Files are committed only when

@@ -41,6 +41,16 @@ def test_missing_file_fails(tmp_path):
     assert any("file missing" in p for p in fs.check_all(MANS, tmp_path))
 
 
+def test_unfetched_login_entry_is_pending_until_hash_pinned(tmp_path):
+    e = entry(access="login", file="software/files/ti/x.zip")
+    write(tmp_path, ds=[e])
+    assert fs.check_all(MANS, tmp_path) == []
+    assert [p["id"] for p in fs.pending_all(MANS, tmp_path)] == ["a"]
+    write(tmp_path, ds=[entry(access="login", file="software/files/ti/x.zip", sha256="0" * 64)])
+    assert any("file missing" in p for p in fs.check_all(MANS, tmp_path))
+    assert fs.pending_all(MANS, tmp_path) == []
+
+
 def test_good_file_passes_and_hash_mismatch_fails(tmp_path):
     h = put(tmp_path, "datasheets/files/a.pdf")
     write(tmp_path, ds=[entry(sha256=h)])

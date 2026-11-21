@@ -12,7 +12,8 @@ relative to the repo root), sha256, licence, commit (yes|no). Reference entries 
 
   fetch_sources.py            download `direct` entries, print a to-do list for the rest
   fetch_sources.py --check    fail on a missing file, a hash mismatch, or a reference
-                              with no `verified` item
+                              with no `verified` item. A form or login entry with no file
+                              and no sha256 yet is listed as PENDING, not failed.
   fetch_sources.py --record   also write the sha256 of files that have none yet
 
 Files with `commit: no` must live under a `files/` directory, which .gitignore covers.
@@ -56,6 +57,22 @@ def commit_flag(entry):
     return str(entry.get("commit")).lower() in ("yes", "true")
 
 
+def is_pending(entry, root=ROOT):
+    """A form or login entry not yet fetched by the user and with no hash pinned: a to-do, not a
+    failure. Once its sha256 is recorded, a missing file fails again."""
+    return (entry.get("access") in ("form", "login") and not entry.get("sha256")
+            and not (root / entry["file"]).is_file())
+
+
+def pending_all(manifests, root=ROOT):
+    out = []
+    for rel, _ in manifests:
+        mpath = root / rel
+        if mpath.is_file():
+            out += [e for e in load(mpath) if "file" in e and is_pending(e, root)]
+    return out
+
+
 def check_entry(entry, is_reference, root=ROOT):
     """Return a list of problem strings for one entry."""
     eid = entry.get("id", "?")
@@ -73,7 +90,8 @@ def check_entry(entry, is_reference, root=ROOT):
         problems.append(f"{eid}: commit: no needs a path under a files/ directory (gitignored)")
     path = root / entry["file"]
     if not path.is_file():
-        problems.append(f"{eid}: file missing: {entry['file']}")
+        if not is_pending(entry, root):
+            problems.append(f"{eid}: file missing: {entry['file']}")
     elif not entry["sha256"]:
         problems.append(f"{eid}: no sha256 recorded (run fetch_sources.py --record)")
     elif sha256_of(path) != entry["sha256"]:
@@ -147,6 +165,9 @@ def main(argv=None):
         problems = check_all(MANIFESTS)
         for p in problems:
             print("FAIL", p)
+        for e in pending_all(MANIFESTS):
+            print(f"PENDING {e['id']} ({e['access']}, user-fetch, no hash pinned yet): "
+                  f"open {e['url']} and save as {e['file']}, then run --record")
         print("sources check:", "FAILED" if problems else "ok")
         return 1 if problems else 0
     todo = fetch_all(MANIFESTS, record=args.record)
