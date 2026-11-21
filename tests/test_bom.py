@@ -68,6 +68,129 @@ def test_write_csv(tmp_path):
     assert rows[0]["refs"] == "C1;C2" and rows[0]["qty"] == "2"
 
 
+# ---- quantity scaling, verdicts, availability rows (no network: results are plain dicts)
+
+def test_need_qty_scales_with_boards_and_spares():
+    assert bom.need_qty(4, 1) == 4
+    assert bom.need_qty(4, 5) == 20
+    assert bom.need_qty(4, 5, spares=2) == 22
+    assert bom.need_qty(1, 10, spares=3) == 13
+
+
+def test_board_count_override_and_validation():
+    assert bom.board_count(override=7) == 7
+    with pytest.raises(SystemExit):
+        bom.board_count(override=0)
+    assert bom.board_count("default") >= 1   # board_quantity from analysis/targets/default.yaml
+
+
+def g_(cls="mpn", value="x", fp="SMD_0402"):
+    return {"class": cls, "Value": value, "Footprint": fp}
+
+
+JLC_OK = {"jlc_status": "Available", "jlc_match": "exact", "jlc_library": "Basic",
+          "jlc_lcsc": "C1"}
+DK_OK = {"dk_status": "Active", "dk_stock": 100, "dk_pn": "X-ND"}
+
+
+def test_verdict_not_fitted_and_no_part():
+    assert bom.verdict(g_("dnp"), JLC_OK, DK_OK, 1)[0] == "not fitted"
+    assert bom.verdict(g_("nopart", "RF_via", "Footprints:RF_via"), {}, {}, 1)[0] == "no part"
+    v, why = bom.verdict(g_("nopart", "ADF"), {}, {}, 1)
+    assert v == "unresolved" and "no MPN" in why
+
+
+def test_verdict_jlc_assemble_exact_or_package_only():
+    assert bom.verdict(g_(), JLC_OK, DK_OK, 5)[0] == "JLC assemble"
+    assert bom.verdict(g_(), {**JLC_OK, "jlc_match": "package"}, {}, 5)[0] == "JLC assemble"
+    # a near match needs review: falls through to DigiKey
+    near = {**JLC_OK, "jlc_match": "review"}
+    assert bom.verdict(g_(), near, DK_OK, 5)[0] == "consign from DigiKey"
+
+
+def test_verdict_digikey_stock_must_cover_need():
+    low = {"jlc_status": "Low stock"}
+    assert bom.verdict(g_(), low, {**DK_OK, "dk_stock": 20}, 20)[0] == "consign from DigiKey"
+    v, why = bom.verdict(g_(), low, {**DK_OK, "dk_stock": 19}, 20)
+    assert v == "unresolved" and "JLC Low stock" in why
+    sug = {"dk_status": "Suggested", "dk_stock": 50}
+    assert bom.verdict(g_("generic"), {"jlc_status": "No-result"}, sug, 5)[0] == "consign from DigiKey"
+    obs = {"dk_status": "Obsolete", "dk_stock": 500}
+    assert bom.verdict(g_(), {"jlc_status": "No-result"}, obs, 1)[0] == "unresolved"
+
+
+def test_verdict_through_hole_is_hand_solder():
+    th = g_("mpn", "hdr", "PinHeader_1x04")
+    assert bom.verdict(th, {"jlc_status": "No-result"}, DK_OK, 1)[0] == "hand-solder"
+
+
+def test_verdict_unresolved_reasons():
+    v, why = bom.verdict(g_(), {"jlc_status": "Not-checked"}, {}, 1)
+    assert v == "unresolved" and "JLC not checked" in why and "DigiKey not checked" in why
+    v, why = bom.verdict(g_(), {"jlc_match": "review", "jlc_mpn": "ABC"}, {}, 1)
+    assert "near match ABC needs review" in why
+
+
+def test_verdict_depends_on_boards():
+    """Same stock, more boards: the line stops being coverable from DigiKey."""
+    jlc = {"jlc_status": "No-result"}
+    dk = {"dk_status": "Active", "dk_stock": 40}
+    assert bom.verdict(g_(), jlc, dk, bom.need_qty(2, 5))[0] == "consign from DigiKey"
+    assert bom.verdict(g_(), jlc, dk, bom.need_qty(2, 25))[0] == "unresolved"
+
+
+def test_availability_rows_offline_and_need():
+    gs = groups()
+    rows = bom.availability_rows(gs, boards=5, spares=1, db=None, client=None)
+    c1 = next(r for r in rows if "C1" in r["refs"].split(";"))
+    assert c1["qty"] == 2 and c1["need"] == 11 and c1["verdict"] == "unresolved"
+    assert c1["jlc_status"] == "Not-checked" and c1["dk_status"] == "Not-checked"
+    assert next(r for r in rows if r["refs"] == "R1")["verdict"] == "not fitted"
+    assert set(bom.availability_cols()) <= set(c1)
+    assert "not fitted 3" in bom.verdict_summary(rows)   # C4, R1, J1
+
+
+def test_missing_mpn_and_jlc_files(tmp_path):
+    gs = groups()
+    assert [g["refs"] for g in bom.missing_mpn(gs)] == [["U1"]]
+    rows = [{"verdict": "JLC assemble", "refs": "C1;C2", "value": "100n", "footprint": "F",
+             "LCSC": "", "jlc_lcsc": "C9"},
+            {"verdict": "hand-solder", "refs": "J2", "value": "h", "footprint": "F", "LCSC": "",
+             "jlc_lcsc": ""},
+            {"verdict": "unresolved", "refs": "U1", "value": "u", "footprint": "F", "LCSC": "",
+             "jlc_lcsc": "C5"}]
+    out = tmp_path / "jlc" / "bom.csv"
+    bom.write_jlc_bom(rows, out)
+    got = list(csv.reader(out.open()))
+    assert got[0] == ["Comment", "Designator", "Footprint", "LCSC Part #"]
+    assert got[1:] == [["100n", "C1, C2", "F", "C9"], ["u", "U1", "F", ""]]
+
+
+def test_cpl_rows_filters_and_sorts():
+    pos = ("Ref,Val,Package,PosX,PosY,Rot,Side\n"
+           "C10,a,p,1.0,2.0,90,top\nC2,a,p,3.0,4.0,0,bottom\nR1,a,p,5,6,0,top\n")
+    rows = bom.cpl_rows(pos, {"C10", "C2"})
+    assert rows == [["C2", "3.0", "4.0", "bottom", "0"], ["C10", "1.0", "2.0", "top", "90"]]
+
+
+def test_cached_digikey_offline_miss_and_hit(tmp_path):
+    offline = bom.CachedDigiKey(None, cache=tmp_path)
+    with pytest.raises(bom.CachedDigiKey.OfflineMiss):
+        offline.search("A")
+
+    class Live:
+        calls = 0
+
+        def search(self, kw, limit):
+            Live.calls += 1
+            return [{"ManufacturerProductNumber": kw}]
+
+    c = bom.CachedDigiKey(Live(), cache=tmp_path)
+    assert c.search("A") == c.search("A") == [{"ManufacturerProductNumber": "A"}]
+    assert Live.calls == 1
+    assert offline.search("A") == [{"ManufacturerProductNumber": "A"}]   # cache serves offline
+
+
 @pytest.mark.skipif(not shutil.which("kicad-cli"), reason="kicad-cli not available")
 def test_matches_production_bom():
     """Group and ref counts equal the as-ordered production/bom.csv (84 groups, 370 refs)."""
