@@ -966,3 +966,355 @@ entries:
   sha256: 227dfdb003830b6994a33f0d3f916bdd795378739ffed75700a903ed752edada
   licence: Qorvo terms; not redistributed here
   commit: 'no'
+- id: murata-blm18kg221sn1d-model
+  kind: vendor-model
+  title: Murata BLM18KG221SN1 ferrite-bead S-parameters, Touchstone .s2p (option B of choice 10, FB4;
+    sim-01 5 V branch; user-fetch from the part page's S-Parameter link)
+  url: https://pim.murata.com/en-us/pim/details/?partNum=BLM18KG221SN1D
+  access: form
+  file: datasheets/files/murata/blm18kg221sn1d.s2p
+  sha256: ''
+  licence: Murata terms; not redistributed here
+  commit: 'no'
+- id: murata-blm18kg221sn1d-spice
+  kind: vendor-model
+  title: Murata BLM18KG221SN1 ferrite-bead SPICE subcircuit (option B of choice 10, FB4; user-fetch from
+    the part page, as for the BLM18PG181SN1D)
+  url: https://pim.murata.com/en-us/pim/details/?partNum=BLM18KG221SN1D
+  access: form
+  file: datasheets/files/murata/blm18kg221sn1d.zip
+  sha256: ''
+  licence: Murata terms; not redistributed here
+  commit: 'no'
+- id: st-ld39200-model
+  kind: vendor-model
+  title: 'ST LD39200 / LD39200PU33R SPICE model (user-fetch: check the ST product page CAD/Models tab;
+    the page did not answer unattended on 2026-11-21; stand-in: datasheet PSRR curve, figure 17)'
+  url: https://www.st.com/en/power-management/ld39200.html
+  access: form
+  file: datasheets/files/st/ld39200-model.zip
+  sha256: ''
+  licence: ST terms; not redistributed here
+  commit: 'no'
+- id: ti-lp2985-model
+  kind: vendor-model
+  title: TI LP2985-10 unencrypted PSpice transient model (SNVMB87; the product page https://www.ti.com/product/LP2985
+    lists it, checked 2026-11-21; U21 LP2985A-10DBVR)
+  url: https://www.ti.com/lit/zip/SNVMB87
+  access: form
+  file: datasheets/files/ti/lp2985-10-unencrypted.zip
+  sha256: ''
+  licence: TI model terms (provided as is for customer design use); not redistributed here
+  commit: 'no'
+- id: ti-tlv172-model
+  kind: vendor-model
+  title: TI TLVx172 PSpice model (SBOMA92, Rev. C; the product page https://www.ti.com/product/TLV172
+    lists it, checked 2026-11-21; U7 TLV172IDCKT)
+  url: https://www.ti.com/lit/zip/SBOMA92
+  access: form
+  file: datasheets/files/ti/tlvx172-pspice.zip
+  sha256: ''
+  licence: TI model terms (provided as is for customer design use); not redistributed here
+  commit: 'no'
+- id: adi-lt6231-ltspice-bundled
+  kind: vendor-model
+  title: 'LT6231 subcircuit in LTspice''s bundled LTC2.lib (U45 LT6232 symbol; fnd-05). Not a download:
+    the user copies LTC2.lib from the LTspice install (lib/sub/) to the path shown'
+  url: https://www.analog.com/en/resources/design-tools-and-calculators/ltspice-simulator.html
+  access: form
+  file: datasheets/files/adi/LTC2.lib
+  sha256: ''
+  licence: ADI LTspice licence; not redistributed here
+  commit: 'no'
+- id: adi-ltc2292-model
+  kind: vendor-model
+  title: 'ADI LTC2292 SPICE or input-circuit model (user-fetch from the analog.com product page; the page
+    did not answer unattended on 2026-11-21; stand-in: the sample-and-hold equivalent input circuit from
+    the datasheet)'
+  url: https://www.analog.com/en/products/ltc2292.html
+  access: form
+  file: datasheets/files/adi/ltc2292-model.zip
+  sha256: ''
+  licence: ADI terms; not redistributed here
+  commit: 'no'
+- id: bourns-srr6040a-330m-model
+  kind: vendor-model
+  title: 'Bourns SRR6040A-330M inductor model (user-fetch from the Bourns product page; it returned 403
+    to an unattended request on 2026-11-21; DigiKey page from par-06; stand-in: datasheet-derived L, DCR,
+    Isat)'
+  url: https://www.digikey.com/en/products/detail/bourns-inc/SRR6040A-330M/5031023
+  access: form
+  file: datasheets/files/bourns/srr6040a-330m.zip
+  sha256: ''
+  licence: Bourns terms; not redistributed here
+  commit: 'no'
+  digikey: SRR6040A-330M
+- id: aps1040m330a-model
+  kind: vendor-model
+  title: 'APS1040M330A (option B of choice 4) inductor model: user-fetch from the maker''s page found
+    through the DigiKey or JLC listing; stand-in: datasheet L, DCR, Isat'
+  url: https://www.digikey.com/en/products/result?keywords=APS1040M330A
+  access: form
+  file: datasheets/files/misc/aps1040m330a.zip
+  sha256: ''
+  licence: maker terms; not redistributed here
+  commit: 'no'
+- id: sms0650-330mt-model
+  kind: vendor-model
+  title: 'SMS0650-330MT (option C of choice 4) inductor model: user-fetch from the maker''s page found
+    through the DigiKey or JLC listing; stand-in: datasheet L, DCR, Isat'
+  url: https://www.digikey.com/en/products/result?keywords=SMS0650-330MT
+  access: form
+  file: datasheets/files/misc/sms0650-330mt.zip
+  sha256: ''
+  licence: maker terms; not redistributed here
+  commit: 'no'
+- id: adi-hmc431lp4-sparams
+  kind: vendor-model
+  title: 'ADI HMC431LP4E output-port S-parameters (user-fetch from the analog.com product page, Design
+    Resources; the page did not answer unattended on 2026-11-21; stand-in: output return loss figure of
+    the datasheet)'
+  url: https://www.analog.com/en/products/hmc431.html
+  access: form
+  file: datasheets/files/adi/hmc431lp4e.s2p
+  sha256: ''
+  licence: ADI terms; not redistributed here
+  commit: 'no'
+- id: susumu-pat1220-model
+  kind: vendor-model
+  title: 'Susumu PAT1220-C-3DB-T5 and -C-6DB-T5 S-parameters beyond 3 GHz (user-fetch; Susumu site did
+    not resolve on 2026-11-21; datasheet page from par-06 used as the link; stand-in: a datasheet-derived
+    resistive pi-pad)'
+  url: https://www.digikey.com/en/products/detail/susumu/PAT1220-C-8DB-T5/948839
+  access: form
+  file: datasheets/files/susumu/pat1220.s2p
+  sha256: ''
+  licence: Susumu terms; not redistributed here
+  commit: 'no'
+- id: linx-consma003-062-model
+  kind: vendor-model
+  title: 'Linx CONSMA003.062 SMA edge-launch S-parameters or 3D model (user-fetch; linxtechnologies.com
+    returned 403 to an unattended request on 2026-11-21; DigiKey page from par-06; stand-in: geometry-only
+    launch model in rf-02)'
+  url: https://www.digikey.com/en/products/detail/te-connectivity-linx/CONSMA003-062/1577208
+  access: form
+  file: datasheets/files/linx/consma003-062.zip
+  sha256: ''
+  licence: Linx terms; not redistributed here
+  commit: 'no'
+  digikey: CONSMA003.062
+- id: murata-lqw15an9n9j80d-model
+  kind: vendor-model
+  title: 'Murata LQW15AN9N9J80D S-parameters, Touchstone (user-fetch from the part page''s S-Parameter
+    link; DigiKey page from par-06: https://www.digikey.com/en/products/detail/murata-electronics/LQW15AN9N9J80D/4292403)'
+  url: https://pim.murata.com/en-us/pim/details/?partNum=LQW15AN9N9J80D
+  access: form
+  file: datasheets/files/murata/lqw15an9n9j80d.s2p
+  sha256: ''
+  licence: Murata terms; not redistributed here
+  commit: 'no'
+  digikey: LQW15AN9N9J80D
+  digikey_url: https://www.digikey.com/en/products/detail/murata-electronics/LQW15AN9N9J80D/4292403
+- id: tdk-mlg1005s0n6bt000-model
+  kind: vendor-model
+  title: 'TDK MLG1005S0N6BT000 S-parameters (user-fetch from the TDK product centre part page; DigiKey
+    page from par-06: https://www.digikey.com/en/products/detail/tdk/MLG1005S0N6BT000/4742653; the TDK
+    page returned 403 to an unattended request on 2026-11-21)'
+  url: https://product.tdk.com/en/search/rf/rf/inductor/info?part_no=MLG1005S0N6BT000
+  access: form
+  file: datasheets/files/tdk/mlg1005s0n6bt000.s2p
+  sha256: ''
+  licence: TDK terms; not redistributed here
+  commit: 'no'
+  digikey: MLG1005S0N6BT000
+  digikey_url: https://www.digikey.com/en/products/detail/tdk/MLG1005S0N6BT000/4742653
+- id: fh-0402cg180j500nt-model
+  kind: vendor-model
+  title: 'FH 0402CG180J500NT 18 pF S-parameters: none found at the maker (fh-mlcc.com did not resolve
+    on 2026-11-21); user-fetch from the DigiKey page from par-06, else the stand-in is a Murata GJM1555
+    18 pF S-parameter file or a datasheet RLC model'
+  url: https://www.digikey.com/en/products/search?keywords=0402CG180J500NT
+  access: form
+  file: datasheets/files/fh/0402cg180j500nt.s2p
+  sha256: ''
+  licence: FH terms; not redistributed here
+  commit: 'no'
+  digikey: 0402CG180J500NT
+- id: murata-gjm1555c1hr50wb01d-model
+  kind: vendor-model
+  title: 'Murata GJM1555C1HR50WB01D S-parameters, Touchstone (user-fetch from the part page''s S-Parameter
+    link; DigiKey page from par-06: https://www.digikey.com/en/products/detail/murata-electronics/GJM1555C1HR50WB01D/2593253)'
+  url: https://pim.murata.com/en-us/pim/details/?partNum=GJM1555C1HR50WB01D
+  access: form
+  file: datasheets/files/murata/gjm1555c1hr50wb01d.s2p
+  sha256: ''
+  licence: Murata terms; not redistributed here
+  commit: 'no'
+  digikey: GJM1555C1HR50WB01D
+  digikey_url: https://www.digikey.com/en/products/detail/murata-electronics/GJM1555C1HR50WB01D/2593253
+- id: mlcc-cl21a106kaynnne-model
+  kind: vendor-model
+  title: 'Samsung CL21A106KAYNNNE S-parameters and SPICE model (user-fetch from the Samsung Electro-Mechanics
+    part-search model download, example page https://product.samsungsem.com/mlcc/CL05B104KO5NNN.do, which
+    lists S2P and SPICE, checked 2026-11-21; DigiKey product page from par-06: https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL21A106KAYNNNE/3888549;
+    sim-01 rail decoupling)'
+  url: https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL21A106KAYNNNE/3888549
+  access: form
+  file: datasheets/files/samsung/cl21a106kaynnne.s2p
+  sha256: ''
+  licence: Samsung Electro-Mechanics terms; not redistributed here
+  commit: 'no'
+  digikey: CL21A106KAYNNNE
+- id: mlcc-cl05b104ko5nnnc-model
+  kind: vendor-model
+  title: 'Samsung CL05B104KO5NNNC S-parameters and SPICE model (user-fetch from the Samsung Electro-Mechanics
+    part-search model download, example page https://product.samsungsem.com/mlcc/CL05B104KO5NNN.do, which
+    lists S2P and SPICE, checked 2026-11-21; DigiKey product page from par-06: https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL05B104KO5NNNC/3886659;
+    sim-01 rail decoupling)'
+  url: https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL05B104KO5NNNC/3886659
+  access: form
+  file: datasheets/files/samsung/cl05b104ko5nnnc.s2p
+  sha256: ''
+  licence: Samsung Electro-Mechanics terms; not redistributed here
+  commit: 'no'
+  digikey: CL05B104KO5NNNC
+- id: mlcc-cl05a474kp5nnnc-model
+  kind: vendor-model
+  title: 'Samsung CL05A474KP5NNNC S-parameters and SPICE model (user-fetch from the Samsung Electro-Mechanics
+    part-search model download, example page https://product.samsungsem.com/mlcc/CL05B104KO5NNN.do, which
+    lists S2P and SPICE, checked 2026-11-21; DigiKey product page from par-06: https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL05A474KP5NNNC/3886831;
+    sim-01 rail decoupling)'
+  url: https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL05A474KP5NNNC/3886831
+  access: form
+  file: datasheets/files/samsung/cl05a474kp5nnnc.s2p
+  sha256: ''
+  licence: Samsung Electro-Mechanics terms; not redistributed here
+  commit: 'no'
+  digikey: CL05A474KP5NNNC
+- id: mlcc-cl10a475ko8nnnc-model
+  kind: vendor-model
+  title: 'Samsung CL10A475KO8NNNC S-parameters and SPICE model (user-fetch from the Samsung Electro-Mechanics
+    part-search model download, example page https://product.samsungsem.com/mlcc/CL05B104KO5NNN.do, which
+    lists S2P and SPICE, checked 2026-11-21; DigiKey product page from par-06: https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL10A475KO8NNNC/3887442;
+    sim-01 rail decoupling)'
+  url: https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL10A475KO8NNNC/3887442
+  access: form
+  file: datasheets/files/samsung/cl10a475ko8nnnc.s2p
+  sha256: ''
+  licence: Samsung Electro-Mechanics terms; not redistributed here
+  commit: 'no'
+  digikey: CL10A475KO8NNNC
+- id: mlcc-cl10b225kp8nnnc-model
+  kind: vendor-model
+  title: 'Samsung CL10B225KP8NNNC S-parameters and SPICE model (user-fetch from the Samsung Electro-Mechanics
+    part-search model download, example page https://product.samsungsem.com/mlcc/CL05B104KO5NNN.do, which
+    lists S2P and SPICE, checked 2026-11-21; DigiKey product page from par-06: https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL10B225KP8NNNC/3886792;
+    sim-01 rail decoupling)'
+  url: https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL10B225KP8NNNC/3886792
+  access: form
+  file: datasheets/files/samsung/cl10b225kp8nnnc.s2p
+  sha256: ''
+  licence: Samsung Electro-Mechanics terms; not redistributed here
+  commit: 'no'
+  digikey: CL10B225KP8NNNC
+- id: mlcc-cl10a105kb8nnnc-model
+  kind: vendor-model
+  title: 'Samsung CL10A105KB8NNNC S-parameters and SPICE model (user-fetch from the Samsung Electro-Mechanics
+    part-search model download, example page https://product.samsungsem.com/mlcc/CL05B104KO5NNN.do, which
+    lists S2P and SPICE, checked 2026-11-21; DigiKey product page from par-06: https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL10A105KB8NNNC/3887518;
+    sim-01 rail decoupling)'
+  url: https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL10A105KB8NNNC/3887518
+  access: form
+  file: datasheets/files/samsung/cl10a105kb8nnnc.s2p
+  sha256: ''
+  licence: Samsung Electro-Mechanics terms; not redistributed here
+  commit: 'no'
+  digikey: CL10A105KB8NNNC
+- id: mlcc-cl10b105ka8nnnc-model
+  kind: vendor-model
+  title: 'Samsung CL10B105KA8NNNC S-parameters and SPICE model (user-fetch from the Samsung Electro-Mechanics
+    part-search model download, example page https://product.samsungsem.com/mlcc/CL05B104KO5NNN.do, which
+    lists S2P and SPICE, checked 2026-11-21; DigiKey product page from par-06: https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL10B105KA8NNNC/3886842;
+    sim-01 rail decoupling)'
+  url: https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL10B105KA8NNNC/3886842
+  access: form
+  file: datasheets/files/samsung/cl10b105ka8nnnc.s2p
+  sha256: ''
+  licence: Samsung Electro-Mechanics terms; not redistributed here
+  commit: 'no'
+  digikey: CL10B105KA8NNNC
+- id: mlcc-cl32a107mpvnnne-model
+  kind: vendor-model
+  title: 'Samsung CL32A107MPVNNNE S-parameters and SPICE model (user-fetch from the Samsung Electro-Mechanics
+    part-search model download, example page https://product.samsungsem.com/mlcc/CL05B104KO5NNN.do, which
+    lists S2P and SPICE, checked 2026-11-21; DigiKey product page from par-06: https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL32A107MPVNNNE/3889022;
+    sim-01 rail decoupling)'
+  url: https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL32A107MPVNNNE/3889022
+  access: form
+  file: datasheets/files/samsung/cl32a107mpvnnne.s2p
+  sha256: ''
+  licence: Samsung Electro-Mechanics terms; not redistributed here
+  commit: 'no'
+  digikey: CL32A107MPVNNNE
+- id: mlcc-cl31a476mphnnne-model
+  kind: vendor-model
+  title: 'Samsung CL31A476MPHNNNE S-parameters and SPICE model (user-fetch from the Samsung Electro-Mechanics
+    part-search model download, example page https://product.samsungsem.com/mlcc/CL05B104KO5NNN.do, which
+    lists S2P and SPICE, checked 2026-11-21; DigiKey product page from par-06: https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL31A476MPHNNNE/3888721;
+    sim-01 rail decoupling)'
+  url: https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL31A476MPHNNNE/3888721
+  access: form
+  file: datasheets/files/samsung/cl31a476mphnnne.s2p
+  sha256: ''
+  licence: Samsung Electro-Mechanics terms; not redistributed here
+  commit: 'no'
+  digikey: CL31A476MPHNNNE
+- id: mlcc-cl05b103kb5nnnc-model
+  kind: vendor-model
+  title: 'Samsung CL05B103KB5NNNC S-parameters and SPICE model (user-fetch from the Samsung Electro-Mechanics
+    part-search model download, example page https://product.samsungsem.com/mlcc/CL05B104KO5NNN.do, which
+    lists S2P and SPICE, checked 2026-11-21; DigiKey product page from par-06: https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL05B103KB5NNNC/3886686;
+    sim-01 rail decoupling)'
+  url: https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL05B103KB5NNNC/3886686
+  access: form
+  file: datasheets/files/samsung/cl05b103kb5nnnc.s2p
+  sha256: ''
+  licence: Samsung Electro-Mechanics terms; not redistributed here
+  commit: 'no'
+  digikey: CL05B103KB5NNNC
+- id: mlcc-grm1555c1h103je01d-model
+  kind: vendor-model
+  title: 'Murata GRM1555C1H103JE01D S-parameters, Touchstone (user-fetch from the part page''s S-Parameter
+    link; DigiKey page from par-06: https://www.digikey.com/en/products/detail/murata-electronics/GRM1555C1H103JE01D/26265161)'
+  url: https://pim.murata.com/en-us/pim/details/?partNum=GRM1555C1H103JE01D
+  access: form
+  file: datasheets/files/murata/grm1555c1h103je01d.s2p
+  sha256: ''
+  licence: Murata terms; not redistributed here
+  commit: 'no'
+  digikey: GRM1555C1H103JE01D
+  digikey_url: https://www.digikey.com/en/products/detail/murata-electronics/GRM1555C1H103JE01D/26265161
+- id: mlcc-grm1555c1h222ga01d-model
+  kind: vendor-model
+  title: 'Murata GRM1555C1H222GA01D S-parameters, Touchstone (user-fetch from the part page''s S-Parameter
+    link; DigiKey page from par-06: https://www.digikey.com/en/products/detail/murata-electronics/GRM1555C1H222GA01D/16719162)'
+  url: https://pim.murata.com/en-us/pim/details/?partNum=GRM1555C1H222GA01D
+  access: form
+  file: datasheets/files/murata/grm1555c1h222ga01d.s2p
+  sha256: ''
+  licence: Murata terms; not redistributed here
+  commit: 'no'
+  digikey: GRM1555C1H222GA01D
+  digikey_url: https://www.digikey.com/en/products/detail/murata-electronics/GRM1555C1H222GA01D/16719162
+- id: mlcc-grm1555c1h221ja01d-model
+  kind: vendor-model
+  title: 'Murata GRM1555C1H221JA01D S-parameters, Touchstone (user-fetch from the part page''s S-Parameter
+    link; DigiKey page from par-06: https://www.digikey.com/en/products/detail/murata-electronics/GRM1555C1H221JA01D/587204)'
+  url: https://pim.murata.com/en-us/pim/details/?partNum=GRM1555C1H221JA01D
+  access: form
+  file: datasheets/files/murata/grm1555c1h221ja01d.s2p
+  sha256: ''
+  licence: Murata terms; not redistributed here
+  commit: 'no'
+  digikey: GRM1555C1H221JA01D
+  digikey_url: https://www.digikey.com/en/products/detail/murata-electronics/GRM1555C1H221JA01D/587204
