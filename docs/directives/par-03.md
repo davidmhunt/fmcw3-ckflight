@@ -17,7 +17,9 @@ out for the user to decide. It holds when `parts/decisions.csv` covers every pla
    `No-result` lines), find the orderable suffix from the datasheet ordering table whose package
    matches the footprint; record part, chosen code, datasheet manifest id and page, and reason in
    `parts/decisions.csv`. The datasheet must be in `datasheets/manifest.yaml` (par-02) and read
-   from the downloaded file, never from memory. Use LCSC numbers found on upstream's JLCPCB branches
+   from the downloaded file, never from memory. A part whose datasheet is still pending in
+   `docs/user-fetch.md`, or that no source matched, is listed in the report as "for the user to
+   obtain" with what is missing, never guessed. Use LCSC numbers found on upstream's JLCPCB branches
    (survey fnd-01) as a starting point, each re-checked.
 2. Prepare, but do not decide, the user's choices, each with options, stock, price and the
    consequence: XC7A35T or XC7A100T (U30): the schematic is the 100T, `production/` is the as-ordered 35T, the

@@ -32,7 +32,21 @@ instead of adding a second manifest and script.)
    the URL, computes the hash and appends an entry with `licence` and `commit: no` filled from
    flags. Tests in `tests/test_sources.py` with a fake opener: good add, duplicate id refused,
    dead link reported. Update `MANUAL.md` section 8 and `datasheets/README.md`.
-5. Run `./run tools/fetch_sources.py --record` so every new entry has its hash.
+5. Things the user fetches by hand (added 2026-11-21 at the user's request). A `direct` download
+   that fails (dead link, blocked host, login wall) does not stop the run and is not dropped:
+   - `fetch_sources.py` keeps going, prints the failure, and records it on the entry
+     (`fetch_error:` with the error text and date); `--check` lists such an entry, and any
+     form or login entry without a file, as `PENDING`, not failed, until a hash is pinned;
+   - every run writes `docs/user-fetch.md` (committed, regenerated): one row per pending item
+     across all four manifests, with what it is, the link, the exact path to save it at, why it
+     was not fetched, and the command to run afterwards (`./run tools/fetch_sources.py --record`);
+   - tests with a fake opener: a failing download becomes a pending row, a saved file plus
+     `--record` removes it.
+
+   Document this as "Things you fetch by hand" in `MANUAL.md` section 8 and in
+   `datasheets/README.md`.
+6. Run `./run tools/fetch_sources.py --record` so every new entry that downloaded has its hash;
+   leave the rest in `docs/user-fetch.md` for the user.
 
 ## Rules
 - Never commit a vendor PDF or model unless its licence allows it (`commit: no` by default).
