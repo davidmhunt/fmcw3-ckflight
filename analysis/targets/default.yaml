@@ -9,29 +9,30 @@ description: Placeholder targets for the 5.8 GHz FMCW board; not yet chosen by t
 # Required: what the board is designed to do.
 design:
   freq_min_ghz:
-    value: 5.725
+    value: 5.60
     unit: GHz
-    status: assumed
-    note: lower edge of the 5.8 GHz ISM band
+    status: set
+    note: set by the user 2026-11-21; below the 5.725 GHz ISM band edge
   freq_max_ghz:
-    value: 5.875
+    value: 5.90
     unit: GHz
-    status: assumed
-    note: upper edge of the 5.8 GHz ISM band
+    status: set
+    note: set by the user 2026-11-21; above the 5.875 GHz ISM band edge
   chirp_bandwidth_hz:
-    value: 150000000
+    value: 300000000
     unit: Hz
-    status: assumed
-    note: the whole 150 MHz ISM band; cannot exceed freq_max - freq_min
+    status: set
+    note: set by the user 2026-11-21, the whole 5.60-5.90 GHz span; cannot exceed freq_max - freq_min
   sample_rate_hz:
     value: 2000000
     unit: Hz
     status: assumed
     note: ADC sample rate after the mixer
   tx_power_dbm:
-    value: 10
+    value: 25
     unit: dBm
-    status: assumed
+    status: set
+    note: set by the user 2026-11-21
   tx_rx_isolation_db:
     value: 40
     unit: dB

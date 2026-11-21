@@ -10,19 +10,21 @@ import build_report as br  # noqa: E402
 import targets as tg  # noqa: E402
 
 
-def test_default_loads_and_is_assumed():
+def test_default_loads_and_has_valid_statuses():
+    # The user sets values over time (status `set`); the test pins the schema, not the values.
     ts = tg.load("default")
     assert set(ts["design"]) == set(tg.DESIGN)
     assert set(ts["performance"]) == set(tg.PERFORMANCE)
-    assert all(p["status"] == "assumed" for p in tg.params(ts).values())
+    assert all(p["status"] in ("assumed", "set") for p in tg.params(ts).values())
     assert tg.value(ts, "board_quantity") > 0
-    assert tg.value(ts, "freq_min_ghz") == 5.725 and tg.value(ts, "freq_max_ghz") == 5.875
+    assert tg.value(ts, "freq_min_ghz") < tg.value(ts, "freq_max_ghz")
 
 
 def test_range_resolution_is_derived_not_set():
     ts = tg.load("default")
     assert "range_resolution_m" not in tg.params(ts)
-    assert tg.range_resolution_m(ts) == pytest.approx(299792458 / (2 * 150e6))
+    bw = tg.value(ts, "chirp_bandwidth_hz")
+    assert tg.range_resolution_m(ts) == pytest.approx(299792458 / (2 * bw))
     d = copy.deepcopy(ts)
     d["design"]["range_resolution_m"] = {"value": 1, "unit": "m", "status": "set"}
     assert any("unknown parameter range_resolution_m" in m for m in tg.validate(d))
