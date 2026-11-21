@@ -188,7 +188,7 @@ entries:
   commit: 'no'
 - id: ftdi-ft2232h-datasheet
   kind: datasheet
-  title: FTDI FT2232H dual high-speed USB UART/FIFO, Version 2.6 (U33; web.archive.org capture of the
+  title: FTDI FT2232H dual high-speed USB UART/FIFO, Version 2.6 (U33 is the FT2232HL-REEL; web.archive.org capture of the
     ftdichip.com URL, 2025-08-23, because ftdichip.com refuses scripted downloads)
   url: https://web.archive.org/web/20250823184258id_/https://ftdichip.com/wp-content/uploads/2020/07/DS_FT2232H.pdf
   access: direct
@@ -409,7 +409,7 @@ entries:
   commit: 'no'
 - id: gct-usb4105-datasheet
   kind: datasheet
-  title: GCT USB4105 USB-C receptacle specification (J1; variants GF-A, -060, -120)
+  title: GCT USB4105 USB-C receptacle specification (J1 is the USB4105-GF-A; variants GF-A, -060, -120)
   url: https://gct.co/files/specs/usb4105-spec.pdf
   access: direct
   file: datasheets/files/gct/usb4105-spec.pdf
@@ -616,16 +616,6 @@ entries:
   licence: maker copyright; not redistributed here
   commit: 'no'
   digikey: DM3BT-DSF-PEJS
-- id: dk-usb4105-gf-a
-  kind: datasheet
-  title: USB4105-GF-A datasheet through DigiKey (J1)
-  url: https://www.digikey.com/en/products/detail/gct/USB4105-GF-A/11198441
-  access: form
-  file: datasheets/files/digikey/usb4105-gf-a.pdf
-  sha256: 372fe1bc0e0b1b4ce7e18b61514e967c7c2f883f0c7fe1f4586b567785ee9cd2
-  licence: maker copyright; not redistributed here
-  commit: 'no'
-  digikey: USB4105-GF-A
 - id: dk-lqw15an9n9j80d
   kind: datasheet
   title: LQW15AN9N9J80D datasheet through DigiKey (L1, L3)
@@ -907,19 +897,6 @@ entries:
   licence: maker copyright; not redistributed here
   commit: 'no'
   digikey: B3U-1000P
-- id: dk-ft2232hl-reel
-  kind: datasheet
-  title: FT2232HL-REEL datasheet through DigiKey (U33)
-  url: https://www.digikey.com/en/products/detail/ftdi-future-technology-devices-international-ltd/FT2232HL-REEL/1986053
-  access: form
-  file: datasheets/files/digikey/ft2232hl-reel.pdf
-  sha256: ''
-  licence: maker copyright; not redistributed here
-  commit: 'no'
-  digikey: FT2232HL-REEL
-  fetch_error: 'DigiKey datasheet https://ftdichip.com/wp-content/uploads/2025/11/DS_FT2232H.pdf: HTTP Error
-    403: Forbidden (2026-11-21)'
-  digikey_url: https://www.digikey.com/en/products/detail/ftdi-future-technology-devices-international-ltd/FT2232HL-REEL/1986053
 - id: skyworks-se5004l-datasheet
   kind: datasheet
   title: Skyworks SE5004L 5 GHz WLAN PA (U14 replacement candidate, par-07)
@@ -1049,6 +1026,8 @@ entries:
   licence: Bourns terms; not redistributed here
   commit: 'no'
   digikey: SRR6040A-330M
+  fetch_error: DigiKey hosts the datasheet, not this model (2026-11-21)
+  digikey_url: https://www.digikey.com/en/products/detail/bourns-inc/SRR6040A-330M/5031023
 - id: aps1040m330a-model
   kind: vendor-model
   title: 'APS1040M330A (option B of choice 4) inductor model: user-fetch from the maker''s page found
@@ -1103,6 +1082,8 @@ entries:
   licence: Linx terms; not redistributed here
   commit: 'no'
   digikey: CONSMA003.062
+  fetch_error: DigiKey hosts the datasheet, not this model (2026-11-21)
+  digikey_url: https://www.digikey.com/en/products/detail/te-connectivity-linx/CONSMA003-062/1577208
 - id: murata-lqw15an9n9j80d-model
   kind: vendor-model
   title: 'Murata LQW15AN9N9J80D S-parameters, Touchstone (user-fetch from the part page''s S-Parameter
@@ -1115,6 +1096,7 @@ entries:
   commit: 'no'
   digikey: LQW15AN9N9J80D
   digikey_url: https://www.digikey.com/en/products/detail/murata-electronics/LQW15AN9N9J80D/4292403
+  fetch_error: DigiKey hosts the datasheet, not this model (2026-11-21)
 - id: tdk-mlg1005s0n6bt000-model
   kind: vendor-model
   title: 'TDK MLG1005S0N6BT000 S-parameters (user-fetch from the TDK product centre part page; DigiKey
@@ -1128,6 +1110,7 @@ entries:
   commit: 'no'
   digikey: MLG1005S0N6BT000
   digikey_url: https://www.digikey.com/en/products/detail/tdk/MLG1005S0N6BT000/4742653
+  fetch_error: DigiKey hosts the datasheet, not this model (2026-11-21)
 - id: fh-0402cg180j500nt-model
   kind: vendor-model
   title: 'FH 0402CG180J500NT 18 pF S-parameters: none found at the maker (fh-mlcc.com did not resolve
@@ -1140,6 +1123,7 @@ entries:
   licence: FH terms; not redistributed here
   commit: 'no'
   digikey: 0402CG180J500NT
+  fetch_error: DigiKey API has no exact match for 0402CG180J500NT (2026-11-21)
 - id: murata-gjm1555c1hr50wb01d-model
   kind: vendor-model
   title: 'Murata GJM1555C1HR50WB01D S-parameters, Touchstone (user-fetch from the part page''s S-Parameter
@@ -1152,6 +1136,7 @@ entries:
   commit: 'no'
   digikey: GJM1555C1HR50WB01D
   digikey_url: https://www.digikey.com/en/products/detail/murata-electronics/GJM1555C1HR50WB01D/2593253
+  fetch_error: DigiKey hosts the datasheet, not this model (2026-11-21)
 - id: mlcc-cl21a106kaynnne-model
   kind: vendor-model
   title: 'Samsung CL21A106KAYNNNE S-parameters and SPICE model (user-fetch from the Samsung Electro-Mechanics
@@ -1165,6 +1150,8 @@ entries:
   licence: Samsung Electro-Mechanics terms; not redistributed here
   commit: 'no'
   digikey: CL21A106KAYNNNE
+  fetch_error: DigiKey hosts the datasheet, not this model (2026-11-21)
+  digikey_url: https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL21A106KAYNNNE/3888549
 - id: mlcc-cl05b104ko5nnnc-model
   kind: vendor-model
   title: 'Samsung CL05B104KO5NNNC S-parameters and SPICE model (user-fetch from the Samsung Electro-Mechanics
@@ -1178,6 +1165,8 @@ entries:
   licence: Samsung Electro-Mechanics terms; not redistributed here
   commit: 'no'
   digikey: CL05B104KO5NNNC
+  fetch_error: DigiKey hosts the datasheet, not this model (2026-11-21)
+  digikey_url: https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL05B104KO5NNNC/3886659
 - id: mlcc-cl05a474kp5nnnc-model
   kind: vendor-model
   title: 'Samsung CL05A474KP5NNNC S-parameters and SPICE model (user-fetch from the Samsung Electro-Mechanics
@@ -1191,6 +1180,8 @@ entries:
   licence: Samsung Electro-Mechanics terms; not redistributed here
   commit: 'no'
   digikey: CL05A474KP5NNNC
+  fetch_error: DigiKey hosts the datasheet, not this model (2026-11-21)
+  digikey_url: https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL05A474KP5NNNC/3886831
 - id: mlcc-cl10a475ko8nnnc-model
   kind: vendor-model
   title: 'Samsung CL10A475KO8NNNC S-parameters and SPICE model (user-fetch from the Samsung Electro-Mechanics
@@ -1204,6 +1195,8 @@ entries:
   licence: Samsung Electro-Mechanics terms; not redistributed here
   commit: 'no'
   digikey: CL10A475KO8NNNC
+  fetch_error: DigiKey hosts the datasheet, not this model (2026-11-21)
+  digikey_url: https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL10A475KO8NNNC/3887442
 - id: mlcc-cl10b225kp8nnnc-model
   kind: vendor-model
   title: 'Samsung CL10B225KP8NNNC S-parameters and SPICE model (user-fetch from the Samsung Electro-Mechanics
@@ -1217,6 +1210,8 @@ entries:
   licence: Samsung Electro-Mechanics terms; not redistributed here
   commit: 'no'
   digikey: CL10B225KP8NNNC
+  fetch_error: DigiKey hosts the datasheet, not this model (2026-11-21)
+  digikey_url: https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL10B225KP8NNNC/3886792
 - id: mlcc-cl10a105kb8nnnc-model
   kind: vendor-model
   title: 'Samsung CL10A105KB8NNNC S-parameters and SPICE model (user-fetch from the Samsung Electro-Mechanics
@@ -1230,6 +1225,8 @@ entries:
   licence: Samsung Electro-Mechanics terms; not redistributed here
   commit: 'no'
   digikey: CL10A105KB8NNNC
+  fetch_error: DigiKey hosts the datasheet, not this model (2026-11-21)
+  digikey_url: https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL10A105KB8NNNC/3887518
 - id: mlcc-cl10b105ka8nnnc-model
   kind: vendor-model
   title: 'Samsung CL10B105KA8NNNC S-parameters and SPICE model (user-fetch from the Samsung Electro-Mechanics
@@ -1243,6 +1240,8 @@ entries:
   licence: Samsung Electro-Mechanics terms; not redistributed here
   commit: 'no'
   digikey: CL10B105KA8NNNC
+  fetch_error: DigiKey hosts the datasheet, not this model (2026-11-21)
+  digikey_url: https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL10B105KA8NNNC/3886842
 - id: mlcc-cl32a107mpvnnne-model
   kind: vendor-model
   title: 'Samsung CL32A107MPVNNNE S-parameters and SPICE model (user-fetch from the Samsung Electro-Mechanics
@@ -1256,6 +1255,8 @@ entries:
   licence: Samsung Electro-Mechanics terms; not redistributed here
   commit: 'no'
   digikey: CL32A107MPVNNNE
+  fetch_error: DigiKey hosts the datasheet, not this model (2026-11-21)
+  digikey_url: https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL32A107MPVNNNE/3889022
 - id: mlcc-cl31a476mphnnne-model
   kind: vendor-model
   title: 'Samsung CL31A476MPHNNNE S-parameters and SPICE model (user-fetch from the Samsung Electro-Mechanics
@@ -1269,6 +1270,8 @@ entries:
   licence: Samsung Electro-Mechanics terms; not redistributed here
   commit: 'no'
   digikey: CL31A476MPHNNNE
+  fetch_error: DigiKey hosts the datasheet, not this model (2026-11-21)
+  digikey_url: https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL31A476MPHNNNE/3888721
 - id: mlcc-cl05b103kb5nnnc-model
   kind: vendor-model
   title: 'Samsung CL05B103KB5NNNC S-parameters and SPICE model (user-fetch from the Samsung Electro-Mechanics
@@ -1282,6 +1285,8 @@ entries:
   licence: Samsung Electro-Mechanics terms; not redistributed here
   commit: 'no'
   digikey: CL05B103KB5NNNC
+  fetch_error: DigiKey hosts the datasheet, not this model (2026-11-21)
+  digikey_url: https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL05B103KB5NNNC/3886686
 - id: mlcc-grm1555c1h103je01d-model
   kind: vendor-model
   title: 'Murata GRM1555C1H103JE01D S-parameters, Touchstone (user-fetch from the part page''s S-Parameter
@@ -1294,6 +1299,7 @@ entries:
   commit: 'no'
   digikey: GRM1555C1H103JE01D
   digikey_url: https://www.digikey.com/en/products/detail/murata-electronics/GRM1555C1H103JE01D/26265161
+  fetch_error: DigiKey hosts the datasheet, not this model (2026-11-21)
 - id: mlcc-grm1555c1h222ga01d-model
   kind: vendor-model
   title: 'Murata GRM1555C1H222GA01D S-parameters, Touchstone (user-fetch from the part page''s S-Parameter
@@ -1306,6 +1312,7 @@ entries:
   commit: 'no'
   digikey: GRM1555C1H222GA01D
   digikey_url: https://www.digikey.com/en/products/detail/murata-electronics/GRM1555C1H222GA01D/16719162
+  fetch_error: DigiKey hosts the datasheet, not this model (2026-11-21)
 - id: mlcc-grm1555c1h221ja01d-model
   kind: vendor-model
   title: 'Murata GRM1555C1H221JA01D S-parameters, Touchstone (user-fetch from the part page''s S-Parameter
@@ -1318,3 +1325,4 @@ entries:
   commit: 'no'
   digikey: GRM1555C1H221JA01D
   digikey_url: https://www.digikey.com/en/products/detail/murata-electronics/GRM1555C1H221JA01D/587204
+  fetch_error: DigiKey hosts the datasheet, not this model (2026-11-21)
