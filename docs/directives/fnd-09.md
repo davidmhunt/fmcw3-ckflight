@@ -1,5 +1,5 @@
 # fnd-09: Workspace manual (MANUAL.md) and a rule that keeps it current
-Status: awaiting review
+Status: done
 Goal: foundation
 Node: any
 Deliverable: doc
@@ -67,3 +67,5 @@ Commits:
 - 92c8f69 fnd-09: MANUAL.md section 7 names each tool's link and checklist
 Verify: Verify passed: ./run uv run pytest tests/test_manual.py -q && ./run uv run pytest tests -q
 Independent review: gaps fixed in second review: 1. /home/david/Documents/pcb_work/fmcw3-ckflight/MANUAL.md:121-128 (section 7, 'Tools you run elsewhere'): Acceptance bullet 3 requires each externally run tool to name its link. Only the JLCPCB row has one. CST Studio Suite, ADIsimPLL, ADIsimRF, Saturn PCB Toolkit and TI WEBENCH have only a 'Where' label such as 'Windows (ADI)' or 'browser, TI account'. Links were available in the repo and were not used: Saturn https://saturnpcb.com/saturn-pcb-toolkit/ (docs/gui-tool-checklists.md:54, docs/analysis-tools.md:142), WEBENCH webench.ti.com (docs/analysis-tools.md:148), and the ADI product pages (docs/analysis-tools.md:140-141). (evidence: MANUAL.md table rows 123-127 have no URL. Only row 128 contains https://jlcpcb.com/pcb-impedance-calculator.) 2. /home/david/Documents/pcb_work/fmcw3-ckflight/MANUAL.md:117-119 and 121-128: Acceptance bullet 3 also requires each external tool to name the checklist that goes with it. The manual gives one blanket link to docs/gui-tool-checklists.md and says every tool here is used 'from a checklist'. No row points to its own checklist section. That file only has checklists for ADIsimPLL, ADIsimRF, Saturn and JLCPCB. CST Studio Suite and TI WEBENCH have none, so the manual's claim is wrong for those two and it does not say they have no checklist yet. (evidence: The headings in docs/gui-tool-checklists.md are 'ADIsimPLL', 'ADIsimRF', 'Saturn PCB Toolkit' and 'JLCPCB impedance calculator' (lines 23, 40, 52, 64). Neither CST nor WEBENCH appears in it. MANUAL.md:117-119 says 'used by you ... from a checklist that says what to enter'.) 3. Acceptance: not met: Each externally run tool names its link and the checklist that goes with it. (evidence: In MANUAL.md section 7, only the JLCPCB row has a link. CST, ADIsimPLL, ADIsimRF, Saturn and WEBENCH have none. The checklist is one blanket link to docs/gui-tool-checklists.md, which has no checklist for CST or WEBENCH.)
+
+Accepted by user: 2026-11-20
