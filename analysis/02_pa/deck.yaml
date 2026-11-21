@@ -2,9 +2,9 @@ slides:
   - layout: title
     title: "U14 PA: replacing the TQP5525"
     bullets:
-      - "Requirements, five options, a labelled recommendation"
+      - "Requirements, five options ranked JLC-stocked first, a labelled recommendation"
       - "Target set: default (band and TX power set by you)"
-    note: Qorvo has discontinued the TQP5525 (your report, parts/decisions.csv). Nothing is decided here and the schematic is unchanged. With the project open, tools/kicad_ipc.py show --refs U14 selects the part.
+    note: Qorvo has discontinued the TQP5525 (your report, parts/decisions.csv). Nothing is decided here and the schematic is unchanged. With the project open, tools/kicad_ipc.py show --refs U14 selects the part. All five datasheets are on file since the 2026-11-21 rerun.
   - layout: figure
     title: Requirements and where each came from
     figure: requirements.png
@@ -12,32 +12,36 @@ slides:
   - layout: figure
     title: Comparison against the requirements
     figure: comparison.png
-    note: Candidates without a datasheet on file are not scored. The table states for each whether it fits the existing U14 footprint and supply.
+    note: Ranked with JLC-stocked options first (your rule, 2026-11-21). The table states for each whether it fits the existing U14 footprint and supply.
   - layout: figure
-    title: "Option: TQP5525, remaining stock"
-    figure: cand_O0.png
-    note: JLC stock 100 on 2026-11-21, DigiKey does not list it. It is a finite pool, to re-check before ordering.
-  - layout: figure
-    title: "Candidate: QPA9501 (for you to obtain)"
+    title: "1. QPA9501TR13 (JLC, 20)"
     figure: cand_C1.png
-    note: qorvo.com refuses the download. Fetching qorvo-qpa9501-datasheet is the first action (docs/user-fetch.md).
+    note: qorvo-qpa9501-datasheet Rev J. Pins match the TQP5525 except pin 1 (NC, may be grounded). The 5.60 and 5.90 GHz edge figures and the current at 25.5 dBm are not in the datasheet.
   - layout: figure
-    title: "Candidate: SE5004L-R"
+    title: "QPA9501 gain across 5.60-5.90 GHz"
+    figure: qpa9501_s21.png
+    note: The datasheet gives gain at 4.9, 5.2 and 5.8 GHz only (p2). The s2p is a 2015 measurement with bias not stated; it reads about 1 dB under the datasheet typ at 5.8 GHz and 3 dB under at 4.9 GHz, so treat it as the shape across the band, not as a guarantee.
+  - layout: figure
+    title: "2. TQP5525 stock (JLC, 100)"
+    figure: cand_O0.png
+    note: JLC stock 100 on 2026-11-21, DigiKey does not list it. Discontinued, so a finite pool, to re-check before ordering.
+  - layout: figure
+    title: "3. SE5004L-R (JLC, 1181)"
     figure: cand_C2.png
-    note: Skyworks datasheet 202393B. Figures are at 5.4 GHz.
+    note: Skyworks datasheet 202393B. Figures are at 5.4 GHz; range stops at 5.85 GHz.
   - layout: figure
-    title: "Candidate: SE5023L-R"
+    title: "4. SE5023L-R (DigiKey only)"
     figure: cand_C3.png
-    note: Skyworks datasheet 202521B. JLC stock is 0.
+    note: Skyworks datasheet 202521B. JLC stock is 0, so it would be consigned.
   - layout: figure
-    title: "Candidate: AWL9924 (for you to obtain)"
+    title: "5. AWL9924 (DigiKey, no fit)"
     figure: cand_C4.png
-    note: Rochester Electronics stock only; the maker is gone.
+    note: Anadigics datasheet Rev 2.1, 2008. A 3.3 V, 24-pin part; Rochester Electronics stock only.
   - layout: decisions
     title: "Recommendation (labelled) and your decision"
     bullets:
-      - "Recommendation: for this 3-board build, buy the 3 remaining TQP5525 from JLC (stock 100): only option covering 5.60-5.90 GHz by datasheet with no board change"
-      - "Before a respin: obtain the QPA9501 datasheet (same maker, QFN-20 4x4 on JLC), then compare it here; SE5004L-R is the fallback"
-      - "Every option gives about 32 dB gain: about 24.3 dBm at the SMA, 0.7 dB under 25 dBm"
-      - "Yours to decide: the U14 part, and any enable, pin 1 or FB4 change on sheet tx"
+      - "Recommendation: QPA9501TR13 from JLC (C2911573, stock 20 for 3 boards): active, same pinout, enable and footprint, 4.9-5.9 GHz, no board change"
+      - "Fallback: the remaining TQP5525 from JLC (C471153, stock 100): known part, discontinued, a finite pool"
+      - "Every option gives about 32 dB gain: about 24.3 dBm at the SMA, 0.7 dB under 25 dBm; QPA9501 current at 25.5 dBm is not in its datasheet (FB4 1 A margin open)"
+      - "Yours to decide: the U14 part, FB4 if needed; SE5004L/SE5023L need an enable change, AWL9924 a redesign"
     note: The recommendation is labelled as such; the choice is the user's. Give it in the note when you accept par-07. The agent then writes it into parts/decisions.csv for par-04.

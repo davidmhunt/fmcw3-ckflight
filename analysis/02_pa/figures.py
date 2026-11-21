@@ -77,12 +77,48 @@ def table_image(name, cols, rows, widths, fs, paras=()):
     plt.close(fig)
 
 
+def qpa_s21_figure() -> None:
+    """QPA9501 |S21| across the band from the measured s2p, with the datasheet's own points (p2)."""
+    rows = [r for r in csv.reader(l for l in (HERE / "qpa9501_s21.csv").read_text().splitlines()
+                                  if not l.startswith("#"))][1:]
+    f = [float(r[0]) for r in rows]
+    s11, s21, s22 = ([float(r[i]) for r in rows] for i in (1, 2, 3))
+    fig, (a, b) = plt.subplots(2, 1, figsize=(W_IN, H_IN), sharex=True, gridspec_kw={"height_ratios": [3, 2]})
+    for ax in (a, b):
+        ax.axvspan(5.6, 5.9, color="#dfe4ee", label="board band 5.60-5.90 GHz")
+        ax.grid(alpha=0.3)
+    a.plot(f, s21, color=NAVY, lw=2, label="|S21| measured (s2p, 2015, bias not stated)")
+    for fx, lo, ty, hi in ((4.9, None, 33.6, None), (5.2, 30, 34, 36), (5.8, 29.5, 32, 36)):
+        a.plot([fx], [ty], "o", color=RED, label="datasheet p2 typ (bar: min-max)" if fx == 4.9 else None)
+        if lo:
+            a.plot([fx, fx], [lo, hi], color=RED, lw=1)
+            a.plot([fx], [lo], "_", color=RED, ms=10)
+            a.plot([fx], [hi], "_", color=RED, ms=10)
+    a.axhline(32.7, color="gray", ls="--", lw=1)
+    a.text(5.62, 35.2, "gain needed about 32.7 dB (25.5 dBm out, -7.2 dBm in)", fontsize=9, color="gray")
+    a.set_ylabel("gain (dB)")
+    a.set_ylim(26, 38)
+    a.set_title("QPA9501 gain across the band: datasheet min/typ/max at 4.9, 5.2, 5.8 GHz (qorvo-qpa9501-datasheet p2) "
+                "and measured |S21| (qorvo-qpa9501-sparams)", fontsize=10, color=NAVY)
+    a.legend(fontsize=9, loc="lower left")
+    b.plot(f, s11, color=NAVY, label="|S11| input")
+    b.plot(f, s22, color=RED, label="|S22| output")
+    b.set_ylabel("return loss (dB)")
+    b.set_xlabel("frequency (GHz)")
+    b.legend(fontsize=9, loc="lower left")
+    b.set_xlim(4.8, 6.1)
+    fig.tight_layout()
+    fig.savefig(BUILD / "qpa9501_s21.png", dpi=150)
+    plt.close(fig)
+
+
 def main() -> None:
     ts = tg.load(os.environ.get("FMCW_TARGETS", "default"))
     print(f"figures.py: {tg.describe(ts)}")
     BUILD.mkdir(exist_ok=True)
     data = yaml.safe_load((HERE / "candidates.yaml").read_text())
-    reqs, cands = data["requirements"], data["candidates"]
+    reqs = data["requirements"]
+    cands = sorted(data["candidates"], key=lambda c: c["rank"])  # JLC-stocked options first
     boards = int(tg.value(ts, "board_quantity"))
     fmin, fmax = tg.value(ts, "freq_min_ghz"), tg.value(ts, "freq_max_ghz")
     pout = tg.value(ts, "tx_power_dbm")
@@ -103,11 +139,13 @@ def main() -> None:
     # One comparison table.
     ch = ["Option", "Covers 5.60-5.90 GHz", "Gain / P1dB / Psat typ", "Current, existing supply",
           "Existing U14 footprint", f"Stock ({boards} needed)", f"USD for {boards}", "Datasheet, pages"]
-    crow = [[c["short"], *c["cmp"]] for c in cands]
+    crow = [[f"{c['rank']}. {c['short']}", *c["cmp"]] for c in cands]
     write_csv("comparison.csv", ch, crow)
     table_image("comparison.png", ch, crow, [0.10, 0.11, 0.12, 0.15, 0.17, 0.10, 0.08, 0.17], 9.5,
-                [("Figures are typical, as the datasheet states them; the SE parts are specified at 5.4 GHz, not 5.8 GHz. "
+                [("Rank: JLC-stocked options first (1-3), then DigiKey-only (4-5); within a group by lifecycle and fit. "
+                  "n.g. = not given in the datasheet. Figures are typical; the SE parts are specified at 5.4 GHz, not 5.8 GHz. "
                   "Needed: about 25.5 dBm out of U14 at about -7.2 dBm in, so about 32.7 dB gain.", NAVY, False)])
+    qpa_s21_figure()
 
     # One slide per candidate.
     for c in cands:
