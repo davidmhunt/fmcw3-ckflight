@@ -1,5 +1,5 @@
 # par-10: Stock watch for hard-to-source parts (ADC first)
-Status: proposed
+Status: approved
 Goal: parts
 Node: any
 Deliverable: code

@@ -954,17 +954,17 @@ entries:
   url: https://pim.murata.com/en-us/pim/details/?partNum=BLM18KG221SN1D
   access: form
   file: datasheets/files/murata/blm18kg221sn1d.s2p
-  sha256: ''
+  sha256: 5df7ce99a25ee442d6bc960de36419743c7abe444950834f0c3b36b0a6f21283
   licence: Murata terms; not redistributed here
   commit: 'no'
 - id: murata-blm18kg221sn1d-spice
   kind: vendor-model
-  title: Murata BLM18KG221SN1 ferrite-bead SPICE subcircuit (option B of choice 10, FB4; user-fetch from
-    the part page, as for the BLM18PG181SN1D)
+  title: Murata BLM18KG221SN1 ferrite-bead SPICE subcircuit, .mod extracted from Murata's BLM18 series
+    netlist zip (option B of choice 10, FB4; saved through the browser 2026-11-21)
   url: https://pim.murata.com/en-us/pim/details/?partNum=BLM18KG221SN1D
   access: form
-  file: datasheets/files/murata/blm18kg221sn1d.zip
-  sha256: ''
+  file: datasheets/files/murata/blm18kg221sn1d.mod
+  sha256: 59d64106e00171cbc0d2a278d61efc9f6a2ccb346a0c0b266908388073691442
   licence: Murata terms; not redistributed here
   commit: 'no'
 - id: st-ld39200-model
@@ -984,7 +984,7 @@ entries:
   url: https://www.ti.com/lit/zip/SNVMB87
   access: form
   file: datasheets/files/ti/lp2985-10-unencrypted.zip
-  sha256: ''
+  sha256: 6837e78b00c5c78624bbbc026ef37df97e06855734f44178632fb0fdaeb6e35c
   licence: TI model terms (provided as is for customer design use); not redistributed here
   commit: 'no'
 - id: ti-tlv172-model
@@ -994,17 +994,19 @@ entries:
   url: https://www.ti.com/lit/zip/SBOMA92
   access: form
   file: datasheets/files/ti/tlvx172-pspice.zip
-  sha256: ''
+  sha256: 74fff41e37aa972cf694032f3e0d839870ed402133f4448fbf3fdf699068b71f
   licence: TI model terms (provided as is for customer design use); not redistributed here
   commit: 'no'
 - id: adi-lt6231-ltspice-bundled
   kind: vendor-model
-  title: 'LT6231 subcircuit in LTspice''s bundled LTC2.lib (U45 LT6232 symbol; fnd-05). Not a download:
-    the user copies LTC2.lib from the LTspice install (lib/sub/) to the path shown'
+  title: 'LT6231 subcircuit (.subckt LT6231) in LTspice''s bundled LTC2.lib (U45 LT6232 symbol; fnd-05).
+    Copied 2026-11-21 from the fmcw3-sim image''s LTspice install
+    (/opt/wineprefix/drive_c/users/root/AppData/Local/LTspice/lib/sub/LTC2.lib); the sim image has it
+    in place, so --sim runs need no copy'
   url: https://www.analog.com/en/resources/design-tools-and-calculators/ltspice-simulator.html
   access: form
   file: datasheets/files/adi/LTC2.lib
-  sha256: ''
+  sha256: b51d13e44b8a743a96c46b1c184e0ab625d9b4082717bf8c623f58381f2809e3
   licence: ADI LTspice licence; not redistributed here
   commit: 'no'
 - id: adi-ltc2292-model
@@ -1095,7 +1097,7 @@ entries:
   url: https://pim.murata.com/en-us/pim/details/?partNum=LQW15AN9N9J80D
   access: form
   file: datasheets/files/murata/lqw15an9n9j80d.s2p
-  sha256: ''
+  sha256: 2886c855956216c86e78c7d5d3fc0fe3aab18a549db87becc6a189f61bc3c4ef
   licence: Murata terms; not redistributed here
   commit: 'no'
   digikey: LQW15AN9N9J80D
@@ -1108,7 +1110,7 @@ entries:
   url: https://product.tdk.com/en/search/rf/rf/inductor/info?part_no=MLG1005S0N6BT000
   access: form
   file: datasheets/files/tdk/mlg1005s0n6bt000.s2p
-  sha256: ''
+  sha256: bc0505ac5f18b5d49536f426d5a33ffdab846f91b8a8800a858528b3d69b833c
   licence: TDK terms; not redistributed here
   commit: 'no'
   digikey: MLG1005S0N6BT000
@@ -1133,7 +1135,7 @@ entries:
   url: https://pim.murata.com/en-us/pim/details/?partNum=GJM1555C1HR50WB01D
   access: form
   file: datasheets/files/murata/gjm1555c1hr50wb01d.s2p
-  sha256: ''
+  sha256: aca9dfcbf329868c27aee0502882b18ded4a2881a65f7c8bcf078372757ff665
   licence: Murata terms; not redistributed here
   commit: 'no'
   digikey: GJM1555C1HR50WB01D
@@ -1153,6 +1155,18 @@ entries:
   digikey: CL21A106KAYNNNE
   fetch_error: DigiKey hosts the datasheet, not this model (2026-11-21)
   digikey_url: https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL21A106KAYNNNE/3888549
+- id: samsung-cl21a106kaynnne-sheet
+  kind: datasheet
+  title: Samsung CL21A106KAYNNN one-page characteristics sheet (10 uF 25 V X5R 0805; |Z| and ESR vs
+    frequency, TCC, DC bias, AC voltage, ripple-current curves; DC bias about -80 % at 12 V; saved by the
+    user from Samsung Electro-Mechanics 2026-11-21, created 2026-11-22 KST; C26, C60-C62, C64, C70, C71
+    and the rest of the 10 uF group)
+  url: https://product.samsungsem.com/mlcc/CL21A106KAYNNN.do
+  access: form
+  file: datasheets/files/samsung/cl21a106kaynnne.pdf
+  sha256: da63b59941489115df445271976e5ddd2407fcf7c8875ddcc07cfe0bb7505562
+  licence: Samsung Electro-Mechanics copyright; not redistributed here
+  commit: 'no'
 - id: mlcc-cl05b104ko5nnnc-model
   kind: vendor-model
   title: 'Samsung CL05B104KO5NNNC S-parameters and SPICE model (user-fetch from the Samsung Electro-Mechanics
@@ -1295,7 +1309,7 @@ entries:
   url: https://pim.murata.com/en-us/pim/details/?partNum=GRM1555C1H103JE01D
   access: form
   file: datasheets/files/murata/grm1555c1h103je01d.s2p
-  sha256: ''
+  sha256: 4944d3b27a459648226cb7ac0e46d6234acd562a7da3e5bb56e366d0947e92f9
   licence: Murata terms; not redistributed here
   commit: 'no'
   digikey: GRM1555C1H103JE01D
@@ -1307,7 +1321,7 @@ entries:
   url: https://pim.murata.com/en-us/pim/details/?partNum=GRM1555C1H222GA01D
   access: form
   file: datasheets/files/murata/grm1555c1h222ga01d.s2p
-  sha256: ''
+  sha256: eb735098c16029de5b0a3b75a8d5960408a8fb390b43e0f64be535634b3a3a32
   licence: Murata terms; not redistributed here
   commit: 'no'
   digikey: GRM1555C1H222GA01D
@@ -1319,7 +1333,7 @@ entries:
   url: https://pim.murata.com/en-us/pim/details/?partNum=GRM1555C1H221JA01D
   access: form
   file: datasheets/files/murata/grm1555c1h221ja01d.s2p
-  sha256: ''
+  sha256: 1e192079a2ef8b6c6b3033387ebba90ce086bf19f66d656276c1a097dfadf6c9
   licence: Murata terms; not redistributed here
   commit: 'no'
   digikey: GRM1555C1H221JA01D

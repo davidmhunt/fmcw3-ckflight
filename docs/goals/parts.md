@@ -22,7 +22,7 @@ availability report lists no unresolved line.
 7. par-09: JLC sourcing plan for every line JLCPCB cannot place today (added 2026-11-21 at the
    user's request)
 8. par-10: Stock watch for hard-to-source parts, ADC first (added 2026-11-21 at the user's
-   request; proposed)
+   request)
 9. par-04: Write MPN, DigiKey and LCSC fields into the schematic symbols
 10. par-05: Ordering BOMs from the schematic that DigiKey and JLCPCB ingest directly (added
    2026-11-21 at the user's request)
