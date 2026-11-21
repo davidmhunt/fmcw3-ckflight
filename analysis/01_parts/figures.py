@@ -56,6 +56,7 @@ def load_choices(av, dec):
     choices = json.loads(CHOICES_FILE.read_text())["choices"]
     for c in choices.values():
         c["rows"] = [[fill(x) for x in row] for row in c["rows"]]
+        c["recommendation"] = REC + c["recommendation"]
     covered = {r for c in choices.values() for r in c["refs"].split(",") if r}
     missing = [d["ref"] for d in dec if d["status"] == "user-choice" and d["ref"] not in covered]
     if missing:
