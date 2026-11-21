@@ -9,7 +9,9 @@ boards. A read, not a fix: nothing is ordered and no substitute is chosen (par-0
 
 1. Exports every symbol headless with `kicad-cli sch export bom` (nothing under `kicad/` is
    written) and merges `parts/decisions.csv` (columns `ref` plus any of `MPN`, `Manufacturer`,
-   `LCSC`, `DigiKey PN`, `DNP`) into empty part fields. A schematic field always wins.
+   `LCSC`, `DigiKey PN`, `DNP`, and the spec fields `Tolerance`, `Voltage`, `Dielectric`) into
+   empty fields. A schematic field always wins. The spec fields split groups and narrow the
+   DigiKey parametric search for generic passives; unset, only value and package are searched.
 2. Groups by value, footprint and the part-number fields, and gives each group a class:
    `mpn` (an MPN, LCSC or DigiKey number is known), `generic` (a C, R, L or FB defined by value
    and package), `dnp` (not fitted), `nopart` (no part number and not a generic passive).
@@ -19,8 +21,8 @@ boards. A read, not a fix: nothing is ordered and no substitute is chosen (par-0
 
 Options: `--targets NAME` (target set giving `board_quantity`, default `default`), `--boards N`
 (overrides it), `--spares N` (extra parts per line), `--offline` (caches only, no network),
-`--check` (exit 1 when a placed part has no MPN; vias, pads, mounting holes and the printed
-coupler do not count).
+`--check` (exit 1 when a placed part has no MPN, generic passives included; only vias, pads,
+mounting holes, the printed coupler and not-fitted lines do not count).
 
 ## Files
 
@@ -56,6 +58,21 @@ par-03's decisions.
   Not-checked and Not-cached offline), `lifecycle`, `stock`, `unit_price` at `price_qty`,
   `lead_weeks`, `datasheet`, `url`, `mpn`, `mfr`, `pn`, `match` (`exact` or `parametric`),
   `suggested_mpn`, `query`.
+
+## Why the plugin database, not jlcsearch
+
+`check_jlc.py` reads the parts database that the `kicad-jlcpcb-tools` plugin publishes
+(`bouni.github.io/kicad-jlcpcb-tools`: SQLite FTS5, 821k parts, about 186 MB zipped and 831 MB
+unpacked). It needs no key, gives the same answer on every run, works offline after one
+download, and carries stock, Basic/Preferred/Extended, price breaks, MPN and package. The
+`jlcsearch.tscircuit.com` API was rejected as the primary source: searching the exact MPN
+GRM155R71C104KA88D returned no rows, stock was null for C71629, it has no manufacturer field,
+and it is a live third-party service, so a run is not repeatable. It is not a fallback.
+
+The plugin itself on KiCad 10 (for GUI use): release 2026.04.03 declares `kicad_version` 6.0
+with no `kicad_version_max` in its PCM metadata, so the Plugin and Content Manager permits it
+on 10.0.5. It has not been installed or run in the KiCad 10 GUI here, so GUI use is untested.
+`bom.py` does not need the plugin, only its database file.
 
 ## Match confidence
 

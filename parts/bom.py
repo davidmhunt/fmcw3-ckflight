@@ -15,7 +15,9 @@ Exports every symbol with `kicad-cli sch export bom`, then groups by value, foot
 part-number fields (MPN, Manufacturer, LCSC, DigiKey PN). Each group gets a class:
 
   mpn      every ref carries an MPN (or an LCSC number) in the schematic or in decisions.csv
-  generic  no MPN, a passive (C, R, L, FB) whose value and package define it
+           (Tolerance, Voltage, Dielectric are read the same way and feed the DigiKey search)
+  generic  no MPN, a passive (C, R, L, FB) whose value and package define it (still a placed
+           part without an MPN: --check counts it)
   dnp      not fitted (value "DNP", or the DNP / exclude-from-BOM attribute)
   nopart   no MPN and not a generic passive (ICs, connectors, crystals): needs a part
 
@@ -44,10 +46,14 @@ DECISIONS = ROOT / "parts" / "decisions.csv"
 OUT = ROOT / "parts" / "out" / "bom.csv"
 
 PART_FIELDS = ["MPN", "Manufacturer", "LCSC", "DigiKey PN"]
-GROUP_KEYS = ["Value", "Footprint"] + PART_FIELDS
+# spec fields a generic passive can carry (schematic field or decisions.csv); the DigiKey
+# parametric search uses them. Empty means unspecified.
+SPEC_FIELDS = ["Tolerance", "Voltage", "Dielectric"]
+GROUP_KEYS = ["Value", "Footprint"] + PART_FIELDS + SPEC_FIELDS
 GENERIC_PREFIXES = ("C", "R", "L", "FB")
 # kicad-cli field names (the schematic field "DigiKey PN" is exported by its own name)
-EXPORT_FIELDS = ["Reference", "Value", "Footprint", "${DNP}", "${EXCLUDE_FROM_BOM}"] + PART_FIELDS
+EXPORT_FIELDS = (["Reference", "Value", "Footprint", "${DNP}", "${EXCLUDE_FROM_BOM}"]
+                 + PART_FIELDS + SPEC_FIELDS)
 CLASSES = ("mpn", "generic", "dnp", "nopart")
 
 
@@ -91,8 +97,8 @@ def parse_export(text: str) -> list[dict]:
         excl = rec.get("EXCLUDE_FROM_BOM", "").strip().lower() in ("excluded", "yes", "1", "true")
         row = {"ref": ref, "Value": value, "Footprint": footprint_name(rec["Footprint"]),
                "DNP": dnp_attr or excl or value.upper() == "DNP"}
-        for f in PART_FIELDS:
-            row[f] = rec.get(f, "").strip()
+        for f in PART_FIELDS + SPEC_FIELDS:
+            row[f] = (rec.get(f) or "").strip()
         rows.append(row)
     return rows
 
@@ -115,8 +121,8 @@ def merge_decisions(rows: list[dict], decisions: dict[str, dict]) -> list[dict]:
     for row in rows:
         row = dict(row)
         dec = decisions.get(row["ref"], {})
-        for f in PART_FIELDS:
-            if not row[f] and dec.get(f):
+        for f in PART_FIELDS + SPEC_FIELDS:
+            if not row.get(f) and dec.get(f):
                 row[f] = dec[f]
         if dec.get("DNP", "").lower() in ("1", "yes", "true", "dnp"):
             row["DNP"] = True
@@ -128,8 +134,9 @@ def group_rows(rows: list[dict]) -> list[dict]:
     """Group by value, footprint and part-number fields; refs naturally sorted."""
     groups: dict[tuple, dict] = {}
     for row in rows:
-        key = tuple(row[k] for k in GROUP_KEYS) + (row["DNP"],)
-        g = groups.setdefault(key, {**{k: row[k] for k in GROUP_KEYS}, "DNP": row["DNP"], "refs": []})
+        vals = {k: row.get(k, "") for k in GROUP_KEYS}
+        key = tuple(vals.values()) + (row["DNP"],)
+        g = groups.setdefault(key, {**vals, "DNP": row["DNP"], "refs": []})
         g["refs"].append(row["ref"])
     out = []
     for g in groups.values():
@@ -160,10 +167,11 @@ def write_csv(groups: list[dict], path: Path) -> None:
     with path.open("w", newline="") as fh:
         w = csv.writer(fh)
         w.writerow(["class", "refs", "qty", "value", "footprint", "MPN", "Manufacturer", "LCSC",
-                    "DigiKey PN"])
+                    "DigiKey PN"] + SPEC_FIELDS)
         for g in groups:
             w.writerow([g["class"], ";".join(g["refs"]), g["qty"], g["Value"], g["Footprint"],
-                        g["MPN"], g["Manufacturer"], g["LCSC"], g["DigiKey PN"]])
+                        g["MPN"], g["Manufacturer"], g["LCSC"], g["DigiKey PN"]]
+                       + [g[f] for f in SPEC_FIELDS])
 
 
 def summary(groups: list[dict]) -> str:
@@ -379,8 +387,10 @@ def write_cpl(rows: list[list], path: Path) -> None:
 
 
 def missing_mpn(groups: list[dict]) -> list[dict]:
-    """Placed parts that name no part: nopart lines that are real parts (not vias, pads, holes)."""
-    return [g for g in groups if g["class"] == "nopart" and not is_mechanical(g)]
+    """Placed parts that name no part: nopart lines that are real parts (not vias, pads, holes)
+    and generic passives, which have no MPN either until par-03/par-04 assign one."""
+    return [g for g in groups if g["class"] == "generic"
+            or (g["class"] == "nopart" and not is_mechanical(g))]
 
 
 def compare_legacy(groups: list[dict], path: Path = LEGACY_PARTS) -> str:

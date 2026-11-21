@@ -1,7 +1,8 @@
 """parts/check_digikey.py on recorded-shape responses: no network, no keys.
 
-The fixtures follow the DigiKey Product Information v4 keyword-search schema, trimmed to the
-fields the module reads. They contain no headers, tokens or credentials.
+The synthetic fixtures follow the DigiKey Product Information v4 keyword-search schema, trimmed
+to the fields the module reads; one test uses a real recorded product (tests/fixtures/). None
+contain headers, tokens or credentials.
 """
 import json
 import sys
@@ -213,6 +214,21 @@ def test_generic_no_match():
     c, _ = client({q: [cap("OBS", status="Obsolete")]})
     r = dk.check_group(c, g, 3)
     assert r["dk_status"] == "No-match" and r["dk_suggested_mpn"] == ""
+
+
+# ---- a real recorded response
+
+def test_real_recorded_product_parses():
+    """tests/fixtures/digikey_real_100nf_0402.json is one product from a live v4 keyword search
+    (response body only: no headers, tokens or credentials), untouched."""
+    p = json.loads((ROOT / "tests" / "fixtures" / "digikey_real_100nf_0402.json").read_text())[0]
+    r = dk.parse_product(p, 30)
+    assert r["dk_mpn"] == "E0402X7R104K500NTB" and r["dk_status"] == "Active"
+    assert r["dk_stock"] == p["QuantityAvailable"] > 0
+    assert r["dk_unit_price"] is not None and r["dk_pn"].endswith("-ND")
+    g = grp(**{"class": "generic"}, Value="100n", refs=["C1"])
+    q, spec = dk.parametric_query(g)
+    assert dk.match_score(p, spec, 30) >= 0
 
 
 # ---- credentials never leak

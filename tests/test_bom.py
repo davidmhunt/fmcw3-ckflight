@@ -57,6 +57,17 @@ def test_decisions_fill_but_do_not_override():
     assert by_ref(gs, "C2")["class"] == "generic"
 
 
+def test_spec_fields_reach_groups_and_parametric_query():
+    dec = {"C1": {"Tolerance": "10%", "Voltage": "16V", "Dielectric": "X7R"},
+           "C2": {"Tolerance": "10%", "Voltage": "16V", "Dielectric": "X7R"}}
+    g = by_ref(groups(dec), "C1")
+    assert g["refs"] == ["C1", "C2"] and g["Voltage"] == "16V"
+    import check_digikey as dk
+    q, spec = dk.parametric_query(g)
+    assert spec["dielectric"] == "X7R" and "16V" in q and "10%" in q
+    assert by_ref(groups(), "C1")["Tolerance"] == ""
+
+
 def test_load_decisions_missing_file(tmp_path):
     assert bom.load_decisions(tmp_path / "none.csv") == {}
 
@@ -152,7 +163,8 @@ def test_availability_rows_offline_and_need():
 
 def test_missing_mpn_and_jlc_files(tmp_path):
     gs = groups()
-    assert [g["refs"] for g in bom.missing_mpn(gs)] == [["U1"]]
+    # generic passives (C1/C2) have no MPN either; C3, U2 have one, C4/R1/J1 are not fitted
+    assert [g["refs"] for g in bom.missing_mpn(gs)] == [["C1", "C2"], ["U1"]]
     rows = [{"verdict": "JLC assemble", "refs": "C1;C2", "value": "100n", "footprint": "F",
              "LCSC": "", "jlc_lcsc": "C9"},
             {"verdict": "hand-solder", "refs": "J2", "value": "h", "footprint": "F", "LCSC": "",
