@@ -93,7 +93,7 @@ In short:
 |---|---|---|
 | LTspice (ADI), through `spicelib` | `./run --sim` (batch), `./run --sim-gui ltspice` (GUI) | circuits with ADI models, and mixed ADI and TI circuits |
 | ngspice | `./run --sim` | TI-only circuits (PSpice mode `ngbehavior=psa`) |
-| PSpice for TI | under Wine in `fmcw3-sim`, **trial pending** (fnd-08) | TI-encrypted models such as the LMR51420 buck |
+| PSpice for TI | under Wine in `fmcw3-sim`, **deferred to sim-05 (waiting on TI access)** | TI-encrypted models such as the LMR51420 buck |
 | openEMS | `./run --sim` | 3D EM fallback and cross-check (SMA launch, vias) |
 | scikit-rf | `./run --sim` | RF cascade and S-parameters |
 

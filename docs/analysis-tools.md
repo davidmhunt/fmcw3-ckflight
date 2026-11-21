@@ -50,7 +50,9 @@ tests skip there. The TI-model tests need the two TI zips from `datasheets/manif
 | ADI LTC*.lib models in ngspice 42 | LTspice model library | ngspice | ADI terms | **fail** (expected, kept as a test): `MIF-ERROR - unable to find definition of model` on the LTspice-only OTA A-device (`test_adi_ltc_model_does_not_load_in_ngspice`); an earlier LT1007 trial also gave `no such function 'uplim'`, also with `set ngbehavior=ltpsa` | ADI models need LTspice. The analog.com download URL timed out from this host, so the bundled library is the source |
 | TI LP5907 1.8 V PSpice model (unencrypted, `ti-lp5907-1p8-pspice`) in LTspice and in ngspice (`.options ngbehavior=psa`) | PSpice | both engines | TI model terms; not redistributed | **pass**: 3.6 V ramp in 100 us, 180 ohm load, 1 uF in and out: Vout at 2 ms is 1.8001 V in both; the engines differ by at most 0.0010 V at six times from 50 us to 2 ms (`test_ti_pspice_model_runs_in_ltspice_and_ngspice_and_agrees`) | Fixed-voltage models only (1.2 to 4.5 V). Downloads without login (`ti.com/lit/zip/snvmap9`) |
 | TI LDO feeding an ADI op-amp in one netlist (LP5907 into LT6231 follower, +/-3.3 V rails) in LTspice | none | LTspice | as above | **pass**: LDO out 1.8001 V, buffer out 1.8001 V (`test_mixed_ti_ldo_adi_opamp_runs_in_ltspice`). On +/-2.5 V rails the follower gives 1.70 V (LT6231 input range clamp) | LTspice is the only engine that ran both model families |
-| TI LMR51420XF PSpice model (`ti-lmr51420xf-pspice`) in LTspice and ngspice | PSpice, WEBENCH simulation | both engines | TI model terms | **fail** in both, kept as a test (`test_encrypted_ti_model_fails_in_both_engines`): the `.LIB` is TI-encrypted (Cadence `$CDNENCSTART_ADV2`). LTspice: `LMR51420XF.lib(942): Expected device instantiation or directive here.`; ngspice: `missing tokens` | Needs a hand-built averaged buck model in either engine. The LP5907 page also lists encrypted variants; choose "Unencrypted". LD3920 was not found: ti.com/product/LD39200 returned 404, so the part name in the plan may differ |
+| TI LMR51420XF PSpice model (`ti-lmr51420xf-pspice`) in LTspice and ngspice | PSpice, WEBENCH simulation | both engines | TI model terms | **fail** in both, kept as a test (`test_encrypted_ti_model_fails_in_both_engines`): the `.LIB` is TI-encrypted (Cadence `$CDNENCSTART_ADV2`). LTspice: `LMR51420XF.lib(942): Expected device instantiation or directive here.`; ngspice: `missing tokens` | Needs a hand-built averaged buck model in either engine. The LP5907 page also lists encrypted variants; choose "Unencrypted". The "LD3920" part is not TI: see the U25 row below |
+| **U25 "LD3920_33" is the STMicroelectronics LD39200PU33R** (fnd-08 step 4) | none | datasheet only | ST copyright; `st-ld39200-datasheet` in `datasheets/manifest.yaml`, not redistributed | **identified, checked against the downloaded file** (DS10079 Rev 3, Sept 2018, hash in the manifest): the schematic symbol `ld3920_33:LD3920_33` has no manufacturer, MPN or datasheet field (Value "LD3920_33", footprint `DFN-6-1EP_3x3mm_P0.95mm_EP1.7x2.6mm`). The datasheet's DFN6 (3 x 3 mm) pin table matches the symbol pins (pin 6 IN, pin 5 EN, pin 3 GND, exposed pad GND), and Table 11 lists `LD39200PU33R` as the DFN6 3.3 V fixed order code. It is a 2 A, 1.25 to 6 V, 130 mV dropout LDO, PSRR 70 dB at 1 kHz | The ti.com 404 above was because the part is ST's. ST publishes no SPICE model that was found: none is in the datasheet and the ST page could not be fetched from this host (it hangs), so "no model" is unconfirmed; sim-01 uses the datasheet PSRR curve (figure 17). The datasheet was fetched from a web.archive.org capture of the ST URL (2021-03-03), as the ST host would not answer; later captures were truncated. The same "LD3920" symbol on U22 to U24 was not checked against this file, and how U25's pins 1, 2 (OUT, sense) and 4 (PG) are wired was not reviewed here |
+| PSpice for TI (installer under Wine, `ti-pspice-for-ti-installer` in `software/manifest.yaml`) | PSpice | `fmcw3-sim`, planned | TI licence; user-fetch, TI account | **deferred to sim-05** (waiting on TI access): not downloaded, installed or run. Moved out of fnd-08 on 2026-11-20 | Until then the unencrypted LP5907 model and the hand-built averaged buck model cover sim-01 and sim-02 |
 | Ferrite-bead vendor models (Murata, TDK, Wurth) | vendor simulators | ngspice subcircuit netlists | vendor terms | not attempted: no download tried. Murata SimSurfing is believed to be a free download; not confirmed | Fallback: RLC fit to the datasheet impedance curve |
 
 ## Buck design (Phase 6, item 2)
@@ -58,6 +60,7 @@ tests skip there. The TI-model tests need the two TI zips from `datasheets/manif
 | Tool | Replaces | How it runs | Licence | Smoke | Limits |
 |---|---|---|---|---|---|
 | TI WEBENCH | itself | web browser, TI account | TI web service | not attempted: no unattended route | The user runs it by hand from a checklist |
+| PSpice for TI with the LMR51420 (`slum825`) model, the sim-02 buck route | WEBENCH simulation | `fmcw3-sim`, planned | TI licence | **deferred to sim-05** (waiting on TI access): not attempted | sim-02 keeps the hand-built averaged buck model until sim-05 reports |
 | Hand calculation of the buck power stage (Python), equations from TI SLVA477C (`ti-slva477c`) | WEBENCH sizing | any Python | repo (GPLv3) | not attempted here: plain arithmetic written in sim-02, tested there against the SLVA477C equations and the datasheet's worked example | Ripple, peak current against inductor saturation, output ripple. The TI model is encrypted (above), so loop stability comes from the datasheet's recommended L and C ranges or a hand-built averaged model |
 
 ## PLL (Phase 6, item 4, and Phase 7)
@@ -105,12 +108,14 @@ in `## References` that backs it. One primary tool per later analysis:
   0.0010 V in ngspice with `ngbehavior=psa`, and ngspice is open and fast. Encrypted TI models
   (LMR51420XF) load in neither engine.
 - **sim-01 (supply noise to the VCO): LTspice** for the LDO to VCO path when an ADI part is in the
-  loop, ngspice when it is TI-only. LP5907 uses the unencrypted TI model; the LD3920 and the
+  loop, ngspice when it is TI-only. LP5907 uses the unencrypted TI model; the LD3920 (ST
+  LD39200, see the U25 row) and the
   ferrite bead use a datasheet PSRR or RLC fit until their files are supplied.
 - **sim-02 (buck and IF filter): the Python power-stage calculation for the buck, backed by
   `ti-slva477c`; LTspice for the IF amplifier filter** (ADI op-amp). The TI buck model is
   encrypted, so a stability check needs a hand-built averaged model. WEBENCH stays an optional
-  browser cross-check for you.
+  browser cross-check for you. The PSpice for TI route is deferred to sim-05 (waiting on TI
+  access); sim-02 does not depend on it.
 - **sim-03 (PLL): ADIsimPLL is the validated tool, run by you from the checklist in
   `docs/gui-tool-checklists.md`; the repo's Python loop model (scipy), backed by `ti-swra029`,
   does the sweeps ADIsimPLL cannot batch.** The Python model is trusted only after it matches the
@@ -143,7 +148,8 @@ downloaded from this host, so none has an install result; they are user checklis
 | JLCPCB impedance calculator (browser, user-run) | https://jlcpcb.com/pcb-impedance-calculator | rf-02: the fab's stackups and final widths | none; this one decides |
 | ADI LT6232 | none: LTspice's bundled `LTC2.lib` LT6231 subcircuit is used (the LT6232 symbol points at it) | sim-01, sim-02 | not needed for the bundled model; a separate LT6232 file is optional |
 | TI LMR51420 averaged or unencrypted model | ti.com LMR51420 product page, "Design and development"; the model fetched (`slum825`) is encrypted and loads nowhere | sim-02 buck stability | Hand-built averaged model, datasheet L and C ranges |
-| TI LD3920 model | ti.com; part not found (the plan may mean LD39200, which gave 404) | sim-01 PSRR | Behavioural PSRR from the datasheet curve. Confirm the part number |
+| ST LD39200 model (U25 is the LD39200PU33R; not TI) | none found; datasheet `st-ld39200-datasheet` is in the manifest | sim-01 PSRR | Behavioural PSRR from the datasheet curve (figure 17) |
+| PSpice for TI installer (TI account) | https://www.ti.com/tool/PSPICE-FOR-TI; save as `software/files/ti/pspice-for-ti-installer.zip` | sim-05: **deferred** (waiting on TI access) | The unencrypted LP5907 model and the hand-built buck model |
 | Ferrite-bead netlists for the fitted beads | Murata SimSurfing, TDK SEAT or Wurth REDEXPERT | sim-01 | RLC fit to the datasheet curve |
 | TI WEBENCH session (TI account) | webench.ti.com | sim-02 optional cross-check | Hand calculation |
 | Hammerstad and Jensen 1980 (IEEE Xplore, paywalled); Simons, Coplanar Waveguide Circuits (book); Wadell, Transmission Line Design Handbook (book) | see `## References` | rf-02: primary sources for the microstrip and CPWG equations | secondary sources and the KiCad source only |
@@ -165,11 +171,12 @@ These are proposals; the directives themselves are not edited here.
    Plain `./run` still skips the sim tests.
 2. **sim-01:** run ADI-involved and mixed circuits in LTspice through spicelib and TI-only
    circuits in ngspice. Use the unencrypted LP5907 model (`ti-lp5907-1p8-pspice`); for the LD3920
-   and ferrite beads use a datasheet PSRR or RLC fit unless the file is supplied. Confirm the
-   LD3920 part number.
+   and ferrite beads use a datasheet PSRR or RLC fit unless the file is supplied. The LD3920 on
+   U25 is the ST LD39200PU33R (fnd-08); confirm that U22 to U24 are the same part.
 3. **sim-02:** the buck needs a hand-built averaged model, because TI's LMR51420XF model is
    encrypted and loads in neither engine. Power-stage sizing follows `ti-slva477c`. Drop "run the
-   TI model" from the directive. Keep WEBENCH as an optional step for you.
+   TI model" from the directive. Keep WEBENCH as an optional step for you. Running the TI model
+   in PSpice for TI is deferred to sim-05 (waiting on TI access).
 4. **sim-03:** ADIsimPLL becomes the validated tool, user-run from `docs/gui-tool-checklists.md`
    (the agent could not obtain it). The Python loop model is built from `ti-swra029` and compared
    with the numbers you record; do not trust it before that comparison.
@@ -211,6 +218,9 @@ they are not in `## References`. They are tools' inputs, not sources for an equa
   `tests/test_sim_smoke.py`. Used for the LP5907 model.
 - `ti-lmr51420xf-pspice` (https://www.ti.com/lit/zip/slum825): found encrypted by
   `tests/test_sim_smoke.py`. Not usable as is.
+- `st-ld39200-datasheet` (https://www.st.com/resource/en/datasheet/ld39200.pdf): U25's part.
+  Checked against the downloaded file: pin table (DFN6) and order code `LD39200PU33R`. A
+  datasheet, not a model.
 
 Not yet in the manifest (paywalled or no working link; see the comment block in
 `docs/references/manifest.yaml`): Hammerstad and Jensen 1980 (doi 10.1109/MWSYM.1980.1124303),

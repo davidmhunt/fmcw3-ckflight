@@ -3,6 +3,15 @@
 # commit (yes|no). commit: no files live under datasheets/files/ (gitignored).
 # Filled for the critical parts by directive par-02.
 entries:
+- id: st-ld39200-datasheet
+  kind: datasheet
+  title: ST LD39200 2 A high PSRR LDO datasheet, DS10079 Rev 3 (U25 "LD3920_33" = LD39200PU33R, DFN6 3x3, 3.3 V)
+  url: https://www.st.com/resource/en/datasheet/ld39200.pdf
+  access: direct
+  file: datasheets/files/st/ld39200.pdf
+  sha256: b1aa9ec5911ea744d4e9b9538d3475916509a3caf31f0d49670bd05e306fe84a
+  licence: ST copyright; not redistributed here
+  commit: 'no'
 - id: ti-lp5907-1p8-pspice
   kind: vendor-model
   title: TI LP5907 1.8 V unencrypted PSpice transient model (SNVMAP9)
