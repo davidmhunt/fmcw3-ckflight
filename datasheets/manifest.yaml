@@ -236,6 +236,7 @@ entries:
   sha256: ''
   licence: TDK copyright; not redistributed here
   commit: 'no'
+  digikey: MPZ2012S101AT000
 - id: murata-blm18pg181sn1d-model
   kind: vendor-model
   title: Murata BLM18PG181SN1D ferrite-bead model (SimSurfing S-parameter or SPICE netlist; FB1-FB8,
@@ -247,6 +248,7 @@ entries:
   sha256: ''
   licence: Murata terms; not redistributed here
   commit: 'no'
+  digikey: BLM18PG181SN1D
 - id: tdk-mpz2012s101a-model
   kind: vendor-model
   title: TDK MPZ2012S101AT000 ferrite-bead model (SEAT S-parameter or SPICE netlist; FB11; needed by
@@ -257,6 +259,7 @@ entries:
   sha256: ''
   licence: TDK terms; not redistributed here
   commit: 'no'
+  digikey: MPZ2012S101AT000
 - id: ti-lp5907-1p8-pspice
   kind: vendor-model
   title: TI LP5907 1.8 V unencrypted PSpice transient model (SNVMAP9)
@@ -295,6 +298,7 @@ entries:
   sha256: ''
   licence: Johanson terms; not redistributed here
   commit: 'no'
+  digikey: 5400BL15B0050001E
 - id: qorvo-tqp5525-sparams
   kind: vendor-model
   title: Qorvo TQP5525 S-parameters (U14; qorvo.com sits behind a bot challenge, so the user saves the
@@ -305,6 +309,7 @@ entries:
   sha256: ''
   licence: Qorvo terms; not redistributed here
   commit: 'no'
+  digikey: TQP5525
 - id: skyworks-sky65404-sparams
   kind: vendor-model
   title: Skyworks SKY65404-31 S-parameters (U11, U16; the product page shows no S-parameter link to a
@@ -315,6 +320,7 @@ entries:
   sha256: ''
   licence: Skyworks terms; not redistributed here
   commit: 'no'
+  digikey: SKY65404-31
 - id: adi-adl5802-sparams
   kind: vendor-model
   title: ADI ADL5802 S-parameters (U29; analog.com did not answer from this host, so the user saves the
@@ -325,6 +331,7 @@ entries:
   sha256: ''
   licence: ADI terms; not redistributed here
   commit: 'no'
+  digikey: ADL5802ACPZ-R7
 - id: ti-tlv172-datasheet
   kind: datasheet
   title: TI TLV172 36 V single-supply op amp (U7)
@@ -370,3 +377,503 @@ entries:
   sha256: 372fe1bc0e0b1b4ce7e18b61514e967c7c2f883f0c7fe1f4586b567785ee9cd2
   licence: GCT copyright; not redistributed here
   commit: 'no'
+- id: dk-cl05b104ko5nnnc
+  kind: datasheet
+  title: CL05B104KO5NNNC datasheet through DigiKey (C1, C2, C4, C6, C15, C17 and 41 more)
+  url: https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL05B104KO5NNNC/3886659
+  access: form
+  file: datasheets/files/digikey/cl05b104ko5nnnc.pdf
+  sha256: ''
+  licence: maker copyright; not redistributed here
+  commit: 'no'
+  digikey: CL05B104KO5NNNC
+- id: dk-cl05c100jb5nnnc
+  kind: datasheet
+  title: CL05C100JB5NNNC datasheet through DigiKey (C3, C5, C7, C8, C11, C44 and 8 more)
+  url: https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL05C100JB5NNNC/3886797
+  access: form
+  file: datasheets/files/digikey/cl05c100jb5nnnc.pdf
+  sha256: ''
+  licence: maker copyright; not redistributed here
+  commit: 'no'
+  digikey: CL05C100JB5NNNC
+- id: dk-grm1555c1h103je01d
+  kind: datasheet
+  title: GRM1555C1H103JE01D datasheet through DigiKey (C9, C16, C37, C38)
+  url: https://www.digikey.com/en/products/detail/murata-electronics/GRM1555C1H103JE01D/26265161
+  access: form
+  file: datasheets/files/digikey/grm1555c1h103je01d.pdf
+  sha256: ''
+  licence: maker copyright; not redistributed here
+  commit: 'no'
+  digikey: GRM1555C1H103JE01D
+- id: dk-grm1555c1h222ga01d
+  kind: datasheet
+  title: GRM1555C1H222GA01D datasheet through DigiKey (C10, C13, C36)
+  url: https://www.digikey.com/en/products/detail/murata-electronics/GRM1555C1H222GA01D/16719162
+  access: form
+  file: datasheets/files/digikey/grm1555c1h222ga01d.pdf
+  sha256: ''
+  licence: maker copyright; not redistributed here
+  commit: 'no'
+  digikey: GRM1555C1H222GA01D
+- id: dk-cl10a105kb8nnnc
+  kind: datasheet
+  title: CL10A105KB8NNNC datasheet through DigiKey (C12, C89, C222, C249)
+  url: https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL10A105KB8NNNC/3887518
+  access: form
+  file: datasheets/files/digikey/cl10a105kb8nnnc.pdf
+  sha256: ''
+  licence: maker copyright; not redistributed here
+  commit: 'no'
+  digikey: CL10A105KB8NNNC
+- id: dk-grm1555c1h221ja01d
+  kind: datasheet
+  title: GRM1555C1H221JA01D datasheet through DigiKey (C14, C304, C305, C307)
+  url: https://www.digikey.com/en/products/detail/murata-electronics/GRM1555C1H221JA01D/587204
+  access: form
+  file: datasheets/files/digikey/grm1555c1h221ja01d.pdf
+  sha256: ''
+  licence: maker copyright; not redistributed here
+  commit: 'no'
+  digikey: GRM1555C1H221JA01D
+- id: dk-cl10b105ka8nnnc
+  kind: datasheet
+  title: CL10B105KA8NNNC datasheet through DigiKey (C19, C20, C217, C218)
+  url: https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL10B105KA8NNNC/3886842
+  access: form
+  file: datasheets/files/digikey/cl10b105ka8nnnc.pdf
+  sha256: ''
+  licence: maker copyright; not redistributed here
+  commit: 'no'
+  digikey: CL10B105KA8NNNC
+- id: dk-cl10b225kp8nnnc
+  kind: datasheet
+  title: CL10B225KP8NNNC datasheet through DigiKey (C22, C31, C216, C220)
+  url: https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL10B225KP8NNNC/3886792
+  access: form
+  file: datasheets/files/digikey/cl10b225kp8nnnc.pdf
+  sha256: ''
+  licence: maker copyright; not redistributed here
+  commit: 'no'
+  digikey: CL10B225KP8NNNC
+- id: dk-cl21a106kaynnne
+  kind: datasheet
+  title: CL21A106KAYNNNE datasheet through DigiKey (C26, C60, C61, C62, C64, C70 and 25 more)
+  url: https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL21A106KAYNNNE/3888549
+  access: form
+  file: datasheets/files/digikey/cl21a106kaynnne.pdf
+  sha256: ''
+  licence: maker copyright; not redistributed here
+  commit: 'no'
+  digikey: CL21A106KAYNNNE
+- id: dk-cl05b103kb5nnnc
+  kind: datasheet
+  title: CL05B103KB5NNNC datasheet through DigiKey (C28, C95, C179, C206)
+  url: https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL05B103KB5NNNC/3886686
+  access: form
+  file: datasheets/files/digikey/cl05b103kb5nnnc.pdf
+  sha256: ''
+  licence: maker copyright; not redistributed here
+  commit: 'no'
+  digikey: CL05B103KB5NNNC
+- id: dk-0402cg5r0c500nt
+  kind: datasheet
+  title: 0402CG5R0C500NT datasheet through DigiKey (C33, C34, C39, C40)
+  url: https://www.digikey.com/en/products/search?keywords=0402CG5R0C500NT
+  access: form
+  file: datasheets/files/digikey/0402cg5r0c500nt.pdf
+  sha256: ''
+  licence: maker copyright; not redistributed here
+  commit: 'no'
+  digikey: 0402CG5R0C500NT
+- id: dk-0402cg180j500nt
+  kind: datasheet
+  title: 0402CG180J500NT datasheet through DigiKey (C42, C46, C52, C55)
+  url: https://www.digikey.com/en/products/search?keywords=0402CG180J500NT
+  access: form
+  file: datasheets/files/digikey/0402cg180j500nt.pdf
+  sha256: ''
+  licence: maker copyright; not redistributed here
+  commit: 'no'
+  digikey: 0402CG180J500NT
+- id: dk-gjm1555c1hr50wb01d
+  kind: datasheet
+  title: GJM1555C1HR50WB01D datasheet through DigiKey (C48, C57)
+  url: https://www.digikey.com/en/products/detail/murata-electronics/GJM1555C1HR50WB01D/2593253
+  access: form
+  file: datasheets/files/digikey/gjm1555c1hr50wb01d.pdf
+  sha256: ''
+  licence: maker copyright; not redistributed here
+  commit: 'no'
+  digikey: GJM1555C1HR50WB01D
+- id: dk-cl05a474kp5nnnc
+  kind: datasheet
+  title: CL05A474KP5NNNC datasheet through DigiKey (C96, C97, C99, C170, C171, C187 and 16 more)
+  url: https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL05A474KP5NNNC/3886831
+  access: form
+  file: datasheets/files/digikey/cl05a474kp5nnnc.pdf
+  sha256: ''
+  licence: maker copyright; not redistributed here
+  commit: 'no'
+  digikey: CL05A474KP5NNNC
+- id: dk-0402cg101j500nt
+  kind: datasheet
+  title: 0402CG101J500NT datasheet through DigiKey (C117, C118, C119, C163, C164, C165 and 5 more)
+  url: https://www.digikey.com/en/products/search?keywords=0402CG101J500NT
+  access: form
+  file: datasheets/files/digikey/0402cg101j500nt.pdf
+  sha256: ''
+  licence: maker copyright; not redistributed here
+  commit: 'no'
+  digikey: 0402CG101J500NT
+- id: dk-cl10a475ko8nnnc
+  kind: datasheet
+  title: CL10A475KO8NNNC datasheet through DigiKey (C155, C156, C157, C183, C185, C186 and 3 more)
+  url: https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL10A475KO8NNNC/3887442
+  access: form
+  file: datasheets/files/digikey/cl10a475ko8nnnc.pdf
+  sha256: ''
+  licence: maker copyright; not redistributed here
+  commit: 'no'
+  digikey: CL10A475KO8NNNC
+- id: dk-cl32a107mpvnnne
+  kind: datasheet
+  title: CL32A107MPVNNNE datasheet through DigiKey (C181)
+  url: https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL32A107MPVNNNE/3889022
+  access: form
+  file: datasheets/files/digikey/cl32a107mpvnnne.pdf
+  sha256: ''
+  licence: maker copyright; not redistributed here
+  commit: 'no'
+  digikey: CL32A107MPVNNNE
+- id: dk-cl31a476mphnnne
+  kind: datasheet
+  title: CL31A476MPHNNNE datasheet through DigiKey (C182, C184, C196)
+  url: https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL31A476MPHNNNE/3888721
+  access: form
+  file: datasheets/files/digikey/cl31a476mphnnne.pdf
+  sha256: ''
+  licence: maker copyright; not redistributed here
+  commit: 'no'
+  digikey: CL31A476MPHNNNE
+- id: dk-0402cg150j500nt
+  kind: datasheet
+  title: 0402CG150J500NT datasheet through DigiKey (C208, C209)
+  url: https://www.digikey.com/en/products/search?keywords=0402CG150J500NT
+  access: form
+  file: datasheets/files/digikey/0402cg150j500nt.pdf
+  sha256: ''
+  licence: maker copyright; not redistributed here
+  commit: 'no'
+  digikey: 0402CG150J500NT
+- id: dk-dm3bt-dsf-pejs
+  kind: datasheet
+  title: DM3BT-DSF-PEJS datasheet through DigiKey (CON1)
+  url: https://www.digikey.com/en/products/detail/hirose-electric-co-ltd/DM3BT-DSF-PEJS/1982749
+  access: form
+  file: datasheets/files/digikey/dm3bt-dsf-pejs.pdf
+  sha256: ''
+  licence: maker copyright; not redistributed here
+  commit: 'no'
+  digikey: DM3BT-DSF-PEJS
+- id: dk-usb4105-gf-a
+  kind: datasheet
+  title: USB4105-GF-A datasheet through DigiKey (J1)
+  url: https://www.digikey.com/en/products/detail/gct/USB4105-GF-A/11198441
+  access: form
+  file: datasheets/files/digikey/usb4105-gf-a.pdf
+  sha256: ''
+  licence: maker copyright; not redistributed here
+  commit: 'no'
+  digikey: USB4105-GF-A
+- id: dk-lqw15an9n9j80d
+  kind: datasheet
+  title: LQW15AN9N9J80D datasheet through DigiKey (L1, L3)
+  url: https://www.digikey.com/en/products/detail/murata-electronics/LQW15AN9N9J80D/4292403
+  access: form
+  file: datasheets/files/digikey/lqw15an9n9j80d.pdf
+  sha256: ''
+  licence: maker copyright; not redistributed here
+  commit: 'no'
+  digikey: LQW15AN9N9J80D
+- id: dk-mlg1005s0n6bt000
+  kind: datasheet
+  title: MLG1005S0N6BT000 datasheet through DigiKey (L2, L4)
+  url: https://www.digikey.com/en/products/detail/tdk/MLG1005S0N6BT000/4742653
+  access: form
+  file: datasheets/files/digikey/mlg1005s0n6bt000.pdf
+  sha256: ''
+  licence: maker copyright; not redistributed here
+  commit: 'no'
+  digikey: MLG1005S0N6BT000
+- id: dk-srr6040a-330m
+  kind: datasheet
+  title: SRR6040A-330M datasheet through DigiKey (L5, L6, L7)
+  url: https://www.digikey.com/en/products/detail/bourns-inc/SRR6040A-330M/5031023
+  access: form
+  file: datasheets/files/digikey/srr6040a-330m.pdf
+  sha256: ''
+  licence: maker copyright; not redistributed here
+  commit: 'no'
+  digikey: SRR6040A-330M
+- id: dk-cmi201209u2r2kt
+  kind: datasheet
+  title: CMI201209U2R2KT datasheet through DigiKey (L12, L13, L14, L15)
+  url: https://www.digikey.com/en/products/search?keywords=CMI201209U2R2KT
+  access: form
+  file: datasheets/files/digikey/cmi201209u2r2kt.pdf
+  sha256: ''
+  licence: maker copyright; not redistributed here
+  commit: 'no'
+  digikey: CMI201209U2R2KT
+- id: dk-consma003.062
+  kind: datasheet
+  title: CONSMA003.062 datasheet through DigiKey (P1, P2, U15)
+  url: https://www.digikey.com/en/products/detail/te-connectivity-linx/CONSMA003-062/1577208
+  access: form
+  file: datasheets/files/digikey/consma003.062.pdf
+  sha256: ''
+  licence: maker copyright; not redistributed here
+  commit: 'no'
+  digikey: CONSMA003.062
+- id: dk-0402wgf5491tce
+  kind: datasheet
+  title: 0402WGF5491TCE datasheet through DigiKey (R1)
+  url: https://www.digikey.com/en/products/search?keywords=0402WGF5491TCE
+  access: form
+  file: datasheets/files/digikey/0402wgf5491tce.pdf
+  sha256: ''
+  licence: maker copyright; not redistributed here
+  commit: 'no'
+  digikey: 0402WGF5491TCE
+- id: dk-0402wgf3301tce
+  kind: datasheet
+  title: 0402WGF3301TCE datasheet through DigiKey (R2, R48)
+  url: https://www.digikey.com/en/products/search?keywords=0402WGF3301TCE
+  access: form
+  file: datasheets/files/digikey/0402wgf3301tce.pdf
+  sha256: ''
+  licence: maker copyright; not redistributed here
+  commit: 'no'
+  digikey: 0402WGF3301TCE
+- id: dk-0402wgf5101tce
+  kind: datasheet
+  title: 0402WGF5101TCE datasheet through DigiKey (R3, R8)
+  url: https://www.digikey.com/en/products/search?keywords=0402WGF5101TCE
+  access: form
+  file: datasheets/files/digikey/0402wgf5101tce.pdf
+  sha256: ''
+  licence: maker copyright; not redistributed here
+  commit: 'no'
+  digikey: 0402WGF5101TCE
+- id: dk-0402wgf1001tce
+  kind: datasheet
+  title: 0402WGF1001TCE datasheet through DigiKey (R4, R24, R25, R26, R27, R28 and 7 more)
+  url: https://www.digikey.com/en/products/search?keywords=0402WGF1001TCE
+  access: form
+  file: datasheets/files/digikey/0402wgf1001tce.pdf
+  sha256: ''
+  licence: maker copyright; not redistributed here
+  commit: 'no'
+  digikey: 0402WGF1001TCE
+- id: dk-0402wgf4701tce
+  kind: datasheet
+  title: 0402WGF4701TCE datasheet through DigiKey (R5, R6, R14, R82, R91, R112 and 2 more)
+  url: https://www.digikey.com/en/products/search?keywords=0402WGF4701TCE
+  access: form
+  file: datasheets/files/digikey/0402wgf4701tce.pdf
+  sha256: ''
+  licence: maker copyright; not redistributed here
+  commit: 'no'
+  digikey: 0402WGF4701TCE
+- id: dk-0402wgf0000tce
+  kind: datasheet
+  title: 0402WGF0000TCE datasheet through DigiKey (R7, R18, R19, R20, R41, R42 and 13 more)
+  url: https://www.digikey.com/en/products/search?keywords=0402WGF0000TCE
+  access: form
+  file: datasheets/files/digikey/0402wgf0000tce.pdf
+  sha256: ''
+  licence: maker copyright; not redistributed here
+  commit: 'no'
+  digikey: 0402WGF0000TCE
+- id: dk-0402wgf169jtce
+  kind: datasheet
+  title: 0402WGF169JTCE datasheet through DigiKey (R9, R11, R12)
+  url: https://www.digikey.com/en/products/search?keywords=0402WGF169JTCE
+  access: form
+  file: datasheets/files/digikey/0402wgf169jtce.pdf
+  sha256: ''
+  licence: maker copyright; not redistributed here
+  commit: 'no'
+  digikey: 0402WGF169JTCE
+- id: dk-0402wgf330jtce
+  kind: datasheet
+  title: 0402WGF330JTCE datasheet through DigiKey (R13, R15, R16, R21, R84, R85 and 2 more)
+  url: https://www.digikey.com/en/products/search?keywords=0402WGF330JTCE
+  access: form
+  file: datasheets/files/digikey/0402wgf330jtce.pdf
+  sha256: ''
+  licence: maker copyright; not redistributed here
+  commit: 'no'
+  digikey: 0402WGF330JTCE
+- id: dk-0402wgf499jtce
+  kind: datasheet
+  title: 0402WGF499JTCE datasheet through DigiKey (R17, R51, R52, R53, R54, R97 and 3 more)
+  url: https://www.digikey.com/en/products/search?keywords=0402WGF499JTCE
+  access: form
+  file: datasheets/files/digikey/0402wgf499jtce.pdf
+  sha256: ''
+  licence: maker copyright; not redistributed here
+  commit: 'no'
+  digikey: 0402WGF499JTCE
+- id: dk-0402wgf1000tce
+  kind: datasheet
+  title: 0402WGF1000TCE datasheet through DigiKey (R22, R23)
+  url: https://www.digikey.com/en/products/search?keywords=0402WGF1000TCE
+  access: form
+  file: datasheets/files/digikey/0402wgf1000tce.pdf
+  sha256: ''
+  licence: maker copyright; not redistributed here
+  commit: 'no'
+  digikey: 0402WGF1000TCE
+- id: dk-0402wgf1002tce
+  kind: datasheet
+  title: 0402WGF1002TCE datasheet through DigiKey (R29, R30, R39, R40, R73, R83 and 2 more)
+  url: https://www.digikey.com/en/products/search?keywords=0402WGF1002TCE
+  access: form
+  file: datasheets/files/digikey/0402wgf1002tce.pdf
+  sha256: ''
+  licence: maker copyright; not redistributed here
+  commit: 'no'
+  digikey: 0402WGF1002TCE
+- id: dk-0402wgf6802tce
+  kind: datasheet
+  title: 0402WGF6802TCE datasheet through DigiKey (R32)
+  url: https://www.digikey.com/en/products/search?keywords=0402WGF6802TCE
+  access: form
+  file: datasheets/files/digikey/0402wgf6802tce.pdf
+  sha256: ''
+  licence: maker copyright; not redistributed here
+  commit: 'no'
+  digikey: 0402WGF6802TCE
+- id: dk-0402wgf1003tce
+  kind: datasheet
+  title: 0402WGF1003TCE datasheet through DigiKey (R33, R34, R36)
+  url: https://www.digikey.com/en/products/search?keywords=0402WGF1003TCE
+  access: form
+  file: datasheets/files/digikey/0402wgf1003tce.pdf
+  sha256: ''
+  licence: maker copyright; not redistributed here
+  commit: 'no'
+  digikey: 0402WGF1003TCE
+- id: dk-0402wgf1872tce
+  kind: datasheet
+  title: 0402WGF1872TCE datasheet through DigiKey (R35, R46, R47)
+  url: https://www.digikey.com/en/products/search?keywords=0402WGF1872TCE
+  access: form
+  file: datasheets/files/digikey/0402wgf1872tce.pdf
+  sha256: ''
+  licence: maker copyright; not redistributed here
+  commit: 'no'
+  digikey: 0402WGF1872TCE
+- id: dk-0402wgf1202tce
+  kind: datasheet
+  title: 0402WGF1202TCE datasheet through DigiKey (R37, R71)
+  url: https://www.digikey.com/en/products/search?keywords=0402WGF1202TCE
+  access: form
+  file: datasheets/files/digikey/0402wgf1202tce.pdf
+  sha256: ''
+  licence: maker copyright; not redistributed here
+  commit: 'no'
+  digikey: 0402WGF1202TCE
+- id: dk-0402wgf1802tce
+  kind: datasheet
+  title: 0402WGF1802TCE datasheet through DigiKey (R43)
+  url: https://www.digikey.com/en/products/search?keywords=0402WGF1802TCE
+  access: form
+  file: datasheets/files/digikey/0402wgf1802tce.pdf
+  sha256: ''
+  licence: maker copyright; not redistributed here
+  commit: 'no'
+  digikey: 0402WGF1802TCE
+- id: dk-0402wgf2001tce
+  kind: datasheet
+  title: 0402WGF2001TCE datasheet through DigiKey (R44, R49)
+  url: https://www.digikey.com/en/products/search?keywords=0402WGF2001TCE
+  access: form
+  file: datasheets/files/digikey/0402wgf2001tce.pdf
+  sha256: ''
+  licence: maker copyright; not redistributed here
+  commit: 'no'
+  digikey: 0402WGF2001TCE
+- id: dk-0402wgf4992tce
+  kind: datasheet
+  title: 0402WGF4992TCE datasheet through DigiKey (R45)
+  url: https://www.digikey.com/en/products/search?keywords=0402WGF4992TCE
+  access: form
+  file: datasheets/files/digikey/0402wgf4992tce.pdf
+  sha256: ''
+  licence: maker copyright; not redistributed here
+  commit: 'no'
+  digikey: 0402WGF4992TCE
+- id: dk-0402wgf2201tce
+  kind: datasheet
+  title: 0402WGF2201TCE datasheet through DigiKey (R79)
+  url: https://www.digikey.com/en/products/search?keywords=0402WGF2201TCE
+  access: form
+  file: datasheets/files/digikey/0402wgf2201tce.pdf
+  sha256: ''
+  licence: maker copyright; not redistributed here
+  commit: 'no'
+  digikey: 0402WGF2201TCE
+- id: dk-0402wgf270jtce
+  kind: datasheet
+  title: 0402WGF270JTCE datasheet through DigiKey (R302)
+  url: https://www.digikey.com/en/products/search?keywords=0402WGF270JTCE
+  access: form
+  file: datasheets/files/digikey/0402wgf270jtce.pdf
+  sha256: ''
+  licence: maker copyright; not redistributed here
+  commit: 'no'
+  digikey: 0402WGF270JTCE
+- id: dk-0603waf200kt5e
+  kind: datasheet
+  title: 0603WAF200KT5E datasheet through DigiKey (R303, R305)
+  url: https://www.digikey.com/en/products/search?keywords=0603WAF200KT5E
+  access: form
+  file: datasheets/files/digikey/0603waf200kt5e.pdf
+  sha256: ''
+  licence: maker copyright; not redistributed here
+  commit: 'no'
+  digikey: 0603WAF200KT5E
+- id: dk-0402wgf2742tce
+  kind: datasheet
+  title: 0402WGF2742TCE datasheet through DigiKey (R304)
+  url: https://www.digikey.com/en/products/search?keywords=0402WGF2742TCE
+  access: form
+  file: datasheets/files/digikey/0402wgf2742tce.pdf
+  sha256: ''
+  licence: maker copyright; not redistributed here
+  commit: 'no'
+  digikey: 0402WGF2742TCE
+- id: dk-b3u-1000p
+  kind: datasheet
+  title: B3U-1000P datasheet through DigiKey (SW1, SW2)
+  url: https://www.digikey.com/en/products/detail/aratas-formerly-omron-components/B3U-1000P/1534338
+  access: form
+  file: datasheets/files/digikey/b3u-1000p.pdf
+  sha256: ''
+  licence: maker copyright; not redistributed here
+  commit: 'no'
+  digikey: B3U-1000P
+- id: dk-ft2232hl-reel
+  kind: datasheet
+  title: FT2232HL-REEL datasheet through DigiKey (U33)
+  url: https://www.digikey.com/en/products/detail/ftdi-future-technology-devices-international-ltd/FT2232HL-REEL/1986053
+  access: form
+  file: datasheets/files/digikey/ft2232hl-reel.pdf
+  sha256: ''
+  licence: maker copyright; not redistributed here
+  commit: 'no'
+  digikey: FT2232HL-REEL

@@ -19,6 +19,11 @@ relative to the repo root), sha256, licence, commit (yes|no). Reference entries 
                               the returned datasheet URL is tried first, then the entry's `url`;
                               each download must be a PDF. When both fail the entry is pending
                               and records `digikey_url` (the API's ProductUrl) for its row.
+  fetch_sources.py --from-bom  add a pending `digikey: <MPN>` datasheet entry (commit: no,
+                              datasheets/files/digikey/<mpn>.pdf) for every MPN in
+                              parts/out/availability.csv and parts/decisions.csv that no
+                              datasheet entry covers; still-pending entries get the field too.
+                              Edits the manifest only; a normal run then fetches.
   fetch_sources.py --check   fail on a missing file, a hash mismatch, or a reference
                               with no `verified` item. A form or login entry with no file
                               (or a direct one with a `fetch_error`) and no sha256 yet is
@@ -263,7 +268,11 @@ def fetch_digikey(e, path, opener, lookup):
     if product:
         product_url = product.get("ProductUrl") or ""
         dsurl = https(product.get("DatasheetUrl") or "")
-        if not dsurl:
+        if e.get("kind") != "datasheet":
+            # DigiKey's link is the part's datasheet, not an S-parameter or SPICE model: such a
+            # row only gains the product link
+            why.append("DigiKey hosts the datasheet, not this model")
+        elif not dsurl:
             why.append("DigiKey lists no datasheet")
         else:
             print(f"fetching {e['id']} via DigiKey: {dsurl}")
@@ -432,10 +441,122 @@ def add_entry(url, eid, kind, title, file, licence="vendor copyright; not redist
     return True, f"added {eid} to {manifest}: {file} sha256 {entry['sha256']}"
 
 
+BOM_FILES = ("parts/out/availability.csv", "parts/decisions.csv")
+
+
+def bom_parts(root=ROOT, files=BOM_FILES):
+    """{mpn: {"refs": [refdes], "url": DigiKey product page or ''}} from the availability table
+    and the decisions table; rows without an MPN are skipped."""
+    import csv
+    parts = {}
+    for rel in files:
+        path = root / rel
+        if not path.is_file():
+            continue
+        with open(path, newline="") as f:
+            for row in csv.DictReader(f):
+                mpn = (row.get("MPN") or "").strip()
+                if not mpn:
+                    continue
+                refs = (row.get("refs") or row.get("ref") or "").split(";")
+                p = parts.setdefault(mpn, {"refs": [], "url": ""})
+                p["refs"] += [r for r in (x.strip() for x in refs) if r and r not in p["refs"]]
+                p["url"] = p["url"] or (row.get("dk_url") or "").strip()
+    return parts
+
+
+def bom_values(root=ROOT, files=BOM_FILES):
+    """{schematic value: MPN or ''} for values of 6+ characters (`TQP5525`, `ADL5802`); lets a
+    pending entry find a part whose MPN is empty or longer than the name the sheet uses."""
+    import csv
+    out = {}
+    for rel in files:
+        path = root / rel
+        if path.is_file():
+            with open(path, newline="") as f:
+                for row in csv.DictReader(f):
+                    v = (row.get("value") or "").strip()
+                    if len(v) >= 6:
+                        out[v] = (row.get("MPN") or "").strip() or out.get(v, "")
+    return out
+
+
+def _covers(entry, mpn):
+    """Does a datasheet entry already stand for this MPN? Its `digikey` field says so, or the
+    MPN (lower case) appears in its title, url or file name, or its file stem (4+ characters,
+    e.g. `adf4158`) is a prefix of the MPN."""
+    m = mpn.lower()
+    if str(entry.get("digikey", "")).lower() == m:
+        return True
+    hay = " ".join(str(entry.get(k, "")) for k in ("title", "url", "file")).lower()
+    stem = Path(str(entry.get("file", ""))).stem.lower()
+    return m in hay or (len(stem) >= 4 and m.startswith(stem))
+
+
+def slug(mpn):
+    return "".join(c if c.isalnum() or c in "-_." else "-" for c in mpn.lower())
+
+
+def from_bom(manifest="datasheets/manifest.yaml", root=ROOT, manifests=MANIFESTS, files=BOM_FILES):
+    """Add a pending DigiKey datasheet entry for every BOM MPN no datasheet entry covers, and
+    give still-pending entries the `digikey:` field of the MPN they cover so they are retried
+    through DigiKey. Returns (added ids, patched ids). Running twice adds nothing."""
+    parts = bom_parts(root, files)
+    all_entries = []
+    for rel, _ in manifests:
+        if (root / rel).is_file():
+            all_entries += load(root / rel)
+    datasheets = [e for e in all_entries if e.get("kind") == "datasheet"]
+    mpath = root / manifest
+    updates, patched = {}, []
+    own = load(root / manifest) if (root / manifest).is_file() else []
+    for e in own:
+        if e.get("digikey") or "file" not in e or not is_pending(e, root):
+            continue
+        mpn = next((m for m in parts if _covers(e, m)), None)
+        if not mpn:   # a part with no MPN yet (U14 TQP5525) or a longer MPN than the sheet names
+            hay = " ".join(str(e.get(k, "")) for k in ("title", "url", "file")).lower()
+            mpn = next((m or v for v, m in bom_values(root, files).items()
+                        if v.lower() in hay), None)
+        if mpn:
+            updates[e["id"]] = {"digikey": mpn}
+            patched.append(e["id"])
+    new, added = [], []
+    ids = {e.get("id") for e in all_entries}
+    for mpn, p in parts.items():
+        if any(_covers(e, mpn) for e in datasheets):
+            continue
+        eid = "dk-" + slug(mpn)
+        if eid in ids:
+            continue
+        refs = p["refs"]
+        shown = ", ".join(refs[:6]) + (f" and {len(refs) - 6} more" if len(refs) > 6 else "")
+        new.append({
+            "id": eid, "kind": "datasheet",
+            "title": f"{mpn} datasheet through DigiKey ({shown})",
+            "url": p["url"] or "https://www.digikey.com/en/products/search?keywords=" + mpn,
+            "access": "form", "file": f"datasheets/files/digikey/{slug(mpn)}.pdf",
+            "sha256": "", "licence": "maker copyright; not redistributed here",
+            "commit": "no", "digikey": mpn})
+        added.append(eid)
+    text = mpath.read_text() if mpath.is_file() else "entries:\n"
+    if updates:
+        text = patch_manifest_text(text, updates)
+    if new:
+        if "entries: []" in text:
+            text = text.replace("entries: []", "entries:")
+        text = text.rstrip("\n") + "\n" + yaml.safe_dump(new, sort_keys=False, width=100)
+    if updates or new:
+        mpath.write_text(text)
+    return added, patched
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--check", action="store_true", help="verify files, hashes, verified items")
     ap.add_argument("--record", action="store_true", help="record missing sha256 after fetching")
+    ap.add_argument("--from-bom", action="store_true", help="add a DigiKey datasheet entry for "
+                    "every BOM MPN no entry covers; give pending entries a digikey: field")
     ap.add_argument("--add", metavar="URL", help="download URL and append a manifest entry "
                     "(needs --id, --kind, --title, --file)")
     ap.add_argument("--id", help="with --add: entry id")
@@ -457,6 +578,13 @@ def main(argv=None):
                             licence=args.licence, commit=args.commit, manifest=args.manifest)
         print(msg, file=sys.stdout if ok else sys.stderr)
         return 0 if ok else 1
+    if args.from_bom:
+        added, patched = from_bom()
+        print(f"--from-bom: added {len(added)} entries, gave {len(patched)} pending entries a "
+              "digikey: field")
+        for i in patched:
+            print("  digikey field:", i)
+        return 0
     if args.check:
         problems = check_all(MANIFESTS)
         for p in problems:

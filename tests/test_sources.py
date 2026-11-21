@@ -382,3 +382,26 @@ def test_saved_file_plus_record_removes_pending_row(tmp_path):
     assert fs.check_all(MANS, tmp_path) == []
     assert fs.write_user_fetch(MANS, tmp_path) == []
     assert "Nothing pending" in (tmp_path / "docs" / "user-fetch.md").read_text()
+
+
+def test_from_bom_adds_uncovered_mpns_once(tmp_path):
+    (tmp_path / "parts" / "out").mkdir(parents=True)
+    (tmp_path / "parts" / "out" / "availability.csv").write_text(
+        "refs,MPN,dk_url\nC1;C2,CL05B104KO5NNNC,https://dk.invalid/p\nU1,ADF4158CCPZ-RL7,\nR1,,\n")
+    (tmp_path / "parts" / "decisions.csv").write_text("ref,MPN\nU9,MPZ2012S101AT000\n")
+    covered = entry(id="adf", title="ADI ADF4158", file="datasheets/files/adi/adf4158.pdf",
+                    sha256="0" * 64)
+    pend = entry(id="tdk", title="TDK MPZ2012S101AT000 bead", access="form",
+                 file="datasheets/files/tdk/x.pdf")
+    write(tmp_path, ds=[covered, pend])
+    added, patched = fs.from_bom("ds.yaml", tmp_path, MANS, fs.BOM_FILES)
+    assert added == ["dk-cl05b104ko5nnnc"] and patched == ["tdk"]
+    got = {e["id"]: e for e in fs.load(tmp_path / "ds.yaml")}
+    assert got["tdk"]["digikey"] == "MPZ2012S101AT000"
+    new = got["dk-cl05b104ko5nnnc"]
+    assert (new["digikey"], new["commit"], new["url"]) == (
+        "CL05B104KO5NNNC", "no", "https://dk.invalid/p")
+    assert new["file"] == "datasheets/files/digikey/cl05b104ko5nnnc.pdf"
+    assert "C1, C2" in new["title"]
+    assert fs.from_bom("ds.yaml", tmp_path, MANS, fs.BOM_FILES) == ([], [])
+    assert len(fs.load(tmp_path / "ds.yaml")) == 3
