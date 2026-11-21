@@ -1,5 +1,5 @@
 # parts: BOM from the schematic with DigiKey and JLCPCB availability, and datasheets
-Status: approved
+Status: running
 Base: falcon_development
 Land: pr
 
