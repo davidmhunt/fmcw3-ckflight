@@ -79,10 +79,16 @@ def table_image(name, cols, rows, widths, fs, paras=()):
 
 def qpa_s21_figure() -> None:
     """QPA9501 |S21| across the band from the measured s2p, with the datasheet's own points (p2)."""
-    rows = [r for r in csv.reader(l for l in (HERE / "qpa9501_s21.csv").read_text().splitlines()
-                                  if not l.startswith("#"))][1:]
-    f = [float(r[0]) for r in rows]
-    s11, s21, s22 = ([float(r[i]) for r in rows] for i in (1, 2, 3))
+    # The vendor file is not redistributed (manifest id qorvo-qpa9501-sparams, commit: 'no'); it is read
+    # from its pinned local copy, so this figure needs the file fetched first. Option line: Hz S dB R 50;
+    # columns: f, S11 dB/deg, S21 dB/deg, S12 dB/deg, S22 dB/deg.
+    s2p = HERE.parent.parent / "datasheets" / "files" / "qorvo" / "qpa9501.s2p"
+    if not s2p.exists():
+        raise SystemExit(f"figures.py: {s2p} is missing; fetch it (manifest id qorvo-qpa9501-sparams)")
+    rows = [l.split() for l in s2p.read_text().splitlines() if l.strip() and l[0] not in "!#"]
+    rows = [r for r in rows if 4.8e9 <= float(r[0]) <= 6.1e9]
+    f = [float(r[0]) / 1e9 for r in rows]
+    s11, s21, s22 = ([float(r[i]) for r in rows] for i in (1, 3, 7))
     fig, (a, b) = plt.subplots(2, 1, figsize=(W_IN, H_IN), sharex=True, gridspec_kw={"height_ratios": [3, 2]})
     for ax in (a, b):
         ax.axvspan(5.6, 5.9, color="#dfe4ee", label="board band 5.60-5.90 GHz")
