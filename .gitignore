@@ -30,5 +30,8 @@ docs/references/files/
 # downloaded tool installers (software/manifest.yaml); never committed
 software/files/
 
+# downloaded parts databases (parts/check_jlc.py); never committed
+parts/cache/
+
 # Python bytecode
 __pycache__/
