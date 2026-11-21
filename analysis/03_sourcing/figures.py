@@ -283,7 +283,7 @@ SUMMARY = [
      "U30 (I grade, JLC stock 59), D1-D3 and D5-D7 (name the colour), CON2 and J2 (name the part)."),
     ("Needing analysis or layout",
      "U26-U28 balun (0402 footprint, rf-01), U21 (FB divider on the BYPASS pin), L5-L7 (land pattern, LMR51420 analysis), "
-     "P1/P2/U15 (footprint, datasheets to fetch), U8 as a JLC-stocked ADC (redesign: sim-02, sim-01, sim-spurs, firmware), "
+     "P1/P2/U15 (footprint for the Bat Wireless substitute), U8 as a JLC-stocked ADC (redesign: sim-02, sim-01, sim-spurs, firmware), "
      "U45 as two LT6231 (sim-02), U12 as PAT0816 (rf-01)."),
     ("Must be sourced or consigned",
      "U8 LTC2292IUP (JLC stock 0), U21 LP2985A-10, U26-U28 Johanson balun, P1/P2/U15 CONSMA003.062, "
