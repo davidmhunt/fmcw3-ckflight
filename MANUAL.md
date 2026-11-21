@@ -153,6 +153,23 @@ the command to run afterwards. Save the file at that path, then run
 `./run tools/fetch_sources.py --record`: the hash is pinned, the `fetch_error` cleared and the
 row disappears.
 
+Datasheets through DigiKey (par-06): a datasheet entry with `digikey: <MPN>` and no file is
+looked up through the DigiKey Product Information API, the same client and `.env` keys as
+`parts/check_digikey.py` (answers cached under the gitignored `parts/cache/digikey/`). The
+datasheet URL it returns is tried first (a `//` URL becomes `https://`), then the entry's own
+`url`; each download must be a PDF, so an HTML page is refused. Only the API and the links it
+returns are used: digikey.com pages are never scraped and nothing logs in.
+- `./run tools/fetch_sources.py --from-bom` adds a pending `digikey: <MPN>` entry (kind
+  `datasheet`, `commit: no`, file `datasheets/files/digikey/<mpn>.pdf`) for every MPN in
+  `parts/out/availability.csv` and `parts/decisions.csv` that no entry covers, generic passives
+  included. Run it again and it adds nothing. Entries already pending gain the `digikey:` field.
+  It only edits the manifest; a normal `./run tools/fetch_sources.py` then fetches.
+- When both the DigiKey link and the maker's URL fail, the entry is pending and its row in
+  `docs/user-fetch.md` links the DigiKey product page (the API's `ProductUrl`) and says why the
+  download failed. When DigiKey has no exact match for the MPN, the row links the entry's own
+  URL (for generated entries a DigiKey search for the MPN). S-parameter and SPICE models are
+  rarely hosted there, so those rows only gain the product link.
+
 Adding a source: `./run tools/fetch_sources.py --add URL --id ID --kind KIND --title TEXT
 --file datasheets/files/<vendor>/<name>.pdf [--licence TEXT] [--commit yes|no] [--manifest PATH]`
 downloads the URL, computes the SHA-256 and appends an entry to `datasheets/manifest.yaml` (or
