@@ -1,5 +1,5 @@
 # par-03: Resolve part numbers and report availability
-Status: proposed
+Status: approved
 Goal: parts
 Node: any
 Deliverable: slides

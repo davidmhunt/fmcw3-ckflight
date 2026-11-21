@@ -1,5 +1,5 @@
 # par-02: Datasheets and vendor models for the critical parts, through the sources pipeline
-Status: proposed
+Status: approved
 Goal: parts
 Node: any
 Deliverable: code

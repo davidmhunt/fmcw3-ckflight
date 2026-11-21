@@ -1,5 +1,5 @@
 # par-01: BOM export from the schematic and automated DigiKey + JLCPCB checks
-Status: proposed
+Status: approved
 Goal: parts
 Node: any
 Deliverable: code

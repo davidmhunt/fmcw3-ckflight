@@ -1,5 +1,5 @@
 # par-04: Write MPN, DigiKey and LCSC fields into the schematic symbols
-Status: proposed
+Status: approved
 Goal: parts
 Node: any
 Deliverable: code

@@ -1,5 +1,5 @@
 # parts: BOM from the schematic with DigiKey and JLCPCB availability, and datasheets
-Status: proposed
+Status: approved
 Base: falcon_development
 Land: pr
 
@@ -14,6 +14,8 @@ availability report lists no unresolved line.
 2. par-02: Datasheet manifest and download script for the critical parts
 3. par-03: Resolve part numbers and report availability
 4. par-04: Write MPN, DigiKey and LCSC fields into the schematic symbols
+5. par-05: Ordering BOMs from the schematic that DigiKey and JLCPCB ingest directly (added
+   2026-11-21 at the user's request)
 
 ## Notes
 - Written 2026-11-19 with goal `foundation`; re-check against `docs/surveys/upstream-survey.md`
