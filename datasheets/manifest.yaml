@@ -12,6 +12,220 @@ entries:
   sha256: b1aa9ec5911ea744d4e9b9538d3475916509a3caf31f0d49670bd05e306fe84a
   licence: ST copyright; not redistributed here
   commit: 'no'
+- id: adi-adf4158-datasheet
+  kind: datasheet
+  title: ADI ADF4158 6.1 GHz fractional-N synthesizer with ramp, Rev. I (U1; web.archive.org capture
+    of the analog.com URL, 2025-11-17, because analog.com did not answer)
+  url: https://web.archive.org/web/20251117151940id_/https://www.analog.com/media/en/technical-documentation/data-sheets/adf4158.pdf
+  access: direct
+  file: datasheets/files/adi/adf4158.pdf
+  sha256: ''
+  licence: ADI copyright; not redistributed here
+  commit: 'no'
+- id: adi-hmc431lp4-datasheet
+  kind: datasheet
+  title: ADI (Hittite) HMC431LP4 / 431LP4E MMIC VCO with buffer, 5.5-6.1 GHz, v04.1106 (U10; web.archive.org
+    capture of the analog.com URL, 2024-10-14, because analog.com did not answer)
+  url: https://web.archive.org/web/20241014082146id_/https://www.analog.com/media/en/technical-documentation/data-sheets/hmc431.pdf
+  access: direct
+  file: datasheets/files/adi/hmc431lp4.pdf
+  sha256: ''
+  licence: ADI copyright; not redistributed here
+  commit: 'no'
+- id: qorvo-tqp5525-datasheet
+  kind: datasheet
+  title: Qorvo TQP5525 5 GHz power amplifier datasheet, latest revision (U14; qorvo.com sits behind a bot
+    challenge, so the user saves it from the product page, Data Sheet link)
+  url: https://www.qorvo.com/products/p/TQP5525
+  access: form
+  file: datasheets/files/qorvo/tqp5525.pdf
+  sha256: ''
+  licence: Qorvo copyright; not redistributed here
+  commit: 'no'
+- id: skyworks-sky65404-datasheet
+  kind: datasheet
+  title: Skyworks SKY65404-31 5 GHz low-noise amplifier, document 201512O, March 5, 2021 (U11, U16
+    "SKY65404")
+  url: https://www.skyworksinc.com/-/media/SkyWorks/Documents/Products/501-600/SKY65404-31_201512O.pdf
+  access: direct
+  file: datasheets/files/skyworks/sky65404-31.pdf
+  sha256: ''
+  licence: Skyworks copyright; not redistributed here
+  commit: 'no'
+- id: ti-trf37a73-datasheet
+  kind: datasheet
+  title: TI TRF37A73 1-6000 MHz RF gain block, SLASE39 May 2014 (U9, U13)
+  url: https://www.ti.com/lit/ds/symlink/trf37a73.pdf
+  access: direct
+  file: datasheets/files/ti/trf37a73.pdf
+  sha256: ''
+  licence: TI copyright; not redistributed here
+  commit: 'no'
+- id: adi-adl5802-datasheet
+  kind: datasheet
+  title: ADI ADL5802 dual-channel 100 MHz to 6 GHz active mixer, Rev. C (U29; web.archive.org capture of
+    the analog.com URL, 2024-07-15, because analog.com did not answer)
+  url: https://web.archive.org/web/20240715065415id_/https://www.analog.com/media/en/technical-documentation/data-sheets/ADL5802.pdf
+  access: direct
+  file: datasheets/files/adi/adl5802.pdf
+  sha256: ''
+  licence: ADI copyright; not redistributed here
+  commit: 'no'
+- id: johanson-5400bl15b050-datasheet
+  kind: datasheet
+  title: Johanson 5400BL15B050 balun datasheet (U26, U27, U28 "5400BL15B0050001E"; the sheet carries no
+    revision or date)
+  url: https://www.johansontechnology.com/datasheets/baluns/5400BL15B050.pdf
+  access: direct
+  file: datasheets/files/johanson/5400bl15b050.pdf
+  sha256: ''
+  licence: Johanson copyright; not redistributed here
+  commit: 'no'
+- id: adi-lt6232-datasheet
+  kind: datasheet
+  title: ADI (Linear) LT6230/LT6231/LT6232 215 MHz op amp family, 623012fc (U45; web.archive.org capture
+    of the analog.com URL, 2025-01-23, because analog.com did not answer)
+  url: https://web.archive.org/web/20250123013939id_/https://www.analog.com/media/en/technical-documentation/data-sheets/623012fc.pdf
+  access: direct
+  file: datasheets/files/adi/lt6232.pdf
+  sha256: ''
+  licence: ADI copyright; not redistributed here
+  commit: 'no'
+- id: adi-ltc2292-datasheet
+  kind: datasheet
+  title: ADI (Linear) LTC2294/LTC2293/LTC2292 dual 12-bit ADC family, 2294fa (U8 LTC2292; web.archive.org
+    capture of the analog.com URL, 2024-07-23, because analog.com did not answer)
+  url: https://web.archive.org/web/20240723073117id_/https://www.analog.com/media/en/technical-documentation/data-sheets/2294fa.pdf
+  access: direct
+  file: datasheets/files/adi/ltc2292.pdf
+  sha256: ''
+  licence: ADI copyright; not redistributed here
+  commit: 'no'
+- id: amd-ds181-artix7-datasheet
+  kind: datasheet
+  title: AMD Artix-7 FPGAs data sheet DS181 v1.27.1, July 3, 2024 (U30 XC7A100T-1FTG256C as designed; the
+    ordered build used XC7A35T)
+  url: https://docs.amd.com/api/khub/documents/iAkxxTOk96ANLJqYf2hgrQ/content
+  access: direct
+  file: datasheets/files/amd/ds181-artix7.pdf
+  sha256: ''
+  licence: AMD copyright; not redistributed here
+  commit: 'no'
+- id: amd-ug475-pkg-pinout
+  kind: datasheet
+  title: AMD 7 Series FPGAs packaging and pinout guide UG475 v1.20, March 13, 2024 (U30 FTG256 package)
+  url: https://docs.amd.com/api/khub/documents/kHyYQ6XzXnQwR2O~gaV~MQ/content
+  access: direct
+  file: datasheets/files/amd/ug475-pkg-pinout.pdf
+  sha256: ''
+  licence: AMD copyright; not redistributed here
+  commit: 'no'
+- id: amd-xc7a100t-ftg256-pinout
+  kind: datasheet
+  title: AMD XC7A100T FTG256 package pinout file (xc7a100tftg256pkg.txt, stamped 6/6/2012; U30)
+  url: https://www.xilinx.com/support/packagefiles/a7packages/xc7a100tftg256pkg.txt
+  access: direct
+  file: datasheets/files/amd/xc7a100tftg256pkg.txt
+  sha256: ''
+  licence: AMD copyright; not redistributed here
+  commit: 'no'
+- id: amd-xc7a35t-ftg256-pinout
+  kind: datasheet
+  title: AMD XC7A35T FTG256 package pinout file (xc7a35tftg256pkg.txt, stamped 10/4/2013; the as-ordered
+    production build)
+  url: https://www.xilinx.com/support/packagefiles/a7packages/xc7a35tftg256pkg.txt
+  access: direct
+  file: datasheets/files/amd/xc7a35tftg256pkg.txt
+  sha256: ''
+  licence: AMD copyright; not redistributed here
+  commit: 'no'
+- id: ti-lmr51420-datasheet
+  kind: datasheet
+  title: TI LMR51420 4.5-36 V 2 A synchronous buck, SLUSEF6C October 2021, revised November 2022 (U17,
+    U18, U19)
+  url: https://www.ti.com/lit/ds/symlink/lmr51420.pdf
+  access: direct
+  file: datasheets/files/ti/lmr51420.pdf
+  sha256: ''
+  licence: TI copyright; not redistributed here
+  commit: 'no'
+- id: ti-lp5907-datasheet
+  kind: datasheet
+  title: TI LP5907 250 mA low-noise LDO, SNVS798Q April 2012, revised July 2025 (U20, U39 "LP5907-3.0")
+  url: https://www.ti.com/lit/ds/symlink/lp5907.pdf
+  access: direct
+  file: datasheets/files/ti/lp5907.pdf
+  sha256: ''
+  licence: TI copyright; not redistributed here
+  commit: 'no'
+- id: ecs-txo-32csmv-datasheet
+  kind: datasheet
+  title: ECS ECS-TXO-32CSMV clipped-sine TCXO datasheet, reference oscillator (Y2 "ECS-TXO-32CSMV-400"
+    at a 2.5x2.0 mm footprint; the sheet is for a 3.2x2.5 mm package, to settle in par-03)
+  url: https://ecsxtal.com/store/pdf/ECS-TXO-32CSMV.pdf
+  access: direct
+  file: datasheets/files/ecs/ecs-txo-32csmv.pdf
+  sha256: ''
+  licence: ECS copyright; not redistributed here
+  commit: 'no'
+- id: microchip-pl133-37-datasheet
+  kind: datasheet
+  title: Microchip (Micrel) PL133-37 1:3 fanout clock buffer, Rev 02/24/15 (U6, clock buffer)
+  url: https://ww1.microchip.com/downloads/en/DeviceDoc/PL133-37.pdf
+  access: direct
+  file: datasheets/files/microchip/pl133-37.pdf
+  sha256: ''
+  licence: Microchip copyright; not redistributed here
+  commit: 'no'
+- id: ftdi-ft2232h-datasheet
+  kind: datasheet
+  title: FTDI FT2232H dual high-speed USB UART/FIFO, Version 2.6 (U33; web.archive.org capture of the
+    ftdichip.com URL, 2025-08-23, because ftdichip.com refuses scripted downloads)
+  url: https://web.archive.org/web/20250823184258id_/https://ftdichip.com/wp-content/uploads/2020/07/DS_FT2232H.pdf
+  access: direct
+  file: datasheets/files/ftdi/ds-ft2232h.pdf
+  sha256: ''
+  licence: FTDI copyright; not redistributed here
+  commit: 'no'
+- id: winbond-w25q128jv-datasheet
+  kind: datasheet
+  title: Winbond W25Q128JV 128 Mbit serial flash, Revision F, March 27, 2018 (U40)
+  url: https://www.winbond.com/resource-files/w25q128jv%20revf%2003272018%20plus.pdf
+  access: direct
+  file: datasheets/files/winbond/w25q128jv.pdf
+  sha256: ''
+  licence: Winbond copyright; not redistributed here
+  commit: 'no'
+- id: pat1220-attenuator-datasheet
+  kind: datasheet
+  title: PAT1220 chip attenuator pad datasheet, latest revision (U3 PAT1220-6dB, U12 PAT1220-3dB; the
+    maker is believed to be Susumu but is unconfirmed, the user finds the sheet and notes the maker)
+  url: https://www.susumu.co.jp/
+  access: form
+  file: datasheets/files/susumu/pat1220.pdf
+  sha256: ''
+  licence: maker copyright; not redistributed here
+  commit: 'no'
+- id: murata-blm18pg181sn1d-datasheet
+  kind: datasheet
+  title: Murata BLM18PG181SN1D 180 ohm 0603 ferrite bead, latest revision (FB1-FB8, FB12-FB14; murata.com
+    answers scripted requests with an HTML page, so the user saves the PDF)
+  url: https://pim.murata.com/en-us/pim/details/?partNum=BLM18PG181SN1D
+  access: form
+  file: datasheets/files/murata/blm18pg181sn1d.pdf
+  sha256: ''
+  licence: Murata copyright; not redistributed here
+  commit: 'no'
+- id: tdk-mpz2012s101a-datasheet
+  kind: datasheet
+  title: TDK MPZ2012S101AT000 100 ohm 0805 ferrite bead, latest revision (FB11; product.tdk.com returns
+    403 to scripted requests, so the user saves the PDF)
+  url: https://product.tdk.com/en/search/emc/emc/beads/info?part_no=MPZ2012S101AT000
+  access: form
+  file: datasheets/files/tdk/mpz2012s101at000.pdf
+  sha256: ''
+  licence: TDK copyright; not redistributed here
+  commit: 'no'
 - id: ti-lp5907-1p8-pspice
   kind: vendor-model
   title: TI LP5907 1.8 V unencrypted PSpice transient model (SNVMAP9)
