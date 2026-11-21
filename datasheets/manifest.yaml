@@ -924,3 +924,41 @@ entries:
   fetch_error: 'DigiKey datasheet https://ftdichip.com/wp-content/uploads/2025/11/DS_FT2232H.pdf: HTTP Error
     403: Forbidden (2026-11-21)'
   digikey_url: https://www.digikey.com/en/products/detail/ftdi-future-technology-devices-international-ltd/FT2232HL-REEL/1986053
+- id: skyworks-se5004l-datasheet
+  kind: datasheet
+  title: Skyworks SE5004L 5 GHz WLAN PA (U14 replacement candidate, par-07)
+  url: https://www.skyworksinc.com/-/media/2C9BF894D0E745E694030D0B4226B4E0.pdf
+  access: direct
+  file: datasheets/files/skyworks/se5004l.pdf
+  sha256: 3236a5ff9a30a2a7067775d4b8e55f0d9138a55b21282354a968649672dbbdf6
+  licence: vendor copyright; not redistributed here
+  commit: 'no'
+- id: skyworks-se5023l-datasheet
+  kind: datasheet
+  title: Skyworks SE5023L 5 GHz WLAN PA (U14 replacement candidate, par-07)
+  url: https://www.skyworksinc.com/-/media/89847B1F0C0349E5B77677373803AE23.pdf
+  access: direct
+  file: datasheets/files/skyworks/se5023l.pdf
+  sha256: 53ec9b4fceceec83c50158fe4b90330efd2b9b3d477a8762ef8a2edd0905d004
+  licence: vendor copyright; not redistributed here
+  commit: 'no'
+- id: anadigics-awl9924-datasheet
+  kind: datasheet
+  title: Anadigics AWL9924 4.9-5.9 GHz PA via Rochester Electronics (U14 replacement candidate, par-07)
+  url: https://www.digikey.com/en/products/detail/rochester-electronics-llc/AWL9924RS34P8/12593715
+  access: form
+  file: datasheets/files/anadigics/awl9924.pdf
+  sha256: ''
+  licence: vendor copyright; not redistributed here
+  commit: 'no'
+  fetch_error: 'The DigiKey datasheet link (rocelec.widen.net) returned an HTML page, not a PDF (2026-11-21)'
+- id: qorvo-qpa9501-datasheet
+  kind: datasheet
+  title: Qorvo QPA9501 4.9-5.9 GHz 2 W WiFi PA (U14 replacement candidate, par-07)
+  url: https://www.qorvo.com/products/p/QPA9501
+  access: form
+  file: datasheets/files/qorvo/qpa9501.pdf
+  sha256: ''
+  licence: vendor copyright; not redistributed here
+  commit: 'no'
+  fetch_error: 'qorvo.com answers the download with HTTP 429 (Vercel bot challenge) for every client (2026-11-21)'
