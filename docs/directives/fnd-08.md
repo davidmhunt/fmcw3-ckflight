@@ -1,5 +1,5 @@
 # fnd-08: LTspice GUI from the sim container, and PSpice for TI under Wine
-Status: blocked: step 3: Please save the PSpice for TI installer, once your TI access arrives, as /home/david/Documents/pcb_work/fmcw3-ckflight/software/files/ti/pspice-for-ti-installer.zip. Get it from https://www.ti.com/tool/PSPICE-FOR-TI while signed in, and take the full Windows installer, not the web stub. If TI gives you an .exe, tell me the real file name and I will change the manifest entry's 'file'. Then tell me, and I will run './run tools/fetch_sources.py --record' to pin the hash and continue with the Wine install, the batch check and the slum825 smoke test. My recommendation is to fetch it; if the installer will not run under Wine, I will record install=no with the error text and keep the hand-built averaged buck model for sim-02.
+Status: approved
 Goal: foundation
 Node: any
 Deliverable: code
@@ -116,3 +116,6 @@ Notes:
 Verify: not run
 Independent review: not recorded
 Blocked: step 3: Please save the PSpice for TI installer, once your TI access arrives, as /home/david/Documents/pcb_work/fmcw3-ckflight/software/files/ti/pspice-for-ti-installer.zip. Get it from https://www.ti.com/tool/PSPICE-FOR-TI while signed in, and take the full Windows installer, not the web stub. If TI gives you an .exe, tell me the real file name and I will change the manifest entry's 'file'. Then tell me, and I will run './run tools/fetch_sources.py --record' to pin the hash and continue with the Wine install, the batch check and the slum825 smoke test. My recommendation is to fetch it; if the installer will not run under Wine, I will record install=no with the error text and keep the hand-built averaged buck model for sim-02.
+
+### 2026-11-20
+Unblocked: was blocked: step 3: Please save the PSpice for TI installer, once your TI access arrives, as /home/david/Documents/pcb_work/fmcw3-ckflight/software/files/ti/pspice-for-ti-installer.zip. Get it from https://www.ti.com/tool/PSPICE-FOR-TI while signed in, and take the full Windows installer, not the web stub. If TI gives you an .exe, tell me the real file name and I will change the manifest entry's 'file'. Then tell me, and I will run './run tools/fetch_sources.py --record' to pin the hash and continue with the Wine install, the batch check and the slum825 smoke test. My recommendation is to fetch it; if the installer will not run under Wine, I will record install=no with the error text and keep the hand-built averaged buck model for sim-02.
