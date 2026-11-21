@@ -62,8 +62,7 @@ class JlcError(RuntimeError):
 
 def _get(url, timeout=300):
     try:
-        with urllib.request.urlopen(url, timeout=timeout) as r:
-            return r
+        return urllib.request.urlopen(url, timeout=timeout)
     except (urllib.error.URLError, OSError) as e:
         raise JlcError(f"download failed for {url}: {e}")
 
