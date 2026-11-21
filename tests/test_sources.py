@@ -188,3 +188,50 @@ def test_fetch_downloads_direct_records_hash_and_lists_todo(tmp_path):
     # a second fetch downloads nothing
     fs.fetch_all(MANS, tmp_path, opener=fake)
     assert len(calls) == 1
+
+
+def test_failed_download_becomes_pending_row_and_run_continues(tmp_path):
+    write(tmp_path, ds=[
+        entry(id="dead", url="https://x.invalid/dead.pdf", file="datasheets/files/dead.pdf"),
+        entry(id="ok", url="https://x.invalid/ok.pdf", file="datasheets/files/ok.pdf"),
+        entry(id="form", access="form", file="datasheets/files/form.pdf",
+              url="https://x.invalid/form"),
+    ])
+
+    def fake(url, dest):
+        if "dead" in url:
+            raise OSError("HTTP Error 403: Forbidden")
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        dest.write_bytes(b"ok")
+
+    todo = fs.fetch_all(MANS, tmp_path, record=True, opener=fake, today="2026-11-21")
+    assert any("dead" in t and "403" in t for t in todo)
+    by_id = {e["id"]: e for e in fs.load(tmp_path / "ds.yaml")}
+    assert by_id["dead"]["fetch_error"] == "HTTP Error 403: Forbidden (2026-11-21)"
+    assert by_id["ok"]["sha256"] == hashlib.sha256(b"ok").hexdigest()
+    # not failed, listed as pending; the file for "dead" is still missing
+    assert fs.check_all(MANS, tmp_path) == []
+    assert {e["id"] for e in fs.pending_all(MANS, tmp_path)} == {"dead", "form"}
+    rows = fs.write_user_fetch(MANS, tmp_path)
+    assert len(rows) == 2
+    text = (tmp_path / "docs" / "user-fetch.md").read_text()
+    assert "https://x.invalid/dead.pdf" in text and "`datasheets/files/dead.pdf`" in text
+    assert "403" in text and "./run tools/fetch_sources.py --record" in text
+    assert "ok.pdf" not in text
+
+
+def test_saved_file_plus_record_removes_pending_row(tmp_path):
+    write(tmp_path, ds=[entry(id="dead", file="datasheets/files/dead.pdf")])
+
+    def dead(url, dest):
+        raise OSError("HTTP Error 404: Not Found")
+
+    fs.fetch_all(MANS, tmp_path, opener=dead, today="2026-11-21")
+    assert len(fs.write_user_fetch(MANS, tmp_path)) == 1
+    h = put(tmp_path, "datasheets/files/dead.pdf", b"saved by hand")
+    fs.fetch_all(MANS, tmp_path, record=True, opener=dead)
+    (e,) = fs.load(tmp_path / "ds.yaml")
+    assert e["sha256"] == h and "fetch_error" not in e
+    assert fs.check_all(MANS, tmp_path) == []
+    assert fs.write_user_fetch(MANS, tmp_path) == []
+    assert "Nothing pending" in (tmp_path / "docs" / "user-fetch.md").read_text()

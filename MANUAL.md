@@ -143,6 +143,16 @@ There are three manifests, all read by `tools/fetch_sources.py`:
   An entry behind a form or login that you have not fetched yet, with no hash pinned, is listed
   as `PENDING` instead of failing; once its hash is pinned, a missing file fails.
 
+Things you fetch by hand: a `direct` download that fails (dead link, blocked host, login wall)
+does not stop the run and is not dropped. `fetch_sources.py` prints the failure and records it on
+the entry as `fetch_error:` (error text and date). `--check` lists that entry, and any form or
+login entry without a file, as `PENDING` until a hash is pinned. Every fetch run regenerates
+[`docs/user-fetch.md`](docs/user-fetch.md) (committed): one row per pending item across the
+manifests with what it is, the link, the exact path to save it at, why it was not fetched and
+the command to run afterwards. Save the file at that path, then run
+`./run tools/fetch_sources.py --record`: the hash is pinned, the `fetch_error` cleared and the
+row disappears.
+
 Adding a source: `./run tools/fetch_sources.py --add URL --id ID --kind KIND --title TEXT
 --file datasheets/files/<vendor>/<name>.pdf [--licence TEXT] [--commit yes|no] [--manifest PATH]`
 downloads the URL, computes the SHA-256 and appends an entry to `datasheets/manifest.yaml` (or

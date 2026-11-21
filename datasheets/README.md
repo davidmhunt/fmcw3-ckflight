@@ -12,4 +12,13 @@ not redistributed unless the licence allows it; `commit: no` is the default).
 - Use the manufacturer's URL; a web.archive.org capture is allowed if the host will not answer,
   and the title says so.
 
+## Things you fetch by hand
+
+A `direct` download that fails (dead link, blocked host, login wall) does not stop
+`fetch_sources.py`; it prints the failure and records `fetch_error:` (text and date) on the
+entry. `--check` shows that entry, and any form or login entry without a file, as `PENDING`.
+Every run regenerates `docs/user-fetch.md` with one row per pending item: what it is, the link,
+the path to save it at, why it was not fetched. Save the file there, then run
+`./run tools/fetch_sources.py --record`; the hash is pinned and the row goes away.
+
 See section 8 of `MANUAL.md`.
