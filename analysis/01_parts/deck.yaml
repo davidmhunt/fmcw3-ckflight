@@ -1,0 +1,72 @@
+slides:
+  - layout: title
+    title: "FMCW3 parts: numbers and choices"
+    bullets:
+      - "BOM status, JLCPCB versus DigiKey, six choices for you"
+      - "Target set: default (board quantity assumed)"
+    note: Every number comes from parts/out/ (parts/bom.py live run) and parts/decisions.csv. Nothing is decided here; recommendations are labelled.
+  - layout: bullet
+    title: Question and inputs
+    bullets:
+      - "Question: can every BOM line be bought and assembled, from which source, and what is left for you to decide?"
+      - "Inputs: kicad-cli BOM of the schematic, JLCPCB parts database, DigiKey API (2026-11-21), datasheets on file"
+      - "Part numbers and the datasheet page for each suffix: parts/decisions.csv"
+      - "Cost is for the boards in the target set (board_quantity), no spares, no assembly fees"
+    note: Schematic unchanged; value changes such as C to I grade are for par-04 after you decide.
+  - layout: figure
+    title: Status summary
+    figure: status_summary.png
+    note: Lines are BOM groups; parts per board counts refdes. Decision rows are one per refdes in decisions.csv.
+  - layout: table
+    title: Assemble, consign or hand-solder
+    table: routes.csv
+    note: Hand-solder is 0 only because CON2 and J2 (through-hole) have no part number yet. They are expected to be hand-soldered or JLC through-hole.
+  - layout: figure
+    title: "Choice 1: FPGA U30"
+    figure: choice_fpga.png
+    note: Pin check is complete (256 of 256 pins identical on both dies). Recommendation is labelled as such.
+  - layout: figure
+    title: "Choice 2: ADC U8"
+    figure: choice_adc.png
+    note: LTC2292 order table is not on file; the codes are from the distributor rows.
+  - layout: figure
+    title: "Choice 3: USB-C J1"
+    figure: choice_usbc.png
+    note: The GCT datasheet is for you to obtain.
+  - layout: figure
+    title: "Choice 4: inductors L5-L7"
+    figure: choice_inductor.png
+    note: LMR51420 datasheet pages 5 and 18. Saturation current of the alternatives must be read from their own datasheets.
+  - layout: figure
+    title: "Choice 5: parts JLCPCB cannot assemble"
+    figure: choice_assembly.png
+    note: Stock is against the board quantity of the target set.
+  - layout: figure
+    title: "Choice 6: legacy library"
+    figure: choice_library.png
+    note: kicad/libs/fmcw3.lib is registered in sym-lib-table and 20 of its symbols are placed.
+  - layout: table
+    title: Obsolete or risky parts
+    table: risky.csv
+    note: NFND = not for new designs. Computed from availability.csv plus three items from decisions.csv.
+  - layout: table
+    title: Cost for the board quantity, both sources
+    table: cost.csv
+    note: Unit price at the quantity queried, no JLC Extended-part fee, no assembly or PCB cost. U30 is priced as the schematic's C grade.
+  - layout: bullet
+    title: For you to obtain
+    bullets:
+      - "Datasheets pending: PAT1220 (U3, U12), TQP5525 (U14), GCT USB4105 (J1), Bourns SRR6040A and alternatives"
+      - "LTC2292 order table (U8): the file on record is the LTC2294 sheet"
+      - "Part numbers: CON2 barrel jack, J2 header (2.5 mm pitch?), colour of D1-D7"
+      - "Full list with reasons: report section 5 (obtain.csv)"
+    note: These are listed, never guessed.
+  - layout: decisions
+    title: Decisions needed
+    bullets:
+      - "FPGA: 100T I grade, 100T C grade or a 35T (and which grade)"
+      - "ADC U8 grade: C or I"
+      - "USB-C receptacle variant for J1"
+      - "Replacement for L5-L7 (and whether 33 uH stays)"
+      - "Route for non-assemblable parts, and what to do with fmcw3.lib"
+    note: Recommendations are on each choice slide. Give the decisions in the note when you accept par-03.
