@@ -20,7 +20,7 @@ slides:
   - layout: figure
     title: "Routes 3/5: LDO U21, SMA P1, P2, U15"
     figure: routes_3.png
-    note: The Bat Wireless datasheet is on file (p4 gives 0-6 GHz, p6 the drawing); the Amphenol 132134-15 datasheet is still a user-fetch row in docs/user-fetch.md, so its rating is unverified. Footprint and board-thickness fit are unverified for both.
+    note: The Bat Wireless datasheet is on file (p4 gives 0-6 GHz, p6 the drawing); the Amphenol 132134-15 route was dropped because its datasheet could not be fetched (still a user-fetch row). Footprint and board-thickness fit of the Bat Wireless part are unverified.
   - layout: figure
     title: "Routes 4/5: U29, U12, U3, inductors L5-L7"
     figure: routes_4.png

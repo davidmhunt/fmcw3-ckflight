@@ -158,11 +158,10 @@
    "cols": ["Option", "JLC (C number, stock, USD each)", "DigiKey (stock, USD, lead)", "Note"],
    "rows": [
     ["A. CONSMA003.062 (schematic)", "not in JLC database", "5353, 4.35, 4 wk", "consign or JLC sourcing service"],
-    ["B. BWSMA-KE-P001 Bat Wireless (par-09)", "C496550, 84178, 0.407", "not queried", "datasheet not fetched: fit and 5.8 GHz rating unverified"],
-    ["C. 132134-15 Amphenol (par-09)", "C3172297, 676, 9.489", "not queried", "datasheet not fetched: fit unverified"]
+    ["B. BWSMA-KE-P001 Bat Wireless (par-09)", "C496550, 84178, 0.407", "not queried", "0-6 GHz, 50 ohm, 0.15 dB at 6 GHz (batwireless-bwsma-ke-p001-datasheet p.4); drawing p.6: land pattern and board-thickness fit unverified"]
    ],
-   "consequence": "Both substitute datasheets returned HTML and are user-fetch rows (docs/user-fetch.md); a footprint change is assumed until they are read.",
-   "recommendation": "A, consigned (4 wk); B only after you fetch its datasheet and compare the land pattern."
+   "consequence": "B is JLC-stocked and rated to 6 GHz (batwireless-bwsma-ke-p001-datasheet p.4, drawing p.6); assume a footprint change until its drawing is compared with the CONSMA003.062 footprint. The Amphenol 132134-15 route was dropped: its datasheet could not be fetched (user-fetch row).",
+   "recommendation": "A, through the JLC sourcing service or consigned; B if you accept a footprint change after comparing its drawing (p.6) with the current footprint."
   },
   "atten": {
    "title": "par-09 option: attenuator U12 PAT1220 3 dB (JLC stock 5 for 3)",
