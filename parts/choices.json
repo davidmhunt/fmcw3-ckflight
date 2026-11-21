@@ -109,6 +109,17 @@
    ],
    "consequence": "The datasheet (p.1) is for a 3.2x2.5 mm package; the footprint is 2.5x2.0 mm (ECS 2520MV), so they do not match. 400 = 40.000 MHz, B = 1.0 ppm, N = -40 to 85 C, TR = reel.",
    "recommendation": "B if its datasheet shows 40 MHz clipped sine, since A changes the layout."
+  },
+  "fb4": {
+   "title": "Choice 10: PA supply bead FB4, current margin",
+   "refs": "FB4",
+   "cols": ["Option", "JLC (C number, library, stock)", "Rated current 85 C / 125 C, DCR", "Note"],
+   "rows": [
+    ["A. BLM18PG181SN1D (schematic)", "{FB4.jlc_lcsc}, Extended, {FB4.jlc_stock}", "1500 / 1000 mA, 0.09 typ / 0.18 max ohm", "180 ohm at 100 MHz"],
+    ["B. BLM18KG221SN1D", "C88980, Extended, 61088", "2200 / 1500 mA, 0.05 / 0.06 ohm", "220 ohm at 100 MHz, same 0603 footprint"]
+   ],
+   "consequence": "FB4 feeds the PA U14 from 5 V. The QPA9501 datasheet gives 650 mA max at 22 dBm and nothing at the 25.5 dBm target (par-07), so A's margin at full power has no datasheet number. Both rows from the Murata table (murata-blm18pg181sn1d-datasheet). B's impedance curve differs, so sim-01's 5 V branch has to use its model before B is final; recorded in docs/board-changes.md.",
+   "recommendation": "B, for the current margin and lower DC drop, once sim-01 shows no new resonance on the 5 V branch."
   }
  }
 }
