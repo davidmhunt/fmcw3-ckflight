@@ -220,6 +220,38 @@ def test_failed_download_becomes_pending_row_and_run_continues(tmp_path):
     assert "ok.pdf" not in text
 
 
+def test_fetch_and_record_keep_manifest_comments(tmp_path):
+    text = (
+        "# header comment\nentries:\n"
+        "- id: a\n  kind: datasheet\n  # entry comment\n  title: T\n  url: https://x.invalid/a\n"
+        "  access: direct\n  file: datasheets/files/a.pdf\n  sha256: ''\n  licence: v\n"
+        "  commit: 'no'\n"
+        "- id: dead\n  kind: datasheet\n  title: T\n  url: https://x.invalid/d\n"
+        "  access: direct\n  file: datasheets/files/d.pdf\n  sha256: ''\n  licence: v\n"
+        "  commit: 'no'\n# trailing comment\n")
+    (tmp_path / "ds.yaml").write_text(text)
+    (tmp_path / "ref.yaml").write_text("entries: []\n")
+
+    def fake(url, dest):
+        if "/d" in url:
+            raise OSError("HTTP Error 403: Forbidden")
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        dest.write_bytes(b"x")
+
+    fs.fetch_all(MANS, tmp_path, record=True, opener=fake, today="2026-11-21")
+    out = (tmp_path / "ds.yaml").read_text()
+    for c in ("# header comment", "# entry comment", "# trailing comment"):
+        assert c in out
+    by_id = {e["id"]: e for e in fs.load(tmp_path / "ds.yaml")}
+    assert by_id["a"]["sha256"] == hashlib.sha256(b"x").hexdigest()
+    assert by_id["dead"]["fetch_error"].startswith("HTTP Error 403")
+    # a saved file clears the error and keeps the comments
+    put(tmp_path, "datasheets/files/d.pdf", b"saved")
+    fs.fetch_all(MANS, tmp_path, record=True, opener=fake)
+    out = (tmp_path / "ds.yaml").read_text()
+    assert "# entry comment" in out and "fetch_error" not in out
+
+
 def test_saved_file_plus_record_removes_pending_row(tmp_path):
     write(tmp_path, ds=[entry(id="dead", file="datasheets/files/dead.pdf")])
 

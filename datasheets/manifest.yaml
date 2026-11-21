@@ -1,6 +1,18 @@
+# Datasheets and vendor models. Read by tools/fetch_sources.py (see its docstring).
+# Fields: id, kind, title, url (public), access (direct|form|login), file, sha256, licence,
+# commit (yes|no). commit: no files live under datasheets/files/ (gitignored).
+# Filled for the critical parts by directive par-02.
 entries:
 - id: st-ld39200-datasheet
   kind: datasheet
+  # par-02 step 2, checked against this file (Rev 3, Sept 2018): U22, U23, U24 (symbol "LD3920",
+  # value "LD3920") are the ADJ DFN8 4x4 part LD39200DPUR (Table 11). Footprint
+  # DFN-8-1EP_4x4mm_P0.8mm_EP2.3x3.24mm matches Table 9 (e 0.8; EP 2.3x3.24 is at the upper
+  # D2/E2 limits). Pins match Table 2: IN 7+8 tied, OUT 1+2 tied, ADJ 3 to a divider
+  # (Vout = 0.5 V x (1 + R1/R2)), GND 4 and pad 9 to GND, EN 6 with VIN, PG 5.
+  # U22 5V6 -> 5.0 V (R43 18k / R44 2k); U23 3V8 -> 1.83 V (R45 49.9k / R46 18.7k), PG to U25 EN;
+  # U24 3V8 -> 3.33 V (R47 18.7k / R48 3.3k); U22 and U24 leave PG open. All consistent.
+  # Gap: value "LD3920" is not an orderable code (should read LD39200DPUR); a part-field matter for par-03.
   title: ST LD39200 2 A high PSRR LDO datasheet, DS10079 Rev 3 (U22, U23, U24 "LD3920" = LD39200DPUR,
     DFN8 4x4, ADJ; U25 "LD3920_33" = LD39200PU33R, DFN6 3x3, 3.3 V)
   url: https://www.st.com/resource/en/datasheet/ld39200.pdf
@@ -221,6 +233,27 @@ entries:
   file: datasheets/files/tdk/mpz2012s101at000.pdf
   sha256: ''
   licence: TDK copyright; not redistributed here
+  commit: 'no'
+- id: murata-blm18pg181sn1d-model
+  kind: vendor-model
+  title: Murata BLM18PG181SN1D ferrite-bead model (SimSurfing S-parameter or SPICE netlist; FB1-FB8,
+    FB12-FB14; needed by sim-01; murata.com answers scripted requests with an HTML page, so the user saves
+    the file)
+  url: https://pim.murata.com/en-us/pim/details/?partNum=BLM18PG181SN1D
+  access: form
+  file: datasheets/files/murata/blm18pg181sn1d-model.zip
+  sha256: ''
+  licence: Murata terms; not redistributed here
+  commit: 'no'
+- id: tdk-mpz2012s101a-model
+  kind: vendor-model
+  title: TDK MPZ2012S101AT000 ferrite-bead model (SEAT S-parameter or SPICE netlist; FB11; needed by
+    sim-01; product.tdk.com returns 403 to scripted requests, so the user saves the file)
+  url: https://product.tdk.com/en/search/emc/emc/beads/info?part_no=MPZ2012S101AT000
+  access: form
+  file: datasheets/files/tdk/mpz2012s101at000-model.zip
+  sha256: ''
+  licence: TDK terms; not redistributed here
   commit: 'no'
 - id: ti-lp5907-1p8-pspice
   kind: vendor-model

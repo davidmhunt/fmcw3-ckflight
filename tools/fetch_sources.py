@@ -176,6 +176,51 @@ def download(url, dest):
     tmp.replace(dest)
 
 
+def _block(lines, start):
+    """The lines after `- ` line `start`, up to the next entry."""
+    end = start + 1
+    while end < len(lines) and not lines[end].startswith("- "):
+        end += 1
+    return lines[start + 1:end]
+
+
+def patch_manifest_text(text, updates):
+    """Apply {id: {key: value or None}} to the manifest text, line by line, so comments and
+    layout survive. A None value deletes the key; a missing key is appended to the entry."""
+    lines = text.splitlines()
+    for eid, keys in updates.items():
+        ids = (f"id: {eid}", f"id: '{eid}'", f'id: "{eid}"')
+        start = next((i for i, ln in enumerate(lines)
+                      if ln.startswith("- ") and any(
+                          ln.rstrip() == "- " + s or any(
+                              m.rstrip() == "  " + s for m in _block(lines, i))
+                          for s in ids)), None)
+        if start is None:
+            raise ValueError(f"entry {eid} not found in manifest text")
+        for key, value in keys.items():
+            end = start + 1
+            while end < len(lines) and not lines[end].startswith("- "):
+                end += 1
+            pos = next((i for i in range(start + 1, end) if lines[i].startswith(f"  {key}:")),
+                       None)
+            new = []
+            if value is not None:
+                dumped = yaml.safe_dump({key: value}, width=100).rstrip("\n").split("\n")
+                new = ["  " + ln for ln in dumped]
+            if pos is not None:
+                stop = pos + 1
+                while stop < end and lines[stop].startswith("    "):
+                    stop += 1
+                lines[pos:stop] = new
+            elif new:
+                at = end
+                while at > start + 1 and (not lines[at - 1].strip()
+                                          or lines[at - 1].lstrip().startswith("#")):
+                    at -= 1
+                lines[at:at] = new
+    return "\n".join(lines) + "\n"
+
+
 def fetch_all(manifests, root=ROOT, record=False, opener=download, today=None):
     """Download direct entries that are missing; return the user to-do lines.
 
@@ -189,7 +234,7 @@ def fetch_all(manifests, root=ROOT, record=False, opener=download, today=None):
         if not mpath.is_file():
             continue
         entries = load(mpath)
-        changed = False
+        updates = {}
         for e in entries:
             path = root / e["file"]
             if not path.is_file():
@@ -204,7 +249,7 @@ def fetch_all(manifests, root=ROOT, record=False, opener=download, today=None):
                         msg = " ".join(str(exc).split()) or type(exc).__name__
                         print(f"FAILED {e['id']}: {msg}", file=sys.stderr)
                         e["fetch_error"] = f"{msg} ({today})"
-                        changed = True
+                        updates.setdefault(e["id"], {})["fetch_error"] = e["fetch_error"]
                         todo.append(
                             f"{e['id']} (direct, download failed: {msg}): open {e['url']} and "
                             f"save as {e['file']} [{e['title']}; licence: {e['licence']}]")
@@ -216,13 +261,14 @@ def fetch_all(manifests, root=ROOT, record=False, opener=download, today=None):
                     continue
             if "fetch_error" in e:
                 del e["fetch_error"]
-                changed = True
+                updates.setdefault(e["id"], {})["fetch_error"] = None
             if record and path.is_file() and not e.get("sha256"):
                 e["sha256"] = sha256_of(path)
                 print(f"recorded sha256 for {e['id']}: {e['sha256']}")
-                changed = True
-        if changed:
-            mpath.write_text(yaml.safe_dump({"entries": entries}, sort_keys=False, width=100))
+                updates.setdefault(e["id"], {})["sha256"] = e["sha256"]
+        if updates:
+            # edit the text, not re-dump the data: comments and layout stay
+            mpath.write_text(patch_manifest_text(mpath.read_text(), updates))
     return todo
 
 
