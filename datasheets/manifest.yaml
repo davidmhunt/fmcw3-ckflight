@@ -522,22 +522,20 @@ entries:
   url: https://www.digikey.com/en/products/search?keywords=0402CG5R0C500NT
   access: form
   file: datasheets/files/digikey/0402cg5r0c500nt.pdf
-  sha256: ''
+  sha256: 705023d3be0454148a96fc2715d249a32d8ff442e70b64d1116d3490ed1d8136
   licence: maker copyright; not redistributed here
   commit: 'no'
   digikey: 0402CG5R0C500NT
-  fetch_error: DigiKey API has no exact match for 0402CG5R0C500NT (2026-11-21)
 - id: dk-0402cg180j500nt
   kind: datasheet
   title: 0402CG180J500NT datasheet through DigiKey (C42, C46, C52, C55)
   url: https://www.digikey.com/en/products/search?keywords=0402CG180J500NT
   access: form
   file: datasheets/files/digikey/0402cg180j500nt.pdf
-  sha256: ''
+  sha256: 705023d3be0454148a96fc2715d249a32d8ff442e70b64d1116d3490ed1d8136
   licence: maker copyright; not redistributed here
   commit: 'no'
   digikey: 0402CG180J500NT
-  fetch_error: DigiKey API has no exact match for 0402CG180J500NT (2026-11-21)
 - id: dk-gjm1555c1hr50wb01d
   kind: datasheet
   title: GJM1555C1HR50WB01D datasheet through DigiKey (C48, C57)
@@ -564,11 +562,10 @@ entries:
   url: https://www.digikey.com/en/products/search?keywords=0402CG101J500NT
   access: form
   file: datasheets/files/digikey/0402cg101j500nt.pdf
-  sha256: ''
+  sha256: 705023d3be0454148a96fc2715d249a32d8ff442e70b64d1116d3490ed1d8136
   licence: maker copyright; not redistributed here
   commit: 'no'
   digikey: 0402CG101J500NT
-  fetch_error: DigiKey API has no exact match for 0402CG101J500NT (2026-11-21)
 - id: dk-cl10a475ko8nnnc
   kind: datasheet
   title: CL10A475KO8NNNC datasheet through DigiKey (C155, C156, C157, C183, C185, C186 and 3 more)
@@ -605,11 +602,10 @@ entries:
   url: https://www.digikey.com/en/products/search?keywords=0402CG150J500NT
   access: form
   file: datasheets/files/digikey/0402cg150j500nt.pdf
-  sha256: ''
+  sha256: 705023d3be0454148a96fc2715d249a32d8ff442e70b64d1116d3490ed1d8136
   licence: maker copyright; not redistributed here
   commit: 'no'
   digikey: 0402CG150J500NT
-  fetch_error: DigiKey API has no exact match for 0402CG150J500NT (2026-11-21)
 - id: dk-dm3bt-dsf-pejs
   kind: datasheet
   title: DM3BT-DSF-PEJS datasheet through DigiKey (CON1)
@@ -667,11 +663,10 @@ entries:
   url: https://www.digikey.com/en/products/search?keywords=CMI201209U2R2KT
   access: form
   file: datasheets/files/digikey/cmi201209u2r2kt.pdf
-  sha256: ''
+  sha256: 0fa8456fe646815bcb50cb9f8accd6f8284197bf6dee98a26e880f13dc6d06a6
   licence: maker copyright; not redistributed here
   commit: 'no'
   digikey: CMI201209U2R2KT
-  fetch_error: DigiKey API has no exact match for CMI201209U2R2KT (2026-11-21)
 - id: dk-consma003.062
   kind: datasheet
   title: CONSMA003.062 datasheet through DigiKey (P1, P2, U15)
@@ -688,242 +683,220 @@ entries:
   url: https://www.digikey.com/en/products/search?keywords=0402WGF5491TCE
   access: form
   file: datasheets/files/digikey/0402wgf5491tce.pdf
-  sha256: ''
+  sha256: 11cd644d5d8a34a6d12775afb80bf58d8fc11f0c3b700dbd0f7a59942ceaa5ef
   licence: maker copyright; not redistributed here
   commit: 'no'
   digikey: 0402WGF5491TCE
-  fetch_error: DigiKey API has no exact match for 0402WGF5491TCE (2026-11-21)
 - id: dk-0402wgf3301tce
   kind: datasheet
   title: 0402WGF3301TCE datasheet through DigiKey (R2, R48)
   url: https://www.digikey.com/en/products/search?keywords=0402WGF3301TCE
   access: form
   file: datasheets/files/digikey/0402wgf3301tce.pdf
-  sha256: ''
+  sha256: 11cd644d5d8a34a6d12775afb80bf58d8fc11f0c3b700dbd0f7a59942ceaa5ef
   licence: maker copyright; not redistributed here
   commit: 'no'
   digikey: 0402WGF3301TCE
-  fetch_error: DigiKey API has no exact match for 0402WGF3301TCE (2026-11-21)
 - id: dk-0402wgf5101tce
   kind: datasheet
   title: 0402WGF5101TCE datasheet through DigiKey (R3, R8)
   url: https://www.digikey.com/en/products/search?keywords=0402WGF5101TCE
   access: form
   file: datasheets/files/digikey/0402wgf5101tce.pdf
-  sha256: ''
+  sha256: 11cd644d5d8a34a6d12775afb80bf58d8fc11f0c3b700dbd0f7a59942ceaa5ef
   licence: maker copyright; not redistributed here
   commit: 'no'
   digikey: 0402WGF5101TCE
-  fetch_error: DigiKey API has no exact match for 0402WGF5101TCE (2026-11-21)
 - id: dk-0402wgf1001tce
   kind: datasheet
   title: 0402WGF1001TCE datasheet through DigiKey (R4, R24, R25, R26, R27, R28 and 7 more)
   url: https://www.digikey.com/en/products/search?keywords=0402WGF1001TCE
   access: form
   file: datasheets/files/digikey/0402wgf1001tce.pdf
-  sha256: ''
+  sha256: 11cd644d5d8a34a6d12775afb80bf58d8fc11f0c3b700dbd0f7a59942ceaa5ef
   licence: maker copyright; not redistributed here
   commit: 'no'
   digikey: 0402WGF1001TCE
-  fetch_error: DigiKey API has no exact match for 0402WGF1001TCE (2026-11-21)
 - id: dk-0402wgf4701tce
   kind: datasheet
   title: 0402WGF4701TCE datasheet through DigiKey (R5, R6, R14, R82, R91, R112 and 2 more)
   url: https://www.digikey.com/en/products/search?keywords=0402WGF4701TCE
   access: form
   file: datasheets/files/digikey/0402wgf4701tce.pdf
-  sha256: ''
+  sha256: 11cd644d5d8a34a6d12775afb80bf58d8fc11f0c3b700dbd0f7a59942ceaa5ef
   licence: maker copyright; not redistributed here
   commit: 'no'
   digikey: 0402WGF4701TCE
-  fetch_error: DigiKey API has no exact match for 0402WGF4701TCE (2026-11-21)
 - id: dk-0402wgf0000tce
   kind: datasheet
   title: 0402WGF0000TCE datasheet through DigiKey (R7, R18, R19, R20, R41, R42 and 13 more)
   url: https://www.digikey.com/en/products/search?keywords=0402WGF0000TCE
   access: form
   file: datasheets/files/digikey/0402wgf0000tce.pdf
-  sha256: ''
+  sha256: 11cd644d5d8a34a6d12775afb80bf58d8fc11f0c3b700dbd0f7a59942ceaa5ef
   licence: maker copyright; not redistributed here
   commit: 'no'
   digikey: 0402WGF0000TCE
-  fetch_error: DigiKey API has no exact match for 0402WGF0000TCE (2026-11-21)
 - id: dk-0402wgf169jtce
   kind: datasheet
   title: 0402WGF169JTCE datasheet through DigiKey (R9, R11, R12)
   url: https://www.digikey.com/en/products/search?keywords=0402WGF169JTCE
   access: form
   file: datasheets/files/digikey/0402wgf169jtce.pdf
-  sha256: ''
+  sha256: 11cd644d5d8a34a6d12775afb80bf58d8fc11f0c3b700dbd0f7a59942ceaa5ef
   licence: maker copyright; not redistributed here
   commit: 'no'
   digikey: 0402WGF169JTCE
-  fetch_error: DigiKey API has no exact match for 0402WGF169JTCE (2026-11-21)
 - id: dk-0402wgf330jtce
   kind: datasheet
   title: 0402WGF330JTCE datasheet through DigiKey (R13, R15, R16, R21, R84, R85 and 2 more)
   url: https://www.digikey.com/en/products/search?keywords=0402WGF330JTCE
   access: form
   file: datasheets/files/digikey/0402wgf330jtce.pdf
-  sha256: ''
+  sha256: 11cd644d5d8a34a6d12775afb80bf58d8fc11f0c3b700dbd0f7a59942ceaa5ef
   licence: maker copyright; not redistributed here
   commit: 'no'
   digikey: 0402WGF330JTCE
-  fetch_error: DigiKey API has no exact match for 0402WGF330JTCE (2026-11-21)
 - id: dk-0402wgf499jtce
   kind: datasheet
   title: 0402WGF499JTCE datasheet through DigiKey (R17, R51, R52, R53, R54, R97 and 3 more)
   url: https://www.digikey.com/en/products/search?keywords=0402WGF499JTCE
   access: form
   file: datasheets/files/digikey/0402wgf499jtce.pdf
-  sha256: ''
+  sha256: 11cd644d5d8a34a6d12775afb80bf58d8fc11f0c3b700dbd0f7a59942ceaa5ef
   licence: maker copyright; not redistributed here
   commit: 'no'
   digikey: 0402WGF499JTCE
-  fetch_error: DigiKey API has no exact match for 0402WGF499JTCE (2026-11-21)
 - id: dk-0402wgf1000tce
   kind: datasheet
   title: 0402WGF1000TCE datasheet through DigiKey (R22, R23)
   url: https://www.digikey.com/en/products/search?keywords=0402WGF1000TCE
   access: form
   file: datasheets/files/digikey/0402wgf1000tce.pdf
-  sha256: ''
+  sha256: 11cd644d5d8a34a6d12775afb80bf58d8fc11f0c3b700dbd0f7a59942ceaa5ef
   licence: maker copyright; not redistributed here
   commit: 'no'
   digikey: 0402WGF1000TCE
-  fetch_error: DigiKey API has no exact match for 0402WGF1000TCE (2026-11-21)
 - id: dk-0402wgf1002tce
   kind: datasheet
   title: 0402WGF1002TCE datasheet through DigiKey (R29, R30, R39, R40, R73, R83 and 2 more)
   url: https://www.digikey.com/en/products/search?keywords=0402WGF1002TCE
   access: form
   file: datasheets/files/digikey/0402wgf1002tce.pdf
-  sha256: ''
+  sha256: 11cd644d5d8a34a6d12775afb80bf58d8fc11f0c3b700dbd0f7a59942ceaa5ef
   licence: maker copyright; not redistributed here
   commit: 'no'
   digikey: 0402WGF1002TCE
-  fetch_error: DigiKey API has no exact match for 0402WGF1002TCE (2026-11-21)
 - id: dk-0402wgf6802tce
   kind: datasheet
   title: 0402WGF6802TCE datasheet through DigiKey (R32)
   url: https://www.digikey.com/en/products/search?keywords=0402WGF6802TCE
   access: form
   file: datasheets/files/digikey/0402wgf6802tce.pdf
-  sha256: ''
+  sha256: 11cd644d5d8a34a6d12775afb80bf58d8fc11f0c3b700dbd0f7a59942ceaa5ef
   licence: maker copyright; not redistributed here
   commit: 'no'
   digikey: 0402WGF6802TCE
-  fetch_error: DigiKey API has no exact match for 0402WGF6802TCE (2026-11-21)
 - id: dk-0402wgf1003tce
   kind: datasheet
   title: 0402WGF1003TCE datasheet through DigiKey (R33, R34, R36)
   url: https://www.digikey.com/en/products/search?keywords=0402WGF1003TCE
   access: form
   file: datasheets/files/digikey/0402wgf1003tce.pdf
-  sha256: ''
+  sha256: 11cd644d5d8a34a6d12775afb80bf58d8fc11f0c3b700dbd0f7a59942ceaa5ef
   licence: maker copyright; not redistributed here
   commit: 'no'
   digikey: 0402WGF1003TCE
-  fetch_error: DigiKey API has no exact match for 0402WGF1003TCE (2026-11-21)
 - id: dk-0402wgf1872tce
   kind: datasheet
   title: 0402WGF1872TCE datasheet through DigiKey (R35, R46, R47)
   url: https://www.digikey.com/en/products/search?keywords=0402WGF1872TCE
   access: form
   file: datasheets/files/digikey/0402wgf1872tce.pdf
-  sha256: ''
+  sha256: 11cd644d5d8a34a6d12775afb80bf58d8fc11f0c3b700dbd0f7a59942ceaa5ef
   licence: maker copyright; not redistributed here
   commit: 'no'
   digikey: 0402WGF1872TCE
-  fetch_error: DigiKey API has no exact match for 0402WGF1872TCE (2026-11-21)
 - id: dk-0402wgf1202tce
   kind: datasheet
   title: 0402WGF1202TCE datasheet through DigiKey (R37, R71)
   url: https://www.digikey.com/en/products/search?keywords=0402WGF1202TCE
   access: form
   file: datasheets/files/digikey/0402wgf1202tce.pdf
-  sha256: ''
+  sha256: 11cd644d5d8a34a6d12775afb80bf58d8fc11f0c3b700dbd0f7a59942ceaa5ef
   licence: maker copyright; not redistributed here
   commit: 'no'
   digikey: 0402WGF1202TCE
-  fetch_error: DigiKey API has no exact match for 0402WGF1202TCE (2026-11-21)
 - id: dk-0402wgf1802tce
   kind: datasheet
   title: 0402WGF1802TCE datasheet through DigiKey (R43)
   url: https://www.digikey.com/en/products/search?keywords=0402WGF1802TCE
   access: form
   file: datasheets/files/digikey/0402wgf1802tce.pdf
-  sha256: ''
+  sha256: 11cd644d5d8a34a6d12775afb80bf58d8fc11f0c3b700dbd0f7a59942ceaa5ef
   licence: maker copyright; not redistributed here
   commit: 'no'
   digikey: 0402WGF1802TCE
-  fetch_error: DigiKey API has no exact match for 0402WGF1802TCE (2026-11-21)
 - id: dk-0402wgf2001tce
   kind: datasheet
   title: 0402WGF2001TCE datasheet through DigiKey (R44, R49)
   url: https://www.digikey.com/en/products/search?keywords=0402WGF2001TCE
   access: form
   file: datasheets/files/digikey/0402wgf2001tce.pdf
-  sha256: ''
+  sha256: 11cd644d5d8a34a6d12775afb80bf58d8fc11f0c3b700dbd0f7a59942ceaa5ef
   licence: maker copyright; not redistributed here
   commit: 'no'
   digikey: 0402WGF2001TCE
-  fetch_error: DigiKey API has no exact match for 0402WGF2001TCE (2026-11-21)
 - id: dk-0402wgf4992tce
   kind: datasheet
   title: 0402WGF4992TCE datasheet through DigiKey (R45)
   url: https://www.digikey.com/en/products/search?keywords=0402WGF4992TCE
   access: form
   file: datasheets/files/digikey/0402wgf4992tce.pdf
-  sha256: ''
+  sha256: 11cd644d5d8a34a6d12775afb80bf58d8fc11f0c3b700dbd0f7a59942ceaa5ef
   licence: maker copyright; not redistributed here
   commit: 'no'
   digikey: 0402WGF4992TCE
-  fetch_error: DigiKey API has no exact match for 0402WGF4992TCE (2026-11-21)
 - id: dk-0402wgf2201tce
   kind: datasheet
   title: 0402WGF2201TCE datasheet through DigiKey (R79)
   url: https://www.digikey.com/en/products/search?keywords=0402WGF2201TCE
   access: form
   file: datasheets/files/digikey/0402wgf2201tce.pdf
-  sha256: ''
+  sha256: 11cd644d5d8a34a6d12775afb80bf58d8fc11f0c3b700dbd0f7a59942ceaa5ef
   licence: maker copyright; not redistributed here
   commit: 'no'
   digikey: 0402WGF2201TCE
-  fetch_error: DigiKey API has no exact match for 0402WGF2201TCE (2026-11-21)
 - id: dk-0402wgf270jtce
   kind: datasheet
   title: 0402WGF270JTCE datasheet through DigiKey (R302)
   url: https://www.digikey.com/en/products/search?keywords=0402WGF270JTCE
   access: form
   file: datasheets/files/digikey/0402wgf270jtce.pdf
-  sha256: ''
+  sha256: 11cd644d5d8a34a6d12775afb80bf58d8fc11f0c3b700dbd0f7a59942ceaa5ef
   licence: maker copyright; not redistributed here
   commit: 'no'
   digikey: 0402WGF270JTCE
-  fetch_error: DigiKey API has no exact match for 0402WGF270JTCE (2026-11-21)
 - id: dk-0603waf200kt5e
   kind: datasheet
   title: 0603WAF200KT5E datasheet through DigiKey (R303, R305)
   url: https://www.digikey.com/en/products/search?keywords=0603WAF200KT5E
   access: form
   file: datasheets/files/digikey/0603waf200kt5e.pdf
-  sha256: ''
+  sha256: 11cd644d5d8a34a6d12775afb80bf58d8fc11f0c3b700dbd0f7a59942ceaa5ef
   licence: maker copyright; not redistributed here
   commit: 'no'
   digikey: 0603WAF200KT5E
-  fetch_error: DigiKey API has no exact match for 0603WAF200KT5E (2026-11-21)
 - id: dk-0402wgf2742tce
   kind: datasheet
   title: 0402WGF2742TCE datasheet through DigiKey (R304)
   url: https://www.digikey.com/en/products/search?keywords=0402WGF2742TCE
   access: form
   file: datasheets/files/digikey/0402wgf2742tce.pdf
-  sha256: ''
+  sha256: 11cd644d5d8a34a6d12775afb80bf58d8fc11f0c3b700dbd0f7a59942ceaa5ef
   licence: maker copyright; not redistributed here
   commit: 'no'
   digikey: 0402WGF2742TCE
-  fetch_error: DigiKey API has no exact match for 0402WGF2742TCE (2026-11-21)
 - id: dk-b3u-1000p
   kind: datasheet
   title: B3U-1000P datasheet through DigiKey (SW1, SW2)
@@ -971,10 +944,9 @@ entries:
   url: https://www.digikey.com/en/products/detail/rochester-electronics-llc/AWL9924RS34P8/12593715
   access: form
   file: datasheets/files/anadigics/awl9924.pdf
-  sha256: ''
+  sha256: e70961aa2eb8aea5d2087344dd3326303efafc5224b5bed9252c2787a8efd3fc
   licence: vendor copyright; not redistributed here
   commit: 'no'
-  fetch_error: 'The DigiKey datasheet link (rocelec.widen.net) returned an HTML page, not a PDF (2026-11-21)'
 - id: qorvo-qpa9501-datasheet
   kind: datasheet
   title: Qorvo QPA9501 4.9-5.9 GHz 2 W WiFi PA (U14 replacement candidate, par-07)
@@ -983,4 +955,14 @@ entries:
   file: datasheets/files/qorvo/qpa9501.pdf
   sha256: 0bab3ec4c14e09a2dd17106a7bdaa7d61770bf0b0394d51c9b8af4078ef837bb
   licence: vendor copyright; not redistributed here
+  commit: 'no'
+- id: qorvo-qpa9501-sparams
+  kind: vendor-model
+  title: Qorvo QPA9501 S-parameters, Touchstone .s2p (Agilent E5071C capture dated 17 Dec 2015; U14
+    replacement candidate, par-07; saved through the browser 2026-11-21)
+  url: https://www.qorvo.com/products/r/ra008214
+  access: form
+  file: datasheets/files/qorvo/qpa9501.s2p
+  sha256: 227dfdb003830b6994a33f0d3f916bdd795378739ffed75700a903ed752edada
+  licence: Qorvo terms; not redistributed here
   commit: 'no'
