@@ -207,9 +207,10 @@ entries:
   commit: 'no'
 - id: pat1220-attenuator-datasheet
   kind: datasheet
-  title: PAT1220 chip attenuator pad datasheet, latest revision (U3 PAT1220-6dB, U12 PAT1220-3dB; the
-    maker is believed to be Susumu but is unconfirmed, the user finds the sheet and notes the maker)
-  url: https://www.susumu.co.jp/
+  title: Susumu PAT series chip attenuator datasheet (U3 PAT1220-6dB, U12 PAT1220-3dB; maker Susumu,
+    confirmed by the user from the DigiKey listing of PAT1220-C-8DB-T5 on 2026-11-21; the user saved
+    the PDF from DigiKey)
+  url: https://www.digikey.com/en/products/detail/susumu/PAT1220-C-8DB-T5/948839
   access: form
   file: datasheets/files/susumu/pat1220.pdf
   sha256: c8399aff8f6ca27f8b392d1488c3db3061828da831ce9197d40da635fa6b50d2
@@ -222,7 +223,7 @@ entries:
   url: https://pim.murata.com/en-us/pim/details/?partNum=BLM18PG181SN1D
   access: form
   file: datasheets/files/murata/blm18pg181sn1d.pdf
-  sha256: ''
+  sha256: 82694c0ea97fe0d08407dbb680c179e1354f7103a48d03c11ee97ea0a4593876
   licence: Murata copyright; not redistributed here
   commit: 'no'
 - id: tdk-mpz2012s101a-datasheet
