@@ -43,4 +43,10 @@ availability report lists no unresolved line.
   (the user set it to 3 in `default.yaml` on 2026-11-21); `--boards` overrides it.
 - New command-line tools go into `MANUAL.md` (repo rule).
 
+## Rules
+- Prefer parts JLCPCB stocks in enough quantity for `board_quantity`, so JLCPCB buys and places
+  them. Consign from DigiKey only when no JLC-stocked part fits, and say why none fits. Rank
+  JLC-stocked options first in every comparison and recommendation. (The user, 2026-11-21:
+  consignment delays the build a lot compared with ordering through JLCPCB.)
+
 ## Log

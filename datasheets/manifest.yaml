@@ -233,40 +233,56 @@ entries:
   url: https://product.tdk.com/en/search/emc/emc/beads/info?part_no=MPZ2012S101AT000
   access: form
   file: datasheets/files/tdk/mpz2012s101at000.pdf
-  sha256: ''
+  sha256: c8b428baaacfffa1b685848153d1cfef1fb8702157b173093cd19f32d25a68bc
   licence: TDK copyright; not redistributed here
   commit: 'no'
   digikey: MPZ2012S101AT000
-  fetch_error: 'DigiKey datasheet https://product.tdk.com/system/files/dam/doc/product/emc/emc/beads/catalog/beads_commercial_power_mpz2012_en.pdf?ref_disty=digikey:
-    HTTP Error 403: Forbidden (2026-11-21)'
   digikey_url: https://www.digikey.com/en/products/detail/tdk/MPZ2012S101AT000/571874
 - id: murata-blm18pg181sn1d-model
   kind: vendor-model
-  title: Murata BLM18PG181SN1D ferrite-bead model (SimSurfing S-parameter or SPICE netlist; FB1-FB8,
-    FB12-FB14; needed by sim-01; murata.com answers scripted requests with an HTML page, so the user saves
-    the file)
+  title: Murata BLM18PG181SN1 ferrite-bead S-parameters, Touchstone .s2p (FB1-FB8, FB12-FB14; needed by
+    sim-01; saved through the browser from the part page's S-Parameter link, 2026-11-21)
   url: https://pim.murata.com/en-us/pim/details/?partNum=BLM18PG181SN1D
   access: form
-  file: datasheets/files/murata/blm18pg181sn1d-model.zip
-  sha256: ''
+  file: datasheets/files/murata/blm18pg181sn1d.s2p
+  sha256: b7c82e26befef2270f816ac6450dcc23391497c892ee38f6733229d3c97053d9
   licence: Murata terms; not redistributed here
   commit: 'no'
   digikey: BLM18PG181SN1D
-  fetch_error: DigiKey hosts the datasheet, not this model (2026-11-21)
   digikey_url: https://www.digikey.com/en/products/detail/murata-electronics/BLM18PG181SN1D/1634634
+- id: murata-blm18pg181sn1d-spice
+  kind: vendor-model
+  title: Murata BLM18PG181SN1 ferrite-bead SPICE subcircuit (.mod; 1 MHz-3 GHz, 25 C, 0 A DC bias,
+    small signal; FB1-FB8, FB12-FB14; needed by sim-01; saved through the browser from the part page's
+    SPICE Netlist link, 2026-11-21)
+  url: https://pim.murata.com/en-us/pim/details/?partNum=BLM18PG181SN1D
+  access: form
+  file: datasheets/files/murata/blm18pg181sn1d.mod
+  sha256: a87a6050b355260a39a50216088b96dacdee141541a122e723880de608360b5c
+  licence: Murata terms; not redistributed here
+  commit: 'no'
 - id: tdk-mpz2012s101a-model
   kind: vendor-model
-  title: TDK MPZ2012S101AT000 ferrite-bead model (SEAT S-parameter or SPICE netlist; FB11; needed by
-    sim-01; product.tdk.com returns 403 to scripted requests, so the user saves the file)
-  url: https://product.tdk.com/en/search/emc/emc/beads/info?part_no=MPZ2012S101AT000
+  title: TDK MPZ2012S101AT000 ferrite-bead S-parameters, Touchstone .s2p (FB11; needed by sim-01;
+    product.tdk.com returns 403 to scripted requests, saved through the browser 2026-11-21)
+  url: https://product.tdk.com/system/files/dam/tvcl/emc/emc/beads/spara/commercial_power/mpz2012/mpz2012s101at000.s2p
   access: form
-  file: datasheets/files/tdk/mpz2012s101at000-model.zip
-  sha256: ''
+  file: datasheets/files/tdk/mpz2012s101at000.s2p
+  sha256: 1c70aea3e95f77b12549d764fc8f439ef09311e4415d61b9c44bb169b6583c00
   licence: TDK terms; not redistributed here
   commit: 'no'
   digikey: MPZ2012S101AT000
-  fetch_error: DigiKey hosts the datasheet, not this model (2026-11-21)
   digikey_url: https://www.digikey.com/en/products/detail/tdk/MPZ2012S101AT000/571874
+- id: tdk-mpz2012s101a-spice
+  kind: vendor-model
+  title: TDK MPZ2012S101AT000 ferrite-bead SPICE netlist, precision version (.mod; FB11; needed by
+    sim-01; saved through the browser 2026-11-21)
+  url: https://product.tdk.com/system/files/dam/tvcl/emc/emc/beads/spice_p/commercial_power/mpz2012/mpz2012s101at000_p.mod
+  access: form
+  file: datasheets/files/tdk/mpz2012s101at000_p.mod
+  sha256: 623239cf8132e7f08c95d39ab75355bf00127017005f3c904332e5cbb4aa81cb
+  licence: TDK terms; not redistributed here
+  commit: 'no'
 - id: ti-lp5907-1p8-pspice
   kind: vendor-model
   title: TI LP5907 1.8 V unencrypted PSpice transient model (SNVMAP9)
@@ -297,17 +313,26 @@ entries:
   commit: 'no'
 - id: johanson-5400bl15b050-sparams
   kind: vendor-model
-  title: Johanson 5400BL15B050 balun S-parameters (U26, U27, U28; the part page says S-parameters are
-    behind its info link, which is not in the static page, so the user saves the file)
-  url: https://www.johansontechnology.com/products/integrated-passives/baluns/5400bl15b0050001e/
+  title: Johanson 5400BL15B050 balun S-parameters, 3-port Touchstone .s3p (measured 9 May 2008, Agilent
+    N5230A; U26, U27, U28; link found on the part page through the browser 2026-11-21)
+  url: https://www.johansontechnology.com/docs/1305/5400BL15B050_5-9-08_kkmbtUZ.s3p
   access: form
-  file: datasheets/files/johanson/5400bl15b050.s2p
-  sha256: ''
+  file: datasheets/files/johanson/5400bl15b050.s3p
+  sha256: 9f3c03abc2da94405cd360c8430048aac08170306f8dc839938437f1325cf601
   licence: Johanson terms; not redistributed here
   commit: 'no'
   digikey: 5400BL15B0050001E
-  fetch_error: DigiKey hosts the datasheet, not this model (2026-11-21)
   digikey_url: https://www.digikey.com/en/products/detail/johanson-technology-inc/5400BL15B0050001E/1560729
+- id: johanson-5400bl15b0050001e-datasheet
+  kind: datasheet
+  title: Johanson 5400BL15B0050001E balun datasheet, current part number (gives 'P/N 5400BL15B0050001E,
+    Legacy P/N 5400BL15B050'; U26, U27, U28; saved through the browser 2026-11-21)
+  url: https://www.johansontechnology.com/docs/4569/Balun-5400BL15B0050001E.pdf
+  access: form
+  file: datasheets/files/johanson/5400bl15b0050001e.pdf
+  sha256: 5b2d3078658d26c86778a764ea228b5ebc448d02eaa0599bbf45ae2453839de5
+  licence: Johanson copyright; not redistributed here
+  commit: 'no'
 - id: qorvo-tqp5525-sparams
   kind: vendor-model
   title: Qorvo TQP5525 S-parameters (U14; qorvo.com sits behind a bot challenge, so the user saves the
@@ -621,12 +646,10 @@ entries:
   url: https://www.digikey.com/en/products/detail/tdk/MLG1005S0N6BT000/4742653
   access: form
   file: datasheets/files/digikey/mlg1005s0n6bt000.pdf
-  sha256: ''
+  sha256: 5cd1a80241325dfcc050b61400e8aad9b97fc7d70adf3f92b3804edde3828549
   licence: maker copyright; not redistributed here
   commit: 'no'
   digikey: MLG1005S0N6BT000
-  fetch_error: 'DigiKey datasheet https://product.tdk.com/en/system/files/dam/doc/product/inductor/inductor/smd/catalog/inductor_commercial_high-frequency_mlg1005s_en.pdf:
-    HTTP Error 403: Forbidden (2026-11-21)'
   digikey_url: https://www.digikey.com/en/products/detail/tdk/MLG1005S0N6BT000/4742653
 - id: dk-srr6040a-330m
   kind: datasheet
@@ -958,7 +981,6 @@ entries:
   url: https://www.qorvo.com/products/p/QPA9501
   access: form
   file: datasheets/files/qorvo/qpa9501.pdf
-  sha256: ''
+  sha256: 0bab3ec4c14e09a2dd17106a7bdaa7d61770bf0b0394d51c9b8af4078ef837bb
   licence: vendor copyright; not redistributed here
   commit: 'no'
-  fetch_error: 'qorvo.com answers the download with HTTP 429 (Vercel bot challenge) for every client (2026-11-21)'
