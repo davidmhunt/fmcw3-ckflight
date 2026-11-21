@@ -153,6 +153,13 @@ the command to run afterwards. Save the file at that path, then run
 `./run tools/fetch_sources.py --record`: the hash is pinned, the `fetch_error` cleared and the
 row disappears.
 
+Models the analyses need (par-08): `parts/models_needed.csv` has one row per model (refdes, MPN,
+kind, the analysis that needs it, why, the `vendor-model` manifest id that satisfies it).
+`./run tools/check_models.py` exits non-zero when a row names no manifest entry or an id that does
+not exist, or while a row has the MPN `TBD-par-07` and par-07 is done. It prints how many models
+are on file (hash pinned), user-fetch (listed in `docs/user-fetch.md`) and none published (the
+entry's title says `none published` or `none found` and names the stand-in).
+
 Datasheets through DigiKey (par-06): a datasheet entry with `digikey: <MPN>` and no file is
 looked up through the DigiKey Product Information API, the same client and `.env` keys as
 `parts/check_digikey.py` (answers cached under the gitignored `parts/cache/digikey/`). The

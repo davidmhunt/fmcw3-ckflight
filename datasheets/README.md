@@ -22,6 +22,13 @@ not redistributed unless the licence allows it; `commit: no` is the default).
   nothing. Entries that still fail become pending, and their row in `docs/user-fetch.md` links
   the DigiKey product page.
 
+## Models the analyses need
+
+`parts/models_needed.csv` lists every model a planned analysis needs, each naming its
+`vendor-model` entry in `manifest.yaml`. `./run tools/check_models.py` fails on a row with no
+entry or an unknown id, or on a `TBD-par-07` row once par-07 is done, and prints the counts:
+on file, user-fetch, none published (entry title says `none published` or `none found`).
+
 ## Things you fetch by hand
 
 A `direct` download that fails (dead link, blocked host, login wall) does not stop
