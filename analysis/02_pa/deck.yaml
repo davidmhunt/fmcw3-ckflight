@@ -1,0 +1,43 @@
+slides:
+  - layout: title
+    title: "U14 PA: replacing the TQP5525"
+    bullets:
+      - "Requirements, five options, a labelled recommendation"
+      - "Target set: default (band and TX power set by you)"
+    note: Qorvo has discontinued the TQP5525 (your report, parts/decisions.csv). Nothing is decided here and the schematic is unchanged. With the project open, tools/kicad_ipc.py show --refs U14 selects the part.
+  - layout: figure
+    title: Requirements and where each came from
+    figure: requirements.png
+    note: Target set values, schematic nets (sheet tx, read headless) and datasheet pages. Compare P1dB and Psat, not WLAN EVM power, because FMCW is constant envelope. The 0.5 dB output loss is an assumption.
+  - layout: figure
+    title: Comparison against the requirements
+    figure: comparison.png
+    note: Candidates without a datasheet on file are not scored. The table states for each whether it fits the existing U14 footprint and supply.
+  - layout: figure
+    title: "Option: TQP5525, remaining stock"
+    figure: cand_O0.png
+    note: JLC stock 100 on 2026-11-21, DigiKey does not list it. It is a finite pool, to re-check before ordering.
+  - layout: figure
+    title: "Candidate: QPA9501 (for you to obtain)"
+    figure: cand_C1.png
+    note: qorvo.com refuses the download. Fetching qorvo-qpa9501-datasheet is the first action (docs/user-fetch.md).
+  - layout: figure
+    title: "Candidate: SE5004L-R"
+    figure: cand_C2.png
+    note: Skyworks datasheet 202393B. Figures are at 5.4 GHz.
+  - layout: figure
+    title: "Candidate: SE5023L-R"
+    figure: cand_C3.png
+    note: Skyworks datasheet 202521B. JLC stock is 0.
+  - layout: figure
+    title: "Candidate: AWL9924 (for you to obtain)"
+    figure: cand_C4.png
+    note: Rochester Electronics stock only; the maker is gone.
+  - layout: decisions
+    title: "Recommendation (labelled) and your decision"
+    bullets:
+      - "Recommendation: for this 3-board build, buy the 3 remaining TQP5525 from JLC (stock 100): only option covering 5.60-5.90 GHz by datasheet with no board change"
+      - "Before a respin: obtain the QPA9501 datasheet (same maker, QFN-20 4x4 on JLC), then compare it here; SE5004L-R is the fallback"
+      - "Every option gives about 32 dB gain: about 24.3 dBm at the SMA, 0.7 dB under 25 dBm"
+      - "Yours to decide: the U14 part, and any enable, pin 1 or FB4 change on sheet tx"
+    note: The recommendation is labelled as such; the choice is the user's. Give it in the note when you accept par-07. The agent then writes it into parts/decisions.csv for par-04.

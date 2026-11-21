@@ -1,0 +1,102 @@
+# Inputs of the 02_pa analysis (par-07). Every number is read from the datasheet named in its
+# source cell (manifest id and page, datasheets/manifest.yaml; page numbers equal PDF pages),
+# from the schematic netlist (kicad-cli, sheet tx), the JLC parts database (snapshot
+# 2026-11-21) or the DigiKey Product Information API (2026-11-21). Nothing here is from memory:
+# a candidate without a datasheet on file carries listing data only, marked as such.
+
+# Requirements: [requirement, value, source]
+requirements:
+  - ["Band", "5.60 to 5.90 GHz, the whole span (not only 5.725-5.875 GHz ISM)", "target set default: freq_min_ghz, freq_max_ghz (set)"]
+  - ["TX power", "25 dBm at the antenna SMA, so about 25.5 dBm out of U14", "target set default: tx_power_dbm (set); loss below"]
+  - ["Compare at", "P1dB and Psat at 5.8 GHz, not the WLAN EVM power: FMCW is a constant-envelope signal", "directive par-07 step 1"]
+  - ["Supply", "/5V = 5.0 V: U22 LD39200 (2 A guaranteed, 3.5 A typ limit), via ferrite FB4 rated 1000 mA", "netlist sheet tx and power; st-ld39200-datasheet p1, p6, p9; murata-blm18pg181sn1d-datasheet p1"]
+  - ["Enable", "pin 5 /PA_EN from U30 pin T2, logic high 1.8 V or more, 1 kohm pull-down", "netlist sheet tx; qorvo-tqp5525-datasheet p2, p3"]
+  - ["Detector", "pin 10 DET to R304 27.4 k, R18 to /DET_OUT, U30 pin C7 (XADC input)", "netlist sheet tx; qorvo-tqp5525-datasheet p3"]
+  - ["Drive at RFIN", "about -7.2 dBm typ (-10.2 dBm at the VCO minimum): VCO +2 dBm, 6.1 dB splitter, 3 dB PAT1220, about 0.1 dB C300", "adi-hmc431lp4-datasheet p1; pat1220-attenuator-datasheet p1; splitter computed from R9, R11, R12; PAT1220 is rated DC-3 GHz only"]
+  - ["Output loss", "about 0.5 dB U14 to SMA (assumed): 3.3 mm of line plus printed 15 dB coupler Z1, ideal through loss 0.14 dB", "PCB track length (read only); no datasheet for the coupler"]
+  - ["Gain needed", "about 32.7 dB at typical drive (35.7 dB at the VCO minimum)", "computed: 25.5 dBm - (-7.2 dBm)"]
+  - ["Temperature", "-40 to +85 C", "qorvo-tqp5525-datasheet p2 (the board states none of its own)"]
+  - ["Baseline TQP5525", "4900-5925 MHz, 5 V, gain 29/32/37 dB, QFN-20 4x4 mm, discontinued", "qorvo-tqp5525-datasheet p1, p2; parts/decisions.csv (user report 2026-11-21)"]
+
+# Candidates. status: scored (datasheet on file) or obtain (datasheet not on file).
+# cmp: the comparison-table row, [covers 5.60-5.90, gain / P1dB / Psat, current and supply fit,
+#      footprint and pinout fit, stock for 3 boards, price for 3 boards, datasheet and pages]
+candidates:
+  - id: O0
+    name: "O0 TQP5525 (remaining stock)"
+    short: "TQP5525, remaining stock"
+    status: scored
+    rows:
+      - ["Frequency", "4900-5925 MHz: covers 5.60-5.90 GHz", "qorvo-tqp5525-datasheet p1, p2"]
+      - ["Gain", "29 / 32 / 37 dB (min / typ / max) over 5150-5925 MHz; no figure at 5.8 GHz alone", "p2"]
+      - ["P1dB, Psat", "P1dB 30 min / 32 typ dBm, Psat 34 typ dBm, 5250-5925 MHz", "p3"]
+      - ["Supply, current", "5 V (3.15 to 5.25 V). 600 / 675 mA at +24 dBm, 750 / 850 mA at +27.5 dBm; about 0.67 A typ at 25.5 dBm (interpolated)", "p2, p3"]
+      - ["Rail and regulator", "Yes. LD39200 2 A is not the limit; 0.75 A max is under FB4 1 A, thin margin once derated", "st-ld39200-datasheet p1; murata-blm18pg181sn1d-datasheet p1"]
+      - ["Dissipation, thermal", "About 3.0 W typ, 3.4 W max at 5.0 V (computed). Theta-jc 17 C/W to the backside paddle; Tj max 170 C; operating -40 to +85 C", "p2, p3"]
+      - ["Package, fit", "QFN-20 4x4 mm: the existing footprint, pinout, enable and detector. No board change", "p1, p8, p10"]
+      - ["Lifecycle, stock", "Discontinued (user report). DigiKey: not listed. JLC C471153 (Extended): stock 100", "parts/decisions.csv; JLC database 2026-11-21"]
+      - ["Price", "7.341 USD at 1, 6.362 at 10: about 22.0 USD for 3", "JLC database 2026-11-21"]
+    verdict: "Fits the existing U14 footprint and supply: yes. Gain 32 dB typ gives about 24.8 dBm out of the PA, about 24.3 dBm at the SMA, 0.7 dB under 25 dBm (the baseline shortfall; every candidate with the same gain keeps it). A finite pool: stock must be re-checked before ordering."
+    cmp: ["Yes, 4900-5925 MHz", "32 dB / 32 dBm / 34 dBm", "0.67 A typ, 0.75 A max; yes, thin margin at FB4", "Same footprint and pinout; no change", "JLC 100; DigiKey none", "22.0 USD (JLC)", "qorvo-tqp5525-datasheet p1-3, p8, p10"]
+  - id: C1
+    name: "C1 Qorvo QPA9501"
+    short: "QPA9501TR13"
+    status: obtain
+    rows:
+      - ["Datasheet", "NOT on file: qorvo.com refuses downloads (HTTP 429). Manifest id qorvo-qpa9501-datasheet is pending", "datasheets/manifest.yaml; docs/user-fetch.md"]
+      - ["Frequency, gain, P1dB, Psat", "Not scored. For the user to obtain", "-"]
+      - ["Supply, current, thermal", "Not scored. For the user to obtain", "-"]
+      - ["Package, fit", "JLC lists QFN-20-EP 4x4; fit to the footprint and pinout is unconfirmed until the datasheet is read", "JLC C2911573 (listing only)"]
+      - ["Lifecycle, stock", "DigiKey: Active, stock 12947. JLC C2911573: stock 20", "DigiKey API, JLC database 2026-11-21"]
+      - ["Price", "DigiKey 6.28 USD at 1 (18.8 for 3); JLC 6.45 USD at 1 (19.4 for 3)", "DigiKey API, JLC database"]
+    verdict: "Not scored, for the user to obtain: the datasheet. DigiKey parametric text (not scored) lists 4.9-5.9 GHz, P1dB 33 dBm, gain 36 dB, 3.15-5.5 V. Fetching the PDF is the first action."
+    cmp: ["For the user to obtain", "For the user to obtain", "For the user to obtain", "Unconfirmed (JLC lists QFN-20 4x4)", "DigiKey 12947; JLC 20", "18.8 (DigiKey), 19.4 (JLC)", "none on file (qorvo-qpa9501-datasheet pending)"]
+  - id: C2
+    name: "C2 Skyworks SE5004L-R"
+    short: "SE5004L-R"
+    status: scored
+    rows:
+      - ["Frequency", "5.15-5.85 GHz: stops 50 MHz under the 5.90 GHz band edge", "skyworks-se5004l-datasheet p4"]
+      - ["Gain", "30 min / 32 typ dB at 5.4 GHz, Pin -25 dBm; varies 3 dB within a band; none at 5.8 GHz", "p4"]
+      - ["P1dB, Psat", "P1dB 30 min / 34 typ dBm at 5.4 GHz; Psat not given", "p4"]
+      - ["Supply, current", "3.0-5.5 V (abs max 6 V). 600 typ / 800 max mA at 26 dBm 802.11a (modulated); Iq 300 mA", "p3"]
+      - ["Rail and regulator", "Yes for the 2 A LD39200; 0.8 A max sits at the edge of FB4 1 A derated", "st-ld39200-datasheet p1; murata-blm18pg181sn1d-datasheet p1"]
+      - ["Dissipation, thermal", "About 3.0 W typ, 3.6 W max at 5.0 V (computed). No theta-jc in the datasheet, so no junction temperature; Tj max 160 C, case max +85 C. Exposed pad 2.50 mm square", "p3, p6, p7"]
+      - ["Package, fit", "QFN-20 4x4x0.9, 0.5 mm pitch, 2.5 mm pad: same body. Pins 3, 13, 10, 18-20 identical. Pin 5 is VREF, an analog 2.80-2.90 V enable (not a 1.8 V logic input); pin 8 is VCC2 (NU on the TQP5525, unconnected on the board). MSL3", "p1, p2, p3, p6"]
+      - ["Detector", "0.325 V no RF, 1.0 V at 27 dBm; DC load 26.5 k", "p5"]
+      - ["Lifecycle, stock", "DigiKey Active, stock 193272 (datasheet 2012). JLC C210263 stock 1181 (a Tokmas relabel C55090141 is not this part)", "DigiKey API, JLC database 2026-11-21"]
+      - ["Price", "DigiKey 4.70 USD at 1 (14.1 for 3); JLC 4.191 at 1 (12.6 for 3)", "DigiKey API, JLC database"]
+    verdict: "Fits the existing U14 footprint: yes (same body and pad). Fits the existing supply: yes. Needs a schematic change: pin 5 needs a 2.85 V reference, since U30 pin T2 cannot drive it, and pin 8 supply is for the user to check (SE5004L-EK1 schematic not on file)."
+    cmp: ["Partly: stops at 5.85 GHz", "32 dB / 34 dBm / none (all at 5.4 GHz)", "0.6 A typ, 0.8 A max; yes, edge of FB4", "Same footprint; pin 5 analog 2.85 V enable needs a sheet tx change", "DigiKey 193272; JLC 1181", "14.1 (DigiKey), 12.6 (JLC)", "skyworks-se5004l-datasheet p2-7"]
+  - id: C3
+    name: "C3 Skyworks SE5023L-R"
+    short: "SE5023L-R"
+    status: scored
+    rows:
+      - ["Frequency", "5.15-5.85 GHz (Table 5): same 5.85 GHz stop", "skyworks-se5023l-datasheet p4"]
+      - ["Gain", "28 / 32 / 34 dB (min / typ / max) at 5.4 GHz; varies 3 dB within a band; none at 5.8 GHz", "p4"]
+      - ["P1dB, Psat", "P1dB 34 typ dBm at 5.4 GHz, no minimum; Psat not given", "p4"]
+      - ["Supply, current", "3.0-5.5 V. 600 mA typ at 26 dBm 802.11a, no maximum stated; Iq 150-300 mA", "p3"]
+      - ["Rail and regulator", "2 A LD39200 yes; the FB4 1 A check cannot be closed, no maximum current in the file", "st-ld39200-datasheet p1; murata-blm18pg181sn1d-datasheet p1"]
+      - ["Dissipation, thermal", "About 3.0 W typ at 5.0 V (computed); max not computable. No theta-jc; Tj max 160 C, case +85 C. Pad 2.50 +/- 0.05 mm", "p3, p6, p7"]
+      - ["Package, fit", "QFN-20 4x4x0.9, 0.5 mm pitch, MSL1: same body and pad. Pin 1 is VREF (GND on the board: layout change); pin 5 is the analog 2.80-2.90 V enable; pin 8 is VCC2", "p1, p2, p3, p7"]
+      - ["Detector", "0.22-0.33 V no RF, 0.8-1.2 V at 26 dBm; DC load 26.5 k", "p4"]
+      - ["Lifecycle, stock", "DigiKey Active, stock 4761 (datasheet 2014). JLC C19271853: stock 0", "DigiKey API, JLC database 2026-11-21"]
+      - ["Price", "DigiKey 4.96 USD at 1 (14.9 for 3); JLC 5.65 at 1, no stock", "DigiKey API, JLC database"]
+    verdict: "Fits the existing U14 footprint: the body and pad, but pin 1 needs a layout change and pin 5 a schematic change (2.85 V enable). Fits the existing supply: not confirmed (no maximum current). JLC cannot supply it."
+    cmp: ["Partly: stops at 5.85 GHz", "32 dB / 34 dBm / none (all at 5.4 GHz)", "0.6 A typ, max not stated; FB4 check open", "Same body; pin 1 VREF (layout) and pin 5 enable (sheet tx)", "DigiKey 4761; JLC 0", "14.9 (DigiKey)", "skyworks-se5023l-datasheet p2-7"]
+  - id: C4
+    name: "C4 Anadigics AWL9924"
+    short: "AWL9924RS34P8"
+    status: obtain
+    rows:
+      - ["Datasheet", "NOT on file: the DigiKey link returned an HTML page. Manifest id anadigics-awl9924-datasheet is pending", "datasheets/manifest.yaml; docs/user-fetch.md"]
+      - ["Frequency, gain, P1dB, Psat", "Not scored. For the user to obtain", "-"]
+      - ["Supply, current, thermal", "Not scored. For the user to obtain", "-"]
+      - ["Package, fit", "DigiKey lists 24-TFQFN and 3.0-3.6 V: a rail change and a new footprint, to be confirmed from the datasheet", "DigiKey API (listing only)"]
+      - ["Lifecycle, stock", "DigiKey: stock 4500, as Rochester Electronics stock; the maker is gone. Not in the JLC database", "DigiKey API, JLC database 2026-11-21"]
+      - ["Price", "DigiKey 2.76 USD at 1 (8.3 for 3)", "DigiKey API"]
+    verdict: "Not scored, for the user to obtain: the datasheet. Listing data points to a 3.3 V part in another package; a discontinued maker's stock is a weak replacement for a discontinued part."
+    cmp: ["For the user to obtain", "For the user to obtain", "For the user to obtain; listing says 3.0-3.6 V (rail change)", "Listing says 24-pin: new footprint", "DigiKey 4500; JLC none", "8.3 (DigiKey)", "none on file (anadigics-awl9924-datasheet pending)"]
+
+not_shortlisted: "Obsolete at DigiKey: SE5003L, SE5003L1, SE5003L2, SE5010L, SKY85402-11, LX5531LQ, LX5532LQ, HMC408LP3, RMPA5255, RMPA2550, SE2537L and others. Too little power, 3.3 V, or band stops at 5.75 GHz: SE5022T, SE5005L, PRFS-P5022-008. Wrong supply or band: ZVE-3W-83+, MGA-495940, MGA-515844, QPA0506, QPA0023. Front-end modules, not PA drop-ins: QPF4528, RFFM4558, SKY85743, SKY85614. HMC407MS8GE: no stock, no DigiKey listing."
