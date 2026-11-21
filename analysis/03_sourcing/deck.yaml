@@ -1,0 +1,47 @@
+slides:
+  - layout: title
+    title: "FMCW3 sourcing plan"
+    bullets:
+      - "Parts JLCPCB cannot place: 14 lines, routes ranked JLC-first, cost for 3 boards"
+      - "JLC parts database 2026-11-21, DigiKey queried 2026-11-21"
+    note: Every number is from runs/par-09/notes.md steps 1-4 (JLC database, DigiKey API, datasheets read through the sources pipeline). Costs are parts only, no spares, no JLC Extended-part setup fee, no shipping. Nothing is decided here; the recommendation is labelled.
+  - layout: figure
+    title: "Summary: decision, layout or analysis, sourcing"
+    figure: summary.png
+    note: Lines with a JLC-stocked part settled by a decision, lines that need a layout change or an analysis, and lines that must be sourced or consigned.
+  - layout: figure
+    title: "Routes 1/5: ADC U8 and FPGA U30"
+    figure: routes_1.png
+    note: Costs are for 3 boards. The ADS7853 was rejected (1 MSPS per channel is below the 2 MSPS the design uses). The LTC2290-LTC2299 family is at JLC stock 0 and no pin-compatible dual ADC is in stock.
+  - layout: figure
+    title: "Routes 2/5: baluns U26-U28, op-amp U45"
+    figure: routes_2.png
+    note: The LP2985A-10 is the 10 V output of the legacy chip (ti-lp2985-datasheet p4), whatever DigiKey's description says.
+  - layout: figure
+    title: "Routes 3/5: LDO U21, SMA P1, P2, U15"
+    figure: routes_3.png
+    note: The two SMA substitute datasheets could not be fetched (HTML returned); they are user-fetch rows in docs/user-fetch.md, so footprint and rating are unverified.
+  - layout: figure
+    title: "Routes 4/5: U29, U12, U3, inductors L5-L7"
+    figure: routes_4.png
+    note: The inductor saturation question is par-03 choice 4. U29 is listed because its JLC stock equals the need.
+  - layout: figure
+    title: "Routes 5/5: LEDs, CON2, J2, PA U14"
+    figure: routes_5.png
+    note: No LED, jack or header datasheet is on file; those rows are JLC listing data only. U14 is listed because the user's QPA9501 choice changed its verdict to JLC assemble.
+  - layout: bullet
+    title: "JLC parts-sourcing service"
+    bullets:
+      - "JLC buys the part from a global distributor into your parts library; used for JLC assembly only, not shipped to you"
+      - "Lead time: 1-3 days review, then 9-20 business days (howto) or 9-15 (instruction page); no shipping fee"
+      - "Fees: customs 3-30 % on some kinds (attenuators), 20 USD inspection and 3C per connector kind, loose-part fee"
+      - "Not on any page: service fee and unit price (Parts Manager): for the user to confirm"
+    note: Pages jlcpcb-global-sourcing-howto, jlcpcb-global-sourcing-terms and jlcpcb-pcba-parts-sourcing-instruction in docs/references/manifest.yaml, downloaded 2026-11-21, last updated Sep 09 2026.
+  - layout: decisions
+    title: "Recommendation (yours to decide)"
+    bullets:
+      - "U8: keep LTC2292IUP, sourced (or consigned) at about 155 for 3; JLC-stocked ADCs need a redesign directive"
+      - "U30 I grade from JLC; U12 and U29 from JLC stock at once; accept U3's JLC match"
+      - "U26-U28, U21, U45 I grade, SMA: keep the part, source or consign; the JLC substitutes cost a layout change or analysis"
+      - "L5-L7: not the SRR6040A, choose by choice 4; LEDs red; CON2, J2 a JLC part"
+    note: Labelled as a recommendation. Give each line's route in the note when you accept par-09. Substitutes that need a layout change are yours to make; they reach the schematic only through par-04.

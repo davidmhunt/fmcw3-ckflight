@@ -20,7 +20,11 @@
    "cols": ["Option", "JLC", "DigiKey (stock, USD, lead)", "Temperature"],
    "rows": [
     ["A. LTC2292CUP#PBF", "C679868, stock 0", "34, 43.73, 52 wk", "0 to 70 C"],
-    ["B. LTC2292IUP#PBF", "C679870, stock 0", "505-LTC2292IUP#PBF, 334, 51.64, 13 wk", "-40 to 85 C"]
+    ["B. LTC2292IUP#PBF", "C679870, stock 0", "505-LTC2292IUP#PBF, 334, 51.64, 13 wk", "-40 to 85 C"],
+    ["C. LTC2298IUP (par-09, 14-bit, pin drop-in)", "no I-grade row; C grade C46629037 stock 0", "125, 140.36, 13 wk", "-40 to 85 C"],
+    ["D. ADS7863ARGET (par-09, redesign)", "C2870160, 250, 14.437", "370, 20.81, 26 wk", "VQFN-24 SAR, dual 12-bit 2 MSPS"],
+    ["E. AD7356BRUZ-500RL7 (par-09, redesign)", "C650840, 370, 21.925", "0", "TSSOP-16 SAR, dual 12-bit 5 MSPS"],
+    ["F. ADS4229IRGCT (par-09, redesign)", "C2670057, 8, 116.038", "443, 108.53, 26 wk", "VQFN-64, 250 MSPS, 1.8 V"]
    ],
    "consequence": "Either way U8 is consigned from DigiKey. I grade costs USD 7.91 more per part (23.73 for 3). Same QFN-64 package and pinout. The LTC2292 order table is not on file (the file is the LTC2294 sheet), so the codes come from the distributor rows.",
    "recommendation": "B, the I grade: matches the -40 to 85 C of the other RF parts, stock 334, 13 week lead."
@@ -46,7 +50,9 @@
     ["A. keep", "SRR6040A-330M", "JLC {L5.jlc_lcsc} stock {L5.jlc_stock} of {L5.need}; DigiKey {L5.dk_status} {L5.dk_stock}, {L5.dk_unit_price}", "about 1.0 A against 3.5 A typ (5.1 A max)"],
     ["B. same L, 11x10 mm", "APS1040M330A (C47327250)", "JLC 19638, 0.241", "4.4 / 5.0 A; new footprint, board room"],
     ["C. same L, 7x6.6 mm", "SMS0650-330MT (C5127476)", "JLC 21335, 0.094", "2.8 / 3.3 A: still below 3.5 A"],
-    ["D. lower L, 6 mm class", "to be chosen", "not costed", "Isat above 5.1 A; value change"]
+    ["D. lower L, 6 mm class", "to be chosen", "not costed", "Isat above 5.1 A; value change"],
+    ["E. same L, 6.8 mm (par-09)", "SRR6038-330Y Bourns (C2041395)", "JLC 88, 1.059", "1.20 A Isat: still below 3.5 A; footprint change"],
+    ["F. same L, 6.7 mm (par-09)", "CDRH6D28NP-330NC Sumida (C313052)", "JLC 2386, 0.542", "0.97 A rated: still below 3.5 A; footprint change"]
    ],
    "consequence": "Datasheet p.18: Isat must exceed the peak current limit (p.5: 3.5 A typ, 5.1 A max). The SRR6040A's listed current (about 1.0 A) is far below that; a short or start-up on a loaded rail saturates it. Which listed current is Isat is not in the JLC text; no Bourns datasheet on file.",
    "recommendation": "do not order the SRR6040A as is. B if the board takes an 11x10 mm body, otherwise D; read each part's Isat first."
@@ -109,6 +115,65 @@
    ],
    "consequence": "The datasheet (p.1) is for a 3.2x2.5 mm package; the footprint is 2.5x2.0 mm (ECS 2520MV), so they do not match. 400 = 40.000 MHz, B = 1.0 ppm, N = -40 to 85 C, TR = reel.",
    "recommendation": "B if its datasheet shows 40 MHz clipped sine, since A changes the layout."
+  },
+  "balun": {
+   "title": "par-09 option: baluns U26-U28 (5400BL15B0050001E, not in JLC database)",
+   "refs": "U26,U27,U28",
+   "cols": ["Option", "JLC (C number, stock, USD each)", "DigiKey (stock, USD, lead)", "Note"],
+   "rows": [
+    ["A. 5400BL15B0050001E (schematic)", "not in JLC database", "6860, 1.09, 18 wk", "consign or JLC sourcing service"],
+    ["B. HHM1907B1 TDK (par-09)", "C531388, 7754, 0.103", "not queried", "0402 4-terminal against 0805 5-terminal: footprint change; amplitude +-2.5 dB against 2 dB: rf-01"]
+   ],
+   "consequence": "tdk-hhm1907b1-datasheet p2 (pins, land pattern) and p3 (4900-5950 MHz, IL 0.8 dB, phase 170-190 deg); johanson-5400bl15b0050001e-datasheet p1. No TDK S-parameter file is on file (user-fetch). Saves about 9 USD for 9 baluns and the consign lead time.",
+   "recommendation": "A, sourced or consigned: the saving is small and B needs a layout change plus rf-01."
+  },
+  "opamp": {
+   "title": "par-09 option: op-amp U45 (LT6232IGN#PBF, JLC lists the C grade only)",
+   "refs": "U45",
+   "cols": ["Option", "JLC (C number, stock, USD each)", "DigiKey (stock, USD, lead)", "Note"],
+   "rows": [
+    ["A. LT6232IGN#PBF (schematic)", "not stocked", "63, 14.32, 24 wk", "-40 to 85 C"],
+    ["B. LT6232CGN#PBF (par-09)", "C673022, 2, 17.724", "687, 12.63", "drop-in, 0 to 70 C; JLC stock covers 2 of 3 boards"],
+    ["C. 2 x LT6231CS8#TRPBF per board (par-09)", "C4369556, 54, 13.059", "not queried", "footprint change (SSOP-16 to two SO-8), sim-02 re-run, C grade"]
+   ],
+   "consequence": "adi-lt6232-datasheet p2 (operating range), p3-p4 (order table, electrical). The same die family sets the electrical data of C.",
+   "recommendation": "A, sourced or consigned, to keep the -40 C range."
+  },
+  "ldo": {
+   "title": "par-09 option: LDO U21 (LP2985A-10DBVR, the 10 V output)",
+   "refs": "U21",
+   "cols": ["Option", "JLC (C number, stock, USD each)", "DigiKey (stock, USD, lead)", "Note"],
+   "rows": [
+    ["A. LP2985A-10DBVR (schematic)", "not in JLC database", "2467, 1.84, 26 wk", "consign or JLC sourcing service"],
+    ["B. LP2985-10DBVR (non-A, par-09)", "C2861715, 0", "17303, about 0.52", "drop-in by pins, 1.5 % instead of 1 %"],
+    ["C. TPS7A2401DBVR (par-09)", "C2693328, 10510, 0.243", "not queried", "BYPASS pin 4 becomes an FB divider: layout change, noise check"],
+    ["D. MIC5205YM5-TR (par-09)", "C412820, 7432, 0.325", "not queried", "same FB divider change"]
+   ],
+   "consequence": "ti-lp2985-datasheet p3 (pins) and p4 (1.2 to 10.0 V options); ti-tps7a24-datasheet p1, p3; microchip-mic5205-datasheet p1. The 10 V rail sets the loop-filter op-amp supply, so noise is compared in sim-01 and sim-spurs (not done).",
+   "recommendation": "A, sourced or consigned; C or D only to save lead time, with the divider and the noise check."
+  },
+  "sma": {
+   "title": "par-09 option: SMA connectors P1, P2, U15 (CONSMA003.062, not in JLC database)",
+   "refs": "P1,P2,U15",
+   "cols": ["Option", "JLC (C number, stock, USD each)", "DigiKey (stock, USD, lead)", "Note"],
+   "rows": [
+    ["A. CONSMA003.062 (schematic)", "not in JLC database", "5353, 4.35, 4 wk", "consign or JLC sourcing service"],
+    ["B. BWSMA-KE-P001 Bat Wireless (par-09)", "C496550, 84178, 0.407", "not queried", "datasheet not fetched: fit and 5.8 GHz rating unverified"],
+    ["C. 132134-15 Amphenol (par-09)", "C3172297, 676, 9.489", "not queried", "datasheet not fetched: fit unverified"]
+   ],
+   "consequence": "Both substitute datasheets returned HTML and are user-fetch rows (docs/user-fetch.md); a footprint change is assumed until they are read.",
+   "recommendation": "A, consigned (4 wk); B only after you fetch its datasheet and compare the land pattern."
+  },
+  "atten": {
+   "title": "par-09 option: attenuator U12 PAT1220 3 dB (JLC stock 5 for 3)",
+   "refs": "U12",
+   "cols": ["Option", "JLC (C number, stock, USD each)", "DigiKey (stock, USD, lead)", "Note"],
+   "rows": [
+    ["A. PAT1220-C-3DB-T5", "C2654158, 5, 0.593", "53945, 0.29, 32 wk", "same part; stock below twice the need"],
+    ["B. PAT0816-C-3DB-T5 (par-09)", "C2655485, 401, 0.646", "not queried", "1.6x0.8 mm footprint change; power below 64 mW: rf-01; datasheet not on file"]
+   ],
+   "consequence": "pat1220-attenuator-datasheet p1 (ratings) and p2 (0805 size). B's rating is from the listing only.",
+   "recommendation": "A, ordered from JLC stock at once."
   },
   "fb4": {
    "title": "Choice 10: PA supply bead FB4, current margin",
