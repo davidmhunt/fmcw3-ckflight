@@ -48,7 +48,7 @@ entries:
   url: https://www.qorvo.com/products/p/TQP5525
   access: form
   file: datasheets/files/qorvo/tqp5525.pdf
-  sha256: ''
+  sha256: f5a9eff76a85b94970cc150eb8694723679e61d93d28c1a5fbbea7a3f1986678
   licence: Qorvo copyright; not redistributed here
   commit: 'no'
 - id: skyworks-sky65404-datasheet
@@ -212,7 +212,7 @@ entries:
   url: https://www.susumu.co.jp/
   access: form
   file: datasheets/files/susumu/pat1220.pdf
-  sha256: ''
+  sha256: c8399aff8f6ca27f8b392d1488c3db3061828da831ce9197d40da635fa6b50d2
   licence: maker copyright; not redistributed here
   commit: 'no'
 - id: murata-blm18pg181sn1d-datasheet
