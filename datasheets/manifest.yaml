@@ -285,7 +285,8 @@ entries:
   commit: 'no'
 - id: ti-lp5907-1p8-pspice
   kind: vendor-model
-  title: TI LP5907 1.8 V unencrypted PSpice transient model (SNVMAP9)
+  title: TI LP5907 1.8 V unencrypted PSpice transient model (SNVMAP9; not the fitted voltage, the 3.0 V
+    model ti-lp5907-3p0-pspice is the one for U20 and U39)
   url: https://www.ti.com/lit/zip/snvmap9
   access: direct
   file: datasheets/files/ti/snvmap9.zip
@@ -294,7 +295,10 @@ entries:
   commit: 'no'
 - id: ti-lmr51420xf-pspice
   kind: vendor-model
-  title: TI LMR51420XF PSpice transient model (SLUM825; TI-encrypted)
+  title: TI LMR51420XF PSpice transient model (SLUM825; TI-encrypted). Stand-in for the fitted LMR51420YFDDCR
+    (U17, U18, U19) -- none published for the Y variant; the TI LMR51420 product page (checked 2026-11-21)
+    lists only this XF model and LM51420X (SLUM848, a different part), and names LMR51420Y with no model.
+    sim-01 and sim-02 use the XF model with the Y switching frequency and inductor set by hand.
   url: https://www.ti.com/lit/zip/slum825
   access: direct
   file: datasheets/files/ti/slum825.zip
@@ -1326,3 +1330,13 @@ entries:
   digikey: GRM1555C1H221JA01D
   digikey_url: https://www.digikey.com/en/products/detail/murata-electronics/GRM1555C1H221JA01D/587204
   fetch_error: DigiKey hosts the datasheet, not this model (2026-11-21)
+- id: ti-lp5907-3p0-pspice
+  kind: vendor-model
+  title: TI LP5907 3.0 V unencrypted PSpice transient model, Rev. A (SNVMAP8; the fitted LP5907MFX-3.0
+    voltage; found on the TI LP5907 product page, checked 2026-11-21)
+  url: https://www.ti.com/lit/zip/SNVMAP8
+  access: direct
+  file: datasheets/files/ti/snvmap8.zip
+  sha256: 4161dc11549fec4dab30699357de7a8e3fdc26e64023d35ead3559c8cba28bac
+  licence: TI model terms (provided as is for customer design use); not redistributed here
+  commit: 'no'
