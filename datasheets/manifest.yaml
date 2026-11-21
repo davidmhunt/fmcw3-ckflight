@@ -101,8 +101,9 @@ entries:
   commit: 'no'
 - id: adi-ltc2292-datasheet
   kind: datasheet
-  title: ADI (Linear) LTC2294/LTC2293/LTC2292 dual 12-bit ADC family, 2294fa (U8 LTC2292; web.archive.org
-    capture of the analog.com URL, 2024-07-23, because analog.com did not answer)
+  title: ADI (Linear) LTC2294 dual 12-bit 80 Msps ADC, 2294fa (U8 is the LTC2292; par-03 found this sheet
+    covers the LTC2294 only, its order table lists LTC2294IUP/CUP, so the LTC2292 ordering table is
+    still to obtain; web.archive.org capture of the analog.com URL, 2024-07-23, because analog.com did not answer)
   url: https://web.archive.org/web/20240723073117id_/https://www.analog.com/media/en/technical-documentation/data-sheets/2294fa.pdf
   access: direct
   file: datasheets/files/adi/ltc2292.pdf
@@ -322,4 +323,40 @@ entries:
   file: datasheets/files/adi/adl5802-sparams.zip
   sha256: ''
   licence: ADI terms; not redistributed here
+  commit: 'no'
+- id: ti-tlv172-datasheet
+  kind: datasheet
+  title: TI TLV172 36 V single-supply op amp (U7)
+  url: https://www.ti.com/lit/ds/symlink/tlv172.pdf
+  access: direct
+  file: datasheets/files/ti/tlv172.pdf
+  sha256: 3b6ab59b94f08304b00815635f036dd1ede4f2c4e1b19762cef6e7344b01f44f
+  licence: TI copyright; not redistributed here
+  commit: 'no'
+- id: ti-lp2985-datasheet
+  kind: datasheet
+  title: TI LP2985/LP2985A 150 mA low-noise LDO (U21 LP2985A-10DBVR)
+  url: https://www.ti.com/lit/ds/symlink/lp2985.pdf
+  access: direct
+  file: datasheets/files/ti/lp2985.pdf
+  sha256: 29a9758cb28a12c1990cb8dba96cb792554906f00fe625aa310bc6cd6ea3f26f
+  licence: TI copyright; not redistributed here
+  commit: 'no'
+- id: microchip-93lc46b-datasheet
+  kind: datasheet
+  title: Microchip 93AA46/93LC46/93C46 1 Kbit Microwire EEPROM (U32 93LC46B)
+  url: https://ww1.microchip.com/downloads/en/DeviceDoc/20001749K.pdf
+  access: direct
+  file: datasheets/files/microchip/93lc46b.pdf
+  sha256: 979133d99be10a4839c438e3c6d8a45ee861f94289722210a92b94b5434c042b
+  licence: Microchip copyright; not redistributed here
+  commit: 'no'
+- id: abracon-abm10-datasheet
+  kind: datasheet
+  title: Abracon ABM10 12 MHz crystal (Y1 ABM10-167-12.000MHZ-T3)
+  url: https://abracon.com/datasheets/ABM10.pdf
+  access: direct
+  file: datasheets/files/abracon/abm10.pdf
+  sha256: 02cc6d648a5c4bd899218b850345acebbd0f7df1996e6c5119a14c94bed5058d
+  licence: Abracon copyright; not redistributed here
   commit: 'no'
