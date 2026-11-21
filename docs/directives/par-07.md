@@ -1,5 +1,5 @@
 # par-07: Replacement candidates for the discontinued TQP5525 power amplifier (U14)
-Status: awaiting review
+Status: done
 Goal: parts
 Node: any
 Deliverable: slides
@@ -179,3 +179,5 @@ Notes:
 - Check run: the step 3 figures were read from the PDFs and database as above and are recorded here; no tracked file changed, so nothing to commit. Slides and writeup are step 4.
 Verify: Verify passed: ./run tools/build_report.py analysis/02_pa --check
 Independent review: gaps fixed in second review: 1. analysis/02_pa/qpa9501_s21.csv (whole file, added in c1d9cc4), against datasheets/manifest.yaml:959-968 and datasheets/README.md:3-5: The rerun commits Qorvo's measured S-parameter data to the repo: 130 rows of |S11|, |S21| and |S22| from 4.8 to 6.1 GHz in 10 MHz steps, taken from datasheets/files/qorvo/qpa9501.s2p. The repo's own manifest entry for that file says 'licence: Qorvo terms; not redistributed here' and 'commit: 'no'', and datasheets/README.md says vendor files are not redistributed unless the licence allows it. A magnitude-only resample of the vendor file is still the vendor's data, now in a public GPLv3 fork. No script in the repo builds this CSV from the pinned s2p, so it also cannot be regenerated or checked against the hashed source. (evidence: Lines 1-2 of the CSV say it comes 'from datasheets/files/qorvo/qpa9501.s2p (manifest id qorvo-qpa9501-sparams), 4.8-6.1 GHz, 10 MHz steps'. manifest.yaml:967-968 has 'licence: Qorvo terms; not redistributed here' and 'commit: 'no''. figures.py:80-83 reads the committed CSV, not the s2p under datasheets/files.)
+
+Accepted by user: 2026-11-21 U14:QPA9501TR13
