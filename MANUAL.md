@@ -204,6 +204,11 @@ confidence and how to add keys: [`parts/README.md`](parts/README.md).
 - `./run parts/check_jlc.py [--boards N] [--spares N] [--limit K] [--refresh | --offline]`: the
   JLCPCB lookup alone. The first run downloads the parts database (about 190 MB, 830 MB
   unpacked) into the gitignored `parts/cache/jlcpcb/`.
+- `./run parts/watch.py [--offline] [--refresh] [--check]`: stock watch for the hard-to-source
+  parts listed in `parts/watch.csv` (U8 ADC family and the par-09 consigned lines). Prints JLC
+  stock and library type, DigiKey stock, price and lifecycle, and `JLC can place now` when JLC
+  stock covers `board_quantity`; writes `parts/out/watch.csv`. `--check` exits 1 on a malformed
+  row or a substitute without evidence. Run it before ordering.
 - `./run uv run python parts/check_decisions.py [--bom FILE] [--decisions FILE]`: exits 0 only
   when every placed line of `parts/out/bom.csv` (not DNP, not a pad or via) has a row in
   `parts/decisions.csv`; run `parts/bom.py` first.
