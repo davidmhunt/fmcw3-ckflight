@@ -1,5 +1,5 @@
 # par-10: Stock watch for hard-to-source parts (ADC first)
-Status: approved
+Status: done
 Goal: parts
 Node: any
 Deliverable: code
@@ -49,3 +49,13 @@ covers U8's pin-compatible family plus every line par-09 routes outside JLC, and
 - `./run *`
 
 ## Log
+
+### 2026-11-21
+Commits:
+- 1f498c6 parts: U14 = QPA9501TR13 (the user's par-07 choice) in decisions.csv and board-changes.md; plan: par-09 approved by the user, par-10 (ADC stock watch) proposed
+- ff19340 parts: record browser-fetched models (Murata, TDK, TI) and LTspice's LTC2.lib from the sim image; Samsung CL21A106 sheet as datasheet and model stand-in; 12 V DC-bias finding; par-10 approved by the user
+- 4633f5f par-10 step 1: parts/watch.csv, watch list for U8 and its LTC2290-2299 family plus the par-09 non-JLC lines
+- 96a5d34 par-10 step 2: parts/watch.py, JLC and DigiKey stock watch with tests
+- cd25329 par-10 step 3: document parts/watch.py in MANUAL.md and parts/README.md
+Verify: Verify passed: ./run uv run pytest tests/test_watch.py -q && ./run parts/watch.py --offline --check
+Independent review: no gaps
