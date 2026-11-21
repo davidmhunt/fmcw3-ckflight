@@ -1,5 +1,5 @@
 # fnd-08: LTspice GUI from the sim container, and PSpice for TI under Wine
-Status: awaiting review
+Status: done
 Goal: foundation
 Node: any
 Deliverable: code
@@ -134,3 +134,5 @@ Notes:
 - sim_gui_shown not written: no user confirmation that the window opened and the plot works.
 Verify: Verify passed: ./run uv run pytest tests -q && ./run --sim python3 -m pytest tests/test_sim_smoke.py -q && friday result check fnd-08 --require 'sim_gui_shown == 1' --files
 Independent review: no gaps
+
+Accepted by user: 2026-11-21
