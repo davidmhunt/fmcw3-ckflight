@@ -6,7 +6,7 @@
    "refs": "U30",
    "cols": ["Option", "JLC (C number, stock, USD each)", "DigiKey (stock, USD, lead)", "Note"],
    "rows": [
-    ["A. XC7A100T-1FTG256C (schematic)", "no row", "122-1882-ND, 16, 126.25, 52 wk", "consign; 16 in stock covers 3"],
+    ["A. XC7A100T-1FTG256C (schematic)", "{U30.jlc_status}", "{U30.dk_pn}, {U30.dk_stock}, {U30.dk_unit_price}, {U30.dk_lead_weeks} wk", "consign; {U30.dk_stock} in stock for {U30.need}"],
     ["B. XC7A100T-1FTG256I", "C1521781, 59, 123.59", "0, 165.88", "JLC assembles; value C to I (par-04)"],
     ["C. XC7A35T-1FTG256C (as ordered)", "C1521698, 160, 97.98", "122-1910-ND, 0, 48.97, 52 wk", "about a third of the logic"],
     ["D. XC7A35T-1FTG256I", "C966959, 51, 114.83", "122-2202-ND, 0, 56.36", "35T bitstream only"]
@@ -30,12 +30,12 @@
    "refs": "J1",
    "cols": ["Option", "JLC (C number, stock, USD)", "DigiKey (stock, USD)", "Note"],
    "rows": [
-    ["A. USB4105-GF-A", "C3020560, 12717, 1.018", "308214, 0.80, 7 wk", "base code"],
+    ["A. USB4105-GF-A (schematic)", "{J1.jlc_lcsc}, {J1.jlc_stock}, {J1.jlc_unit_price}", "{J1.dk_stock}, {J1.dk_unit_price}, {J1.dk_lead_weeks} wk", "base code"],
     ["B. USB4105-GF-A-060", "C3025063, 2992, 1.002", "31924, 0.80", "suffix meaning unread"],
     ["C. USB4105-GF-A-120", "C5184243, 1635, 0.911", "82298, 0.80", "JLC text: 16P"],
     ["D. another 16-pin USB-C", "-", "-", "needs a new footprint"]
    ],
-   "consequence": "A to C share the footprint family. Whether the variants fit the board edge and have the shield tabs and 16 contacts the footprint draws is unconfirmed: no GCT datasheet is on file. For the user to obtain: the GCT USB4105 datasheet.",
+   "consequence": "A to C share the footprint family. The GCT performance spec is on file (gct-usb4105-datasheet, Rev A3: -40 to 85 C, 5 A on VBUS, p.2) but does not define the -060 and -120 suffixes or the contact count. For the user to obtain: the GCT USB4105 mechanical drawing (gct.co product page), to confirm the variants fit the board edge and match the 16-contact footprint.",
    "recommendation": "A (base code, most stock at both sources) once you have saved the GCT datasheet and confirmed the variants."
   },
   "inductor": {
@@ -43,7 +43,7 @@
    "refs": "L5,L6,L7",
    "cols": ["Option", "Part", "Source and price", "Saturation vs LMR51420 limit"],
    "rows": [
-    ["A. keep", "SRR6040A-330M", "JLC stock 3 of 9; DigiKey NFND 777, 0.95", "about 1.0 A against 3.5 A typ (5.1 A max)"],
+    ["A. keep", "SRR6040A-330M", "JLC {L5.jlc_lcsc} stock {L5.jlc_stock} of {L5.need}; DigiKey {L5.dk_status} {L5.dk_stock}, {L5.dk_unit_price}", "about 1.0 A against 3.5 A typ (5.1 A max)"],
     ["B. same L, 11x10 mm", "APS1040M330A (C47327250)", "JLC 19638, 0.241", "4.4 / 5.0 A; new footprint, board room"],
     ["C. same L, 7x6.6 mm", "SMS0650-330MT (C5127476)", "JLC 21335, 0.094", "2.8 / 3.3 A: still below 3.5 A"],
     ["D. lower L, 6 mm class", "to be chosen", "not costed", "Isat above 5.1 A; value change"]
@@ -97,7 +97,7 @@
     ["D. LMR51420XF", "500 kHz FPWM", "0", "not stocked at JLC"]
    ],
    "consequence": "Datasheet p.3 comparison table; all four are SOT-23 6-pin DDC (p.26), so the package does not choose. The schematic states no frequency or mode. The 33 uH inductor (choice 4) goes with this choice.",
-   "recommendation": "A, YF: fixed frequency at light load so no burst tones in the IF band, JLC stock 3148 against 9 needed."
+   "recommendation": "A, YF: fixed frequency at light load so no burst tones in the IF band, JLC stock {U17.jlc_stock} against {U17.need} needed."
   },
   "y2": {
    "title": "Choice 9: oscillator Y2, package and footprint mismatch",

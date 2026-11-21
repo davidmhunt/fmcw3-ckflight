@@ -360,3 +360,12 @@ entries:
   sha256: 02cc6d648a5c4bd899218b850345acebbd0f7df1996e6c5119a14c94bed5058d
   licence: Abracon copyright; not redistributed here
   commit: 'no'
+- id: gct-usb4105-datasheet
+  kind: datasheet
+  title: GCT USB4105 USB-C receptacle specification (J1; variants GF-A, -060, -120)
+  url: https://gct.co/files/specs/usb4105-spec.pdf
+  access: direct
+  file: datasheets/files/gct/usb4105-spec.pdf
+  sha256: 372fe1bc0e0b1b4ce7e18b61514e967c7c2f883f0c7fe1f4586b567785ee9cd2
+  licence: GCT copyright; not redistributed here
+  commit: 'no'
