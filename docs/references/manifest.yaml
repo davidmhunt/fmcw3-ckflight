@@ -188,3 +188,75 @@ entries:
   - page: function COPLANAR::calcAnalyze
     item: first modulus k1 = w / (w + 2s), q1 = K(k1)/K(k1')
     quote: q1   = kk1 / kpk1;
+- id: jlcpcb-global-sourcing-howto
+  kind: web-page
+  title: 'JLCPCB help: how to use the JLCPCB Global Sourcing Parts service'
+  url: https://jlcpcb.com/help/article/how-to-use-jlcpcb-global-sourcing-parts-service
+  access: direct
+  file: docs/references/files/jlcpcb-global-sourcing-howto.html
+  sha256: a8114ffba01aa003fc193b17e55902e79a8b1e094c9ca1c5e3b3a84fa02120b5
+  licence: JLCPCB web page; not redistributed here
+  commit: 'no'
+  covers: what the global sourcing service is, how to order it, lead time, extra fees (customs, 3C and commodity inspection, loose parts); page last updated 2026-09-09; read 2026-11-21
+  verified:
+  - page: Additional Charges
+    item: customs duty on attenuators and band-pass filters (U3, U12 if sourced)
+    quote: may require an additional 3% -30% fees for customs duty
+  - page: Additional Charges
+    item: connectors need commodity inspection and 3C fees, 20 USD per kind (P1, P2, U15, CON2, J2)
+    quote: The commodity inspection fee is $20 for each kind of part
+  - page: Additional Charges
+    item: loose components fee, 5 pins or fewer
+    quote: $0.017 per pin multiplied by the number of pins
+  - page: How to order, step 9
+    item: lead time of the purchasing status
+    quote: Normally it's 9-20 business days.
+  - page: How to order, step 3
+    item: the user searches by manufacturer part number; JLCPCB picks suppliers, the user can only choose among those listed
+    quote: JLCPCB will give priority to buy from local authorized distributors
+  - page: Notes on Global Sourcing Parts Orders
+    item: no cancellation after payment
+    quote: Global sourcing parts orders cannot be canceled or returned once it's been paid.
+- id: jlcpcb-global-sourcing-terms
+  kind: web-page
+  title: 'JLCPCB help: Global Sourcing Parts Order Terms and Conditions'
+  url: https://jlcpcb.com/help/article/global-sourcing-parts-order-terms-conditions
+  access: direct
+  file: docs/references/files/jlcpcb-global-sourcing-terms.html
+  sha256: f61e91b5fbcab71c67eaea7dd2491aca4c64bd533c65d2e4d2df77ce6392d9e3
+  licence: JLCPCB web page; not redistributed here
+  commit: 'no'
+  covers: terms of the global sourcing service (review, short deliveries, storage, same-part-number source mixing, fees); page last updated 2026-09-09; read 2026-11-21
+  verified:
+  - page: Notes on Global Sourcing Parts Orders
+    item: parts are reviewed and cancelled with a refund if not assemblable
+    quote: If the part doesn't support assembly, this part will be cancelled and the refund will be issued within 1-7 days.
+  - page: Notes on Global Sourcing Parts Orders
+    item: short deliveries under 3 pieces are refunded, not replenished
+    quote: we have to default to refunding the missing parts
+  - page: Notes on using global sourcing parts
+    item: free storage, no inventory cost
+    quote: there is no inventory cost when using those parts for assembly orders
+  - page: Notes on using global sourcing parts
+    item: pre-ordered stock cannot be mixed with sourced or consigned stock of the same part number in one order
+    quote: cannot be used in the same PCBA order
+  - page: Additional Charges
+    item: larger loose parts fee
+    quote: the separate component fee will be USD$0.142/pcs
+- id: jlcpcb-pcba-parts-sourcing-instruction
+  kind: web-page
+  title: 'JLCPCB help: PCBA parts sourcing instruction'
+  url: https://jlcpcb.com/help/article/pcba-parts-sourcing-instruction
+  access: direct
+  file: docs/references/files/jlcpcb-pcba-parts-sourcing-instruction.html
+  sha256: dcf0470322482890bbea3f4732724d43666021014524a120fba3df3b67671317
+  licence: JLCPCB web page; not redistributed here
+  commit: 'no'
+  covers: the five PCBA part sources at JLCPCB and the lead time stated for global sourcing; page last updated 2026-09-09; read 2026-11-21
+  verified:
+  - page: 1. What are the sources of PCBA parts?
+    item: global sourcing lead time stated here (differs from the how-to page)
+    quote: 'Lead time: 9-15 days'
+  - page: 1. What are the sources of PCBA parts?
+    item: global sourcing parts come from global distributors
+    quote: These parts are sourced by JLCPCB from global distributors
