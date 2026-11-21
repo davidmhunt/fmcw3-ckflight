@@ -13,8 +13,12 @@ availability report lists no unresolved line.
 1. par-01: BOM export from the schematic and automated DigiKey + JLCPCB checks
 2. par-02: Datasheet manifest and download script for the critical parts
 3. par-03: Resolve part numbers and report availability
-4. par-04: Write MPN, DigiKey and LCSC fields into the schematic symbols
-5. par-05: Ordering BOMs from the schematic that DigiKey and JLCPCB ingest directly (added
+4. par-06: Datasheets through DigiKey for every BOM part, with a DigiKey link for what still
+   fails (added 2026-11-21 at the user's request)
+5. par-07: Replacement candidates for the discontinued TQP5525 power amplifier (U14) (added
+   2026-11-21 at the user's request)
+6. par-04: Write MPN, DigiKey and LCSC fields into the schematic symbols
+7. par-05: Ordering BOMs from the schematic that DigiKey and JLCPCB ingest directly (added
    2026-11-21 at the user's request)
 
 ## Notes
