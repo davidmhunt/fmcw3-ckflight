@@ -16,7 +16,7 @@ when each has a result against a limit written beforehand.
 1. Buck (U17-U19): from the datasheet design equations, for each rail's load current (lay-02
    budget): ripple current, peak current versus the chosen inductor's saturation current, output
    ripple, and the stability conditions the datasheet gives. Cross-check one rail with the TI
-   model in the chosen simulator if fnd-05 found it runs; otherwise give the user a short
+   model in PSpice for TI if sim-05 found it runs; otherwise give the user a short
    WEBENCH (browser) checklist and record their result.
 2. IF chain: netlist the mixer output to ADC input path (JP9-JP12, U45, JP5-JP8) from the
    schematic; AC response, gain, input-referred noise, and output swing versus the LTC2292 input

@@ -9,9 +9,10 @@ Hardware: none
 
 ## Goal
 You can open the container's LTspice (and the other Wine GUI tools in `fmcw3-sim`) on your own
-desktop. TI's encrypted models, such as the LMR51420 buck, get a route on this machine through
-PSpice for TI under Wine, if TI's installer allows it. It holds when you have seen LTspice open
-from `./run --sim-gui` and the PSpice trial is recorded as pass or fail with its error text.
+desktop, tool installers have their own `software/` manifest, and U25 ("LD3920") is identified.
+It holds when you have seen LTspice open from `./run --sim-gui`. (Amended 2026-11-20 at the
+user's request: the PSpice for TI install and LMR51420 trial moved to sim-05 in goal `sim-spurs`
+while TI account access is pending.)
 
 ## Steps
 1. `./run --sim-gui <cmd>` runs a command in `fmcw3-sim` with an X11 display on your desktop.
@@ -39,23 +40,16 @@ from `./run --sim-gui` and the PSpice trial is recorded as pass or fail with its
    which the image build downloads, is also listed there for its link and hash. Update
    `tests/test_sources.py`, `.gitignore` and the docs.
 
-   The installer probably needs a TI account, so it is likely user-fetch: you download it once
-   into `software/files/`, and the pipeline checks its hash. Then:
-   - install it unattended under xvfb in `fmcw3-sim`, as a separate build stage, never
-     committing the installer;
-   - check for a batch mode (for example `psp_cmd`);
-   - smoke-test the encrypted LMR51420 model (`slum825`) in a transient run.
-
-   Record the result: install yes or no, batch yes or no, model runs yes or no, with the error
-   text, as metrics on the same `friday result write`. If there is no batch mode but the GUI
-   works, it is a GUI tool for you through `--sim-gui`, with a checklist in
-   `docs/gui-tool-checklists.md`.
+   The installer needs a TI account, so it is user-fetch. Its download, the unattended Wine
+   install, the batch-mode check and the LMR51420 smoke test moved to sim-05 (goal `sim-spurs`)
+   on 2026-11-20, at the user's request, while TI access is pending. This step ends once the
+   `software/` folder and its manifest entries are in place.
 4. Resolve "LD3920" (U25). Read U25's value and fields from the schematic export and find the
    real manufacturer and part number. Its datasheet may help; it is likely not TI. Add its
    datasheet, and its model if one exists, to the manifests.
-5. Update `docs/analysis-tools.md` with Edit: the `--sim-gui` route, the PSpice for TI rows,
-   U25's identity, and the sim-02 buck route. Use PSpice if its model runs; otherwise keep the
-   hand-built averaged model plus your WEBENCH check.
+5. Update `docs/analysis-tools.md` with Edit: the `--sim-gui` route, U25's identity, and the
+   PSpice for TI rows and sim-02 buck route marked as deferred to sim-05. Update the PSpice line
+   in `MANUAL.md` section 5 to "deferred to sim-05 (waiting on TI access)".
 
 ## Rules
 - Never commit an installer, or a model whose licence forbids it.
@@ -63,10 +57,11 @@ from `./run --sim-gui` and the PSpice trial is recorded as pass or fail with its
 
 ## Review
 - Run `./run --sim-gui ltspice` yourself and open one of the smoke-test circuits.
-- Read the PSpice for TI and U25 rows in `docs/analysis-tools.md`.
+- Read the U25 row, and the PSpice for TI rows marked deferred, in `docs/analysis-tools.md`.
 
 ## Out of scope
 - Running the actual buck analysis (goal `sim-spurs`, sim-02).
+- The PSpice for TI install and trial (sim-05).
 - A Windows virtual machine.
 
 ## Allowed commands

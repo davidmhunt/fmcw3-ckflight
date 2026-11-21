@@ -10,10 +10,12 @@ every clock and spur source is placed on a frequency plan against the IF band. I
 each report rebuilds for a target set with one command and states pass or fail against its limit.
 
 ## Directives
-1. sim-01: Supply noise from the bucks to the VCO and its spur level
-2. sim-02: Buck converter with the replacement inductor, and the IF filter response
-3. sim-03: PLL loop, chirp linearity and PLL spurs
-4. sim-04: Frequency plan and spur budget
+1. sim-05: PSpice for TI under Wine, for TI-encrypted models such as the LMR51420 (moved from
+   fnd-08 on 2026-11-20 while TI access is pending; may run earlier if the installer arrives)
+2. sim-01: Supply noise from the bucks to the VCO and its spur level
+3. sim-02: Buck converter with the replacement inductor, and the IF filter response
+4. sim-03: PLL loop, chirp linearity and PLL spurs
+5. sim-04: Frequency plan and spur budget
 
 ## Notes
 - Written 2026-11-19 before the tool choice. The tools named here (ngspice, Python models) are
