@@ -6,11 +6,16 @@ hw-19). No parts ordered, no substitutions chosen — a read, not a fix.
 
 | File | What |
 |------|------|
-| `parts.csv` | One row per `production/bom.csv` group (84 groups, 370 refs). Built from the pinned `production/bom.csv` on `main`. `kind` = `mpn` (exact part, looked up), `generic` (spec only, no MPN), `dnp`, `nopart` (via, test point, mounting hole, pin header, printed coupler). Same columns as `hardware/fmcw3/parts/parts.csv`. |
-| `check_digikey.py` | Copied from `hardware/fmcw3/parts/check_digikey.py` (not forked/diverged). Looks up every `kind=mpn` row on DigiKey and writes `availability.csv` + `fields_to_apply.csv`. `python parts/check_digikey.py [--boards N]` from this submodule's root. |
-| `availability.csv` | Last run's output. `status` is never blank: Active / NFND / No-result / needs-David / generic-spec-only / DNP / no-part. HMC431LP4 (U10), FT2232H (U33), LTC2292 (U8) resolved per fmcw3's hw-02 suffix precedent (`HMC431LP4ETR`, `FT2232HL-REEL`, and LTC2292's C/I temp-grade left `needs-David`). |
-| `fields_to_apply.csv` | Written by `check_digikey.py`; not applied to the schematic in this directive (no schematic edits in scope). |
-| `manufacturing_check.md` | Facts-only snapshot of `production/` on `main`: gerber completeness, CPL completeness, LCSC part-number coverage in the BOM. |
+| `bom.py` | Grouped BOM from the schematic, then availability and the JLCPCB files: `parts/bom.py [--targets NAME] [--boards N] [--spares N] [--offline] [--check]`. Boards default to `board_quantity` of the target set. Writes `out/bom.csv`, `out/availability.csv` (JLC and DigiKey side by side, one verdict per line: JLC assemble, consign from DigiKey, hand-solder, unresolved; also not fitted and no part), `out/jlc/bom.csv` and `out/jlc/cpl.csv`. `--offline` uses the caches only; `--check` exits 1 on a placed part without an MPN (vias, pads, mounting holes and the printed coupler do not count). |
+| `check_digikey.py`, `check_jlc.py` | The two sources, importable and with a quick CLI each. |
+| `legacy/` | Superseded upstream-era files (see below). |
+| `manufacturing_check.md` | Facts-only snapshot of `production/` on `main`: gerber completeness, CPL completeness, LCSC part-number coverage in the BOM. Still true; kept in place. |
+
+`legacy/`: `parts.csv` (84-group BOM built from `production/bom.csv`), `availability.csv` (old
+DigiKey run, status per group) and `fields_to_apply.csv` (per-ref spec-only fields) are replaced by
+`out/bom.csv` and `out/availability.csv`. `bom.py` compares its refs with `legacy/parts.csv`: the
+same 370 refs, 83 groups against 84. The old DigiKey lookups for U8, U10 and U33 are the starting
+point for par-03's decisions.
 
 `check_digikey.py` reads credentials from `.env` at this submodule's
 root (same relative location as the fmcw3 fork). That file is gitignored;
