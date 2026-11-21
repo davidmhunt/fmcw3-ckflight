@@ -1,14 +1,23 @@
 # reports/
 
-Baseline ERC/DRC on `fmcw3-ckflight` as forked (`main` @ cf34c04), KiCad
-10.0.5 `kicad-cli`, no fixes applied. See directive hw-18's Log for violation
-counts and types.
+Built report PDFs, `.pptx` decks and deck PDFs for the analyses in `analysis/`. ERC/DRC output
+lives in `checks/`, not here. Each analysis `NN_name` builds `NN_name.pdf` (the write-up),
+`NN_name.pptx` (the deck) and `NN_name_ppt.pdf` (the deck exported by LibreOffice Impress
+headless, in the `fmcw3-tools` image).
 
-| File | Command |
-|------|---------|
-| `erc.json` | `kicad-cli sch erc --format json fmcw3.kicad_sch` |
-| `drc.json` | `kicad-cli pcb drc --format json fmcw3.kicad_pcb` |
+## Built locally, never committed
 
-DRC is nondeterministic run-to-run on identical input (`solder_mask_bridge`
-count jitters +/-1), same as observed on `fmcw3` in hw-01; `drc.json` is one
-representative run (410 violations, reproduced twice).
+`reports/*.pdf` and `reports/*.pptx` are gitignored (so is `NN_name_ppt.pdf`, and LibreOffice
+`.~lock*` files). Git LFS was tried and refused (`origin` is
+a public fork, and GitHub rejects LFS uploads to it), and binaries do not belong in normal git
+history, so the sources are committed and the outputs are rebuilt on demand.
+
+Rebuild everything (every `analysis/NN_*/` with a `deck.yaml`):
+
+```
+./run tools/build_all.py              # build all into reports/
+./run tools/build_all.py --check      # validate all, build nothing
+./run tools/build_report.py analysis/NN_name [--targets NAME] [--check]   # one analysis
+```
+
+Only this README is tracked in this folder.

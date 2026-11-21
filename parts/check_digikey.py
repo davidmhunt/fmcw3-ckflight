@@ -1,11 +1,13 @@
 """Check DigiKey stock/lifecycle for the fmcw3-ckflight BOM (parts.csv).
 
-Credentials are read from ../.digikey.env (the fmcw3 repo root; gitignored).
+Credentials are read from .env at the repo root (gitignored; template: .env.example) or from
+DIGIKEY_* environment variables.
 Usage: python parts/check_digikey.py [--boards N]   (run from the fmcw3 repo root)
 """
 import argparse
 import csv
 import json
+import os
 import time
 import urllib.error
 import urllib.parse
@@ -13,18 +15,29 @@ import urllib.request
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-ENV = HERE.parent / ".digikey.env"
+ENV = HERE.parent / ".env"
 BASE = "https://api.digikey.com"
 
 
 def load_env(path):
+    """Read KEY=VALUE lines from `path` (if it exists); process environment variables win
+    (`./run` passes .env into the container that way)."""
     env = {}
-    for line in path.read_text().splitlines():
-        line = line.strip()
-        if line and not line.startswith("#") and "=" in line:
-            k, v = line.split("=", 1)
-            env[k.strip()] = v.strip().strip("'\"")
+    if path.is_file():
+        for line in path.read_text().splitlines():
+            line = line.strip()
+            if line and not line.startswith("#") and "=" in line:
+                k, v = line.split("=", 1)
+                env[k.strip()] = v.strip().strip("'\"")
+    env.update({k: v for k, v in os.environ.items() if v and k.startswith("DIGIKEY_")})
     return env
+
+
+def require_keys(env, names):
+    missing = [n for n in names if not env.get(n)]
+    if missing:
+        raise SystemExit(f"Missing {', '.join(missing)}: copy .env.example to .env and fill it in "
+                         "(see docs/setup.md)")
 
 
 def post(url, data, headers):
@@ -131,6 +144,7 @@ def main():
     ap.add_argument("--boards", type=int, default=5)
     args = ap.parse_args()
     env = load_env(ENV)
+    require_keys(env, ["DIGIKEY_CLIENT_ID", "DIGIKEY_CLIENT_SECRET"])
     cid, secret = env["DIGIKEY_CLIENT_ID"], env["DIGIKEY_CLIENT_SECRET"]
     token = get_token(cid, secret)
 

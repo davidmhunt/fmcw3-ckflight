@@ -12,6 +12,6 @@ hw-19). No parts ordered, no substitutions chosen — a read, not a fix.
 | `fields_to_apply.csv` | Written by `check_digikey.py`; not applied to the schematic in this directive (no schematic edits in scope). |
 | `manufacturing_check.md` | Facts-only snapshot of `production/` on `main`: gerber completeness, CPL completeness, LCSC part-number coverage in the BOM. |
 
-`check_digikey.py` reads credentials from `.digikey.env` at this submodule's
+`check_digikey.py` reads credentials from `.env` at this submodule's
 root (same relative location as the fmcw3 fork). That file is gitignored;
 never commit it.

@@ -19,7 +19,8 @@
       "Bash(friday nodes)",
       "Bash(friday nodes --check)",
       "Bash(friday nodes --clean * --dry-run)",
-      "Bash(friday dispatch --goal * --dry-run)"
+      "Bash(friday dispatch --goal * --dry-run)",
+      "Bash(friday nodes --waiting)"
     ]
   }
 }

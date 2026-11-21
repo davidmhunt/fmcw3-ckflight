@@ -15,7 +15,8 @@ holds when the report gives these for the target set's chirp and compares them w
 ## Steps
 1. Extract the loop from the schematic: loop-filter components, the VTUNE drive stage (U7 and
    the 10 V supply), VCO gain from the HMC431 datasheet, charge-pump current and PFD frequency
-   from the firmware register settings (fnd-01 survey).
+   from the firmware register settings (fnd-01 survey: 40 MHz). If rf-01 finds that above the
+   ADF4158 maximum, model both 40 MHz and the corrected PFD.
 2. [heavy] `analysis/09_pll/pll_model.py`: linear loop model (open and closed loop, phase
    margin), time-domain response to the frequency ramp (linearity error and settling after
    flyback), phase-noise budget (reference, PFD/charge pump, VCO, filter resistors), and

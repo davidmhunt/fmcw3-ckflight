@@ -1,0 +1,59 @@
+# Default system target set. Every value is `assumed` until the user sets it
+# (then change status to `set`). Reports and decks print this set, design group first;
+# analyses read it via tools/targets.py.
+# Range resolution is not set here: it is derived from the chirp bandwidth (c / 2B).
+# The schema check fails when chirp_bandwidth_hz exceeds (freq_max_ghz - freq_min_ghz).
+name: default
+description: Placeholder targets for the 5.8 GHz FMCW board; not yet chosen by the user.
+
+# Required: what the board is designed to do.
+design:
+  freq_min_ghz:
+    value: 5.725
+    unit: GHz
+    status: assumed
+    note: lower edge of the 5.8 GHz ISM band
+  freq_max_ghz:
+    value: 5.875
+    unit: GHz
+    status: assumed
+    note: upper edge of the 5.8 GHz ISM band
+  chirp_bandwidth_hz:
+    value: 150000000
+    unit: Hz
+    status: assumed
+    note: the whole 150 MHz ISM band; cannot exceed freq_max - freq_min
+  sample_rate_hz:
+    value: 2000000
+    unit: Hz
+    status: assumed
+    note: ADC sample rate after the mixer
+  tx_power_dbm:
+    value: 10
+    unit: dBm
+    status: assumed
+  tx_rx_isolation_db:
+    value: 40
+    unit: dB
+    status: assumed
+    note: antenna-to-antenna isolation
+  board_quantity:
+    value: 5
+    unit: boards
+    status: assumed
+
+# Optional extras: performance goals that analyses may use.
+performance:
+  max_range_m:
+    value: 100
+    unit: m
+    status: assumed
+    note: maximum detection range
+  chirp_duration_s:
+    value: 0.001
+    unit: s
+    status: assumed
+  antenna_gain_dbi:
+    value: 8
+    unit: dBi
+    status: assumed

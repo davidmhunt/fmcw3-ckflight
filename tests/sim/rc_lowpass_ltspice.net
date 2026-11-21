@@ -1,0 +1,10 @@
+* RC low-pass, fc = 1/(2 pi R C) = 1 kHz (LTspice syntax)
+* tests/sim/rc_lowpass.cir is ngspice syntax (a control block) and LTspice rejects it; open this one
+* with `./run --sim-gui ltspice tests/sim/rc_lowpass_ltspice.net`.
+V1 in 0 DC 0 AC 1
+R1 in out 1k
+C1 out 0 159.15494n
+.ac dec 50 10 100k
+.meas AC g_fc FIND mag(V(out)) AT=1k
+.meas AC g_dec FIND mag(V(out)) AT=10k
+.end

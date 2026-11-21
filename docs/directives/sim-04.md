@@ -22,7 +22,8 @@ each source with its frequency, coupling path, predicted location and a risk rat
    carrier at each source frequency. Tests on a small hand-worked plan.
 3. Bring in the levels: supply-ripple FM spurs (sim-01), PLL spurs and phase noise (sim-03),
    TX-to-RX leakage and compression (rf-01). Rank each spur: in band or not, estimated level
-   where one can be estimated, and what it would look like in the range FFT or a SAR image.
+   where one can be estimated, and what it would look like in the range FFT or a SAR image. Y2 (40 MHz) clocks both the FPGA
+   and the ADC: estimate the ADC SNR limit from its jitter at the maximum IF.
 4. TX harmonics: there is no filter between the coupler and the TX SMA; state the expected
    harmonic levels from the PA datasheet and what a filter footprint would need. Regulatory
    limits are cited, not interpreted.

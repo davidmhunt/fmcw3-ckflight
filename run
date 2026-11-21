@@ -1,0 +1,93 @@
+#!/usr/bin/env bash
+# ./run [--docker|--native|--sim] <cmd...>   (--sim: the fmcw3-sim image, see docker/Dockerfile.sim)
+# ./run --sim-gui [--print] <cmd...>         (fmcw3-sim with an X11 display on your desktop;
+#                                              `ltspice [file]` starts LTspice under Wine)
+# Runs a command in the pinned fmcw3-tools container (repo mounted at /work, caller's uid,
+# .env passed when present) or natively on the host. With no flag: Docker when it is
+# available, otherwise native. The image is built on first use.
+set -euo pipefail
+
+IMAGE=fmcw3-tools
+ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+
+mode=auto
+gui=0
+print_only=0
+case "${1:-}" in
+  --docker) mode=docker; shift ;;
+  --native) mode=native; shift ;;
+  --sim) mode=sim; shift ;;
+  --sim-gui)
+    mode=sim; gui=1; shift
+    if [ "${1:-}" = --print ]; then print_only=1; shift; fi ;;
+  -h|--help|"")
+    echo "usage: ./run [--docker|--native|--sim] <cmd...>" >&2
+    echo "       ./run --sim-gui [--print] <cmd...> | ltspice [file]" >&2
+    [ -n "${1:-}" ] && exit 0
+    exit 2 ;;
+  --) shift ;;
+esac
+[ $# -gt 0 ] || { echo "run: no command given" >&2; exit 2; }
+
+docker_ok() { command -v docker >/dev/null 2>&1 && docker info >/dev/null 2>&1; }
+
+if [ "$mode" = sim ]; then
+  # Same as docker mode, in the fmcw3-sim image (docker/Dockerfile.sim; ~25 min first build).
+  IMAGE=fmcw3-sim
+  DOCKERFILE="$ROOT/docker/Dockerfile.sim"
+fi
+
+if [ "$mode" = auto ]; then
+  if docker_ok; then mode=docker; else
+    echo "run: Docker not available, running natively" >&2
+    mode=native
+  fi
+fi
+
+if [ "$mode" = native ]; then
+  cd "$ROOT"
+  # A host PYTHONPATH (e.g. ROS) leaks site-packages into pytest/uv and breaks plugin loading.
+  unset PYTHONPATH
+  exec "$@"
+fi
+
+if [ "$print_only" = 0 ]; then
+  docker_ok || { echo "run: --docker/--sim requested but Docker is not usable" >&2; exit 1; }
+fi
+
+if [ "$print_only" = 0 ] && ! docker image inspect "$IMAGE" >/dev/null 2>&1; then
+  echo "run: building image $IMAGE (first use)" >&2
+  docker build -t "$IMAGE" -f "${DOCKERFILE:-$ROOT/docker/Dockerfile}" "$ROOT/docker" >&2
+fi
+
+args=(--rm -u "$(id -u):$(id -g)" -v "$ROOT:/work" -w /work
+      -e GIT_CONFIG_COUNT=1 -e GIT_CONFIG_KEY_0=safe.directory -e GIT_CONFIG_VALUE_0=/work)
+[ -f "$ROOT/.env" ] && args+=(--env-file "$ROOT/.env")
+[ -t 0 ] && [ -t 1 ] && args+=(-it)
+
+if [ "$gui" = 0 ]; then
+  exec docker run "${args[@]}" "$IMAGE" "$@"
+fi
+
+# --sim-gui: the container draws on the host X server (DISPLAY, /tmp/.X11-unix).
+# --ipc=host: without it Wine hits an X MIT-SHM BadValue on X_ShmPutImage.
+# SIM_GUI_DPI (default 144) sets Wine's LogPixels; at Wine's 96 DPI the text is too small.
+args+=(--ipc=host -v /tmp/.X11-unix:/tmp/.X11-unix -e "DISPLAY=${DISPLAY:-:0}"
+       -e "SIM_GUI_DPI=${SIM_GUI_DPI:-144}")
+if [ "$1" = ltspice ]; then
+  shift
+  set -- bash /work/tools/sim_gui_ltspice.sh "$@"
+fi
+cmd=(docker run "${args[@]}" "$IMAGE" "$@")
+if [ "$print_only" = 1 ]; then
+  printf '%q ' "${cmd[@]}"; echo
+  exit 0
+fi
+
+# Access for your own user only (never `xhost +`), revoked when the command exits.
+[ -n "${DISPLAY:-}" ] || { echo "run: --sim-gui needs an X11 session (DISPLAY is empty)" >&2; exit 1; }
+command -v xhost >/dev/null 2>&1 || { echo "run: --sim-gui needs xhost (apt install x11-xserver-utils)" >&2; exit 1; }
+grant="SI:localuser:$(id -un)"
+xhost "+$grant" >&2
+trap 'xhost "-$grant" >&2 || true' EXIT
+"${cmd[@]}"

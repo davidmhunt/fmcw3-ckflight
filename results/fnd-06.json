@@ -1,0 +1,26 @@
+{
+  "cmd": "live trial on runs/fnd-06/scratch, KiCad 10.0.5, kicad-python 0.8.0",
+  "commit": "8969bb2230825ba41f8d2c4657bc35348b376103",
+  "dirty": true,
+  "files": [
+    {
+      "path": "docs/kicad-ipc.md",
+      "sha256": "825bfe2234d1cfebf796deae5f9834ce302274e1d7e14583af0b466e09af6f3b",
+      "size": 5407
+    }
+  ],
+  "id": "fnd-06",
+  "metrics": {
+    "headless": 0,
+    "pcb_edit_pcb_only": 1,
+    "pcb_edit_with_sch_open": 0,
+    "pcb_read": 1,
+    "pcb_select": 1,
+    "sch_field_edit": 0,
+    "sch_select": 0,
+    "trial_complete": 1
+  },
+  "node": "laptop",
+  "note": "Re-recorded after doc corrections; same trial.",
+  "time": "2026-11-20T20:30:35Z"
+}

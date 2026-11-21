@@ -4,10 +4,31 @@
 ~*.lck
 
 # DigiKey API credentials (never commit)
-.digikey.env
+.env
 
 # KiCad 10 local history snapshots
 .history/
 
 # friday: untracked findings from measure-only steps
 runs/
+
+# generated analysis figures and tables
+analysis/*/build/
+
+# built reports and decks: rebuilt locally, never committed (tools/build_all.py)
+reports/*.pdf
+reports/*.pptx
+# LibreOffice lock files
+.~lock*
+
+# KiCad local state
+fp-info-cache
+
+# downloaded sources whose licence does not allow committing (tools/fetch_sources.py)
+datasheets/files/
+docs/references/files/
+# downloaded tool installers (software/manifest.yaml); never committed
+software/files/
+
+# Python bytecode
+__pycache__/

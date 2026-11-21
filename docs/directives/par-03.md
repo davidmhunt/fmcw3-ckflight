@@ -18,9 +18,12 @@ out for the user to decide. It holds when `parts/decisions.csv` covers every pla
    and reason in `parts/decisions.csv`. Use LCSC numbers found on upstream's JLCPCB branches
    (survey fnd-01) as a starting point, each re-checked.
 2. Prepare, but do not decide, the user's choices, each with options, stock, price and the
-   consequence: XC7A35T or XC7A100T (U30); LTC2292 C or I grade (U8); USB-C receptacle for the
+   consequence: XC7A35T or XC7A100T (U30): the schematic is the 100T, `production/` is the as-ordered 35T, the
+   firmware has bitstreams for both and the FTG256 footprint is shared, so also check that every
+   U30 pin the board uses exists on the 35T (bank and pin validity) (survey: `docs/surveys/upstream-survey.md`); LTC2292 C or I grade (U8); USB-C receptacle for the
    `GCT_USB4105` footprint; replacement for `SRR6040A-330M` (L5-L7) with saturation current
-   checked against the LMR51420 peak current; any part JLCPCB cannot assemble.
+   checked against the LMR51420 peak current; any part JLCPCB cannot assemble; whether `kicad/libs/fmcw3.lib` (retired part ideas,
+   kept until this goal is done) is still needed.
 3. Propose an MPN for each generic passive group (tolerance, voltage, dielectric stated; C0G for
    RF and filter capacitors), preferring JLCPCB Basic parts.
 4. Run `./run parts/bom.py --boards N` live and commit the outputs under `parts/out/`.

@@ -1,0 +1,32 @@
+# Datasheets and vendor models. Read by tools/fetch_sources.py (see its docstring).
+# Fields: id, kind, title, url (public), access (direct|form|login), file, sha256, licence,
+# commit (yes|no). commit: no files live under datasheets/files/ (gitignored).
+# Filled for the critical parts by directive par-02.
+entries:
+- id: st-ld39200-datasheet
+  kind: datasheet
+  title: ST LD39200 2 A high PSRR LDO datasheet, DS10079 Rev 3 (U25 "LD3920_33" = LD39200PU33R, DFN6 3x3, 3.3 V)
+  url: https://www.st.com/resource/en/datasheet/ld39200.pdf
+  access: direct
+  file: datasheets/files/st/ld39200.pdf
+  sha256: b1aa9ec5911ea744d4e9b9538d3475916509a3caf31f0d49670bd05e306fe84a
+  licence: ST copyright; not redistributed here
+  commit: 'no'
+- id: ti-lp5907-1p8-pspice
+  kind: vendor-model
+  title: TI LP5907 1.8 V unencrypted PSpice transient model (SNVMAP9)
+  url: https://www.ti.com/lit/zip/snvmap9
+  access: direct
+  file: datasheets/files/ti/snvmap9.zip
+  sha256: 99f32ef32c8718f9e1eca4df2b1e93e5e77ecffe9a00dabe31292bd10444d9f4
+  licence: TI model terms (provided as is for customer design use); not redistributed here
+  commit: 'no'
+- id: ti-lmr51420xf-pspice
+  kind: vendor-model
+  title: TI LMR51420XF PSpice transient model (SLUM825; TI-encrypted)
+  url: https://www.ti.com/lit/zip/slum825
+  access: direct
+  file: datasheets/files/ti/slum825.zip
+  sha256: b5f26ecc5d1af073b155c1e9d4954f4000de0cb9b68d0aff44f514e946b23f60
+  licence: TI model terms (provided as is for customer design use); not redistributed here
+  commit: 'no'

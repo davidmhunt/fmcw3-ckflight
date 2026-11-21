@@ -1,57 +1,86 @@
-# Repository layout and branches (davidmhunt fork)
+# fmcw3-ckflight
 
-Fork of [`ckflight/FMCW3-Kicad`](https://github.com/ckflight/FMCW3-Kicad), a
-custom 6-layer, Artix-7-based 5.8 GHz FMCW radar board (KiCad 9). This is
-Falcon's second fmcw3-derived reference design, evaluated alongside
-[`hardware/fmcw3/`](../fmcw3/README.md) (Forstén's original) under
-directives hw-17..19 — see `hardware/README.md`'s Boards table.
+Fork of [`ckflight/FMCW3-Kicad`](https://github.com/ckflight/FMCW3-Kicad): a 6-layer,
+Artix-7 (XC7A100T, U30), 5.8 GHz FMCW radar board. FPGA, HMC431LP4 VCO, dual RX with
+ADL5802 mixer and ADA4940 IF amplifiers, LTC2292 ADC, FT2232H USB FIFO. KiCad 10 project in
+`kicad/`. This fork is a review of the design (parts, RF chain, impedance, testability,
+ERC/DRC, spurs), used as a submodule of the Falcon parent repo under `hardware/`.
+
+**New here? Start with [`MANUAL.md`](MANUAL.md)**: setup, every `./run` mode, every tool and
+every software download in one place.
+
+## Folder map
 
 | Path | What |
 |------|------|
-| `fmcw3.kicad_pro`, `fmcw3.kicad_sch` + sheets (`adc`, `clock`, `fpga`, `fpga_config`, `mixer`, `opamp_amp`, `power`, `rx`, `tx`, `usb`) | The KiCad 9 schematic. |
-| `fmcw3.kicad_pcb` | The 6-layer PCB layout. |
-| `libs/`, `fmcw3.pretty/`, `fmcw3-rescue.lib`, `fmcw3-cache.lib`, `sym-lib-table`, `fp-lib-table` | Symbol/footprint libraries and lib tables. |
-| `production/` | JLCPCB manufacturing outputs (BOM, positions, designators, netlist, a fab zip) — upstream's as-shipped fab package. |
-| `fmcw3.pdf` | Upstream's schematic export (not a datasheet). |
-| `fmcw3-backups/`, `rescue-backup/` | Upstream KiCad autosave/rescue backups. |
+| `kicad/` | The KiCad 10 project: `fmcw3.kicad_pro`, `fmcw3.kicad_sch` + ten sheets, `fmcw3.kicad_pcb`, `fmcw3.pretty/`, `libs/`, lib tables. |
+| `production/` | Upstream's as-ordered JLCPCB fab package, the XC7A35T build. Not regenerated. |
+| `checks/` | ERC/DRC gate (`run_checks.sh`), `baseline.json`, recorded reports. |
+| `parts/` | BOM groups, DigiKey availability check. |
+| `docs/` | `goals/`, `directives/` (friday plan), `surveys/`, `references/` (review plan), `upstream-readme.md`. |
+| `analysis/`, `reports/`, `datasheets/`, `docker/` | Analyses, built reports (gitignored), datasheet and model manifest, Docker images; each has its own README. |
+| `software/` | Tool installers: `manifest.yaml` (committed), downloads in `software/files/` (gitignored). See `MANUAL.md`. |
+| `legacy/` | Upstream's old exports, unused; see `legacy/README.md`. |
 
-## Branch pinned
+## Running the checks
 
-**`main`**, pinned at upstream/fork commit
-[`5fba6a3`](https://github.com/davidmhunt/fmcw3-ckflight/commit/5fba6a33842a1cbaa5bbb830c68bed0dde02df7d)
-("readme update") plus this README commit. `main` was David's call for the
-baseline (hw-17 Decisions): it is upstream's default/most-current branch.
-The other upstream branches present
-(`jlcpcb_v2`, `jlcpcb_version`, `lt6232_implement`, `lt6232_ld3920_33`,
-`oshpark_version`) are stackup/part-substitution variants — noted here in
-case a later directive needs one of them, not evaluated in hw-17.
+```
+./run checks/run_checks.sh            # ERC + DRC against checks/baseline.json
+./run checks/run_checks.sh --record   # re-record baseline and reports
+./run --docker <cmd...>               # force the pinned fmcw3-tools image
+./run --native <cmd...>               # force the host (needs kicad-cli 10.0.5)
+./run uv run pytest tests -q          # Python tests
+```
 
-## Upstream
+Reports and decks (convention in `analysis/README.md`, target sets in `analysis/targets/`).
+Built `reports/*.pdf` and `.pptx` are gitignored: built locally, never committed.
 
-`ckflight/FMCW3-Kicad` (author: Cenk KESKİN). Related upstream repos named
-in its README: firmware [`ckflight/FMCW3`](https://github.com/ckflight/FMCW3)
-(forked here as [`davidmhunt/fmcw3-ckflight-fw`](https://github.com/davidmhunt/fmcw3-ckflight-fw),
-submodule at `fpga/fmcw3-ckflight/`), and host radar software
-(`FMCW_RADAR`, `FMCW_RADAR_2v2`) not forked by this directive (hw-17
-Decisions #4: pending David).
+```
+./run tools/build_report.py analysis/00_baseline                    # build reports/00_baseline.pdf, .pptx and _ppt.pdf (deck as PDF)
+./run tools/build_report.py analysis/00_baseline --targets NAME     # use analysis/targets/NAME.yaml
+./run tools/build_report.py analysis/00_baseline --check            # figures, references, slide overflow
+./run tools/build_all.py [--check]                                  # rebuild every analysis with a deck.yaml
+./run uv run pytest tests -q                                        # targets, overflow check, fixture build
+```
 
-## Known upstream artifact: stray lock file
+Editing rules for `kicad/`: check `./run --native tools/kicad_ipc.py status` first. With the project
+open, the agent makes written-down board edits live through IPC while you watch (you review and save;
+Schematic Editor closed); schematic edits need KiCad closed. Design decisions stay yours. See
+`docs/setup.md` and `docs/kicad-ipc.md`.
 
-Upstream's `main` branch has a committed
-`~_autosave-fmcw3.kicad_pcb.lck` at the repo root. This is a KiCad
-autosave lock file that should never have been committed; KiCad will
-refuse to open `fmcw3.kicad_pcb` in the GUI while it sits next to the
-project (it reads as "already open"). It is left as-is here — not ours to
-fix, and the board has not been opened in the GUI by this directive (that
-is hw-18).
+`./run` uses Docker when available and falls back to native; see `docs/setup.md`. It exits 0 only when error counts are not above the baseline and
+DRC has 0 unconnected items and 0 schematic-parity issues. The upstream design is not
+ERC/DRC clean; see `checks/README.md`.
 
-## Licence
+## Roadmap
 
-Upstream's README states GPLv3 (no separate `LICENSE` file in the repo).
-Noted here; a full licence comparison against `hardware/fmcw3/`'s
-Apache-2.0 is deferred to hw-19.
+Goals live in `docs/goals/`:
 
-## No datasheet PDFs
+- `foundation`: clean layout, repeatable environment, report pipeline.
+- `parts`: BOM with DigiKey and JLCPCB availability, and datasheets.
+- `rf-review`: RF level plan and 50 ohm impedance review.
+- `layout-review`: ERC/DRC triage, layout checks, testability and bring-up plan.
+- `sim-spurs`: supply-noise, IF and PLL simulation and the spur frequency plan.
 
-Only one PDF ships in this repo (`fmcw3.pdf`, a KiCad schematic export);
-no part datasheets are present or added here.
+## Upstream and licence
+
+Upstream is `ckflight/FMCW3-Kicad` (author Cenk Keskin); its README is kept as
+`docs/upstream-readme.md`. Related repos: firmware
+[`ckflight/FMCW3`](https://github.com/ckflight/FMCW3) (forked as
+[`davidmhunt/fmcw3-ckflight-fw`](https://github.com/davidmhunt/fmcw3-ckflight-fw)) and the
+host software `FMCW_RADAR`, `FMCW_RADAR_2v2`.
+
+Licensed under GPLv3, as upstream states; full text in `LICENSE`.
+
+## Archived upstream branches
+
+The upstream branches below were tagged (annotated) and then deleted from `origin`; each
+tag points at the former branch tip.
+
+| Branch | Tagged commit | Tag | Merged into main |
+|---|---|---|---|
+| `jlcpcb_v2` | `100aed1743` | `archive/jlcpcb_v2` | yes |
+| `jlcpcb_version` | `3af22f786f` | `archive/jlcpcb_version` | yes |
+| `lt6232_implement` | `256c33f6f3` | `archive/lt6232_implement` | yes |
+| `lt6232_ld3920_33` | `546dfd13b2` | `archive/lt6232_ld3920_33` | yes |
+| `oshpark_version` | `e39d97a5c4` | `archive/oshpark_version` | no |

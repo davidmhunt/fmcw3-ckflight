@@ -1,0 +1,59 @@
+slides:
+  - layout: title
+    title: "FMCW3 board: state as inherited"
+    bullets:
+      - "ERC/DRC baseline, repo map and roadmap"
+      - "Target set: default (all values assumed)"
+    note: Baseline of the fork before any review work. Counts come from checks/baseline.json.
+  - layout: bullet
+    title: Question and inputs
+    bullets:
+      - "Question: what is the state of the board as inherited?"
+      - "Input: checks/baseline.json (KiCad 10.0.5, native run)"
+      - "Target set: default, all values assumed (targets slides follow); no result here depends on them"
+      - "Upstream is not ERC/DRC clean; nothing has been fixed yet"
+    note: The gate in checks/run_checks.sh passes when errors are not above this baseline.
+  - layout: table
+    title: Totals by check
+    table: summary.csv
+    note: DRC has no unconnected items and no schematic-parity issues.
+  - layout: figure
+    title: Violations by type
+    figure: counts_by_type.png
+    note: Log scale because library and footprint warnings dominate. Red bars are errors.
+  - layout: table
+    title: ERC types and who handles them
+    table: erc_types.csv
+    note: Most ERC items are library-resolution and grid warnings, not electrical faults.
+  - layout: table
+    title: DRC types and who handles them
+    table: drc_types.csv
+    note: The 4 clearance errors are all on coupler Z1.
+  - layout: bullet
+    title: What matters first
+    bullets:
+      - "5 errors in total: 1 ERC power_pin_not_driven, 4 DRC clearance"
+      - "Real electrical items: U40 WP/HOLD pin_to_pin, GND power pin, 6 copper islands"
+      - "Bulk is library metadata: 526 + 335 + 199 warnings"
+      - "solder_mask_bridge (200) needs a check against JLCPCB mask web"
+    note: Triage with a disposition per type is directive lay-01 in goal layout-review.
+  - layout: bullet
+    title: Folder map
+    bullets:
+      - "kicad/: the KiCad 10 project (root sheet fmcw3.kicad_sch)"
+      - "production/: as-ordered XC7A35T fab package, never regenerated"
+      - "checks/: ERC/DRC gate, baseline and recorded reports"
+      - "analysis/, reports/, tools/: report sources, built PDF and decks, pipeline"
+      - "parts/, datasheets/, docs/, legacy/, docker/, runs/: BOM, manifests, plans, old exports"
+    note: See README.md for the full layout.
+  - layout: table
+    title: Roadmap
+    table: roadmap.csv
+    note: foundation is running now; each later goal is one PR into falcon_development.
+  - layout: decisions
+    title: Decisions needed
+    bullets:
+      - "Confirm the default target values or give your own (analysis/targets/default.yaml)"
+      - "Approve goal layout-review to triage every type above"
+      - "Is this deck density right for every later analysis?"
+    note: Design decisions stay with the user.

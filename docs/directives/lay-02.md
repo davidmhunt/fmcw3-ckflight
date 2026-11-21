@@ -20,12 +20,17 @@ with evidence for each check and each critical part.
    SMA launches.
 2. Compare with the datasheets (via par-02) for U1, U10, U14, U11/U16, U9/U13, U29, U45, U8,
    U17-U19 and the LDOs: recommended decoupling, pad via pattern, layout notes. Record page
-   references.
+   references. Overstress history (survey: `docs/surveys/upstream-survey.md`): the FPGA `adf_data` pin M2 burned once and the
+   mixer may have (firmware 82e9b33, 0498d51); check drive levels, series resistance and ESD on
+   ADF_DATA and the enable lines (mix_en J4, pa_en T2) against each receiver's absolute maximum,
+   and propose protection as an open decision.
 3. Power tree: confirm the rail map of the review plan from the netlist, with the load current
    budget per rail from datasheet typical and maximum currents, and regulator headroom and
    dissipation.
 4. Report and deck: one slide per check with an annotated board crop, a summary matrix (part by
-   check), and the proposed changes.
+   check), and the proposed changes. Measurements come from the board file read headless; when
+   the project is open in KiCad, `tools/kicad_ipc.py show` selects the parts and nets of each
+   check so the user can follow along (fnd-06).
 
 ## Acceptance
 - Each critical part in step 2 has a row in the summary matrix with a result for each check and a datasheet page.
