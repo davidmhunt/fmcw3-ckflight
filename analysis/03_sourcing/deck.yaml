@@ -20,7 +20,7 @@ slides:
   - layout: figure
     title: "Routes 3/5: LDO U21, SMA P1, P2, U15"
     figure: routes_3.png
-    note: The two SMA substitute datasheets could not be fetched (HTML returned); they are user-fetch rows in docs/user-fetch.md, so footprint and rating are unverified.
+    note: The Bat Wireless datasheet is on file (p4 gives 0-6 GHz, p6 the drawing); the Amphenol 132134-15 datasheet is still a user-fetch row in docs/user-fetch.md, so its rating is unverified. Footprint and board-thickness fit are unverified for both.
   - layout: figure
     title: "Routes 4/5: U29, U12, U3, inductors L5-L7"
     figure: routes_4.png
@@ -28,7 +28,7 @@ slides:
   - layout: figure
     title: "Routes 5/5: LEDs, CON2, J2, PA U14"
     figure: routes_5.png
-    note: No LED, jack or header datasheet is on file; those rows are JLC listing data only. U14 is listed because the user's QPA9501 choice changed its verdict to JLC assemble.
+    note: The LED, jack and header datasheets are on file and cited by page, with LED Vf from the Kento sheets. The Shouhan jack sheet gives no current rating. U14 is listed because the user's QPA9501 choice changed its verdict to JLC assemble.
   - layout: bullet
     title: "JLC parts-sourcing service"
     bullets:
