@@ -252,6 +252,121 @@ def test_fetch_and_record_keep_manifest_comments(tmp_path):
     assert "# entry comment" in out and "fetch_error" not in out
 
 
+PDF = b"%PDF-1.7 fake"
+
+
+def dk_opener(calls, bodies):
+    """Fake opener: `bodies` maps a URL to bytes or an exception."""
+    def fake(url, dest):
+        calls.append(url)
+        body = bodies[url]
+        if isinstance(body, Exception):
+            raise body
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        dest.write_bytes(body)
+    return fake
+
+
+def dk_entry(**kw):
+    return entry(id="d", digikey="MPN1", file="datasheets/files/digikey/mpn1.pdf",
+                 url="https://maker.invalid/d.pdf", **kw)
+
+
+def product(ds="https://dk.invalid/d.pdf"):
+    return {"ProductUrl": "https://www.digikey.com/p/d", "DatasheetUrl": ds}
+
+
+def test_digikey_url_downloaded_and_hash_recorded(tmp_path):
+    write(tmp_path, ds=[dk_entry()])
+    calls = []
+    fs.fetch_all(MANS, tmp_path, record=True, lookup=lambda m: product(),
+                 opener=dk_opener(calls, {"https://dk.invalid/d.pdf": PDF}))
+    assert calls == ["https://dk.invalid/d.pdf"]
+    (e,) = fs.load(tmp_path / "ds.yaml")
+    assert e["sha256"] == hashlib.sha256(PDF).hexdigest() and "digikey_url" not in e
+    assert fs.check_all(MANS, tmp_path) == []
+
+
+def test_protocol_relative_digikey_url_becomes_https(tmp_path):
+    write(tmp_path, ds=[dk_entry()])
+    calls = []
+    fs.fetch_all(MANS, tmp_path, lookup=lambda m: product("//dk.invalid/d.pdf"),
+                 opener=dk_opener(calls, {"https://dk.invalid/d.pdf": PDF}))
+    assert calls == ["https://dk.invalid/d.pdf"]
+    assert (tmp_path / "datasheets/files/digikey/mpn1.pdf").is_file()
+
+
+def test_html_page_instead_of_pdf_is_refused(tmp_path):
+    write(tmp_path, ds=[dk_entry()])
+    calls = []
+    fs.fetch_all(MANS, tmp_path, lookup=lambda m: product(), today="2026-11-21",
+                 opener=dk_opener(calls, {"https://dk.invalid/d.pdf": b"<html>blocked</html>",
+                                          "https://maker.invalid/d.pdf": b"<html>no</html>"}))
+    assert not (tmp_path / "datasheets/files/digikey/mpn1.pdf").exists()
+    (e,) = fs.load(tmp_path / "ds.yaml")
+    assert "not a PDF" in e["fetch_error"]
+
+
+def test_no_api_result_falls_back_to_entry_url(tmp_path):
+    write(tmp_path, ds=[dk_entry()])
+    calls = []
+    fs.fetch_all(MANS, tmp_path, record=True, lookup=lambda m: None,
+                 opener=dk_opener(calls, {"https://maker.invalid/d.pdf": PDF}))
+    assert calls == ["https://maker.invalid/d.pdf"]
+    (e,) = fs.load(tmp_path / "ds.yaml")
+    assert e["sha256"] and "fetch_error" not in e
+
+
+def test_api_error_falls_back_to_entry_url(tmp_path):
+    write(tmp_path, ds=[dk_entry()])
+
+    def boom(m):
+        raise RuntimeError("Missing DIGIKEY_CLIENT_ID")
+
+    calls = []
+    fs.fetch_all(MANS, tmp_path, lookup=boom,
+                 opener=dk_opener(calls, {"https://maker.invalid/d.pdf": PDF}))
+    assert calls == ["https://maker.invalid/d.pdf"]
+
+
+def test_both_fail_gives_pending_row_with_digikey_product_link(tmp_path):
+    write(tmp_path, ds=[dk_entry()])
+    calls = []
+    fs.fetch_all(MANS, tmp_path, lookup=lambda m: product(), today="2026-11-21",
+                 opener=dk_opener(calls, {"https://dk.invalid/d.pdf": OSError("HTTP Error 403"),
+                                          "https://maker.invalid/d.pdf": OSError("HTTP Error 404")}))
+    assert calls == ["https://dk.invalid/d.pdf", "https://maker.invalid/d.pdf"]
+    (e,) = fs.load(tmp_path / "ds.yaml")
+    assert e["digikey_url"] == "https://www.digikey.com/p/d"
+    assert fs.check_all(MANS, tmp_path) == []
+    assert [p["id"] for p in fs.pending_all(MANS, tmp_path)] == ["d"]
+    fs.write_user_fetch(MANS, tmp_path)
+    text = (tmp_path / "docs" / "user-fetch.md").read_text()
+    assert "https://www.digikey.com/p/d" in text and "403" in text and "404" in text
+
+
+def test_api_keys_never_in_output_or_manifest(tmp_path, capsys):
+    secret = "S3CRET-VALUE-XYZ"
+    dk = fs._dk_module()
+
+    def transport(url, data, headers):
+        if url.endswith("/token"):
+            return {"access_token": "TOKEN-ABC"}
+        return {"Products": [dict(product(), ManufacturerProductNumber="MPN1")]}
+
+    client = dk.Client("CID-123", secret, transport=transport, delay=0)
+    lookup = fs.make_lookup(client, cache=tmp_path / "cache")
+    write(tmp_path, ds=[dk_entry()])
+    fs.fetch_all(MANS, tmp_path, lookup=lookup, today="2026-11-21",
+                 opener=dk_opener([], {"https://dk.invalid/d.pdf": OSError("HTTP Error 403"),
+                                       "https://maker.invalid/d.pdf": OSError("HTTP Error 404")}))
+    out = capsys.readouterr()
+    blob = out.out + out.err + (tmp_path / "ds.yaml").read_text() + "".join(
+        p.read_text() for p in (tmp_path / "cache").iterdir())
+    for key in (secret, "CID-123", "TOKEN-ABC"):
+        assert key not in blob
+
+
 def test_saved_file_plus_record_removes_pending_row(tmp_path):
     write(tmp_path, ds=[entry(id="dead", file="datasheets/files/dead.pdf")])
 

@@ -13,7 +13,13 @@ relative to the repo root), sha256, licence, commit (yes|no). Reference entries 
   fetch_sources.py            download `direct` entries, print a to-do list for the rest; a
                               failed download is kept going past and recorded on the entry
                               (`fetch_error`); writes docs/user-fetch.md (pending items)
-  fetch_sources.py --check    fail on a missing file, a hash mismatch, or a reference
+                              An entry with `digikey: <MPN>` and no file is looked up through
+                              the DigiKey Product Information API (parts/check_digikey.py's
+                              client, keys from .env, answers cached under parts/cache/digikey/);
+                              the returned datasheet URL is tried first, then the entry's `url`;
+                              each download must be a PDF. When both fail the entry is pending
+                              and records `digikey_url` (the API's ProductUrl) for its row.
+  fetch_sources.py --check   fail on a missing file, a hash mismatch, or a reference
                               with no `verified` item. A form or login entry with no file
                               (or a direct one with a `fetch_error`) and no sha256 yet is
                               listed as PENDING, not failed.
@@ -73,6 +79,14 @@ def is_pending(entry, root=ROOT):
     return bool(wanted and not entry.get("sha256") and not (root / entry["file"]).is_file())
 
 
+def pending_links(entry):
+    """The link cell of a pending row: the DigiKey product page (when the API gave one), then
+    the entry's own url."""
+    if entry.get("digikey_url"):
+        return f"DigiKey: {entry['digikey_url']} ; maker: {entry['url']}"
+    return entry["url"]
+
+
 def pending_reason(entry):
     if entry.get("fetch_error"):
         return f"download failed: {entry['fetch_error']}"
@@ -103,7 +117,7 @@ def write_user_fetch(manifests, root=ROOT, rel="docs/user-fetch.md"):
                   "|---|---|---|---|---|---|"]
         for e in rows:
             lines.append("| " + " | ".join([
-                cell(e["id"]), cell(e["title"]), cell(e["url"]), f"`{cell(e['file'])}`",
+                cell(e["id"]), cell(e["title"]), cell(pending_links(e)), f"`{cell(e['file'])}`",
                 cell(pending_reason(e)), f"`{RECORD_CMD}`"]) + " |")
     path = root / rel
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -176,6 +190,96 @@ def download(url, dest):
     tmp.replace(dest)
 
 
+DK_CACHE = ROOT / "parts" / "cache" / "digikey"   # gitignored with the rest of parts/cache/
+
+
+def https(url):
+    """DigiKey returns some datasheet links as `//host/path`."""
+    return "https:" + url if url.startswith("//") else url
+
+
+def check_pdf(path):
+    """Raise unless the file carries the PDF magic (an HTML block page does not)."""
+    with open(path, "rb") as f:
+        head = f.read(1024)
+    if b"%PDF-" not in head:
+        kind = "an HTML page" if b"<" in head[:200] else "something else"
+        raise ValueError(f"not a PDF (got {kind})")
+
+
+def _dk_module():
+    if str(ROOT / "parts") not in sys.path:
+        sys.path.insert(0, str(ROOT / "parts"))
+    import check_digikey as dk
+    return dk
+
+
+def make_lookup(client=None, cache=DK_CACHE):
+    """mpn -> the DigiKey product (dict) or None. Answers are cached like parts/bom.py's
+    CachedDigiKey (same key, so its cache is reused). `client` defaults to one built from .env
+    on first use, so a run with nothing to look up needs no keys."""
+    import hashlib
+    import json
+    box = {"client": client}
+
+    def lookup(mpn):
+        dk = _dk_module()
+        path = cache / (hashlib.sha1(f"{mpn}|10".encode()).hexdigest() + ".json")
+        if path.is_file():
+            products = json.loads(path.read_text())
+        else:
+            if box["client"] is None:
+                box["client"] = dk.Client.from_env()
+            products = box["client"].search(mpn, 10)
+            cache.mkdir(parents=True, exist_ok=True)
+            path.write_text(json.dumps(products))
+        return dk.exact_match(products, mpn)
+    return lookup
+
+
+def _try_download(url, path, opener):
+    try:
+        opener(url, path)
+        if not path.is_file():
+            raise OSError("download produced no file")
+        check_pdf(path)
+        return ""
+    except Exception as exc:  # noqa: BLE001 - any failure is a reason, not a crash
+        path.unlink(missing_ok=True)
+        path.with_name(path.name + ".part").unlink(missing_ok=True)
+        return " ".join(str(exc).split()) or type(exc).__name__
+
+
+def fetch_digikey(e, path, opener, lookup):
+    """Try the DigiKey datasheet URL, then the entry's own url (direct entries only). Return
+    (ok, why, product_url); `why` lists what failed."""
+    why, product_url, product = [], "", None
+    try:
+        product = lookup(e["digikey"])
+        if product is None:
+            why.append(f"DigiKey API has no exact match for {e['digikey']}")
+    except Exception as exc:  # noqa: BLE001 - missing keys, network: fall back to the url
+        why.append("DigiKey API: " + (" ".join(str(exc).split())[:200] or type(exc).__name__))
+    if product:
+        product_url = product.get("ProductUrl") or ""
+        dsurl = https(product.get("DatasheetUrl") or "")
+        if not dsurl:
+            why.append("DigiKey lists no datasheet")
+        else:
+            print(f"fetching {e['id']} via DigiKey: {dsurl}")
+            err = _try_download(dsurl, path, opener)
+            if not err:
+                return True, "", product_url
+            why.append(f"DigiKey datasheet {dsurl}: {err}")
+    if e["access"] == "direct":
+        print(f"fetching {e['id']}: {e['url']}")
+        err = _try_download(e["url"], path, opener)
+        if not err:
+            return True, "", product_url
+        why.append(f"maker url: {err}")
+    return False, "; ".join(why), product_url
+
+
 def _block(lines, start):
     """The lines after `- ` line `start`, up to the next entry."""
     end = start + 1
@@ -221,12 +325,13 @@ def patch_manifest_text(text, updates):
     return "\n".join(lines) + "\n"
 
 
-def fetch_all(manifests, root=ROOT, record=False, opener=download, today=None):
+def fetch_all(manifests, root=ROOT, record=False, opener=download, today=None, lookup=None):
     """Download direct entries that are missing; return the user to-do lines.
 
     A direct download that fails does not stop the run: the failure is printed, recorded on
     the entry as `fetch_error` (error text and date) and the entry becomes a user-fetch item.
-    A saved file clears the `fetch_error` of its entry."""
+    A saved file clears the `fetch_error` of its entry. An entry with `digikey: <MPN>` goes
+    through fetch_digikey (`lookup` replaces the live API, for tests)."""
     today = today or date.today().isoformat()
     todo = []
     for rel, _ in manifests:
@@ -237,7 +342,22 @@ def fetch_all(manifests, root=ROOT, record=False, opener=download, today=None):
         updates = {}
         for e in entries:
             path = root / e["file"]
-            if not path.is_file():
+            if not path.is_file() and e.get("digikey"):
+                lookup = lookup or make_lookup()
+                ok, why, purl = fetch_digikey(e, path, opener, lookup)
+                if not ok:
+                    print(f"FAILED {e['id']}: {why}", file=sys.stderr)
+                    e["fetch_error"] = f"{why} ({today})"
+                    e["digikey_url"] = purl
+                    updates.setdefault(e["id"], {}).update(
+                        fetch_error=e["fetch_error"], digikey_url=purl or None)
+                    todo.append(f"{e['id']} (download failed: {why}): open "
+                                f"{pending_links(e)} and save as {e['file']} "
+                                f"[{e['title']}; licence: {e['licence']}]")
+                    continue
+                e.pop("digikey_url", None)
+                updates.setdefault(e["id"], {})["digikey_url"] = None
+            elif not path.is_file():
                 if e["access"] == "direct":
                     print(f"fetching {e['id']}: {e['url']}")
                     try:
@@ -344,7 +464,7 @@ def main(argv=None):
         for e in pending_all(MANIFESTS):
             why = f"; {pending_reason(e)}" if e.get("fetch_error") else ""
             print(f"PENDING {e['id']} ({e['access']}, user-fetch, no hash pinned yet{why}): "
-                  f"open {e['url']} and save as {e['file']}, then run --record")
+                  f"open {pending_links(e)} and save as {e['file']}, then run --record")
         print("sources check:", "FAILED" if problems else "ok")
         return 1 if problems else 0
     todo = fetch_all(MANIFESTS, record=args.record)
