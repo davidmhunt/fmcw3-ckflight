@@ -180,6 +180,9 @@ confidence and how to add keys: [`parts/README.md`](parts/README.md).
 - `./run parts/check_jlc.py [--boards N] [--spares N] [--limit K] [--refresh | --offline]`: the
   JLCPCB lookup alone. The first run downloads the parts database (about 190 MB, 830 MB
   unpacked) into the gitignored `parts/cache/jlcpcb/`.
+- `./run uv run python parts/check_decisions.py [--bom FILE] [--decisions FILE]`: exits 0 only
+  when every placed line of `parts/out/bom.csv` (not DNP, not a pad or via) has a row in
+  `parts/decisions.csv`; run `parts/bom.py` first.
 
 ## 10. How work is planned and run
 
