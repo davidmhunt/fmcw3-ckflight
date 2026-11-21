@@ -15,6 +15,9 @@ relative to the repo root), sha256, licence, commit (yes|no). Reference entries 
                               with no `verified` item. A form or login entry with no file
                               and no sha256 yet is listed as PENDING, not failed.
   fetch_sources.py --record   also write the sha256 of files that have none yet
+  fetch_sources.py --add URL --id ID --kind KIND --title TEXT --file PATH
+                              [--licence TEXT] [--commit yes|no] [--manifest PATH]
+                              download URL, hash it, append an entry (commit: no by default)
 
 Files with `commit: no` must live under a `files/` directory, which .gitignore covers.
 Only a licence that allows redistribution may use `commit: yes`.
@@ -156,11 +159,71 @@ def fetch_all(manifests, root=ROOT, record=False, opener=download):
     return todo
 
 
+def add_entry(url, eid, kind, title, file, licence="vendor copyright; not redistributed here",
+              commit="no", manifest="datasheets/manifest.yaml", root=ROOT, opener=download,
+              manifests=MANIFESTS):
+    """Download `url` to `file`, hash it and append an entry to `manifest`.
+
+    Returns (ok, message). Nothing is appended when the id exists in any manifest, the commit
+    flag and path disagree, or the download fails. The entry is appended as text so comments
+    already in the manifest survive."""
+    if commit not in ("yes", "no"):
+        return False, f"commit must be yes or no, not {commit!r}"
+    if commit == "no" and "files" not in Path(file).parts:
+        return False, f"commit: no needs a path under a files/ directory (gitignored): {file}"
+    for rel, _ in manifests:
+        mpath = root / rel
+        if mpath.is_file() and any(e.get("id") == eid for e in load(mpath)):
+            return False, f"id {eid} already exists in {rel}; not added"
+    mpath = root / manifest
+    dest = root / file
+    if dest.exists():
+        return False, f"{file} already exists; not overwritten"
+    try:
+        opener(url, dest)
+    except Exception as exc:  # noqa: BLE001 - any failure is a dead link to the user
+        dest.with_name(dest.name + ".part").unlink(missing_ok=True)
+        return False, f"download failed for {url}: {exc}"
+    if not dest.is_file():
+        return False, f"download of {url} produced no file at {file}"
+    entry = {"id": eid, "kind": kind, "title": title, "url": url, "access": "direct",
+             "file": file, "sha256": sha256_of(dest), "licence": licence, "commit": commit}
+    text = mpath.read_text() if mpath.is_file() else "entries:\n"
+    if "entries: []" in text:
+        text = text.replace("entries: []", "entries:")
+    if text and not text.endswith("\n"):
+        text += "\n"
+    text += yaml.safe_dump([entry], sort_keys=False, width=100)
+    mpath.parent.mkdir(parents=True, exist_ok=True)
+    mpath.write_text(text)
+    return True, f"added {eid} to {manifest}: {file} sha256 {entry['sha256']}"
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--check", action="store_true", help="verify files, hashes, verified items")
     ap.add_argument("--record", action="store_true", help="record missing sha256 after fetching")
+    ap.add_argument("--add", metavar="URL", help="download URL and append a manifest entry "
+                    "(needs --id, --kind, --title, --file)")
+    ap.add_argument("--id", help="with --add: entry id")
+    ap.add_argument("--kind", help="with --add: datasheet, vendor-model, ...")
+    ap.add_argument("--title", help="with --add: what it is, refdes, revision")
+    ap.add_argument("--file", help="with --add: path under a files/ directory, from the repo root")
+    ap.add_argument("--licence", default="vendor copyright; not redistributed here",
+                    help="with --add: licence text")
+    ap.add_argument("--commit", default="no", choices=("yes", "no"),
+                    help="with --add: commit the file (only if the licence allows)")
+    ap.add_argument("--manifest", default="datasheets/manifest.yaml",
+                    choices=[m for m, _ in MANIFESTS], help="with --add: manifest to append to")
     args = ap.parse_args(argv)
+    if args.add:
+        missing = [f for f in ("id", "kind", "title", "file") if not getattr(args, f)]
+        if missing:
+            ap.error("--add needs " + ", ".join("--" + m for m in missing))
+        ok, msg = add_entry(args.add, args.id, args.kind, args.title, args.file,
+                            licence=args.licence, commit=args.commit, manifest=args.manifest)
+        print(msg, file=sys.stdout if ok else sys.stderr)
+        return 0 if ok else 1
     if args.check:
         problems = check_all(MANIFESTS)
         for p in problems:

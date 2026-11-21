@@ -116,6 +116,57 @@ def test_software_manifest_entry_checks(tmp_path):
     assert any("files/" in p for p in fs.check_all(mans, tmp_path))
 
 
+def test_add_good_entry_appends_with_hash_and_keeps_comments(tmp_path):
+    (tmp_path / "ds.yaml").write_text("# keep me\nentries: []\n")
+    mans = [("ds.yaml", False)]
+
+    def fake(url, dest):
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        dest.write_bytes(b"pdf")
+
+    ok, msg = fs.add_entry("https://x.invalid/n.pdf", "n", "datasheet", "N part (U1)",
+                           "datasheets/files/n.pdf", licence="ADI", manifest="ds.yaml",
+                           root=tmp_path, opener=fake, manifests=mans)
+    assert ok, msg
+    assert "# keep me" in (tmp_path / "ds.yaml").read_text()
+    (e,) = fs.load(tmp_path / "ds.yaml")
+    assert e["sha256"] == hashlib.sha256(b"pdf").hexdigest()
+    assert (e["licence"], e["commit"], e["access"], e["url"]) == (
+        "ADI", "no", "direct", "https://x.invalid/n.pdf")
+    assert fs.check_all(mans, tmp_path) == []
+
+
+def test_add_duplicate_id_refused_without_download(tmp_path):
+    write(tmp_path, ds=[entry()])
+    calls = []
+    ok, msg = fs.add_entry("https://x.invalid/b.pdf", "a", "datasheet", "T",
+                           "datasheets/files/b.pdf", manifest="ds.yaml", root=tmp_path,
+                           opener=lambda u, d: calls.append(u), manifests=MANS)
+    assert not ok and "already exists" in msg and calls == []
+    assert len(fs.load(tmp_path / "ds.yaml")) == 1
+
+
+def test_add_dead_link_reported_and_nothing_appended(tmp_path):
+    write(tmp_path)
+
+    def dead(url, dest):
+        raise OSError("HTTP Error 404: Not Found")
+
+    ok, msg = fs.add_entry("https://x.invalid/gone.pdf", "g", "datasheet", "T",
+                           "datasheets/files/g.pdf", manifest="ds.yaml", root=tmp_path,
+                           opener=dead, manifests=MANS)
+    assert not ok and "download failed" in msg and "404" in msg
+    assert fs.load(tmp_path / "ds.yaml") == []
+
+
+def test_add_commit_no_outside_files_dir_refused(tmp_path):
+    write(tmp_path)
+    ok, msg = fs.add_entry("https://x.invalid/a", "z", "datasheet", "T", "datasheets/z.pdf",
+                           manifest="ds.yaml", root=tmp_path, opener=lambda u, d: None,
+                           manifests=MANS)
+    assert not ok and "files/" in msg
+
+
 def test_fetch_downloads_direct_records_hash_and_lists_todo(tmp_path):
     write(tmp_path, ds=[
         entry(),

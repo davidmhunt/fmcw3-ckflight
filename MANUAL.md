@@ -143,6 +143,13 @@ There are three manifests, all read by `tools/fetch_sources.py`:
   An entry behind a form or login that you have not fetched yet, with no hash pinned, is listed
   as `PENDING` instead of failing; once its hash is pinned, a missing file fails.
 
+Adding a source: `./run tools/fetch_sources.py --add URL --id ID --kind KIND --title TEXT
+--file datasheets/files/<vendor>/<name>.pdf [--licence TEXT] [--commit yes|no] [--manifest PATH]`
+downloads the URL, computes the SHA-256 and appends an entry to `datasheets/manifest.yaml` (or
+the manifest you name) with `access: direct`. `--commit` defaults to `no`, which needs a path
+under a `files/` directory; use `yes` only when the licence allows redistribution. It refuses an
+id that already exists in any manifest and reports a dead link without adding anything.
+
 Every calculation the repo implements itself cites a reference that was downloaded and checked
 against the file (page and equation recorded), never from memory. Files are committed only when
 their licence allows it.
