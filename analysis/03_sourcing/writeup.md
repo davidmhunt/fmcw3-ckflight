@@ -17,7 +17,9 @@ each cost for {{fact:boards}} boards, how long does it take, and what work does 
 - Need = parts per board times {{fact:boards}} boards, no spares. Costs are parts only: no JLC
   Extended-part setup fee, no shipping, no assembly.
 - Datasheets were read through the sources pipeline; each route cites its manifest id and PDF
-  page. A row marked "listing only" has no datasheet on file and is not a rating claim.
+  page. A row marked "user-fetch, no page yet" names a manifest entry whose PDF could not be
+  downloaded unattended (docs/user-fetch.md): its footprint, pinout and ratings are unverified
+  until the user saves the file, and any figure on that row comes from the JLC listing.
 - Substitutes are classified drop-in (fields only), footprint or layout change (a change for the
   user), or design change (names the analysis: rf-01, sim-01, sim-02, sim-spurs).
 - Nothing is decided and no schematic or layout is edited: a chosen substitute reaches the

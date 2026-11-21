@@ -170,9 +170,9 @@
    "cols": ["Option", "JLC (C number, stock, USD each)", "DigiKey (stock, USD, lead)", "Note"],
    "rows": [
     ["A. PAT1220-C-3DB-T5", "C2654158, 5, 0.593", "53945, 0.29, 32 wk", "same part; stock below twice the need"],
-    ["B. PAT0816-C-3DB-T5 (par-09)", "C2655485, 401, 0.646", "not queried", "1.6x0.8 mm footprint change; power below 64 mW: rf-01; datasheet not on file"]
+    ["B. PAT0816-C-3DB-T5 (par-09)", "C2655485, 401, 0.646", "not queried", "1.6x0.8 mm footprint change; power below 64 mW (datasheet p1): rf-01"]
    ],
-   "consequence": "pat1220-attenuator-datasheet p1 (ratings) and p2 (0805 size). B's rating is from the listing only.",
+   "consequence": "pat1220-attenuator-datasheet p1 (ratings, both parts: PAT0816 64 mW, PAT1220 100 mW) and p2 (sizes: 0603 and 0805).",
    "recommendation": "A, ordered from JLC stock at once."
   },
   "fb4": {

@@ -1450,3 +1450,63 @@ entries:
   licence: vendor copyright; not redistributed here
   commit: 'no'
   fetch_error: the LCSC datasheet link returned an HTML page instead of a PDF (2026-11-21)
+- id: coilank-aps1040m330a-datasheet
+  kind: datasheet
+  title: Coilank APS1040M330A 33 uH power inductor (JLC C47327250; L5-L7 substitute candidate, par-09; the LCSC datasheet link returned an HTML page, so the user saves it from the JLC or LCSC part page)
+  url: https://www.lcsc.com/product-detail/C47327250.html
+  access: form
+  file: datasheets/files/coilank/aps1040m330a.pdf
+  sha256: ''
+  licence: vendor copyright; not redistributed here
+  commit: 'no'
+  fetch_error: the LCSC datasheet link returned an HTML page instead of a PDF (2026-11-21)
+- id: kento-kt-0603-led-datasheet
+  kind: datasheet
+  title: Hubei KENTO KT-0603R red LED (JLC C2286; D1-D3, D5-D7 candidate, par-09; the LCSC datasheet link returned an HTML page, so the user saves it from the JLC or LCSC part page; the white, green and blue parts KT-0603W C2290, KT-0603G C12624, KT-0603B C2288 have their own datasheets on the same site)
+  url: https://www.lcsc.com/product-detail/C2286.html
+  access: form
+  file: datasheets/files/kento/kt-0603r.pdf
+  sha256: ''
+  licence: vendor copyright; not redistributed here
+  commit: 'no'
+  fetch_error: the LCSC datasheet link returned an HTML page instead of a PDF (2026-11-21)
+- id: xunpu-dc-005-a200-datasheet
+  kind: datasheet
+  title: XUNPU DC-005-A200 DC barrel jack (JLC C720557; CON2 candidate, par-09; the LCSC datasheet link returned an HTML page, so the user saves it from the JLC or LCSC part page)
+  url: https://www.lcsc.com/product-detail/C720557.html
+  access: form
+  file: datasheets/files/xunpu/dc-005-a200.pdf
+  sha256: ''
+  licence: vendor copyright; not redistributed here
+  commit: 'no'
+  fetch_error: the LCSC datasheet link returned an HTML page instead of a PDF (2026-11-21)
+- id: shouhan-dc005-datasheet
+  kind: datasheet
+  title: SHOU HAN DC005 DC barrel jack (JLC C431533; CON2 candidate, par-09; the LCSC datasheet link returned an HTML page, so the user saves it from the JLC or LCSC part page)
+  url: https://www.lcsc.com/product-detail/C431533.html
+  access: form
+  file: datasheets/files/shouhan/dc005.pdf
+  sha256: ''
+  licence: vendor copyright; not redistributed here
+  commit: 'no'
+  fetch_error: the LCSC datasheet link returned an HTML page instead of a PDF (2026-11-21)
+- id: boomele-2-54-2x8-header-datasheet
+  kind: datasheet
+  title: BOOMELE 2.54-2*8PPin 2x8 pin header (JLC C68234; J2 candidate, par-09; the LCSC datasheet link returned an HTML page, so the user saves it from the JLC or LCSC part page)
+  url: https://www.lcsc.com/product-detail/C68234.html
+  access: form
+  file: datasheets/files/boomele/2-54-2x8.pdf
+  sha256: ''
+  licence: vendor copyright; not redistributed here
+  commit: 'no'
+  fetch_error: the LCSC datasheet link returned an HTML page instead of a PDF (2026-11-21)
+- id: hanxia-hx-pz2-54-2x8p-datasheet
+  kind: datasheet
+  title: hanxia HX PZ2.54-2x8P ZZ 2x8 pin header (JLC C32713281; J2 candidate, par-09; the LCSC datasheet link returned an HTML page, so the user saves it from the JLC or LCSC part page)
+  url: https://www.lcsc.com/product-detail/C32713281.html
+  access: form
+  file: datasheets/files/hanxia/hx-pz2-54-2x8p-zz.pdf
+  sha256: ''
+  licence: vendor copyright; not redistributed here
+  commit: 'no'
+  fetch_error: the LCSC datasheet link returned an HTML page instead of a PDF (2026-11-21)
