@@ -38,7 +38,7 @@ design:
     status: assumed
     note: antenna-to-antenna isolation
   board_quantity:
-    value: 5
+    value: 3
     unit: boards
     status: assumed
 
