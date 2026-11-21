@@ -1,5 +1,5 @@
 # par-06: Datasheets through DigiKey for every BOM part, with a DigiKey link for what still fails
-Status: approved
+Status: done
 Goal: parts
 Node: any
 Deliverable: code
@@ -63,3 +63,12 @@ par-02's rule "manufacturer URL, not a distributor mirror" for the entries it to
 - `./run *`
 
 ## Log
+
+### 2026-11-21
+Commits:
+- 71a3ed4 par-06 step 1: digikey: <MPN> manifest field; fetch_sources asks the DigiKey API for the datasheet URL, falls back to the entry url, checks for a PDF, and links the DigiKey product page on a pending row
+- fde7827 par-06 step 2: fetch_sources --from-bom adds a pending digikey: datasheet entry for every BOM MPN no entry covers (50 added), idempotent; pending entries get digikey: (models only gain the product link)
+- 5e47eab par-06 step 4: run --from-bom, a normal fetch and --record: 21 datasheets fetched through DigiKey, 0 through a maker URL, 30 still pending with their user-fetch rows
+- a2fa71e par-06 step 5: MANUAL.md section 8 and datasheets/README.md describe digikey: entries, --from-bom and the DigiKey product link on pending rows
+Verify: Verify passed: ./run uv run pytest tests/test_sources.py -q && ./run tools/fetch_sources.py --check
+Independent review: no gaps
