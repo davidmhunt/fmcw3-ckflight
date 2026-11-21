@@ -24,6 +24,34 @@ Options: `--targets NAME` (target set giving `board_quantity`, default `default`
 `--check` (exit 1 when a placed part has no MPN, generic passives included; only vias, pads,
 mounting holes, the printed coupler and not-fitted lines do not count).
 
+## Stock watch before ordering
+
+`./run parts/watch.py [--offline] [--refresh] [--check] [--targets NAME] [--boards N]` answers one
+question for the hard-to-source parts: can JLCPCB place it now for `board_quantity` boards? Run it
+just before ordering; `--refresh` downloads a fresh JLC database first (the answer is only as new
+as that copy), `--offline` uses the caches only. DigiKey needs the keys in `.env`; without them
+the DigiKey columns come from cached answers.
+
+`parts/watch.csv` has one row per watched MPN: `refdes`, `qty_per_board`, `role` (`self` is the
+part the board is designed around, `substitute` a candidate for it), `jlc_lcsc`, `why_watched`,
+`drop_in` (`self`, `yes`, `pins-only`, `no`, `unverified`), `evidence_id` and `evidence_page` (the
+datasheet manifest id and page behind the drop-in call) and `note`. It covers the ADC U8
+(LTC2292) with its LTC2290-2299 family, and every line par-09 routes outside JLC with its
+candidate substitutes. The tool prints JLC stock and library type, DigiKey stock, price and
+lifecycle per row, and writes `parts/out/watch.csv` (adds `need = qty_per_board x boards` and
+`jlc_can_place`). `--check` exits 1 on a malformed row or a substitute without evidence.
+
+What `JLC can place now` means for the par-09 route of that part:
+- `self` row: the exact MPN the board is designed around has JLC stock of at least `need`. The
+  line can move from consignment (or hand sourcing) to JLC placement with no redesign: update
+  `parts/decisions.csv`/the route, then rerun `parts/bom.py`.
+- `substitute` row: only that the substitute is in stock. It is not a recommendation. Read
+  `drop_in` (`yes` same pinout and fitting rating, `pins-only` same pins but a grade or tolerance
+  differs, `no` footprint or rating differs, `unverified` datasheet not read) and `note`; choosing
+  it is a design decision for par-09/par-04 and goes in `docs/board-changes.md`.
+- No line: JLC stock is below the need, so the par-09 route stands. The tool only reads public
+  stock data; it never quotes or orders.
+
 ## Files
 
 | File | What |

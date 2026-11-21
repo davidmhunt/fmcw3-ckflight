@@ -208,7 +208,12 @@ confidence and how to add keys: [`parts/README.md`](parts/README.md).
   parts listed in `parts/watch.csv` (U8 ADC family and the par-09 consigned lines). Prints JLC
   stock and library type, DigiKey stock, price and lifecycle, and `JLC can place now` when JLC
   stock covers `board_quantity`; writes `parts/out/watch.csv`. `--check` exits 1 on a malformed
-  row or a substitute without evidence. Run it before ordering.
+  row or a substitute without evidence. Run it before ordering (`--refresh` first for a fresh
+  JLC database; `--offline` uses the caches only). A `JLC can place now` line on a `self` row
+  means the part the board is designed around is now placeable by JLC: move that line from
+  consignment to JLC in the par-09 route, no redesign. On a `substitute` row it only means the
+  substitute is in stock: read its `drop_in` and note first, because choosing it is your design
+  decision. Details: [`parts/README.md`](parts/README.md#stock-watch-before-ordering).
 - `./run uv run python parts/check_decisions.py [--bom FILE] [--decisions FILE]`: exits 0 only
   when every placed line of `parts/out/bom.csv` (not DNP, not a pad or via) has a row in
   `parts/decisions.csv`; run `parts/bom.py` first.
