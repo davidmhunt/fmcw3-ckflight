@@ -2,13 +2,14 @@
 
 Run by tools/build_report.py with this folder as the working directory. Writes into build/.
 Inputs: parts/out/availability.csv and bom.csv (parts/bom.py live run), parts/decisions.csv.
-The option tables of the user choices (CHOICES below) are the step-2 findings of par-03
-(JLC database and DigiKey queried 2026-11-21, datasheets under datasheets/files/); they do not
-come from parts/out/ because those files hold only the schematic's current part per line.
+The option tables of the user choices are read from parts/choices.json (the step-2 findings
+of par-03: alternatives that parts/out/ does not hold); cells {REF.field} take the schematic's
+own part from availability.csv. Every user-choice row of decisions.csv must have a choice.
 """
 import csv
 import json
 import os
+import re
 import sys
 import textwrap
 from collections import Counter
@@ -33,93 +34,34 @@ VCOLOR = {"JLC assemble": "#2e7d32", "consign from DigiKey": "#1f6fb2", "hand-so
           "unresolved": RED, "not fitted": GREY, "no part": "#bbbbbb"}
 REC = "Recommendation (labelled as such, the decision is yours): "
 
-# Each choice: slide title, columns, option rows, consequence line, recommendation, and the
-# refdes to point at with `tools/kicad_ipc.py show --refs` when the project is open.
-CHOICES = {
-    "fpga": dict(
-        title="Choice 1: FPGA U30, XC7A35T or XC7A100T",
-        refs="U30",
-        cols=["Option", "JLC (C number, stock, USD each)", "DigiKey (stock, USD, lead)", "Note"],
-        rows=[
-            ["A. XC7A100T-1FTG256C (schematic)", "no row", "122-1882-ND, 16, 126.25, 52 wk", "consign; 16 in stock covers 3"],
-            ["B. XC7A100T-1FTG256I", "C1521781, 59, 123.59", "0, 165.88", "JLC assembles; value C to I (par-04)"],
-            ["C. XC7A35T-1FTG256C (as ordered)", "C1521698, 160, 97.98", "122-1910-ND, 0, 48.97, 52 wk", "about a third of the logic"],
-            ["D. XC7A35T-1FTG256I", "C966959, 51, 114.83", "122-2202-ND, 0, 56.36", "35T bitstream only"],
-        ],
-        consequence=("Pin check done: all 256 U30 pins exist on the 35T with the same name, bank and I/O type "
-                     "(AMD package files), so a swap needs no re-route. 35T: cheaper part, 35T bitstream, less logic. "
-                     "100T: schematic kept, about USD 26 more per board at JLC."),
-        recommendation=REC + "B (100T, I grade, JLC) if the headroom is wanted, else D; "
-                             "I rather than C for the -40 C start and because JLC stocks the 100T only as I."),
-    "adc": dict(
-        title="Choice 2: ADC U8, LTC2292 C or I grade",
-        refs="U8",
-        cols=["Option", "JLC", "DigiKey (stock, USD, lead)", "Temperature"],
-        rows=[
-            ["A. LTC2292CUP#PBF", "C679868, stock 0", "34, 43.73, 52 wk", "0 to 70 C"],
-            ["B. LTC2292IUP#PBF", "C679870, stock 0", "505-LTC2292IUP#PBF, 334, 51.64, 13 wk", "-40 to 85 C"],
-        ],
-        consequence=("Either way U8 is consigned from DigiKey. I grade costs USD 7.91 more per part (23.73 for 3). "
-                     "Same QFN-64 package and pinout. The LTC2292 order table is not on file (the file is the "
-                     "LTC2294 sheet), so the codes come from the distributor rows."),
-        recommendation=REC + "B, the I grade: matches the -40 to 85 C of the other RF parts, stock 334, "
-                             "13 week lead."),
-    "usbc": dict(
-        title="Choice 3: USB-C receptacle J1 (GCT_USB4105 footprint)",
-        refs="J1",
-        cols=["Option", "JLC (C number, stock, USD)", "DigiKey (stock, USD)", "Note"],
-        rows=[
-            ["A. USB4105-GF-A", "C3020560, 12717, 1.018", "308214, 0.80, 7 wk", "base code"],
-            ["B. USB4105-GF-A-060", "C3025063, 2992, 1.002", "31924, 0.80", "suffix meaning unread"],
-            ["C. USB4105-GF-A-120", "C5184243, 1635, 0.911", "82298, 0.80", "JLC text: 16P"],
-            ["D. another 16-pin USB-C", "-", "-", "needs a new footprint"],
-        ],
-        consequence=("A to C share the footprint family. Whether the variants fit the board edge and have the "
-                     "shield tabs and 16 contacts the footprint draws is unconfirmed: no GCT datasheet is on file. "
-                     "For the user to obtain: the GCT USB4105 datasheet."),
-        recommendation=REC + "A (base code, most stock at both sources) once you have saved the GCT "
-                             "datasheet and confirmed the variants."),
-    "inductor": dict(
-        title="Choice 4: inductor L5-L7 (SRR6040A-330M, 33 uH)",
-        refs="L5,L6,L7",
-        cols=["Option", "Part", "Source and price", "Saturation vs LMR51420 limit"],
-        rows=[
-            ["A. keep", "SRR6040A-330M", "JLC stock 3 of 9; DigiKey NFND 777, 0.95", "about 1.0 A against 3.5 A typ (5.1 A max)"],
-            ["B. same L, 11x10 mm", "APS1040M330A (C47327250)", "JLC 19638, 0.241", "4.4 / 5.0 A; new footprint, board room"],
-            ["C. same L, 7x6.6 mm", "SMS0650-330MT (C5127476)", "JLC 21335, 0.094", "2.8 / 3.3 A: still below 3.5 A"],
-            ["D. lower L, 6 mm class", "to be chosen", "not costed", "Isat above 5.1 A; value change"],
-        ],
-        consequence=("Datasheet p.18: Isat must exceed the peak current limit (p.5: 3.5 A typ, 5.1 A max). "
-                     "The SRR6040A's listed current (about 1.0 A) is far below that; a short or start-up on a "
-                     "loaded rail saturates it. Which listed current is Isat is not in the JLC text; no Bourns datasheet on file."),
-        recommendation=REC + "do not order the SRR6040A as is. B if the board takes an 11x10 mm body, "
-                             "otherwise D; read each part's Isat first."),
-    "assembly": dict(
-        title="Choice 5: parts JLCPCB cannot assemble",
-        refs="U8,U21,U26,U27,U28,U45,P1,P2,U15,CON2,J2",
-        cols=["Option", "What it covers", "Consequence", ""],
-        rows=[
-            ["A. consign from DigiKey", "U8, U21, U26-U28, U45, P1/P2/U15", "you buy and ship; JLC places", ""],
-            ["B. swap for a JLC-stocked part", "e.g. U45 LT6232 C grade (JLC stock 2)", "design change, your decision", ""],
-            ["C. hand-solder", "CON2, J2, SMA connectors", "through-hole; QFN-64 and SSOP-16 are not hand work", ""],
-        ],
-        consequence=("Off JLC: U8 (stock 0), U21, U26-U28, U45 (JLC lists only the C grade), P1/P2/U15 and U30 as "
-                     "the C-grade 100T. CON2 (barrel jack), J2 header and six LEDs have no part number yet."),
-        recommendation=REC + "A for U8, U21, U26-U28, U45 and the SMA connectors; C for CON2 and J2; "
-                             "choose the L5-L7 substitute before ordering."),
-    "library": dict(
-        title="Choice 6: is kicad/libs/fmcw3.lib still needed?",
-        refs="",
-        cols=["Option", "Effect", "Risk", ""],
-        rows=[
-            ["A. keep as is", "96 symbols stay", "none", ""],
-            ["B. prune the 76 unused", "keeps the 20 live symbols", "a library edit; ideas stay in git", ""],
-            ["C. delete and drop sym-lib-table entry", "orphans 20 lib_ids", "ERC warnings; no symbol updates", ""],
-        ],
-        consequence=("It is the live symbol library (20 symbols are placed). The 76 unused retired ideas "
-                     "(AD7266, AD9269, MAX2870 and others) are drawn on by no choice here."),
-        recommendation=REC + "B later (leave A for now); never C."),
-}
+CHOICES_FILE = REPO / "parts" / "choices.json"
+CELL = re.compile(r"\{(\w+)\.(\w+)\}")
+
+
+def load_choices(av, dec):
+    """Choices from parts/choices.json; {REF.field} cells come from availability.csv.
+
+    Fails when a user-choice ref of decisions.csv is in no choice, so none is left without a slide.
+    """
+    by_ref = {ref: r for r in av for ref in r["refs"].split(";")}
+
+    def fill(cell):
+        def sub(m):
+            row = by_ref.get(m.group(1))
+            if row is None or m.group(2) not in row:
+                raise SystemExit(f"figures.py: {CHOICES_FILE.name}: no availability field {m.group(0)}")
+            return row[m.group(2)]
+        return CELL.sub(sub, cell)
+
+    choices = json.loads(CHOICES_FILE.read_text())["choices"]
+    for c in choices.values():
+        c["rows"] = [[fill(x) for x in row] for row in c["rows"]]
+    covered = {r for c in choices.values() for r in c["refs"].split(",") if r}
+    missing = [d["ref"] for d in dec if d["status"] == "user-choice" and d["ref"] not in covered]
+    if missing:
+        raise SystemExit(f"figures.py: user-choice refs with no choice in {CHOICES_FILE.name}: {missing}")
+    return choices
+
 
 
 def num(x, default=None):
@@ -198,7 +140,7 @@ def route_table(av):
     return {v: sum(1 for r in av if r["verdict"] == v) for v in VERDICTS}
 
 
-def risky_rows(av, boards):
+def risky_rows(av, boards, dec):
     """Lines with an obsolescence, stock or lead-time risk, computed from availability.csv."""
     out = []
     for r in av:
@@ -221,11 +163,13 @@ def risky_rows(av, boards):
             why.append(r["reason"])
         if why:
             out.append([refs_short(r["refs"], 3), r["MPN"] or r["value"], "; ".join(why)])
-    extra = [
-        ["Y2", "ECS-TXO-32CSMV-400-BN-TR", "3.2x2.5 body, 2.5x2.0 footprint"],
-        ["U6", "PL133-37TC-R", "commercial grade; TI-R not at JLC"],
-        ["U10", "HMC431LP4E", "reel code TR unverified"],
-    ]
+    # Items the BOM numbers cannot show, read from decisions.csv: unverified codes and user choices.
+    extra = []
+    for d in dec:
+        if d["status"] == "proposed" and "unverified" in d["reason"]:
+            extra.append([d["ref"], d["MPN"], "reel code unverified in the datasheet"])
+        elif d["status"] == "user-choice" and d["ref"] in ("U6", "Y2"):
+            extra.append([d["ref"], d["MPN"], "user choice, see choice slide"])
     have = {r[0] for r in out}
     out += [e for e in extra if e[0] not in have]
     return out
@@ -370,11 +314,11 @@ def main() -> None:
     write("obtain_short.csv", ["Refs", "What is missing"],
           [[a, short(b, 90)] for a, b, _ in orows])
 
-    risk = risky_rows(av, boards)
+    risk = risky_rows(av, boards, dec)
     write("risky.csv", ["Refs", "Part", "Risk"], risk)
     c = cost(av, boards)
 
-    for key, ch in CHOICES.items():
+    for key, ch in load_choices(av, dec).items():
         choice_image(key, ch)
         write(f"choice_{key}.csv", ch["cols"], ch["rows"])
         with open(BUILD / f"choice_{key}.txt", "w") as f:

@@ -3,8 +3,9 @@
 
 usage: parts/check_decisions.py [--bom parts/out/bom.csv] [--decisions parts/decisions.csv]
 
-A placed line is a bom.csv line whose class is not `dnp` (not fitted) or `nopart` (pads, vias,
-mounting holes, the coupler drawn as a footprint). Every ref of a placed line must have a row in
+A placed line is a bom.csv line whose class is not `dnp` (not fitted). Class `nopart` (no MPN,
+not a generic passive: ICs, connectors, LEDs) is placed and needs a decision row, except the
+mechanical footprints (vias, solder pads, mounting holes, coupler; bom.MECHANICAL). Every ref of a placed line must have a row in
 decisions.csv; the row's status may be `proposed`, `user-choice` (the user's list of choices) or
 `for-user` (something to obtain). Also fails on a decision row for a ref that is not in the BOM,
 and on a row with no status.
@@ -17,7 +18,9 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-NOT_PLACED = {"dnp", "nopart"}
+sys.path.insert(0, str(ROOT / "parts"))
+from bom import MECHANICAL  # noqa: E402
+NOT_PLACED = {"dnp"}
 STATUSES = {"proposed", "user-choice", "for-user"}
 
 
@@ -32,6 +35,9 @@ def check(bom: Path, decisions: Path) -> list[str]:
         refs = [r for r in line["refs"].split(";") if r]
         all_refs.update(refs)
         if line["class"] in NOT_PLACED:
+            continue
+        # vias, solder pads, mounting holes and the printed coupler: nothing to buy (same rule as bom.py)
+        if line["class"] == "nopart" and MECHANICAL.search(line["footprint"] + " " + line["value"]):
             continue
         for ref in refs:
             if ref not in rows:

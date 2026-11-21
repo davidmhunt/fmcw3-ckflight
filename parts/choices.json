@@ -1,0 +1,114 @@
+{
+ "_source": "Option tables of the par-03 user choices. Alternatives are step-2 findings (JLC database and DigiKey queried 2026-11-21, datasheets under datasheets/files/) that parts/out/ does not hold, because it lists only the schematic's current part per line. A cell may contain {REF.field}: analysis/01_parts/figures.py replaces it with that column of the parts/out/availability.csv line holding REF, so the schematic's own part follows a parts/bom.py rerun. Every user-choice ref of parts/decisions.csv must be in some choice's refs (figures.py fails otherwise).",
+ "choices": {
+  "fpga": {
+   "title": "Choice 1: FPGA U30, XC7A35T or XC7A100T",
+   "refs": "U30",
+   "cols": ["Option", "JLC (C number, stock, USD each)", "DigiKey (stock, USD, lead)", "Note"],
+   "rows": [
+    ["A. XC7A100T-1FTG256C (schematic)", "no row", "122-1882-ND, 16, 126.25, 52 wk", "consign; 16 in stock covers 3"],
+    ["B. XC7A100T-1FTG256I", "C1521781, 59, 123.59", "0, 165.88", "JLC assembles; value C to I (par-04)"],
+    ["C. XC7A35T-1FTG256C (as ordered)", "C1521698, 160, 97.98", "122-1910-ND, 0, 48.97, 52 wk", "about a third of the logic"],
+    ["D. XC7A35T-1FTG256I", "C966959, 51, 114.83", "122-2202-ND, 0, 56.36", "35T bitstream only"]
+   ],
+   "consequence": "Pin check done: all 256 U30 pins exist on the 35T with the same name, bank and I/O type (AMD package files), so a swap needs no re-route. 35T: cheaper part, 35T bitstream, less logic. 100T: schematic kept, about USD 26 more per board at JLC.",
+   "recommendation": "B (100T, I grade, JLC) if the headroom is wanted, else D; I rather than C for the -40 C start and because JLC stocks the 100T only as I."
+  },
+  "adc": {
+   "title": "Choice 2: ADC U8, LTC2292 C or I grade",
+   "refs": "U8",
+   "cols": ["Option", "JLC", "DigiKey (stock, USD, lead)", "Temperature"],
+   "rows": [
+    ["A. LTC2292CUP#PBF", "C679868, stock 0", "34, 43.73, 52 wk", "0 to 70 C"],
+    ["B. LTC2292IUP#PBF", "C679870, stock 0", "505-LTC2292IUP#PBF, 334, 51.64, 13 wk", "-40 to 85 C"]
+   ],
+   "consequence": "Either way U8 is consigned from DigiKey. I grade costs USD 7.91 more per part (23.73 for 3). Same QFN-64 package and pinout. The LTC2292 order table is not on file (the file is the LTC2294 sheet), so the codes come from the distributor rows.",
+   "recommendation": "B, the I grade: matches the -40 to 85 C of the other RF parts, stock 334, 13 week lead."
+  },
+  "usbc": {
+   "title": "Choice 3: USB-C receptacle J1 (GCT_USB4105 footprint)",
+   "refs": "J1",
+   "cols": ["Option", "JLC (C number, stock, USD)", "DigiKey (stock, USD)", "Note"],
+   "rows": [
+    ["A. USB4105-GF-A", "C3020560, 12717, 1.018", "308214, 0.80, 7 wk", "base code"],
+    ["B. USB4105-GF-A-060", "C3025063, 2992, 1.002", "31924, 0.80", "suffix meaning unread"],
+    ["C. USB4105-GF-A-120", "C5184243, 1635, 0.911", "82298, 0.80", "JLC text: 16P"],
+    ["D. another 16-pin USB-C", "-", "-", "needs a new footprint"]
+   ],
+   "consequence": "A to C share the footprint family. Whether the variants fit the board edge and have the shield tabs and 16 contacts the footprint draws is unconfirmed: no GCT datasheet is on file. For the user to obtain: the GCT USB4105 datasheet.",
+   "recommendation": "A (base code, most stock at both sources) once you have saved the GCT datasheet and confirmed the variants."
+  },
+  "inductor": {
+   "title": "Choice 4: inductor L5-L7 (SRR6040A-330M, 33 uH)",
+   "refs": "L5,L6,L7",
+   "cols": ["Option", "Part", "Source and price", "Saturation vs LMR51420 limit"],
+   "rows": [
+    ["A. keep", "SRR6040A-330M", "JLC stock 3 of 9; DigiKey NFND 777, 0.95", "about 1.0 A against 3.5 A typ (5.1 A max)"],
+    ["B. same L, 11x10 mm", "APS1040M330A (C47327250)", "JLC 19638, 0.241", "4.4 / 5.0 A; new footprint, board room"],
+    ["C. same L, 7x6.6 mm", "SMS0650-330MT (C5127476)", "JLC 21335, 0.094", "2.8 / 3.3 A: still below 3.5 A"],
+    ["D. lower L, 6 mm class", "to be chosen", "not costed", "Isat above 5.1 A; value change"]
+   ],
+   "consequence": "Datasheet p.18: Isat must exceed the peak current limit (p.5: 3.5 A typ, 5.1 A max). The SRR6040A's listed current (about 1.0 A) is far below that; a short or start-up on a loaded rail saturates it. Which listed current is Isat is not in the JLC text; no Bourns datasheet on file.",
+   "recommendation": "do not order the SRR6040A as is. B if the board takes an 11x10 mm body, otherwise D; read each part's Isat first."
+  },
+  "assembly": {
+   "title": "Choice 5: parts JLCPCB cannot assemble",
+   "refs": "U8,U21,U26,U27,U28,U45,P1,P2,U15,CON2,J2",
+   "cols": ["Option", "What it covers", "Consequence", ""],
+   "rows": [
+    ["A. consign from DigiKey", "U8, U21, U26-U28, U45, P1/P2/U15", "you buy and ship; JLC places", ""],
+    ["B. swap for a JLC-stocked part", "e.g. U45 LT6232 C grade (JLC stock 2)", "design change, your decision", ""],
+    ["C. hand-solder", "CON2, J2, SMA connectors", "through-hole; QFN-64 and SSOP-16 are not hand work", ""]
+   ],
+   "consequence": "Off JLC: U8 (stock 0), U21, U26-U28, U45 (JLC lists only the C grade), P1/P2/U15 and U30 as the C-grade 100T. CON2 (barrel jack), J2 header and six LEDs have no part number yet.",
+   "recommendation": "A for U8, U21, U26-U28, U45 and the SMA connectors; C for CON2 and J2; choose the L5-L7 substitute before ordering."
+  },
+  "library": {
+   "title": "Choice 6: is kicad/libs/fmcw3.lib still needed?",
+   "refs": "",
+   "cols": ["Option", "Effect", "Risk", ""],
+   "rows": [
+    ["A. keep as is", "96 symbols stay", "none", ""],
+    ["B. prune the 76 unused", "keeps the 20 live symbols", "a library edit; ideas stay in git", ""],
+    ["C. delete and drop sym-lib-table entry", "orphans 20 lib_ids", "ERC warnings; no symbol updates", ""]
+   ],
+   "consequence": "It is the live symbol library (20 symbols are placed). The 76 unused retired ideas (AD7266, AD9269, MAX2870 and others) are drawn on by no choice here.",
+   "recommendation": "B later (leave A for now); never C."
+  },
+  "tgrade": {
+   "title": "Choice 7: clock buffer U6, PL133-37 temperature grade",
+   "refs": "U6",
+   "cols": ["Option", "JLC (C number, stock, USD each)", "DigiKey (stock, USD, lead)", "Temperature"],
+   "rows": [
+    ["A. PL133-37TC-R (schematic)", "{U6.jlc_lcsc}, {U6.jlc_stock}, {U6.jlc_unit_price}", "{U6.dk_stock}, {U6.dk_unit_price}, {U6.dk_lead_weeks} wk", "0 to 70 C"],
+    ["B. PL133-37TI-R", "not in the JLC database", "not queried", "industrial"]
+   ],
+   "consequence": "Datasheet p.5 Ordering Information lists both, SOT23-6, tape and reel. Same package, so the footprint is unchanged; the TI-R would have to be consigned.",
+   "recommendation": "A, the TC-R, because it is the one JLC stocks; the temperature grade is your choice."
+  },
+  "lmr": {
+   "title": "Choice 8: buck U17-U19, LMR51420 variant",
+   "refs": "U17,U18,U19",
+   "cols": ["Option", "Frequency and mode", "JLC stock", "Note"],
+   "rows": [
+    ["A. LMR51420YFDDCR (schematic)", "1.1 MHz FPWM", "{U17.jlc_stock}, USD {U17.jlc_unit_price}", "fixed frequency at light load"],
+    ["B. LMR51420Y", "1.1 MHz PFM", "16547", "burst tones at light load"],
+    ["C. LMR51420X", "500 kHz PFM", "2", "too little stock for 9"],
+    ["D. LMR51420XF", "500 kHz FPWM", "0", "not stocked at JLC"]
+   ],
+   "consequence": "Datasheet p.3 comparison table; all four are SOT-23 6-pin DDC (p.26), so the package does not choose. The schematic states no frequency or mode. The 33 uH inductor (choice 4) goes with this choice.",
+   "recommendation": "A, YF: fixed frequency at light load so no burst tones in the IF band, JLC stock 3148 against 9 needed."
+  },
+  "y2": {
+   "title": "Choice 9: oscillator Y2, package and footprint mismatch",
+   "refs": "Y2",
+   "cols": ["Option", "JLC (C number, stock, USD each)", "DigiKey (stock, USD, lead)", "Note"],
+   "rows": [
+    ["A. ECS-TXO-32CSMV-400-BN-TR (schematic)", "{Y2.jlc_lcsc}, {Y2.jlc_stock}, {Y2.jlc_unit_price}", "{Y2.dk_stock}, {Y2.dk_unit_price}, {Y2.dk_lead_weeks} wk", "{Y2.jlc_package} body; needs a 3.2x2.5 footprint: board change"],
+    ["B. a 2.5x2.0 mm ECS part", "not costed", "not costed", "its datasheet is for you to obtain"]
+   ],
+   "consequence": "The datasheet (p.1) is for a 3.2x2.5 mm package; the footprint is 2.5x2.0 mm (ECS 2520MV), so they do not match. 400 = 40.000 MHz, B = 1.0 ppm, N = -40 to 85 C, TR = reel.",
+   "recommendation": "B if its datasheet shows 40 MHz clipped sine, since A changes the layout."
+  }
+ }
+}

@@ -23,8 +23,10 @@ left for the user?
 # 3. Method
 
 `figures.py` reads `parts/out/` and `parts/decisions.csv`, and writes every chart and table below
-into `build/`. The option tables of the six choices are the step-2 findings (JLC and DigiKey
-queried the same day) held in `figures.py`; they cover alternatives that the BOM does not list.
+into `build/`. The option tables of the nine choices are read from `parts/choices.json` (the
+step-2 findings, JLC and DigiKey queried the same day; alternatives that the BOM does not list),
+and the schematic's own part in each is read from `availability.csv`. `figures.py` stops if a
+user-choice row of `decisions.csv` has no choice.
 Cost sums unit price times parts needed per line, from the source that stocks the full quantity.
 It leaves out the JLC Extended-part fee ({{fact:n_extended}} Extended lines are priced from JLC),
 assembly and PCB cost.
@@ -73,7 +75,7 @@ source today. The U30 line is priced as the schematic's C-grade 100T (choice 1 c
 
 Each choice lists its options and a recommendation labelled as such. When the project is open in
 KiCad, `tools/kicad_ipc.py show --refs REFS` selects the parts of a choice
-(U30; U8; J1; L5,L6,L7; U8,U21,U26,U27,U28,U45,P1,P2,U15,CON2,J2).
+(U30; U8; J1; L5,L6,L7; U8,U21,U26,U27,U28,U45,P1,P2,U15,CON2,J2; U6; U17,U18,U19; Y2).
 
 ![Choice 1](build/choice_fpga.png)
 
@@ -86,6 +88,12 @@ KiCad, `tools/kicad_ipc.py show --refs REFS` selects the parts of a choice
 ![Choice 5](build/choice_assembly.png)
 
 ![Choice 6](build/choice_library.png)
+
+![Choice 7](build/choice_tgrade.png)
+
+![Choice 8](build/choice_lmr.png)
+
+![Choice 9](build/choice_y2.png)
 
 ## For the user to obtain
 
@@ -104,3 +112,7 @@ Nothing in this list is guessed; each is missing a datasheet or a part number.
 5. Parts JLCPCB cannot assemble. Recommendation: consign the ICs and SMA connectors, hand-solder
    CON2 and J2.
 6. `kicad/libs/fmcw3.lib`. Recommendation: prune later, never delete.
+7. Clock buffer U6 grade. Recommendation: PL133-37TC-R, the one JLC stocks; the grade is yours.
+8. Buck U17-U19 variant. Recommendation: LMR51420YFDDCR (1.1 MHz, fixed frequency).
+9. Oscillator Y2 package. Recommendation: a 2.5x2.0 mm ECS part if its datasheet shows 40 MHz
+   clipped sine, since the schematic's 3.2x2.5 mm part changes the layout.

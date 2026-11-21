@@ -2,7 +2,7 @@ slides:
   - layout: title
     title: "FMCW3 parts: numbers and choices"
     bullets:
-      - "BOM status, JLCPCB versus DigiKey, six choices for you"
+      - "BOM status, JLCPCB versus DigiKey, nine choices for you"
       - "Target set: default (board quantity assumed)"
     note: Every number comes from parts/out/ (parts/bom.py live run) and parts/decisions.csv. Nothing is decided here; recommendations are labelled.
   - layout: bullet
@@ -45,10 +45,22 @@ slides:
     title: "Choice 6: legacy library"
     figure: choice_library.png
     note: kicad/libs/fmcw3.lib is registered in sym-lib-table and 20 of its symbols are placed.
+  - layout: figure
+    title: "Choice 7: clock buffer U6 grade"
+    figure: choice_tgrade.png
+    note: Datasheet page 5. The schematic's own part is read from availability.csv.
+  - layout: figure
+    title: "Choice 8: buck U17-U19 variant"
+    figure: choice_lmr.png
+    note: Datasheet pages 3 and 26. Goes with choice 4 (the 33 uH inductor).
+  - layout: figure
+    title: "Choice 9: oscillator Y2 footprint"
+    figure: choice_y2.png
+    note: The 2.5x2.0 mm alternative's datasheet is for you to obtain.
   - layout: table
     title: Obsolete or risky parts
     table: risky.csv
-    note: NFND = not for new designs. Computed from availability.csv plus three items from decisions.csv.
+    note: NFND = not for new designs. Computed from availability.csv plus unverified codes and user choices from decisions.csv.
   - layout: table
     title: Cost for the board quantity, both sources
     table: cost.csv
@@ -69,4 +81,7 @@ slides:
       - "USB-C receptacle variant for J1"
       - "Replacement for L5-L7 (and whether 33 uH stays)"
       - "Route for non-assemblable parts, and what to do with fmcw3.lib"
+      - "U6 temperature grade (TC-R or TI-R)"
+      - "U17-U19 LMR51420 variant (X, XF, Y or YF)"
+      - "Y2 oscillator: 3.2x2.5 mm part with a new footprint, or a 2.5x2.0 mm part"
     note: Recommendations are on each choice slide. Give the decisions in the note when you accept par-03.
