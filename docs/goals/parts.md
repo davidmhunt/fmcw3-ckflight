@@ -1,5 +1,5 @@
 # parts: BOM from the schematic with DigiKey and JLCPCB availability, and datasheets
-Status: blocked: par-07
+Status: running
 Base: falcon_development
 Land: pr
 

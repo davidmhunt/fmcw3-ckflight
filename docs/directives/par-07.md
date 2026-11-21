@@ -1,5 +1,5 @@
 # par-07: Replacement candidates for the discontinued TQP5525 power amplifier (U14)
-Status: blocked: rerun comparison with QPA9501 and AWL9924 data
+Status: approved
 Goal: parts
 Node: any
 Deliverable: slides
@@ -125,3 +125,6 @@ Verify: Verify passed: ./run tools/build_report.py analysis/02_pa --check
 Independent review: no gaps
 
 Rejected by user: 2026-11-21 rerun comparison with QPA9501 and AWL9924 data
+
+### 2026-11-21
+Unblocked: was blocked: rerun comparison with QPA9501 and AWL9924 data
