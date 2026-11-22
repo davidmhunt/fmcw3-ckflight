@@ -801,11 +801,13 @@
    "library": "Basic",
    "match": "package",
    "mpn": "",
-   "need": 6,
-   "qty": 2,
+   "need": 12,
+   "qty": 4,
    "refs": [
     "C220",
-    "C993"
+    "C993",
+    "C994",
+    "C995"
    ],
    "status": "ok",
    "stock": 9889521,

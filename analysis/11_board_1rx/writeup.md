@@ -16,8 +16,8 @@ hardware change?
 
 - Sources: datasheets in `datasheets/manifest.yaml`, each claim with its manifest id and PDF page
   (for `adi-ad9237-datasheet`, `ftdi-ft2232h-datasheet` and `adi-lt6232-datasheet` the PDF page
-  is the printed folio; for `adi-ltc2292-datasheet`, the file is the LTC2294 family sheet and the
-  printed folio is one lower than the PDF page). The LTC2292's own sheet is still to obtain.
+  is the printed folio). The LTC2292 figures come from its own sheet,
+  `adi-ltc2293-2292-2291-datasheet` (saved by the user 2026-11-22), which replaced the LTC2294 sheet.
 - Netlist: `kicad-cli sch export netlist` of `kicad/fmcw3.kicad_sch`, read headless. Nothing under
   `kicad/` or `kicad-1rx/` was written.
 - Firmware: `davidmhunt/fmcw3-ckflight-fw` at commit `{{fact:fw_commit}}`, read only.
@@ -132,8 +132,7 @@ what the capacitor holds when tracking starts are assumptions.
   {{fact:rail_bound}} mA ({{fact:rail_bound_pct}} percent) with all 180 mW on AVDD. The load drops by
   about 31 mA.
 - SNR at 40 MSPS: AD9237-40 {{fact:snr_ad}} dBFS (66.5 dBc at -0.5 dBFS, `adi-ad9237-datasheet` p.4)
-  against {{fact:snr_ltc}} dBFS for the LTC2294 of the same family (the LTC2292 sheet is not on file; its
-  related-parts row reads 74.4 dB, above the 74.0 dB ideal of 12 bits, so it is a table error):
+  against {{fact:snr_ltc}} dBFS for the LTC2292 (`adi-ltc2293-2292-2291-datasheet` p.3, 5 MHz input):
   {{fact:snr_delta}} dB lower.
 - IF dynamic range, full scale to total noise at the pins (U45 stage plus ADC, mixer noise excluded):
   over the full 20 MHz band {{fact:dr_ad_nyq}} dB against {{fact:dr_ltc_nyq}} dB (loss

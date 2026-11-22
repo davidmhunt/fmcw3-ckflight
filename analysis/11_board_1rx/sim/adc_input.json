@@ -33,14 +33,14 @@
 "snr_decimated_dbfs": 80.01029995663981
 },
 "ltc2292": {
-"snr_dbfs": 70.6,
+"snr_dbfs": 71.4,
 "vfs_rms_v": 0.7071067811865475,
-"noise_rms_uv": 208.68200568761088,
-"density_nv_rthz": 46.662715039849566,
+"noise_rms_uv": 190.32025116563253,
+"density_nv_rthz": 42.55690191011879,
 "lsb_uv": 488.28125,
-"snr_decimated_dbfs": 83.6102999566398
+"snr_decimated_dbfs": 84.41029995663982
 },
-"delta_db": 3.5999999999999943
+"delta_db": 4.400000000000006
 },
 "input_limits": {
 "vcm_min_v": 0.5,

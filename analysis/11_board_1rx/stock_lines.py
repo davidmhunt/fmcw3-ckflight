@@ -68,6 +68,8 @@ def line_rows():
         dict(ref="R990", DNP=False, **k1), dict(ref="R991", DNP=False, **k1),
         dict(ref="C992", Value="100n", Footprint="SMD_0402", **cap),
         dict(ref="C993", Value="10u", Footprint="SMD_0603", **cap),
+        dict(ref="C994", Value="10u", Footprint="SMD_0603", **cap),
+        dict(ref="C995", Value="10u", Footprint="SMD_0603", **cap),
     ]
     return kept + new, removed
 

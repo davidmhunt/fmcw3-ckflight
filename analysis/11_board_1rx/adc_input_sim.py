@@ -16,7 +16,7 @@ symbol uses it (fnd-05), so the same model covers the LT6232 (C or I grade) and 
 option for U45 (par-09). A U45 replacement from another family needs this run repeated.
 
 Two cases:
-  today  LTC2292 load (adi-ltc2292-datasheet p.12 Figure 2: 15 ohm, 1 pF, 4 pF switched);
+  today  LTC2292 load (adi-ltc2293-2292-2291-datasheet p.16: 15 ohm, 1 pF, 4 pF switched);
          bias from the LTC2292 VCMA pin (1.5 V, 4 ohm, p.4).
   rx1    AD9237 load (adi-ad9237-datasheet p.3: 7 pF per pin; p.16 Figure 35: 5 pF switched,
          so 2 pF fixed); bias from the step 2 divider, 1 k / 1 k from 3V0.

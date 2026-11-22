@@ -113,7 +113,7 @@ PIN_ROWS_2 = [
     ["SENSEA (62), R93 to 3V0", "SENSE 23", "R93 now to AGND: internal VREF 1.0 V", f"{AD} p.18 (Table 7)"],
     ["(new)", "MODE2 1", "AGND: span factor 2, power scaling off", f"{AD} p.20 (Table 8)"],
     ["span", "-", "4 x VREF / 2 = 2.0 V p-p = +/-1 V: the LTC2292's SENSE = VDD span", f"{AD} p.18, p.3; "
-                                                                                       "adi-ltc2292-datasheet p.15, p.3"],
+                                                                                       "adi-ltc2293-2292-2291-datasheet p.3"],
     ["MODE (60), R91 4.7k / R92 10k", "MODE 22", "kept: 1.95 V with the 70 kohm pull-down = 0.65 AVDD against the "
                                                   "2/3 AVDD row (twos complement, DCS on); R92 = 11k gives 0.669",
      f"{AD} p.21 (Table 10), p.10"],
@@ -255,7 +255,7 @@ def numbers_figure(nums, dr):
         ax[0].text(i, v + 4, f"{v:.0f} mA ({100 * v / rail['u39_rating_ma']:.0f} %)", ha="center", fontsize=8)
     ax[0].set_ylim(0, 270)
     ax[0].set_title("3V0 rail load", fontsize=10)
-    ax[1].bar(["LTC2292\n(LTC2294 sheet)", "AD9237-40"], [noise["ltc2292"]["snr_dbfs"], noise["ad9237"]["snr_dbfs"]],
+    ax[1].bar(["LTC2292", "AD9237-40"], [noise["ltc2292"]["snr_dbfs"], noise["ad9237"]["snr_dbfs"]],
               color=[BLUE, RED])
     for i, v in enumerate([noise["ltc2292"]["snr_dbfs"], noise["ad9237"]["snr_dbfs"]]):
         ax[1].text(i, v + 0.5, f"{v:.1f} dBFS", ha="center", fontsize=9)

@@ -40,14 +40,14 @@ def test_snr_to_noise_density():
     assert a["ad9237"]["noise_rms_uv"] == pytest.approx(0.7071068e6 * 10 ** (-67 / 20), rel=1e-6)
     assert a["ad9237"]["density_nv_rthz"] == pytest.approx(315.853 / math.sqrt(20e6) * 1e3, rel=1e-4)
     assert a["decim_gain_db"] == pytest.approx(13.01, abs=0.01)
-    assert a["delta_db"] == pytest.approx(3.6)
+    assert a["delta_db"] == pytest.approx(4.4)
 
 
 def test_dynamic_range_combines_front_end_and_adc():
     # with no front-end noise the full-band dynamic range is the ADC's own SNR (dBFS)
     d = N.dynamic_range(0.0, 0.0)
     assert d["ad9237"]["dr_nyq_db"] == pytest.approx(67.0)
-    assert d["ltc2292"]["dr_nyq_db"] == pytest.approx(70.6)
+    assert d["ltc2292"]["dr_nyq_db"] == pytest.approx(71.4)
     # ... and in 1 MHz of 20 MHz it gains 10 log10(20) = 13.01 dB
     assert d["ad9237"]["dr_band_db"] == pytest.approx(67.0 + 13.0103, abs=1e-3)
     # front-end noise equal to the ADC noise costs 3.01 dB

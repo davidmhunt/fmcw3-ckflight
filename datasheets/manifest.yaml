@@ -99,6 +99,16 @@ entries:
   sha256: 62978a516663990d7894d367bc84cb164bb953f3ed55763f5980945433216b24
   licence: ADI copyright; not redistributed here
   commit: 'no'
+- id: adi-ltc2293-2292-2291-datasheet
+  kind: datasheet
+  title: ADI (Linear) LTC2293/LTC2292/LTC2291 dual 12-bit 65/40/25 Msps 3 V ADC, 229321fa (the actual
+    U8 LTC2292 sheet; saved by the user from the analog.com LTC2292 product page, 2026-11-22)
+  url: https://www.analog.com/en/products/ltc2292.html
+  access: direct
+  file: datasheets/files/adi/ltc2293-2292-2291.pdf
+  sha256: fd4f66ca71b66bbd56404a21468dffa49d8051921fbf2c3a4f525ac7d0fceac0
+  licence: ADI copyright; not redistributed here
+  commit: 'no'
 - id: adi-ltc2292-datasheet
   kind: datasheet
   title: ADI (Linear) LTC2294 dual 12-bit 80 Msps ADC, 2294fa (U8 is the LTC2292; par-03 found this sheet

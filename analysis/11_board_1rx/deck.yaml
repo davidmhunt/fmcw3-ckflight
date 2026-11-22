@@ -32,7 +32,7 @@ slides:
   - layout: figure
     title: "3V0 rail, SNR and IF dynamic range"
     figure: rail_snr.png
-    note: 3V0 load drops from 78.5 to 47.2 mA of the 250 mA LP5907. SNR 3.6 dB lower than the LTC2294 of the same family (the LTC2292 sheet is not on file). Dynamic range 2.7 dB lower over 20 MHz, 1.5 dB lower after decimation by 20.
+    note: 3V0 load drops from 78.5 to 47.2 mA of the 250 mA LP5907. SNR 4.4 dB lower than the LTC2292 (67.0 against 71.4 dBFS, from its own sheet). Dynamic range 3.3 dB lower over 20 MHz, 1.8 dB lower after decimation by 20.
   - layout: figure
     title: "RX2 not fitted: 43 refs DNP, shared parts kept"
     figure: rx2_dnp.png

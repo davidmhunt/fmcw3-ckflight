@@ -33,21 +33,22 @@ AD9237 = {
 # VCM limits, p.17: VCMMIN = VREF/2, VCMMAX = (AVDD + VREF)/2; settle within half a clock (p.16).
 
 # --- LTC2292 (U8 today) --------------------------------------------------------------------
-# The file on hand is the LTC2294 sheet (adi-ltc2292-datasheet, 2294fa); its related-parts
-# table (p.24) is the only LTC2292 line in it. The LTC2292 sheet itself is still to obtain.
+# From the LTC2292's own sheet (adi-ltc2293-2292-2291-datasheet, 229321fa, saved by the user
+# 2026-11-22). It replaces the LTC2294 sheet (adi-ltc2292-datasheet, 2294fa) used before. The key
+# "snr_db_ltc2294" is kept so the callers are unchanged, but it now holds the LTC2292 value.
 LTC2292 = {
-    "span_vpp": (2.0, "adi-ltc2292-datasheet p.3, analog input range +/-1 V (SENSE = VDD)"),
-    "rin_ohm": (15.0, "p.12 Figure 2, 15 ohm series per input"),
-    "cpar_pf": (1.0, "p.12 Figure 2, CPARASITIC 1 pF"),
-    "csample_pf": (4.0, "p.12 Figure 2, CSAMPLE 4 pF"),
-    "vcm_v": (1.500, "p.4, VCM output voltage 1.475/1.500/1.525 V"),
-    "vcm_rout_ohm": (4.0, "p.4, VCM output resistance"),
-    "p_both_mw": (235.0, "p.24 related parts, LTC2292 dual 40 Msps 235 mW (both channels)"),
-    "snr_db_table": (74.4, "p.24 related parts, LTC2292 '74.4 dB SNR': above the 74.0 dB ideal of a "
-                           "12-bit converter, so a table error (the 14-bit LTC2297 row has the same)"),
-    "snr_db_ltc2294": (70.6, "p.3, LTC2294 (same family, 80 Msps) SNR typ 5 MHz, AIN -1 dBFS"),
-    "noise_lsb_rms": (0.3, "p.2, transition noise, SENSE = 1 V (LTC2294)"),
-    "vdd_v": (3.0, "p.5, VDD typ"),
+    "span_vpp": (2.0, "adi-ltc2293-2292-2291-datasheet p.3, analog input range +/-0.5 V to +/-1 V "
+                      "(2 V p-p at SENSE = VDD)"),
+    "rin_ohm": (15.0, "adi-ltc2293-2292-2291-datasheet p.16, input S/H: 15 ohm series per input"),
+    "cpar_pf": (1.0, "adi-ltc2293-2292-2291-datasheet p.16, CPARASITIC 1 pF"),
+    "csample_pf": (4.0, "adi-ltc2293-2292-2291-datasheet p.16, CSAMPLE 4 pF"),
+    "vcm_v": (1.500, "adi-ltc2293-2292-2291-datasheet p.4, VCM output voltage 1.475/1.500/1.525 V"),
+    "vcm_rout_ohm": (4.0, "adi-ltc2293-2292-2291-datasheet p.4, VCM output resistance 4 ohm"),
+    "p_both_mw": (235.0, "adi-ltc2293-2292-2291-datasheet p.5, PDISS both ADCs at fS(MAX), LTC2292 "
+                         "235 mW typ (285 max)"),
+    "snr_db_ltc2294": (71.4, "adi-ltc2293-2292-2291-datasheet p.3, LTC2292 SNR typ, 5 MHz input"),
+    "noise_lsb_rms": (0.25, "adi-ltc2293-2292-2291-datasheet p.2, transition noise, SENSE = 1 V"),
+    "vdd_v": (3.0, "adi-ltc2293-2292-2291-datasheet p.5, VDD typ"),
 }
 
 # --- U39 LP5907-3.0, the 3V0 regulator (ti-lp5907-datasheet) ----------------------------------
