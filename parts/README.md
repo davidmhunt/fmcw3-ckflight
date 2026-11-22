@@ -24,6 +24,15 @@ Options: `--targets NAME` (target set giving `board_quantity`, default `default`
 `--check` (exit 1 when a placed part has no MPN, generic passives included; only vias, pads,
 mounting holes, the printed coupler and not-fitted lines do not count).
 
+## Two projects: `--project`
+
+`bom.py`, `check_jlc.py`, `check_digikey.py` and `watch.py` take `--project DIR` (default
+`kicad`, the 2-RX design). `--project kicad-1rx` reads the 1-RX project (`fmcw3_1rx.kicad_sch`)
+and writes everything that goes to `out/` under `out/1rx/` (`out/1rx/bom.csv`,
+`out/1rx/availability.csv`, `out/1rx/jlc/`, `out/1rx/watch.csv`). Outputs for `kicad` stay where
+they are. The caches (`cache/`) and `decisions.csv` are shared. An unknown directory fails with
+`unknown project directory` and lists the projects that exist.
+
 ## Stock watch before ordering
 
 `./run parts/watch.py [--offline] [--refresh] [--check] [--targets NAME] [--boards N]` answers one

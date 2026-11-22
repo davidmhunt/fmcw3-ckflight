@@ -51,6 +51,13 @@ build about 25 minutes). Both are built automatically on first use. Details:
   `checks/baseline.json`, with 0 unconnected items and 0 schematic-parity issues. Warning
   counts are only printed: DRC jitters by ±1. `--record` re-records the baseline (use
   `--native`). See [`checks/README.md`](checks/README.md).
+- **Two projects**: `kicad/` is the 2-RX design, `kicad-1rx/` the 1-RX variant (root files
+  `fmcw3_1rx.*`, revision `1RX-A`), under the same rules. `--project DIR` (default `kicad`)
+  selects one for `checks/run_checks.sh`, `parts/bom.py`, `parts/check_jlc.py`,
+  `parts/check_digikey.py`, `parts/watch.py` and `tools/kicad_ipc.py status`. For `kicad-1rx` the
+  baseline is `checks/baseline-1rx.json` and the parts outputs go to `parts/out/1rx/`; for
+  `kicad` paths are unchanged. An unknown directory fails with a message listing the projects.
+  Example: `./run checks/run_checks.sh --project kicad-1rx`.
 - **Batch work** (ERC, DRC, exports) uses `kicad-cli` through `./run`, with KiCad 10.0.5 in
   the image and on the host.
 - **Following along in your open KiCad (IPC API)**: `tools/kicad_ipc.py`, run natively.
@@ -194,6 +201,8 @@ One command groups the BOM from the schematic (read headless, nothing under `kic
 written) and checks every line against DigiKey and the JLCPCB parts library. Columns, match
 confidence and how to add keys: [`parts/README.md`](parts/README.md).
 
+- Every command in this section takes `--project DIR` (default `kicad`). `--project kicad-1rx`
+  reads the 1-RX project and writes under `parts/out/1rx/` instead of `parts/out/`.
 - `./run parts/bom.py [--targets NAME] [--boards N] [--spares N] [--offline] [--check]`:
   writes `parts/out/bom.csv`, `parts/out/availability.csv` (one verdict per line: JLC assemble,
   consign from DigiKey, hand-solder, unresolved) and a JLCPCB BOM and CPL under

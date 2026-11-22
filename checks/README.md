@@ -8,6 +8,11 @@ schematic-parity issues. Warning counts are printed, never compared (DRC jitters
 `solder_mask_bridge` varies by +/-1 on identical input). `checks/run_checks.sh --record`
 rewrites `baseline.json`, `erc.json` and `drc.json` from the current project.
 
+`--project DIR` (default `kicad`) checks another project. `checks/run_checks.sh --project
+kicad-1rx` checks the 1-RX variant in `kicad-1rx/` against `baseline-1rx.json`; with `--record`
+(use `--native`) it rewrites `baseline-1rx.json`, `erc-1rx.json` and `drc-1rx.json`, never the 2-RX ones. An unknown
+directory fails with `unknown project directory`.
+
 `erc.json` and `drc.json` are one representative run on the restructured project.
 
 ## Native vs Docker (fnd-03 step 6, compared once)

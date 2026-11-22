@@ -72,7 +72,8 @@ Firmware lives in a separate repo (`davidmhunt/fmcw3-ckflight-fw`). Licence: GPL
   refdes.
 
 ## Layout
-- `kicad/`: the KiCad project. `legacy/`: unused upstream exports (see its README).
+- `kicad/`: the KiCad project. `kicad-1rx/`: the 1-RX variant, under the same rules as `kicad/`
+  (`--project kicad-1rx` on the checks and parts tools). `legacy/`: unused upstream exports (see its README).
 - `checks/`: ERC/DRC gate, baseline and recorded reports.
 - `docs/references/pcb-review-plan.md` (and the PDF): the user's 7-phase review plan (parts,
   RF chain, impedance, testability, ERC/DRC, SPICE, spurs) and its open questions. The source
