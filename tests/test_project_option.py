@@ -115,3 +115,127 @@ def test_run_checks_unknown_project():
     r = _run("bash", "checks/run_checks.sh", "--project", "kicad-nope")
     assert r.returncode != 0
     assert "unknown project directory" in r.stderr
+
+
+# ---- each tool's main() uses the resolved project paths -------------------------------------
+
+class _Stop(Exception):
+    """Raised by a stub to end a main() once the path under test has been captured."""
+
+
+def _capture(monkeypatch, module, name, seen):
+    def stub(*args, **kw):
+        seen[name] = args
+        raise _Stop
+    monkeypatch.setattr(module, name, stub)
+
+
+def _raiser(exc):
+    def f(*a, **k):
+        raise exc
+    return f
+
+
+PROJECTS = [([], "kicad", ""), (["--project", "kicad-1rx"], "kicad-1rx", "1rx/")]
+
+
+@pytest.mark.parametrize("argv, proj, sub", PROJECTS)
+def test_bom_main_paths(monkeypatch, argv, proj, sub):
+    want = project.resolve(proj)
+    seen = {}
+    _capture(monkeypatch, bom, "build", seen)
+    with pytest.raises(_Stop):
+        bom.main(argv)
+    assert seen["build"][0] == want.sch
+    seen.clear()
+    monkeypatch.setattr(bom, "build", lambda sch, *a, **k: [])
+    _capture(monkeypatch, bom, "write_csv", seen)
+    with pytest.raises(_Stop):
+        bom.main(argv)
+    assert seen["write_csv"][1] == ROOT / "parts" / "out" / (sub + "bom.csv")
+
+
+@pytest.mark.parametrize("argv, proj, sub", PROJECTS)
+def test_bom_main_pcb_for_cpl(monkeypatch, argv, proj, sub):
+    """The CPL is exported from the project's board, not always kicad/'s."""
+    import check_digikey
+    import check_jlc
+    seen = {}
+    monkeypatch.setattr(bom, "build", lambda *a, **k: [])
+    monkeypatch.setattr(bom, "write_csv", lambda *a, **k: None)
+    monkeypatch.setattr(check_jlc, "ensure_db", _raiser(check_jlc.JlcError("x")))
+    monkeypatch.setattr(check_digikey.Client, "from_env",
+                        classmethod(lambda cls: _raiser(check_digikey.DigiKeyError("x"))()))
+    monkeypatch.setattr(bom, "availability_rows", lambda *a, **k: [])
+    monkeypatch.setattr(bom, "write_availability", lambda *a, **k: None)
+    monkeypatch.setattr(bom, "write_jlc_bom", lambda *a, **k: None)
+    monkeypatch.setattr(bom, "jlc_assembled", lambda rows: [])
+    _capture(monkeypatch, bom, "export_pos", seen)
+    with pytest.raises(_Stop):
+        bom.main(argv + ["--offline"])
+    assert seen["export_pos"][0] == project.resolve(proj).pcb
+
+
+@pytest.mark.parametrize("argv, proj, sub", PROJECTS)
+def test_watch_main_out_path(monkeypatch, argv, proj, sub):
+    import check_jlc
+    import watch
+    seen = {}
+    monkeypatch.setattr(check_jlc, "ensure_db", lambda *a, **k: Path("x.db"))
+    monkeypatch.setattr(check_jlc, "Db", lambda p: None)
+    monkeypatch.setattr(watch, "make_dk", lambda offline: None)
+    _capture(monkeypatch, watch, "write_out", seen)
+    with pytest.raises(_Stop):
+        watch.main(argv)
+    assert seen["write_out"][1] == ROOT / "parts" / "out" / (sub + "watch.csv")
+
+
+@pytest.mark.parametrize("argv, proj, sub", PROJECTS)
+def test_check_jlc_main_schematic(monkeypatch, argv, proj, sub):
+    import check_jlc
+    seen = {}
+    monkeypatch.setattr(check_jlc, "ensure_db", lambda *a, **k: Path("x.db"))
+    monkeypatch.setattr(check_jlc, "Db", lambda p: None)
+    _capture(monkeypatch, bom, "build", seen)
+    with pytest.raises(_Stop):
+        check_jlc.main(argv)
+    assert seen["build"][0] == project.resolve(proj).sch
+
+
+@pytest.mark.parametrize("argv, proj, sub", PROJECTS)
+def test_check_digikey_main_schematic(monkeypatch, argv, proj, sub):
+    import check_digikey
+    seen = {}
+    monkeypatch.setattr(check_digikey.Client, "from_env", classmethod(lambda cls: object()))
+    _capture(monkeypatch, bom, "build", seen)
+    with pytest.raises(_Stop):
+        check_digikey.main(argv)
+    assert seen["build"][0] == project.resolve(proj).sch
+
+
+@pytest.mark.parametrize("proj, suffix", [("kicad", ""), ("kicad-1rx", "-1rx")])
+def test_run_checks_uses_project_files_and_baseline(tmp_path, proj, suffix):
+    """run_checks.sh runs kicad-cli in the project directory on its own files and compares
+    against checks/baseline<suffix>.json. A stub kicad-cli reports no violations."""
+    import json
+    import os
+    p = project.resolve(proj)
+    stub = tmp_path / "kicad-cli"
+    stub.write_text(
+        '#!/usr/bin/env bash\n'
+        'echo "$PWD $*" >> "$STUB_LOG"\n'
+        'out=""; while [ $# -gt 0 ]; do [ "$1" = -o ] && out="$2"; shift; done\n'
+        'case "$out" in *erc.json) echo \'{"sheets": []}\' > "$out";;\n'
+        '  *) echo \'{"violations": [], "unconnected_items": [], "schematic_parity": []}\' > "$out";; esac\n')
+    stub.chmod(0o755)
+    log = tmp_path / "log"
+    env = {**os.environ, "PATH": f"{tmp_path}:{os.environ['PATH']}", "STUB_LOG": str(log)}
+    r = subprocess.run(["bash", "checks/run_checks.sh", "--project", proj], cwd=ROOT, env=env,
+                       capture_output=True, text=True, timeout=120)
+    base = json.loads((ROOT / "checks" / f"baseline{suffix}.json").read_text())
+    assert f"ERC errors 0 (baseline {base['erc']['errors']})" in r.stdout, r.stdout + r.stderr
+    assert f"DRC errors 0 (baseline {base['drc']['errors']})" in r.stdout
+    lines = log.read_text().splitlines()
+    assert len(lines) == 2
+    assert all(l.startswith(f"{p.dir} ") for l in lines)
+    assert lines[0].endswith(p.sch.name) and lines[1].endswith(p.pcb.name)
