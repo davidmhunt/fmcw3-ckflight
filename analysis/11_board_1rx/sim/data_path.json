@@ -1,0 +1,94 @@
+{
+ "firmware_commit": "cb7f097eaf21b407d9dcd2f65e28b1143f1d12d5",
+ "targets": {
+  "adc_fs_hz": 40000000.0,
+  "adc_bits": 12,
+  "chirp_duration_s": 0.001,
+  "sample_rate_after_decim_hz": 2000000.0,
+  "decimation": 20
+ },
+ "rates": {
+  "rates_mbyte_s": {
+   "raw_12bit_packed": 60.0,
+   "raw_16bit_padded": 80.0,
+   "decimated_16bit_one_channel": 4.0,
+   "decimated_firmware_word_32bit": 8.0
+  },
+  "limits_mbyte_s": {
+   "bus_ceiling": 60.0,
+   "datasheet_max": 40.0,
+   "datasheet_stated": 25.0
+  },
+  "raw_mbit_s": 480.0,
+  "usb_line_mbit_s": 480.0,
+  "decimated_sample_rate_hz": 2000000.0,
+  "verdict": {
+   "raw_12bit_packed": {
+    "pct_of_stated_25": 240.0,
+    "pct_of_max_40": 150.0,
+    "pct_of_bus_60": 100.0,
+    "fits_stated_25": false,
+    "fits_max_40": false
+   },
+   "raw_16bit_padded": {
+    "pct_of_stated_25": 320.0,
+    "pct_of_max_40": 200.0,
+    "pct_of_bus_60": 133.33333333333334,
+    "fits_stated_25": false,
+    "fits_max_40": false
+   },
+   "decimated_16bit_one_channel": {
+    "pct_of_stated_25": 16.0,
+    "pct_of_max_40": 10.0,
+    "pct_of_bus_60": 6.666666666666667,
+    "fits_stated_25": true,
+    "fits_max_40": true
+   },
+   "decimated_firmware_word_32bit": {
+    "pct_of_stated_25": 32.0,
+    "pct_of_max_40": 20.0,
+    "pct_of_bus_60": 13.333333333333334,
+    "fits_stated_25": true,
+    "fits_max_40": true
+   }
+  },
+  "max_streaming_fs_msps": {
+   "at_stated_25": 12.5,
+   "at_max_40": 20.0,
+   "min_integer_decimation_stated_25": 4,
+   "min_integer_decimation_max_40": 2
+  }
+ },
+ "firmware_ceiling": {
+  "ctrl_clk_per_word": 18,
+  "ctrl_ceiling_mbyte_s": 8.888888888888888,
+  "usb_fsm_ceiling_mbyte_s": 12.0,
+  "need_mbyte_s": 8.0,
+  "ctrl_margin_pct": 11.111111111111093,
+  "need_16bit_one_channel_mbyte_s": 4.0
+ },
+ "buffers": {
+  "bram_total_kb": 4860,
+  "bram_total_kbyte": 607.5,
+  "bram_total_kb_xc7a35t": 1800,
+  "firmware_fifos_kb": 200.0,
+  "firmware_fifos_pct": 4.11522633744856,
+  "chirp_samples_raw": 40000.0,
+  "chirp_samples_decimated": 2000.0,
+  "chirp_raw_16bit_kb": 625.0,
+  "chirp_raw_12bit_kb": 468.75,
+  "chirp_raw_16bit_pct_of_bram": 12.860082304526749,
+  "chirp_raw_12bit_pct_of_bram": 9.645061728395062,
+  "chirp_raw_16bit_pct_of_bram_xc7a35t": 34.72222222222222,
+  "adc_fifo_words": 2048,
+  "chirp_decimated_words_with_header": 2001.0,
+  "decimated_chirp_fits_adc_fifo": true,
+  "adc_fifo_ms_at_2msps": 1.024,
+  "raw_chirp_drain_ms_stated_25": 3.2,
+  "raw_max_chirps_per_s_stated_25": 312.5,
+  "raw_duty_stated_25": 0.3125,
+  "raw_chirp_drain_ms_max_40": 2.0,
+  "raw_max_chirps_per_s_max_40": 500.0,
+  "raw_duty_max_40": 0.5
+ }
+}
