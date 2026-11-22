@@ -5,6 +5,7 @@ Credentials come from `.env` at the repo root (gitignored; template `.env.exampl
 DIGIKEY_* environment variables; they are read at run time only and never printed or logged.
 
 usage: parts/check_digikey.py [--boards N] [--spares N] [--bom parts/out/bom.csv] [--limit K]
+                           [--project DIR]
 
 API (all network access goes through `Client`, whose transport can be replaced in tests):
   load_env(path) -> dict                      require_keys(env, names)
@@ -349,12 +350,14 @@ def main(argv=None):
     ap.add_argument("--boards", type=int, default=3)
     ap.add_argument("--spares", type=int, default=0, help="extra parts per line")
     ap.add_argument("--limit", type=int, default=0, help="check only the first K lines")
-    a = ap.parse_args(argv)
     sys.path.insert(0, str(HERE))
     import bom
+    bom.add_project_arg(ap)
+    a = ap.parse_args(argv)
+    proj = bom.project_from(a)
     try:
         client = Client.from_env()
-        groups = bom.build()
+        groups = bom.build(proj.sch)
         if a.limit:
             groups = groups[:a.limit]
         print(f"{'refs':28} {'class':8} {'status':10} {'stock':>8} {'need':>5} {'price':>8}  mpn")

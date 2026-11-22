@@ -3,6 +3,7 @@
 
 usage: parts/watch.py [--offline] [--refresh] [--check] [--targets NAME] [--boards N]
                       [--watch parts/watch.csv] [--out parts/out/watch.csv] [--cache DIR]
+                      [--project DIR]
 
 Reads parts/watch.csv (one row per watched MPN, see parts/README.md), then for each row prints
   - JLC stock and library type (the local JLCPCB parts database; --refresh downloads a fresh copy),
@@ -174,7 +175,11 @@ def main(argv=None):
     ap.add_argument("--targets", default="default", help="target set giving board_quantity")
     ap.add_argument("--boards", type=int, help="override board_quantity")
     ap.add_argument("--watch", type=Path, default=WATCH)
-    ap.add_argument("--out", type=Path, default=OUT)
+    ap.add_argument("--out", type=Path, default=None,
+                    help="default: parts/out/watch.csv, or parts/out/<tag>/watch.csv for "
+                         "--project kicad-<tag>")
+    import bom
+    bom.add_project_arg(ap)
     ap.add_argument("--cache", type=Path, default=None, help="JLCPCB database cache directory")
     ap.add_argument("--check", action="store_true",
                     help="exit 1 on a malformed row or a drop-in row without evidence")
@@ -182,6 +187,7 @@ def main(argv=None):
     g.add_argument("--refresh", action="store_true", help="download the JLCPCB database again")
     g.add_argument("--offline", action="store_true", help="caches only; never touch the network")
     a = ap.parse_args(argv)
+    a.out = a.out or bom.project_from(a).parts_out / "watch.csv"
 
     with a.watch.open(newline="") as f:
         header = csv.DictReader(f).fieldnames or []
@@ -195,9 +201,8 @@ def main(argv=None):
     if "missing columns" in "".join(problems):
         return 1
 
-    import bom
     import check_jlc as jl
-    boards = bom.board_count(a.targets, a.boards)
+    boards =bom.board_count(a.targets, a.boards)
     try:
         db = jl.Db(jl.ensure_db(a.cache or jl.CACHE, a.offline, a.refresh))
     except jl.JlcError as e:

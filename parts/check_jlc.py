@@ -9,7 +9,7 @@ and gives the same answer every time. No key is needed. See parts/README.md for 
 the jlcsearch API.
 
 usage: parts/check_jlc.py [--boards N] [--spares N] [--limit K] [--cache DIR]
-                          [--refresh | --offline]
+                          [--refresh | --offline] [--project DIR]
 
 API:
   Db(path)                      .by_lcsc(code) .by_mpn(mpn) .by_mpn_prefix(mpn) .by_value(...)
@@ -328,12 +328,14 @@ def main(argv=None):
     g = ap.add_mutually_exclusive_group()
     g.add_argument("--refresh", action="store_true", help="download the database again")
     g.add_argument("--offline", action="store_true", help="use the cache only; never download")
-    a = ap.parse_args(argv)
     sys.path.insert(0, str(HERE))
     import bom
+    bom.add_project_arg(ap)
+    a = ap.parse_args(argv)
+    proj = bom.project_from(a)
     try:
         db = Db(ensure_db(a.cache, a.offline, a.refresh))
-        groups = bom.build()
+        groups = bom.build(proj.sch)
     except JlcError as e:
         raise SystemExit(str(e))
     if a.limit:

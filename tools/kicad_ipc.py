@@ -4,7 +4,7 @@
 Library plus CLI.  Run natively, because the API socket belongs to the GUI on the host:
 
     K="./run --native uv run --group ipc python tools/kicad_ipc.py"
-    $K status [PROJECT]
+    $K status [--project DIR | PROJECT.kicad_pro]     # DIR: kicad (default) or kicad-1rx
     $K show --refs U30 --nets /ADF_DATA [--sch|--pcb]
     $K set-fields FIELDS.csv [--dry-run]
 
@@ -112,6 +112,21 @@ def has_project_open(kicad, project: Path) -> bool:
             if p.resolve() == want:
                 return True
     return False
+
+
+def project_file(project_dir: str | None = None, project_file_arg: str | None = None) -> Path:
+    """The .kicad_pro that `status` asks about: `--project DIR` (resolved by tools/project.py,
+    an unknown directory is an IpcError), else the positional .kicad_pro, else the default."""
+    if project_dir and project_file_arg:
+        raise IpcError("give either --project DIR or a .kicad_pro path, not both")
+    if project_dir:
+        sys.path.insert(0, str(Path(__file__).resolve().parent))
+        import project
+        try:
+            return project.resolve(project_dir).pro
+        except project.ProjectError as exc:
+            raise IpcError(str(exc)) from exc
+    return Path(project_file_arg or DEFAULT_PROJECT)
 
 
 def status(project: str | Path = DEFAULT_PROJECT, *,
@@ -306,7 +321,11 @@ def main(argv: Sequence[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     sub = ap.add_subparsers(dest="cmd", required=True)
     p = sub.add_parser("status", help="print ipc, closed or other")
-    p.add_argument("project", nargs="?", default=DEFAULT_PROJECT)
+    p.add_argument("project", nargs="?", default=None,
+                   help="a .kicad_pro file (default: the kicad/ project)")
+    p.add_argument("--project", dest="project_dir", metavar="DIR", default=None,
+                   help="project directory, e.g. kicad-1rx (default kicad): is KiCad "
+                        "showing that project")
     p = sub.add_parser("show", help="select refs and nets in the editors")
     p.add_argument("--refs", nargs="*", default=[])
     p.add_argument("--nets", nargs="*", default=[])
@@ -319,7 +338,11 @@ def main(argv: Sequence[str] | None = None) -> int:
     a = ap.parse_args(argv)
 
     if a.cmd == "status":
-        print(status(a.project))
+        try:
+            print(status(project_file(a.project_dir, a.project)))
+        except IpcError as exc:
+            print(f"error: {exc}", file=sys.stderr)
+            return 2
         return 0
     try:
         kicad = connect()

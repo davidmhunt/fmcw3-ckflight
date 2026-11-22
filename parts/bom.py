@@ -4,6 +4,11 @@
 usage: parts/bom.py [--targets NAME] [--boards N] [--spares N] [--offline] [--check]
                     [--out parts/out/bom.csv] [--decisions parts/decisions.csv]
                     [--schematic kicad/fmcw3.kicad_sch] [--pcb kicad/fmcw3.kicad_pcb]
+                    [--project kicad]
+
+--project DIR picks the KiCad project (default kicad; kicad-1rx is the 1-RX board): its
+schematic and board, and outputs in parts/out/ (kicad) or parts/out/<tag>/ (kicad-<tag>, so
+parts/out/1rx/). --schematic, --pcb and --out override the individual paths.
 
 Writes parts/out/bom.csv, availability.csv (JLC and DigiKey side by side with a verdict per
 line: JLC assemble, consign from DigiKey, hand-solder, unresolved; also not fitted, no part)
@@ -55,6 +60,19 @@ GENERIC_PREFIXES = ("C", "R", "L", "FB")
 EXPORT_FIELDS = (["Reference", "Value", "Footprint", "${DNP}", "${EXCLUDE_FROM_BOM}"]
                  + PART_FIELDS + SPEC_FIELDS)
 CLASSES = ("mpn", "generic", "dnp", "nopart")
+
+
+def add_project_arg(ap: argparse.ArgumentParser) -> None:
+    ap.add_argument("--project", default="kicad", metavar="DIR",
+                    help="KiCad project directory (default kicad; kicad-1rx is the 1-RX board)")
+
+
+def project_from(args):
+    """The resolved tools/project.py Project for `args.project`; exits with a clear message
+    when the directory is not a project."""
+    sys.path.insert(0, str(ROOT / "tools"))
+    import project
+    return project.resolve_or_exit(args.project)
 
 
 def prefix(ref: str) -> str:
@@ -411,10 +429,13 @@ def verdict_summary(rows: list[dict]) -> str:
 
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    ap.add_argument("--schematic", type=Path, default=SCH)
-    ap.add_argument("--pcb", type=Path, default=PCB)
+    add_project_arg(ap)
+    ap.add_argument("--schematic", type=Path, default=None, help="default: the project's")
+    ap.add_argument("--pcb", type=Path, default=None, help="default: the project's")
     ap.add_argument("--decisions", type=Path, default=DECISIONS)
-    ap.add_argument("--out", type=Path, default=OUT, help="bom.csv; the other files go beside it")
+    ap.add_argument("--out", type=Path, default=None,
+                    help="bom.csv; the other files go beside it (default: the project's "
+                         "parts/out/ or parts/out/<tag>/)")
     ap.add_argument("--targets", default="default", help="target set giving board_quantity")
     ap.add_argument("--boards", type=int, default=None, help="boards to buy for (overrides targets)")
     ap.add_argument("--spares", type=int, default=0, help="extra parts per line")
@@ -423,6 +444,10 @@ def main(argv=None) -> int:
     ap.add_argument("--check", action="store_true",
                     help="exit 1 when a placed part has no MPN")
     a = ap.parse_args(argv)
+    proj = project_from(a)
+    a.schematic = a.schematic or proj.sch
+    a.pcb = a.pcb or proj.pcb
+    a.out = a.out or proj.parts_out / "bom.csv"
     boards = board_count(a.targets, a.boards)
     groups = build(a.schematic, a.decisions)
     write_csv(groups, a.out)
