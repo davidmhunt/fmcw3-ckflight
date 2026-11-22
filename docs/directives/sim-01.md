@@ -39,6 +39,9 @@ the simulated ripple and spur level, and pass or fail.
 ## Out of scope
 - Digital rails. Layout parasitic extraction. Design changes.
 
+## Rules
+- Analyse once on `kicad/` unless a supply part differs on 1-RX (for example U21 or the ADC rail load); then run that rail per board. (amended 2026-11-22 for the two-board plan)
+
 ## Allowed commands
 - `./run *`
 

@@ -43,6 +43,9 @@ each source with its frequency, coupling path, predicted location and a risk rat
 ## Out of scope
 - Regulatory compliance statements. Design changes. Bench measurement.
 
+## Rules
+- Work out the jitter-limited SNR for each board's ADC (LTC2292 and AD9237); the clock plan is shared. (amended 2026-11-22 for the two-board plan)
+
 ## Allowed commands
 - `./run *`
 

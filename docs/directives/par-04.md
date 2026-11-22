@@ -4,7 +4,7 @@ Goal: parts
 Node: any
 Deliverable: code
 Accept: user
-Verify: ./run checks/run_checks.sh && ./run parts/bom.py --offline --check && ./run uv run pytest tests/test_apply_fields.py -q
+Verify: ./run checks/run_checks.sh && ./run parts/bom.py --offline --check && ./run checks/run_checks.sh --project kicad-1rx && ./run uv run pytest tests/test_apply_fields.py -q
 Hardware: none
 
 ## Goal
@@ -24,6 +24,9 @@ schematic alone has an MPN on every placed part and the netlist is unchanged.
 3. Apply. If status is not `closed`, stop and ask the user to close KiCad. Apply, then export the
    netlist again and diff against step 1 (must be equal apart from the new fields). Run
    `./run checks/run_checks.sh`. Ask the user to reopen KiCad and spot-check (see Review).
+   Apply the same fields to `kicad-1rx/` (rx1-01's copy), under the same `closed` check and
+   netlist diff, so rx1-03 starts from a fielded 1-RX schematic. (Amended 2026-11-22 for the
+   two-board plan.)
 4. Remove the `parts/decisions.csv` merge path from `parts/bom.py` so the schematic is the only
    source; keep the CSV as the record of why. Re-run the BOM and commit `parts/out/`.
 
@@ -37,8 +40,8 @@ schematic alone has an MPN on every placed part and the netlist is unchanged.
 - Updating `production/`.
 
 ## Rules
-- Never write `kicad/*.kicad_sch` while KiCad has the project open; `status` must print `closed`
-  immediately before the write.
+- Never write `kicad/*.kicad_sch` or `kicad-1rx/*.kicad_sch` while KiCad has that project open;
+  `status` must print `closed` immediately before the write.
 - Field edits only: no value, symbol, footprint, wire or position change.
 
 ## Allowed commands

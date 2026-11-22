@@ -41,6 +41,9 @@ type or error-severity item without a disposition.
 ## Out of scope
 - Applying fixes or exclusions to the project files.
 
+## Rules
+- Triage both projects, each against its own baseline (`checks/baseline.json`, `checks/baseline-1rx.json`); the design-rule check against JLCPCB's limits is shared. (amended 2026-11-22 for the two-board plan)
+
 ## Allowed commands
 - `./run *`
 

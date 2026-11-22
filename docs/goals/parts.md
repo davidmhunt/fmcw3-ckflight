@@ -9,6 +9,17 @@ schematic, a known DigiKey and JLCPCB/LCSC status for N boards, and a datasheet 
 fetch. It holds when `./run parts/bom.py --check` reports no placed part without an MPN and the
 availability report lists no unresolved line.
 
+Amended 2026-11-22 (the user's decision): two boards come out of this goal, each its own KiCad
+project.
+- **1-RX** (`kicad-1rx/`): the AD9237BCPZ-40 ADC, receive chain 2 not fitted, and JLCPCB-stocked
+  parts only. Its small redesign is analysed and documented before the schematic changes. It is
+  ready to order by Friday 2026-11-27.
+- **2-RX** (`kicad/`): the full design with the LTC2292IUP#PBF bought through JLC's
+  parts-sourcing service by the user, on hand late December or early January.
+
+Both are 3 boards. The goal also holds when the 1-RX order package has been taken by JLCPCB's
+quote page with every line in stock (rx1-04).
+
 ## Directives
 1. par-01: BOM export from the schematic and automated DigiKey + JLCPCB checks
 2. par-02: Datasheet manifest and download script for the critical parts
@@ -23,9 +34,15 @@ availability report lists no unresolved line.
    user's request)
 8. par-10: Stock watch for hard-to-source parts, ADC first (added 2026-11-21 at the user's
    request)
-9. par-04: Write MPN, DigiKey and LCSC fields into the schematic symbols
-10. par-05: Ordering BOMs from the schematic that DigiKey and JLCPCB ingest directly (added
-   2026-11-21 at the user's request)
+9. rx1-01: 1-RX KiCad project, and tools that take a project (added 2026-11-22)
+10. rx1-02: 1-RX design: AD9237 ADC, RX2 not fitted, JLC-stock-only parts, each change checked
+   (added 2026-11-22)
+11. par-04: Write MPN, DigiKey and LCSC fields into the schematic symbols (both projects,
+   amended 2026-11-22)
+12. rx1-03: Apply the 1-RX schematic changes in kicad-1rx/ (added 2026-11-22)
+13. par-05: Ordering BOMs from the schematic that DigiKey and JLCPCB ingest directly (added
+   2026-11-21 at the user's request; `--project`, amended 2026-11-22)
+14. rx1-04: 1-RX fabrication and JLCPCB order package (added 2026-11-22)
 
 ## Notes
 - Written 2026-11-19 with goal `foundation`; re-check against `docs/surveys/upstream-survey.md`
@@ -56,5 +73,12 @@ availability report lists no unresolved line.
   `docs/board-changes.md`: what changed, why, the evidence, the simulation or analysis that
   covers it, and its status. A changed part with no covering simulation must say so. (The user,
   2026-11-21: changes must be simulated and documented.)
+- `kicad-1rx/` is under the same CLAUDE.md rules as `kicad/`: check `tools/kicad_ipc.py status
+  --project kicad-1rx` before any write, never write while it is open, and layout and part
+  choices are the user's.
+- 1-RX board: every placed part is in JLCPCB stock for `board_quantity` at the time of the order;
+  no consignment and no sourcing service. (The user, 2026-11-22.)
+- The firmware repo `davidmhunt/fmcw3-ckflight-fw` is read only in this goal; the 1-RX firmware
+  is a later goal there.
 
 ## Log

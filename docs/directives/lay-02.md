@@ -45,6 +45,9 @@ with evidence for each check and each critical part.
 - Layout edits.
 - Thermal simulation.
 
+## Rules
+- On 1-RX also check the AD9237 (U8) decoupling, exposed-pad vias and grounding against its datasheet, and every footprint `parts/rx1_changes.csv` changes; the rest is checked once on `kicad/`. (amended 2026-11-22 for the two-board plan)
+
 ## Allowed commands
 - `./run *`
 

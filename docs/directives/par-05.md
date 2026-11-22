@@ -21,7 +21,9 @@ recorded that each service matched every line. (Added 2026-11-21 at the user's r
      number or manufacturer part number, manufacturer, quantity, customer reference).
    - JLCPCB: the assembly BOM (Comment, Designator, Footprint, LCSC Part #) and the CPL
      (Designator, Mid X, Mid Y, Layer, Rotation) for the assembly quote page.
-2. `parts/order_bom.py [--targets NAME] [--boards N] [--check]`: reads only the schematic
+2. `parts/order_bom.py [--project DIR] [--targets NAME] [--boards N] [--check]` (`--project`
+   from rx1-01, default `kicad`; output under `parts/out/1rx/order/` for `kicad-1rx`; amended
+   2026-11-22 for the two-board plan): reads only the schematic
    (`kicad-cli sch export bom` with the `MPN`, `Manufacturer`, `DigiKey` and `LCSC` fields) and
    the board (`kicad-cli pcb export pos` for the CPL). It never reads `parts/decisions.csv`.
    Writes `parts/out/order/digikey_bom.csv`, `jlc_bom.csv` and `jlc_cpl.csv`:
@@ -41,6 +43,10 @@ recorded that each service matched every line. (Added 2026-11-21 at the user's r
      `production/`) to a JLCPCB assembly quote, up to the parts-review page, without ordering;
    - report for each: did it ingest without edits, how many lines matched, which lines did not
      and why, plus screenshots if useful.
+
+   This is the 2-RX board. U8 (LTC2292IUP#PBF) is expected to be unmatched until the user's JLC
+   sourcing order reaches the parts library. Note it in the result rather than counting it as a
+   format failure. The 1-RX upload is rx1-04.
 
    Fix any format issue the services raise and repeat. Then record
    `friday result write par-05 --metric digikey_ingested=<0|1> --metric jlc_ingested=<0|1>

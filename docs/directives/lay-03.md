@@ -41,6 +41,9 @@ gives an expected value for every step.
 - Adding test points to the design.
 - Any bench measurement (no board exists yet).
 
+## Rules
+- Write the bring-up procedure in two variants, 1-RX (one channel, AD9237 straps, receive chain 2 not fitted) and 2-RX, sharing the common steps; test points cover both. (amended 2026-11-22 for the two-board plan)
+
 ## Allowed commands
 - `./run *`
 

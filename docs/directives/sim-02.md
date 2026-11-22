@@ -39,6 +39,9 @@ when each has a result against a limit written beforehand.
 ## Out of scope
 - Choosing a different regulator. Design changes.
 
+## Rules
+- Compare the IF output swing and bias against each board's ADC input (LTC2292 on 2-RX, AD9237 on 1-RX, reusing rx1-02's model), and run the buck with each board's chosen inductor if they differ. (amended 2026-11-22 for the two-board plan)
+
 ## Allowed commands
 - `./run *`
 
