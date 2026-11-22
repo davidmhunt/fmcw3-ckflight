@@ -121,7 +121,8 @@ PIN_ROWS_2 = [
     ["(new)", "VREF 24", "0.1 uF and 10 uF to AGND (C992, C993); 2 mA max load", f"{AD} p.18 (Figure 39), p.19"],
     ["REFHA 3, 4; REFLA 5, 6", "REFT 26; REFB 25", "0.1 uF each to AGND (C217, C218); 0.1 uF and 10 uF REFT to REFB "
                                                     "(C221, C220)", f"{AD} p.18, p.8"],
-    ["AVDD, DRVDD", "27, 32; 16", "0.1 uF minimum, 0.1 uF with 10 uF recommended, per supply pin group",
+    ["AVDD, DRVDD", "27, 32; 16", "0.1 uF with 10 uF per group: 100n and 1u stay (3V0: 4 x 100n; 3V3D: C25, C225, "
+                                  "C252); new 10u C994 on 3V0, C995 on 3V3D",
      f"{AD} p.8 (Table 6)"],
     ["VCMA (61)", "none (no VCM pin)", "U45 supplies the common mode: 1.5 V divider R990/R991 1 kohm from 3V0 on "
                                        "/ADC_VCMB (kept chain; C30, C31, C41); 22 uA x 500 ohm = 11 mV",

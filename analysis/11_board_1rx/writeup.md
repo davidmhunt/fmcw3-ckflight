@@ -81,8 +81,13 @@ First the signals, then the straps, references, decoupling and the bias.
   use the LTC2292 multiplexed mode (CLKA, CLKB, MUX on the 40 MHz clock); a single-channel build is
   needed.
 - Decoupling: the AD9237 asks for 0.1 uF per supply pin group and 0.1 uF with 10 uF recommended
-  (p.8). The parts list assumes the existing 3V0 and 3V3D decoupling stays; rx1-03 checks that each
-  group has the 0.1 uF and 10 uF before the schematic edit.
+  (p.8, Table 6). The kicad/ netlist and board positions (`supply_decoupling.py`) give what is there.
+  AVDD (pins 27, 32) takes the LTC2292 VDD net `/fpga/adc/3V0`: six caps, 100n C24, C27, C223, C224
+  and 1u C222, C249, all within 10 mm of U8, no 10u. DRVDD (pin 16) takes `/3V3D`, a shared rail:
+  100n C25, C225, C252 are 5.9 to 10.9 mm from U8; the nearest 10u is C106 at 32 mm (a 4.7u, C194, is at 16 mm). So the 100n is
+  met by caps that stay, and the 10u is not met: C994 (10u on 3V0) and C995 (10u on 3V3D) are
+  proposed, in `rx1_changes.csv` and `docs/board-changes.md`. No simulation covers them; they are
+  datasheet values, and placement is yours. No open question is left for rx1-03.
 - The input network (R97/R99 49.9 ohm, C163 to C165 100 pF) is kept: it is what the simulation
   covers. The datasheet's own examples use 33 ohm and 15 pF across (p.17), and p.16 says to reduce
   or remove the shunt capacitor for IF undersampling; this board's IF is baseband, so it is left.

@@ -40,7 +40,7 @@ COLS = ["id", "kind", "refs", "group", "from", "to", "status", "choice", "option
 # Ref cells of the docs/board-changes.md rows (Board 1-RX) the changes belong to.
 R_U8 = "U8 (ADC), 1-RX"
 R_STRAP = "U8 straps and the VCMB bias divider, 1-RX (R92, R93, R990, R991)"
-R_REF = "U8 reference and VREF caps, 1-RX (C217, C218, C220, C992, C993)"
+R_REF = "U8 reference, VREF and supply caps, 1-RX (C217, C218, C220, C992, C993, C994, C995)"
 R_DNP = "Receive chain 2 not fitted, 1-RX"
 R_VCM = "U45 unused pair and /ADC_VCMA, 1-RX"
 R_FPGA = "U30 (FPGA), 1-RX"
@@ -174,6 +174,28 @@ def changes() -> list[dict]:
     add(kind="new", refs="C993", group="adc", **{"from": ""}, to="10u 0603, VREF (pin 24) to AGND",
         status="proposed", cls="netlist only", evidence=f"{AD} p.18 (Figure 39)", check="datasheet values",
         board_row=R_REF)
+    add(kind="net", refs="C24;C27;C223;C224;C222;C249", group="adc",
+        **{"from": "LTC2292 VDD 7, 10, 18, 63 (/fpga/adc/3V0): 4 x 100n, 2 x 1u"},
+        to="kept on AVDD (pins 27, 32): the 100n per supply pin group the datasheet asks for",
+        status="proposed", cls="netlist only", evidence=f"{AD} p.8 (Table 6)",
+        check="kicad/ netlist (analysis/11_board_1rx/supply_decoupling.py): these six are the only caps "
+              "on the net; all within 10 mm of U8", board_row=R_REF)
+    add(kind="new", refs="C994", group="adc", **{"from": ""},
+        to="10u 0603, 3V0 (AVDD, pins 27 and 32) to AGND; the net has no 10u today",
+        status="proposed", cls="netlist only", evidence=f"{AD} p.8 (Table 6: 0.1 uF with 10 uF recommended)",
+        check="kicad/ netlist: 3V0 has 100n and 1u only; datasheet values, no simulation needed; "
+              "placement is the user's", board_row=R_REF)
+    add(kind="net", refs="C25;C225;C252", group="adc",
+        **{"from": "LTC2292 OVDD 32, 49 (/3V3D, shared rail)"},
+        to="kept on DRVDD (pin 16): 100n, the three nearest 3V3D caps (5.9 to 10.9 mm from U8)",
+        status="proposed", cls="netlist only", evidence=f"{AD} p.8 (Table 6)",
+        check="kicad/ netlist and kicad_pcb positions (supply_decoupling.py); 3V3D is shared with the FPGA",
+        board_row=R_REF)
+    add(kind="new", refs="C995", group="adc", **{"from": ""},
+        to="10u 0603, 3V3D (DRVDD, pin 16) to GND; the nearest 10u on 3V3D today is C106, 32 mm from U8",
+        status="proposed", cls="netlist only", evidence=f"{AD} p.8 (Table 6: 0.1 uF with 10 uF recommended)",
+        check="kicad/ netlist and kicad_pcb positions (supply_decoupling.py); datasheet values; "
+              "placement is the user's", board_row=R_REF)
     for net, pin in (("/fpga/OFB", "M1"), ("/fpga/ADC_OE2", "P1"), ("/fpga/ADC_SHDN2", "N2")):
         add(kind="net", refs=net, group="fpga", **{"from": f"U8 channel B to U30.{pin}"},
             to=f"no source: U30.{pin} is freed", status="decided", cls="netlist only",
