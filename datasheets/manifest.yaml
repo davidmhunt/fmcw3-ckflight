@@ -1558,3 +1558,21 @@ entries:
   sha256: 5792f62aa709865e65b459d8e7bf1efc657ea55981c8c20122b995d9a38c652f
   licence: vendor copyright; not redistributed here
   commit: 'no'
+- id: adi-ad9237-datasheet
+  kind: datasheet
+  title: ADI AD9237 12-bit 20/40/65 MSPS 3 V A/D converter, Rev. C (U8 replacement in the 1-RX board, AD9237BCPZ-40; saved by the user from analog.com)
+  url: https://www.analog.com/media/en/technical-documentation/data-sheets/AD9237.pdf
+  access: direct
+  file: datasheets/files/adi/ad9237.pdf
+  sha256: 84aba6d15f0bb883d6ceb87325a200755c0b297b3ad71789b03483b7237cbc91
+  licence: ADI copyright; not redistributed here
+  commit: 'no'
+- id: ti-ads5231-datasheet
+  kind: datasheet
+  title: TI ADS5231 dual 12-bit 40 MSPS ADC datasheet (1-RX ADC alternative to AD9237)
+  url: https://www.ti.com/lit/ds/symlink/ads5231.pdf
+  access: direct
+  file: datasheets/files/ti/ads5231.pdf
+  sha256: 9e8605025b6d3662b289c0123d81ac936af24f219515ec03042cad0f9d13c41f
+  licence: vendor copyright; not redistributed here
+  commit: 'no'
