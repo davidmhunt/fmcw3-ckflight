@@ -6,7 +6,7 @@ slides:
       - "JLC database 2026-11-22; firmware read at cb7f097 (read only)"
     note: Every part claim cites a manifest id and PDF page in the report. Nothing under kicad/ or kicad-1rx/ was written. The recommendations are labelled; the choices are yours.
   - layout: figure
-    title: "What changes: 87 rows in parts/rx1_changes.csv"
+    title: "What changes: 91 rows in parts/rx1_changes.csv"
     figure: change_summary.png
     note: One row per ref or net, which rx1-03 applies and tests against. Option rows apply only when you accept that option of the named rx1- key. Each row has a docs/board-changes.md row (Board 1-RX) naming its check.
   - layout: figure
@@ -16,7 +16,7 @@ slides:
   - layout: figure
     title: "Straps, references, decoupling, 1.5 V bias"
     figure: pin_map_2.png
-    note: SENSE to AGND, MODE2 to AGND give the 2 V p-p span U45 drives today. MODE stays at 0.65 AVDD (R92 = 11k gives 0.669; choice rx1-mode). The bias divider goes on /ADC_VCMB for the kept chain. Existing 3V0 and 3V3D decoupling is assumed; rx1-03 checks 0.1 uF and 10 uF per group.
+    note: SENSE to AGND, MODE2 to AGND give the 2 V p-p span U45 drives today. MODE stays at 0.65 AVDD (R92 = 11k gives 0.669; choice rx1-mode). The bias divider goes on /ADC_VCMB for the kept chain. 10 uF C994 (AVDD) and C995 (DRVDD) are proposed from the netlist; no decoupling question is left for rx1-03.
   - layout: figure
     title: "Input simulation: IF response, today against 1-RX"
     figure: if_response.png

@@ -224,5 +224,5 @@ The choices, each with its recommendation (`parts/choices.json`, keys `rx1-`):
 - `parts/choices.json`: {{fact:n_choices}} keys prefixed `rx1-`. Accept with
   `friday accept rx1-02 --note "<choice per rx1- key>"`.
 - Open for the review: which of the options above (the SMA is the one with no recommendation), the
-  R92 value, the unused-amp handling, R51/R52, the 3V3A before 3V0 start-up note, and the decoupling
-  check of rx1-03.
+  R92 value, the unused-amp handling, R51/R52, and the 3V3A before 3V0 start-up note. No decoupling
+  question is left for rx1-03.
