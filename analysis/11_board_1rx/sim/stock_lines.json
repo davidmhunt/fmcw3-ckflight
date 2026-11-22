@@ -1,0 +1,2706 @@
+{
+ "boards": 3,
+ "inductor_check": [
+  {
+   "isat_a": 1.02,
+   "lcsc": "C2042352",
+   "ok_vs_full_load": false,
+   "ok_vs_limit_max": false,
+   "ok_vs_limit_typ": false,
+   "option": "SRR6040A-330M (today)",
+   "rails": {
+    "L5": {
+     "net": "/1V0",
+     "peak_at_2a": 2.016,
+     "ripple_a": 0.032,
+     "vout": 1.0
+    },
+    "L6": {
+     "net": "/3V8",
+     "peak_at_2a": 2.045,
+     "ripple_a": 0.089,
+     "vout": 3.8
+    },
+    "L7": {
+     "net": "/power/5V6",
+     "peak_at_2a": 2.051,
+     "ripple_a": 0.103,
+     "vout": 5.6
+    }
+   },
+   "source": "dk-srr6040a-330m p.1 (Isat 1.02 A)",
+   "worst_peak_at_2a": 2.051
+  },
+  {
+   "isat_a": 1.2,
+   "lcsc": "C2041395",
+   "ok_vs_full_load": false,
+   "ok_vs_limit_max": false,
+   "ok_vs_limit_typ": false,
+   "option": "SRR6038-330Y",
+   "rails": {
+    "L5": {
+     "net": "/1V0",
+     "peak_at_2a": 2.018,
+     "ripple_a": 0.036,
+     "vout": 1.0
+    },
+    "L6": {
+     "net": "/3V8",
+     "peak_at_2a": 2.051,
+     "ripple_a": 0.102,
+     "vout": 3.8
+    },
+    "L7": {
+     "net": "/power/5V6",
+     "peak_at_2a": 2.059,
+     "ripple_a": 0.118,
+     "vout": 5.6
+    }
+   },
+   "source": "bourns-srr6038-datasheet p.1 (Isat 1.20 A)",
+   "worst_peak_at_2a": 2.059
+  },
+  {
+   "isat_a": 0.97,
+   "lcsc": "C313052",
+   "ok_vs_full_load": false,
+   "ok_vs_limit_max": false,
+   "ok_vs_limit_typ": false,
+   "option": "CDRH6D28NP-330NC",
+   "rails": {
+    "L5": {
+     "net": "/1V0",
+     "peak_at_2a": 2.018,
+     "ripple_a": 0.036,
+     "vout": 1.0
+    },
+    "L6": {
+     "net": "/3V8",
+     "peak_at_2a": 2.051,
+     "ripple_a": 0.102,
+     "vout": 3.8
+    },
+    "L7": {
+     "net": "/power/5V6",
+     "peak_at_2a": 2.059,
+     "ripple_a": 0.118,
+     "vout": 5.6
+    }
+   },
+   "source": "sumida-cdrh6d28-datasheet p.2 (rated 0.97 A, inductance down to 65 percent)",
+   "worst_peak_at_2a": 2.059
+  },
+  {
+   "isat_a": 5.05,
+   "lcsc": "C47327250",
+   "ok_vs_full_load": true,
+   "ok_vs_limit_max": false,
+   "ok_vs_limit_typ": true,
+   "option": "APS1040M330A",
+   "rails": {
+    "L5": {
+     "net": "/1V0",
+     "peak_at_2a": 2.016,
+     "ripple_a": 0.032,
+     "vout": 1.0
+    },
+    "L6": {
+     "net": "/3V8",
+     "peak_at_2a": 2.045,
+     "ripple_a": 0.089,
+     "vout": 3.8
+    },
+    "L7": {
+     "net": "/power/5V6",
+     "peak_at_2a": 2.051,
+     "ripple_a": 0.103,
+     "vout": 5.6
+    }
+   },
+   "source": "coilank-aps1040m330a-datasheet p.8 (Isat 5.05 A typ, 40 percent drop)",
+   "worst_peak_at_2a": 2.051
+  },
+  {
+   "isat_a": 3.3,
+   "lcsc": "C5127476",
+   "ok_vs_full_load": true,
+   "ok_vs_limit_max": false,
+   "ok_vs_limit_typ": false,
+   "option": "SMS0650-330MT",
+   "rails": {
+    "L5": {
+     "net": "/1V0",
+     "peak_at_2a": 2.016,
+     "ripple_a": 0.032,
+     "vout": 1.0
+    },
+    "L6": {
+     "net": "/3V8",
+     "peak_at_2a": 2.045,
+     "ripple_a": 0.089,
+     "vout": 3.8
+    },
+    "L7": {
+     "net": "/power/5V6",
+     "peak_at_2a": 2.051,
+     "ripple_a": 0.103,
+     "vout": 5.6
+    }
+   },
+   "source": "JLC listing only (no datasheet on file)",
+   "worst_peak_at_2a": 2.051
+  },
+  {
+   "isat_a": 3.2,
+   "lcsc": "C20415540",
+   "ok_vs_full_load": true,
+   "ok_vs_limit_max": false,
+   "ok_vs_limit_typ": false,
+   "option": "FCH0650-330M",
+   "rails": {
+    "L5": {
+     "net": "/1V0",
+     "peak_at_2a": 2.016,
+     "ripple_a": 0.032,
+     "vout": 1.0
+    },
+    "L6": {
+     "net": "/3V8",
+     "peak_at_2a": 2.045,
+     "ripple_a": 0.089,
+     "vout": 3.8
+    },
+    "L7": {
+     "net": "/power/5V6",
+     "peak_at_2a": 2.051,
+     "ripple_a": 0.103,
+     "vout": 5.6
+    }
+   },
+   "source": "JLC listing only (no datasheet on file)",
+   "worst_peak_at_2a": 2.051
+  }
+ ],
+ "jlc_database_date": "2026-11-22",
+ "layout": {
+  "by_line": {
+   "CON2": "footprint change",
+   "D1": "drop-in",
+   "J2": "footprint change",
+   "L5": "footprint change",
+   "P1": "footprint change",
+   "U12": "drop-in",
+   "U21": "design change",
+   "U26": "footprint change",
+   "U3": "drop-in",
+   "U30": "drop-in",
+   "U45": "footprint change"
+  },
+  "design_lines": [
+   "U21"
+  ],
+  "footprint_lines": [
+   "CON2",
+   "J2",
+   "L5",
+   "P1",
+   "U26",
+   "U45"
+  ],
+  "layout_lines": [
+   "CON2",
+   "J2",
+   "L5",
+   "P1",
+   "U21",
+   "U26",
+   "U45"
+  ],
+  "layout_refs": 11
+ },
+ "ldo_check": {
+  "lp2985": {
+   "noise_uv": 30,
+   "note": "30 uVrms with 10 nF bypass, 300 Hz to 50 kHz at 3.3 V out"
+  },
+  "mic5205": {
+   "best": [
+    {
+     "bottom_lcsc": "C2933066",
+     "bottom_stock": 143737,
+     "error_pct": -0.518,
+     "r_bottom": 102000.0,
+     "r_top": 715000.0,
+     "top_lcsc": "C5126240",
+     "top_stock": 25753,
+     "vout": 9.9482
+    },
+    {
+     "bottom_lcsc": "C25743",
+     "bottom_stock": 38375,
+     "error_pct": -0.524,
+     "r_bottom": 107000.0,
+     "r_top": 750000.0,
+     "top_lcsc": "C2909381",
+     "top_stock": 259540,
+     "vout": 9.9476
+    },
+    {
+     "bottom_lcsc": "C273341",
+     "bottom_stock": 168875,
+     "error_pct": -0.532,
+     "r_bottom": 115000.0,
+     "r_top": 806000.0,
+     "top_lcsc": "C103164",
+     "top_stock": 49515,
+     "vout": 9.9468
+    }
+   ],
+   "equation": "VOUT = 1.242 V x (1 + R2/R1)",
+   "noise_nv_rthz": 260,
+   "vref": 1.242
+  },
+  "tps7a2401": {
+   "best": [
+    {
+     "bottom_lcsc": "C2998128",
+     "bottom_stock": 147383,
+     "error_pct": 0.425,
+     "r_bottom": 162000.0,
+     "r_top": 1150000.0,
+     "top_lcsc": "C910900",
+     "top_stock": 7766,
+     "vout": 10.0425
+    },
+    {
+     "bottom_lcsc": "C3013159",
+     "bottom_stock": 276563,
+     "error_pct": 0.59,
+     "r_bottom": 232000.0,
+     "r_top": 1650000.0,
+     "top_lcsc": "C166524",
+     "top_stock": 3593,
+     "vout": 10.059
+    },
+    {
+     "bottom_lcsc": "C25761",
+     "bottom_stock": 151434,
+     "error_pct": 0.593,
+     "r_bottom": 187000.0,
+     "r_top": 1330000.0,
+     "top_lcsc": "C5713265",
+     "top_stock": 79672,
+     "vout": 10.0593
+    }
+   ],
+   "dropout_max_v": 0.25,
+   "equation": "VOUT = VFB x (1 + R1/R2)",
+   "headroom_v": 2.0,
+   "noise_gain": 8.06,
+   "noise_uv_at_1v24": 300,
+   "noise_uv_scaled": 2419,
+   "r_sum_limit_ohm": 10000000.0,
+   "r_sum_ohm": 1312000.0,
+   "vref": 1.24,
+   "vref_range": [
+    1.22,
+    1.26
+   ],
+   "worst_case_v": [
+    9.709,
+    10.385
+   ]
+  },
+  "vin": 12.0,
+  "vout": 10.0
+ },
+ "lines": [
+  {
+   "footprint": "SMD_0402",
+   "lcsc": "C1525",
+   "library": "Basic",
+   "match": "exact",
+   "mpn": "CL05B104KO5NNNC",
+   "need": 135,
+   "qty": 45,
+   "refs": [
+    "C1",
+    "C2",
+    "C4",
+    "C6",
+    "C15",
+    "C17",
+    "C18",
+    "C21",
+    "C24",
+    "C25",
+    "C27",
+    "C30",
+    "C41",
+    "C43",
+    "C49",
+    "C63",
+    "C73",
+    "C74",
+    "C75",
+    "C108",
+    "C115",
+    "C116",
+    "C120",
+    "C121",
+    "C122",
+    "C123",
+    "C152",
+    "C153",
+    "C154",
+    "C158",
+    "C159",
+    "C160",
+    "C161",
+    "C207",
+    "C210",
+    "C211",
+    "C212",
+    "C219",
+    "C221",
+    "C223",
+    "C224",
+    "C225",
+    "C252",
+    "C301",
+    "C302"
+   ],
+   "status": "ok",
+   "stock": 33257422,
+   "unit_price": 0.003,
+   "value": "100n"
+  },
+  {
+   "footprint": "SMD_0402",
+   "lcsc": "C32949",
+   "library": "Basic",
+   "match": "exact",
+   "mpn": "CL05C100JB5NNNC",
+   "need": 33,
+   "qty": 11,
+   "refs": [
+    "C3",
+    "C5",
+    "C7",
+    "C8",
+    "C11",
+    "C44",
+    "C109",
+    "C110",
+    "C111",
+    "C112",
+    "C300"
+   ],
+   "status": "ok",
+   "stock": 1860675,
+   "unit_price": 0.006,
+   "value": "10p"
+  },
+  {
+   "footprint": "SMD_0402",
+   "lcsc": "C22400107",
+   "library": "Extended",
+   "match": "exact",
+   "mpn": "GRM1555C1H103JE01D",
+   "need": 6,
+   "qty": 2,
+   "refs": [
+    "C9",
+    "C16"
+   ],
+   "status": "ok",
+   "stock": 36573,
+   "unit_price": 0.097,
+   "value": "10n"
+  },
+  {
+   "footprint": "SMD_0402",
+   "lcsc": "C2987940",
+   "library": "Extended",
+   "match": "exact",
+   "mpn": "GRM1555C1H222GA01D",
+   "need": 6,
+   "qty": 2,
+   "refs": [
+    "C10",
+    "C13"
+   ],
+   "status": "ok",
+   "stock": 11323,
+   "unit_price": 0.046,
+   "value": "2.2n"
+  },
+  {
+   "footprint": "SMD_0603",
+   "lcsc": "C15849",
+   "library": "Basic",
+   "match": "exact",
+   "mpn": "CL10A105KB8NNNC",
+   "need": 12,
+   "qty": 4,
+   "refs": [
+    "C12",
+    "C89",
+    "C222",
+    "C249"
+   ],
+   "status": "ok",
+   "stock": 12220282,
+   "unit_price": 0.009,
+   "value": "1u"
+  },
+  {
+   "footprint": "SMD_0402",
+   "lcsc": "C71693",
+   "library": "Extended",
+   "match": "exact",
+   "mpn": "GRM1555C1H221JA01D",
+   "need": 12,
+   "qty": 4,
+   "refs": [
+    "C14",
+    "C304",
+    "C305",
+    "C307"
+   ],
+   "status": "ok",
+   "stock": 1241062,
+   "unit_price": 0.004,
+   "value": "220p"
+  },
+  {
+   "footprint": "SMD_0805",
+   "lcsc": "C15850",
+   "library": "Basic",
+   "match": "exact",
+   "mpn": "CL21A106KAYNNNE",
+   "need": 93,
+   "qty": 31,
+   "refs": [
+    "C26",
+    "C60",
+    "C61",
+    "C62",
+    "C64",
+    "C70",
+    "C71",
+    "C76",
+    "C77",
+    "C78",
+    "C79",
+    "C80",
+    "C81",
+    "C82",
+    "C83",
+    "C84",
+    "C85",
+    "C86",
+    "C87",
+    "C88",
+    "C93",
+    "C94",
+    "C98",
+    "C100",
+    "C101",
+    "C102",
+    "C106",
+    "C162",
+    "C248",
+    "C303",
+    "C306"
+   ],
+   "status": "ok",
+   "stock": 9280558,
+   "unit_price": 0.031,
+   "value": "10u"
+  },
+  {
+   "footprint": "SMD_0402",
+   "lcsc": "C15195",
+   "library": "Basic",
+   "match": "exact",
+   "mpn": "CL05B103KB5NNNC",
+   "need": 9,
+   "qty": 3,
+   "refs": [
+    "C28",
+    "C95",
+    "C179"
+   ],
+   "status": "ok",
+   "stock": 5351652,
+   "unit_price": 0.004,
+   "value": "10n"
+  },
+  {
+   "footprint": "SMD_0402",
+   "lcsc": "",
+   "library": "",
+   "match": "",
+   "mpn": "",
+   "need": 12,
+   "qty": 4,
+   "refs": [
+    "C29",
+    "R10",
+    "R50",
+    "R69"
+   ],
+   "status": "dnp",
+   "stock": "",
+   "unit_price": "",
+   "value": "DNP"
+  },
+  {
+   "footprint": "SMD_0603",
+   "lcsc": "C100082",
+   "library": "Extended",
+   "match": "exact",
+   "mpn": "CL10B225KP8NNNC",
+   "need": 6,
+   "qty": 2,
+   "refs": [
+    "C31",
+    "C216"
+   ],
+   "status": "ok",
+   "stock": 132408,
+   "unit_price": 0.03,
+   "value": "2.2u"
+  },
+  {
+   "footprint": "SMD_0805",
+   "lcsc": "",
+   "library": "",
+   "match": "",
+   "mpn": "",
+   "need": 9,
+   "qty": 3,
+   "refs": [
+    "C32",
+    "C103",
+    "C104"
+   ],
+   "status": "dnp",
+   "stock": "",
+   "unit_price": "",
+   "value": "DNP"
+  },
+  {
+   "footprint": "SMD_0402",
+   "lcsc": "C1573",
+   "library": "Extended",
+   "match": "exact",
+   "mpn": "0402CG5R0C500NT",
+   "need": 12,
+   "qty": 4,
+   "refs": [
+    "C33",
+    "C34",
+    "C39",
+    "C40"
+   ],
+   "status": "ok",
+   "stock": 162146,
+   "unit_price": 0.002,
+   "value": "5p"
+  },
+  {
+   "footprint": "SMD_0402",
+   "lcsc": "C1549",
+   "library": "Basic",
+   "match": "exact",
+   "mpn": "0402CG180J500NT",
+   "need": 6,
+   "qty": 2,
+   "refs": [
+    "C42",
+    "C46"
+   ],
+   "status": "ok",
+   "stock": 1046356,
+   "unit_price": 0.002,
+   "value": "18p"
+  },
+  {
+   "footprint": "SMD_0402",
+   "lcsc": "C76912",
+   "library": "Extended",
+   "match": "exact",
+   "mpn": "GJM1555C1HR50WB01D",
+   "need": 3,
+   "qty": 1,
+   "refs": [
+    "C48"
+   ],
+   "status": "ok",
+   "stock": 122604,
+   "unit_price": 0.035,
+   "value": "0.5p"
+  },
+  {
+   "footprint": "SMD_0402",
+   "lcsc": "C47339",
+   "library": "Preferred",
+   "match": "exact",
+   "mpn": "CL05A474KP5NNNC",
+   "need": 66,
+   "qty": 22,
+   "refs": [
+    "C96",
+    "C97",
+    "C99",
+    "C170",
+    "C171",
+    "C187",
+    "C189",
+    "C190",
+    "C191",
+    "C192",
+    "C193",
+    "C197",
+    "C198",
+    "C199",
+    "C200",
+    "C201",
+    "C202",
+    "C203",
+    "C204",
+    "C205",
+    "C250",
+    "C251"
+   ],
+   "status": "ok",
+   "stock": 530438,
+   "unit_price": 0.012,
+   "value": "470n"
+  },
+  {
+   "footprint": "SMD_0402",
+   "lcsc": "C1546",
+   "library": "Basic",
+   "match": "exact",
+   "mpn": "0402CG101J500NT",
+   "need": 21,
+   "qty": 7,
+   "refs": [
+    "C117",
+    "C118",
+    "C119",
+    "C163",
+    "C164",
+    "C165",
+    "C180"
+   ],
+   "status": "ok",
+   "stock": 3992337,
+   "unit_price": 0.002,
+   "value": "100p"
+  },
+  {
+   "footprint": "SMD_0603",
+   "lcsc": "C19666",
+   "library": "Basic",
+   "match": "exact",
+   "mpn": "CL10A475KO8NNNC",
+   "need": 27,
+   "qty": 9,
+   "refs": [
+    "C155",
+    "C156",
+    "C157",
+    "C183",
+    "C185",
+    "C186",
+    "C188",
+    "C194",
+    "C195"
+   ],
+   "status": "ok",
+   "stock": 3142507,
+   "unit_price": 0.014,
+   "value": "4.7u"
+  },
+  {
+   "footprint": "SMD_1210",
+   "lcsc": "C23742",
+   "library": "Extended",
+   "match": "exact",
+   "mpn": "CL32A107MPVNNNE",
+   "need": 3,
+   "qty": 1,
+   "refs": [
+    "C181"
+   ],
+   "status": "ok",
+   "stock": 30066,
+   "unit_price": 0.277,
+   "value": "100u"
+  },
+  {
+   "footprint": "SMD_1206",
+   "lcsc": "C96123",
+   "library": "Basic",
+   "match": "exact",
+   "mpn": "CL31A476MPHNNNE",
+   "need": 9,
+   "qty": 3,
+   "refs": [
+    "C182",
+    "C184",
+    "C196"
+   ],
+   "status": "ok",
+   "stock": 415637,
+   "unit_price": 0.163,
+   "value": "47u"
+  },
+  {
+   "footprint": "SMD_0402",
+   "lcsc": "C1548",
+   "library": "Basic",
+   "match": "exact",
+   "mpn": "0402CG150J500NT",
+   "need": 6,
+   "qty": 2,
+   "refs": [
+    "C208",
+    "C209"
+   ],
+   "status": "ok",
+   "stock": 1281347,
+   "unit_price": 0.003,
+   "value": "15p"
+  },
+  {
+   "footprint": "SMD_0603",
+   "lcsc": "C14663",
+   "library": "Basic",
+   "match": "package",
+   "mpn": "",
+   "need": 6,
+   "qty": 2,
+   "refs": [
+    "C217",
+    "C218"
+   ],
+   "status": "ok",
+   "stock": 53114154,
+   "unit_price": 0.005,
+   "value": "100n"
+  },
+  {
+   "footprint": "SMD_0603",
+   "lcsc": "C19702",
+   "library": "Basic",
+   "match": "package",
+   "mpn": "",
+   "need": 6,
+   "qty": 2,
+   "refs": [
+    "C220",
+    "C993"
+   ],
+   "status": "ok",
+   "stock": 9889521,
+   "unit_price": 0.017,
+   "value": "10u"
+  },
+  {
+   "footprint": "SMD_0402",
+   "lcsc": "C1525",
+   "library": "Basic",
+   "match": "package",
+   "mpn": "",
+   "need": 3,
+   "qty": 1,
+   "refs": [
+    "C992"
+   ],
+   "status": "ok",
+   "stock": 33257422,
+   "unit_price": 0.003,
+   "value": "100n"
+  },
+  {
+   "footprint": "DM3BT-DSF-PEJS",
+   "lcsc": "C597972",
+   "library": "Extended",
+   "match": "exact",
+   "mpn": "DM3BT-DSF-PEJS",
+   "need": 3,
+   "qty": 1,
+   "refs": [
+    "CON1"
+   ],
+   "status": "ok",
+   "stock": 348,
+   "unit_price": 3.969,
+   "value": "SD_Card_DM3BT"
+  },
+  {
+   "footprint": "BarrelJack",
+   "lcsc": "",
+   "library": "",
+   "match": "",
+   "mpn": "",
+   "need": 3,
+   "qty": 1,
+   "refs": [
+    "CON2"
+   ],
+   "status": "fail",
+   "stock": "",
+   "unit_price": "",
+   "value": "BARREL_JACK"
+  },
+  {
+   "footprint": "Diode_0603",
+   "lcsc": "",
+   "library": "",
+   "match": "",
+   "mpn": "",
+   "need": 18,
+   "qty": 6,
+   "refs": [
+    "D1",
+    "D2",
+    "D3",
+    "D5",
+    "D6",
+    "D7"
+   ],
+   "status": "fail",
+   "stock": "",
+   "unit_price": "",
+   "value": "LED"
+  },
+  {
+   "footprint": "RF_via",
+   "lcsc": "",
+   "library": "",
+   "match": "",
+   "mpn": "",
+   "need": 6,
+   "qty": 2,
+   "refs": [
+    "F1",
+    "F2"
+   ],
+   "status": "no part",
+   "stock": "",
+   "unit_price": "",
+   "value": "Via"
+  },
+  {
+   "footprint": "SMD_0603",
+   "lcsc": "C82850",
+   "library": "Extended",
+   "match": "exact",
+   "mpn": "BLM18PG181SN1D",
+   "need": 27,
+   "qty": 9,
+   "refs": [
+    "FB1",
+    "FB2",
+    "FB3",
+    "FB4",
+    "FB5",
+    "FB6",
+    "FB12",
+    "FB13",
+    "FB14"
+   ],
+   "status": "ok",
+   "stock": 235682,
+   "unit_price": 0.015,
+   "value": "BLM18PG181SN1D"
+  },
+  {
+   "footprint": "SMD_0805",
+   "lcsc": "C15957",
+   "library": "Extended",
+   "match": "exact",
+   "mpn": "MPZ2012S101AT000",
+   "need": 3,
+   "qty": 1,
+   "refs": [
+    "FB11"
+   ],
+   "status": "ok",
+   "stock": 120135,
+   "unit_price": 0.026,
+   "value": "MPZ2012S101AT000"
+  },
+  {
+   "footprint": "USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal",
+   "lcsc": "C3020560",
+   "library": "Extended",
+   "match": "exact",
+   "mpn": "USB4105-GF-A",
+   "need": 3,
+   "qty": 1,
+   "refs": [
+    "J1"
+   ],
+   "status": "ok",
+   "stock": 12283,
+   "unit_price": 1.021,
+   "value": "USB_C_Receptacle_USB2.0"
+  },
+  {
+   "footprint": "PinHeader_2x8_P2.5mm",
+   "lcsc": "",
+   "library": "",
+   "match": "",
+   "mpn": "",
+   "need": 3,
+   "qty": 1,
+   "refs": [
+    "J2"
+   ],
+   "status": "fail",
+   "stock": "",
+   "unit_price": "",
+   "value": "Connector_02x08"
+  },
+  {
+   "footprint": "SMD_0402",
+   "lcsc": "C1330803",
+   "library": "Extended",
+   "match": "exact",
+   "mpn": "LQW15AN9N9J80D",
+   "need": 3,
+   "qty": 1,
+   "refs": [
+    "L1"
+   ],
+   "status": "ok",
+   "stock": 9603,
+   "unit_price": 0.069,
+   "value": "LQW15AN9N9J80D"
+  },
+  {
+   "footprint": "SMD_0402",
+   "lcsc": "C76758",
+   "library": "Extended",
+   "match": "exact",
+   "mpn": "MLG1005S0N6BT000",
+   "need": 3,
+   "qty": 1,
+   "refs": [
+    "L2"
+   ],
+   "status": "ok",
+   "stock": 7335,
+   "unit_price": 0.011,
+   "value": "0.6n"
+  },
+  {
+   "footprint": "SRR6040A",
+   "lcsc": "C2042352",
+   "library": "Extended",
+   "match": "exact",
+   "mpn": "SRR6040A-330M",
+   "need": 9,
+   "qty": 3,
+   "refs": [
+    "L5",
+    "L6",
+    "L7"
+   ],
+   "status": "fail",
+   "stock": 3,
+   "unit_price": 0.996,
+   "value": "33u (SRR6040A-330M)"
+  },
+  {
+   "footprint": "SMD_0805",
+   "lcsc": "C1043",
+   "library": "Preferred",
+   "match": "exact",
+   "mpn": "CMI201209U2R2KT",
+   "need": 6,
+   "qty": 2,
+   "refs": [
+    "L12",
+    "L13"
+   ],
+   "status": "ok",
+   "stock": 96772,
+   "unit_price": 0.02,
+   "value": "2.2u"
+  },
+  {
+   "footprint": "CONSMA003.062",
+   "lcsc": "",
+   "library": "",
+   "match": "",
+   "mpn": "CONSMA003.062",
+   "need": 6,
+   "qty": 2,
+   "refs": [
+    "P1",
+    "U15"
+   ],
+   "status": "fail",
+   "stock": 0,
+   "unit_price": "",
+   "value": "SMA"
+  },
+  {
+   "footprint": "MountingHole_3.2mm_M3_Pad_Via_mod",
+   "lcsc": "",
+   "library": "",
+   "match": "",
+   "mpn": "",
+   "need": 9,
+   "qty": 3,
+   "refs": [
+    "P5",
+    "P7",
+    "P8"
+   ],
+   "status": "no part",
+   "stock": "",
+   "unit_price": "",
+   "value": "CONN_01X01"
+  },
+  {
+   "footprint": "SMD_0402",
+   "lcsc": "C407675",
+   "library": "Extended",
+   "match": "exact",
+   "mpn": "0402WGF5491TCE",
+   "need": 3,
+   "qty": 1,
+   "refs": [
+    "R1"
+   ],
+   "status": "ok",
+   "stock": 38470,
+   "unit_price": 0.001,
+   "value": "5.49k"
+  },
+  {
+   "footprint": "SMD_0402",
+   "lcsc": "C25890",
+   "library": "Basic",
+   "match": "exact",
+   "mpn": "0402WGF3301TCE",
+   "need": 6,
+   "qty": 2,
+   "refs": [
+    "R2",
+    "R48"
+   ],
+   "status": "ok",
+   "stock": 1472775,
+   "unit_price": 0.004,
+   "value": "3.3k"
+  },
+  {
+   "footprint": "SMD_0402",
+   "lcsc": "C25905",
+   "library": "Basic",
+   "match": "exact",
+   "mpn": "0402WGF5101TCE",
+   "need": 6,
+   "qty": 2,
+   "refs": [
+    "R3",
+    "R8"
+   ],
+   "status": "ok",
+   "stock": 3992267,
+   "unit_price": 0.001,
+   "value": "5.1k"
+  },
+  {
+   "footprint": "SMD_0402",
+   "lcsc": "C11702",
+   "library": "Basic",
+   "match": "exact",
+   "mpn": "0402WGF1001TCE",
+   "need": 39,
+   "qty": 13,
+   "refs": [
+    "R4",
+    "R24",
+    "R25",
+    "R26",
+    "R27",
+    "R28",
+    "R72",
+    "R109",
+    "R111",
+    "R300",
+    "R301",
+    "R990",
+    "R991"
+   ],
+   "status": "ok",
+   "stock": 29440391,
+   "unit_price": 0.001,
+   "value": "1k"
+  },
+  {
+   "footprint": "SMD_0402",
+   "lcsc": "C25900",
+   "library": "Basic",
+   "match": "exact",
+   "mpn": "0402WGF4701TCE",
+   "need": 24,
+   "qty": 8,
+   "refs": [
+    "R5",
+    "R6",
+    "R14",
+    "R82",
+    "R91",
+    "R112",
+    "R117",
+    "R118"
+   ],
+   "status": "ok",
+   "stock": 12491487,
+   "unit_price": 0.002,
+   "value": "4.7k"
+  },
+  {
+   "footprint": "SMD_0402",
+   "lcsc": "C17168",
+   "library": "Basic",
+   "match": "exact",
+   "mpn": "0402WGF0000TCE",
+   "need": 42,
+   "qty": 14,
+   "refs": [
+    "R7",
+    "R18",
+    "R19",
+    "R41",
+    "R42",
+    "R57",
+    "R58",
+    "R70",
+    "R80",
+    "R81",
+    "R93",
+    "R110",
+    "R114",
+    "R115"
+   ],
+   "status": "ok",
+   "stock": 13929627,
+   "unit_price": 0.001,
+   "value": "0"
+  },
+  {
+   "footprint": "SMD_0402",
+   "lcsc": "C82287",
+   "library": "Extended",
+   "match": "exact",
+   "mpn": "0402WGF169JTCE",
+   "need": 9,
+   "qty": 3,
+   "refs": [
+    "R9",
+    "R11",
+    "R12"
+   ],
+   "status": "ok",
+   "stock": 9477,
+   "unit_price": 0.001,
+   "value": "16.9"
+  },
+  {
+   "footprint": "SMD_0402",
+   "lcsc": "C25105",
+   "library": "Basic",
+   "match": "exact",
+   "mpn": "0402WGF330JTCE",
+   "need": 24,
+   "qty": 8,
+   "refs": [
+    "R13",
+    "R15",
+    "R16",
+    "R21",
+    "R84",
+    "R85",
+    "R88",
+    "R130"
+   ],
+   "status": "ok",
+   "stock": 4457492,
+   "unit_price": 0.001,
+   "value": "33"
+  },
+  {
+   "footprint": "SMD_0402",
+   "lcsc": "C25120",
+   "library": "Basic",
+   "match": "exact",
+   "mpn": "0402WGF499JTCE",
+   "need": 21,
+   "qty": 7,
+   "refs": [
+    "R17",
+    "R51",
+    "R52",
+    "R53",
+    "R54",
+    "R97",
+    "R99"
+   ],
+   "status": "ok",
+   "stock": 1194442,
+   "unit_price": 0.001,
+   "value": "49.9"
+  },
+  {
+   "footprint": "SMD_0402",
+   "lcsc": "C25076",
+   "library": "Basic",
+   "match": "exact",
+   "mpn": "0402WGF1000TCE",
+   "need": 3,
+   "qty": 1,
+   "refs": [
+    "R22"
+   ],
+   "status": "ok",
+   "stock": 9901946,
+   "unit_price": 0.001,
+   "value": "100"
+  },
+  {
+   "footprint": "SMD_0402",
+   "lcsc": "C25744",
+   "library": "Basic",
+   "match": "exact",
+   "mpn": "0402WGF1002TCE",
+   "need": 24,
+   "qty": 8,
+   "refs": [
+    "R29",
+    "R30",
+    "R39",
+    "R40",
+    "R73",
+    "R83",
+    "R92",
+    "R104"
+   ],
+   "status": "ok",
+   "stock": 34864096,
+   "unit_price": 0.001,
+   "value": "10k"
+  },
+  {
+   "footprint": "SMD_0402",
+   "lcsc": "C36871",
+   "library": "Preferred",
+   "match": "exact",
+   "mpn": "0402WGF6802TCE",
+   "need": 3,
+   "qty": 1,
+   "refs": [
+    "R32"
+   ],
+   "status": "ok",
+   "stock": 1038582,
+   "unit_price": 0.001,
+   "value": "68k"
+  },
+  {
+   "footprint": "SMD_0402",
+   "lcsc": "C25741",
+   "library": "Basic",
+   "match": "exact",
+   "mpn": "0402WGF1003TCE",
+   "need": 9,
+   "qty": 3,
+   "refs": [
+    "R33",
+    "R34",
+    "R36"
+   ],
+   "status": "ok",
+   "stock": 11986711,
+   "unit_price": 0.001,
+   "value": "100k"
+  },
+  {
+   "footprint": "SMD_0402",
+   "lcsc": "C11476",
+   "library": "Extended",
+   "match": "exact",
+   "mpn": "0402WGF1872TCE",
+   "need": 9,
+   "qty": 3,
+   "refs": [
+    "R35",
+    "R46",
+    "R47"
+   ],
+   "status": "ok",
+   "stock": 30601,
+   "unit_price": 0.003,
+   "value": "18.7k"
+  },
+  {
+   "footprint": "SMD_0402",
+   "lcsc": "C25752",
+   "library": "Basic",
+   "match": "exact",
+   "mpn": "0402WGF1202TCE",
+   "need": 6,
+   "qty": 2,
+   "refs": [
+    "R37",
+    "R71"
+   ],
+   "status": "ok",
+   "stock": 691897,
+   "unit_price": 0.001,
+   "value": "12k"
+  },
+  {
+   "footprint": "SMD_0402",
+   "lcsc": "C25762",
+   "library": "Preferred",
+   "match": "exact",
+   "mpn": "0402WGF1802TCE",
+   "need": 3,
+   "qty": 1,
+   "refs": [
+    "R43"
+   ],
+   "status": "ok",
+   "stock": 425277,
+   "unit_price": 0.001,
+   "value": "18k"
+  },
+  {
+   "footprint": "SMD_0402",
+   "lcsc": "C4109",
+   "library": "Basic",
+   "match": "exact",
+   "mpn": "0402WGF2001TCE",
+   "need": 6,
+   "qty": 2,
+   "refs": [
+    "R44",
+    "R49"
+   ],
+   "status": "ok",
+   "stock": 9549072,
+   "unit_price": 0.002,
+   "value": "2k"
+  },
+  {
+   "footprint": "SMD_0402",
+   "lcsc": "C25897",
+   "library": "Preferred",
+   "match": "exact",
+   "mpn": "0402WGF4992TCE",
+   "need": 3,
+   "qty": 1,
+   "refs": [
+    "R45"
+   ],
+   "status": "ok",
+   "stock": 767518,
+   "unit_price": 0.001,
+   "value": "49.9k"
+  },
+  {
+   "footprint": "SMD_0402",
+   "lcsc": "C25879",
+   "library": "Basic",
+   "match": "exact",
+   "mpn": "0402WGF2201TCE",
+   "need": 3,
+   "qty": 1,
+   "refs": [
+    "R79"
+   ],
+   "status": "ok",
+   "stock": 2775735,
+   "unit_price": 0.001,
+   "value": "2.2k"
+  },
+  {
+   "footprint": "SMD_0402",
+   "lcsc": "C25100",
+   "library": "Extended",
+   "match": "exact",
+   "mpn": "0402WGF270JTCE",
+   "need": 3,
+   "qty": 1,
+   "refs": [
+    "R302"
+   ],
+   "status": "ok",
+   "stock": 600002,
+   "unit_price": 0.001,
+   "value": "27"
+  },
+  {
+   "footprint": "SMD_0603",
+   "lcsc": "C22977",
+   "library": "Basic",
+   "match": "exact",
+   "mpn": "0603WAF200KT5E",
+   "need": 6,
+   "qty": 2,
+   "refs": [
+    "R303",
+    "R305"
+   ],
+   "status": "ok",
+   "stock": 604230,
+   "unit_price": 0.002,
+   "value": "2"
+  },
+  {
+   "footprint": "SMD_0402",
+   "lcsc": "C26971",
+   "library": "Extended",
+   "match": "exact",
+   "mpn": "0402WGF2742TCE",
+   "need": 3,
+   "qty": 1,
+   "refs": [
+    "R304"
+   ],
+   "status": "ok",
+   "stock": 24406,
+   "unit_price": 0.001,
+   "value": "27.4k"
+  },
+  {
+   "footprint": "EVP-AWBA2A",
+   "lcsc": "C231329",
+   "library": "Extended",
+   "match": "exact",
+   "mpn": "B3U-1000P",
+   "need": 6,
+   "qty": 2,
+   "refs": [
+    "SW1",
+    "SW2"
+   ],
+   "status": "ok",
+   "stock": 59228,
+   "unit_price": 0.188,
+   "value": "B3U-1000P"
+  },
+  {
+   "footprint": "VFQFN-24",
+   "lcsc": "C462162",
+   "library": "Extended",
+   "match": "exact",
+   "mpn": "ADF4158CCPZ-RL7",
+   "need": 3,
+   "qty": 1,
+   "refs": [
+    "U1"
+   ],
+   "status": "ok",
+   "stock": 57,
+   "unit_price": 22.054,
+   "value": "ADF4158"
+  },
+  {
+   "footprint": "SolderPad_1_1.0mm_SMD_Circle",
+   "lcsc": "",
+   "library": "",
+   "match": "",
+   "mpn": "",
+   "need": 33,
+   "qty": 11,
+   "refs": [
+    "U2",
+    "U4",
+    "U5",
+    "U35",
+    "U38",
+    "U41",
+    "U42",
+    "U43",
+    "U44",
+    "U46",
+    "U47"
+   ],
+   "status": "no part",
+   "stock": "",
+   "unit_price": "",
+   "value": "SolderPad_1_Circle"
+  },
+  {
+   "footprint": "PAT1220",
+   "lcsc": "",
+   "library": "",
+   "match": "",
+   "mpn": "",
+   "need": 3,
+   "qty": 1,
+   "refs": [
+    "U3"
+   ],
+   "status": "fail",
+   "stock": "",
+   "unit_price": "",
+   "value": "PAT1220-6dB"
+  },
+  {
+   "footprint": "SOT23_6",
+   "lcsc": "C626278",
+   "library": "Extended",
+   "match": "exact",
+   "mpn": "PL133-37TC-R",
+   "need": 3,
+   "qty": 1,
+   "refs": [
+    "U6"
+   ],
+   "status": "ok",
+   "stock": 99,
+   "unit_price": 1.032,
+   "value": "PL133-37"
+  },
+  {
+   "footprint": "SOT-353_SC-70-5",
+   "lcsc": "C2058332",
+   "library": "Extended",
+   "match": "exact",
+   "mpn": "TLV172IDCKT",
+   "need": 3,
+   "qty": 1,
+   "refs": [
+    "U7"
+   ],
+   "status": "ok",
+   "stock": 207,
+   "unit_price": 1.474,
+   "value": "TLV172DCK"
+  },
+  {
+   "footprint": "LFCSP-32_5x5mm",
+   "lcsc": "C514275",
+   "library": "Extended",
+   "match": "exact",
+   "mpn": "AD9237BCPZ-40",
+   "need": 3,
+   "qty": 1,
+   "refs": [
+    "U8"
+   ],
+   "status": "ok",
+   "stock": 200,
+   "unit_price": 29.058,
+   "value": "AD9237"
+  },
+  {
+   "footprint": "DFN-8-1EP_2x2mm_Pitch0.5mm",
+   "lcsc": "C2151364",
+   "library": "Extended",
+   "match": "exact",
+   "mpn": "TRF37A73IDSGR",
+   "need": 3,
+   "qty": 1,
+   "refs": [
+    "U9"
+   ],
+   "status": "ok",
+   "stock": 3909,
+   "unit_price": 1.237,
+   "value": "TRF37A73"
+  },
+  {
+   "footprint": "VQFN-24",
+   "lcsc": "C661863",
+   "library": "Extended",
+   "match": "exact",
+   "mpn": "HMC431LP4E",
+   "need": 3,
+   "qty": 1,
+   "refs": [
+    "U10"
+   ],
+   "status": "ok",
+   "stock": 25,
+   "unit_price": 75.608,
+   "value": "HMC431LP4"
+  },
+  {
+   "footprint": "XFDFN-6",
+   "lcsc": "C210262",
+   "library": "Extended",
+   "match": "exact",
+   "mpn": "SKY65404-31",
+   "need": 3,
+   "qty": 1,
+   "refs": [
+    "U11"
+   ],
+   "status": "ok",
+   "stock": 1409,
+   "unit_price": 0.903,
+   "value": "SKY65404"
+  },
+  {
+   "footprint": "PAT1220",
+   "lcsc": "",
+   "library": "",
+   "match": "",
+   "mpn": "",
+   "need": 3,
+   "qty": 1,
+   "refs": [
+    "U12"
+   ],
+   "status": "fail",
+   "stock": "",
+   "unit_price": "",
+   "value": "PAT1220-3dB"
+  },
+  {
+   "footprint": "QFN-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm_ThermalVias",
+   "lcsc": "C2911573",
+   "library": "Extended",
+   "match": "exact",
+   "mpn": "QPA9501TR13",
+   "need": 3,
+   "qty": 1,
+   "refs": [
+    "U14"
+   ],
+   "status": "ok",
+   "stock": 20,
+   "unit_price": 6.466,
+   "value": "TQP5525"
+  },
+  {
+   "footprint": "SOT23_6",
+   "lcsc": "C7296200",
+   "library": "Extended",
+   "match": "exact",
+   "mpn": "LMR51420YFDDCR",
+   "need": 9,
+   "qty": 3,
+   "refs": [
+    "U17",
+    "U18",
+    "U19"
+   ],
+   "status": "ok",
+   "stock": 9045,
+   "unit_price": 1.222,
+   "value": "LMR51420"
+  },
+  {
+   "footprint": "SOT-23-5",
+   "lcsc": "C475492",
+   "library": "Extended",
+   "match": "exact",
+   "mpn": "LP5907MFX-3.0/NOPB",
+   "need": 6,
+   "qty": 2,
+   "refs": [
+    "U20",
+    "U39"
+   ],
+   "status": "ok",
+   "stock": 28170,
+   "unit_price": 0.278,
+   "value": "LP5907-3.0"
+  },
+  {
+   "footprint": "SOT-23-5",
+   "lcsc": "",
+   "library": "",
+   "match": "",
+   "mpn": "LP2985A-10DBVR",
+   "need": 3,
+   "qty": 1,
+   "refs": [
+    "U21"
+   ],
+   "status": "fail",
+   "stock": 0,
+   "unit_price": "",
+   "value": "LP2985A-10DBVR"
+  },
+  {
+   "footprint": "DFN-8-1EP_4x4mm_P0.8mm_EP2.3x3.24mm",
+   "lcsc": "C880590",
+   "library": "Extended",
+   "match": "exact",
+   "mpn": "LD39200DPUR",
+   "need": 9,
+   "qty": 3,
+   "refs": [
+    "U22",
+    "U23",
+    "U24"
+   ],
+   "status": "ok",
+   "stock": 2545,
+   "unit_price": 1.816,
+   "value": "LD3920"
+  },
+  {
+   "footprint": "DFN-6-1EP_3x3mm_P0.95mm_EP1.7x2.6mm",
+   "lcsc": "C222192",
+   "library": "Extended",
+   "match": "exact",
+   "mpn": "LD39200PU33R",
+   "need": 3,
+   "qty": 1,
+   "refs": [
+    "U25"
+   ],
+   "status": "ok",
+   "stock": 2359,
+   "unit_price": 1.63,
+   "value": "LD3920_33"
+  },
+  {
+   "footprint": "5400BL15B050E",
+   "lcsc": "",
+   "library": "",
+   "match": "",
+   "mpn": "5400BL15B0050001E",
+   "need": 6,
+   "qty": 2,
+   "refs": [
+    "U26",
+    "U27"
+   ],
+   "status": "fail",
+   "stock": 0,
+   "unit_price": "",
+   "value": "5400BL15B0050001E"
+  },
+  {
+   "footprint": "QFN-24-1EP_4x4mm_Pitch0.5mm",
+   "lcsc": "C657785",
+   "library": "Extended",
+   "match": "exact",
+   "mpn": "ADL5802ACPZ-R7",
+   "need": 3,
+   "qty": 1,
+   "refs": [
+    "U29"
+   ],
+   "status": "thin",
+   "stock": 3,
+   "unit_price": 19.649,
+   "value": "ADL5802"
+  },
+  {
+   "footprint": "FTG256",
+   "lcsc": "",
+   "library": "",
+   "match": "",
+   "mpn": "XC7A100T-1FTG256C",
+   "need": 3,
+   "qty": 1,
+   "refs": [
+    "U30"
+   ],
+   "status": "fail",
+   "stock": 0,
+   "unit_price": "",
+   "value": "XC7A100T-1FTG256C"
+  },
+  {
+   "footprint": "SOT-23-6",
+   "lcsc": "C2649426",
+   "library": "Extended",
+   "match": "exact",
+   "mpn": "93LC46BT-I/OT",
+   "need": 3,
+   "qty": 1,
+   "refs": [
+    "U32"
+   ],
+   "status": "ok",
+   "stock": 843,
+   "unit_price": 0.553,
+   "value": "93LC46B"
+  },
+  {
+   "footprint": "LQFP-64_10x10mm_Pitch0.5mm",
+   "lcsc": "C27882",
+   "library": "Extended",
+   "match": "exact",
+   "mpn": "FT2232HL-REEL",
+   "need": 3,
+   "qty": 1,
+   "refs": [
+    "U33"
+   ],
+   "status": "ok",
+   "stock": 4903,
+   "unit_price": 11.16,
+   "value": "FT2232H"
+  },
+  {
+   "footprint": "SolderPad_1_1.5mm_SMD_Circle",
+   "lcsc": "",
+   "library": "",
+   "match": "",
+   "mpn": "",
+   "need": 3,
+   "qty": 1,
+   "refs": [
+    "U36"
+   ],
+   "status": "no part",
+   "stock": "",
+   "unit_price": "",
+   "value": "SolderPad_1_Circle"
+  },
+  {
+   "footprint": "DFN-S-8-1EP_6x5mm_Pitch1.27mm",
+   "lcsc": "C190862",
+   "library": "Extended",
+   "match": "exact",
+   "mpn": "W25Q128JVPIQ",
+   "need": 3,
+   "qty": 1,
+   "refs": [
+    "U40"
+   ],
+   "status": "ok",
+   "stock": 264,
+   "unit_price": 3.387,
+   "value": "W25Q128JV"
+  },
+  {
+   "footprint": "SSOP16_3.9x4.9mm_P0.635mm",
+   "lcsc": "",
+   "library": "",
+   "match": "",
+   "mpn": "LT6232IGN#PBF",
+   "need": 3,
+   "qty": 1,
+   "refs": [
+    "U45"
+   ],
+   "status": "fail",
+   "stock": 0,
+   "unit_price": "",
+   "value": "LT6232"
+  },
+  {
+   "footprint": "ABM10",
+   "lcsc": "C1985295",
+   "library": "Extended",
+   "match": "exact",
+   "mpn": "ABM10-167-12.000MHZ-T3",
+   "need": 3,
+   "qty": 1,
+   "refs": [
+    "Y1"
+   ],
+   "status": "ok",
+   "stock": 3747,
+   "unit_price": 0.633,
+   "value": "ABM10-167-12.000MHZ-T3"
+  },
+  {
+   "footprint": "Oscillator_SMD_ECS_2520MV-xxx-xx-4Pin_2.5x2.0mm",
+   "lcsc": "C5633358",
+   "library": "Extended",
+   "match": "exact",
+   "mpn": "ECS-TXO-32CSMV-400-BN-TR",
+   "need": 3,
+   "qty": 1,
+   "refs": [
+    "Y2"
+   ],
+   "status": "ok",
+   "stock": 24,
+   "unit_price": 4.218,
+   "value": "ECS ECS-TXO-32CSMV-400"
+  },
+  {
+   "footprint": "Directional_Coupler_15dB_0.169mm_v2",
+   "lcsc": "",
+   "library": "",
+   "match": "",
+   "mpn": "",
+   "need": 3,
+   "qty": 1,
+   "refs": [
+    "Z1"
+   ],
+   "status": "no part",
+   "stock": "",
+   "unit_price": "",
+   "value": "15dB COUPLER"
+  }
+ ],
+ "new_parts": {
+  "U8": {
+   "cites": [
+    [
+     "adi-ad9237-datasheet",
+     8
+    ]
+   ],
+   "cls": "footprint change",
+   "why": "AD9237BCPZ-40 in LFCSP-32 5x5 (decided by the directive, not a stock choice)"
+  }
+ },
+ "options": {
+  "CON2": {
+   "line_status": "fail",
+   "options": [
+    {
+     "check": "compare the PCB layout on p.1 with the BarrelJack footprint; whether JLC places through-hole parts is for the user to confirm in the order tool",
+     "cites": [
+      [
+       "xunpu-dc-005-a200-datasheet",
+       1
+      ]
+     ],
+     "cls": "footprint change",
+     "id": "A",
+     "jlc_ok": true,
+     "label": "DC-005-A200 (Xunpu)",
+     "lcsc": "C720557",
+     "library": "Extended",
+     "mpn": "DC-005-A200",
+     "need": 3,
+     "price": 0.143,
+     "stock": 74631,
+     "why": "through-hole right-angle jack; the footprint BarrelJack was not compared with its PCB layout, so a footprint change is assumed"
+    },
+    {
+     "check": "as A",
+     "cites": [
+      [
+       "shouhan-dc005-datasheet",
+       1
+      ]
+     ],
+     "cls": "footprint change",
+     "id": "B",
+     "jlc_ok": true,
+     "label": "DC005 (Shou Han)",
+     "lcsc": "C431533",
+     "library": "Extended",
+     "mpn": "DC005",
+     "need": 3,
+     "price": 0.055,
+     "stock": 73257,
+     "why": "same family of jack"
+    }
+   ],
+   "refs": [
+    "CON2"
+   ]
+  },
+  "D1": {
+   "line_status": "fail",
+   "options": [
+    {
+     "check": "Vf 1.8-2.4 V at 20 mA (p.3)",
+     "cites": [
+      [
+       "kento-kt-0603-led-datasheet",
+       3
+      ]
+     ],
+     "cls": "drop-in",
+     "id": "A",
+     "jlc_ok": true,
+     "label": "KT-0603R red",
+     "lcsc": "C2286",
+     "library": "Basic",
+     "mpn": "KT-0603R",
+     "need": 18,
+     "price": 0.008,
+     "stock": 8406815,
+     "why": "0603 LED, Basic; the colour is the user's. Green, white or blue (Vf up to 3.1 V) need the series resistors re-sized"
+    }
+   ],
+   "refs": [
+    "D1",
+    "D2",
+    "D3",
+    "D5",
+    "D6",
+    "D7"
+   ]
+  },
+  "J2": {
+   "line_status": "fail",
+   "options": [
+    {
+     "check": "the 0.04 mm per row mismatch (0.28 mm over 8 rows) means a new footprint at 2.54 mm",
+     "cites": [
+      [
+       "boomele-2-54-2x8-header-datasheet",
+       1
+      ]
+     ],
+     "cls": "footprint change",
+     "id": "A",
+     "jlc_ok": true,
+     "label": "2.54-2*8PPin (Boomele)",
+     "lcsc": "C68234",
+     "library": "Extended",
+     "mpn": "2.54-2*8PPin",
+     "need": 3,
+     "price": 0.134,
+     "stock": 17000,
+     "why": "2.54 mm pitch against the board's 2.5 mm pads (PinHeader_2x8_P2.5mm); through-hole"
+    },
+    {
+     "check": "as A",
+     "cites": [
+      [
+       "hanxia-hx-pz2-54-2x8p-datasheet",
+       3
+      ]
+     ],
+     "cls": "footprint change",
+     "id": "B",
+     "jlc_ok": true,
+     "label": "HX PZ2.54-2x8P ZZ (Hanxia)",
+     "lcsc": "C32713281",
+     "library": "Extended",
+     "mpn": "HX PZ2.54-2x8P ZZ",
+     "need": 3,
+     "price": 0.125,
+     "stock": 6397,
+     "why": "same pitch"
+    }
+   ],
+   "refs": [
+    "J2"
+   ]
+  },
+  "L5": {
+   "line_status": "fail",
+   "options": [
+    {
+     "check": "inductor_check: Isat 5.05 A above the 3.5 A typ and below the 5.1 A max high-side peak limit (p.5); p.18 asks for Isat above the peak limit; well above the 2 A full-load peak",
+     "cites": [
+      [
+       "coilank-aps1040m330a-datasheet",
+       8
+      ],
+      [
+       "ti-lmr51420-datasheet",
+       5
+      ],
+      [
+       "ti-lmr51420-datasheet",
+       18
+      ]
+     ],
+     "cls": "footprint change",
+     "id": "A",
+     "jlc_ok": true,
+     "label": "APS1040M330A (11.5 x 10 mm)",
+     "lcsc": "C47327250",
+     "library": "Extended",
+     "mpn": "APS1040M330A",
+     "need": 9,
+     "price": 0.242,
+     "stock": 19638,
+     "why": "the only 33 uH part whose Isat (5.05 A) is near the LMR51420 limit"
+    },
+    {
+     "check": "inductor_check: 3.3 A is below the 3.5 A typ limit but above the 2 A full-load peak; no datasheet on file, so the rating is a listing figure",
+     "cites": [
+      [
+       "ti-lmr51420-datasheet",
+       5
+      ],
+      [
+       "ti-lmr51420-datasheet",
+       18
+      ]
+     ],
+     "cls": "footprint change",
+     "id": "B",
+     "jlc_ok": true,
+     "label": "SMS0650-330MT (7.1 x 6.6 mm)",
+     "lcsc": "C5127476",
+     "library": "Extended",
+     "mpn": "SMS0650-330MT",
+     "need": 9,
+     "price": 0.095,
+     "stock": 21320,
+     "why": "smaller body; Isat 3.3 A from the JLC listing only"
+    },
+    {
+     "check": "inductor_check as B",
+     "cites": [
+      [
+       "ti-lmr51420-datasheet",
+       18
+      ]
+     ],
+     "cls": "footprint change",
+     "id": "C",
+     "jlc_ok": true,
+     "label": "FCH0650-330M (7.5 x 6.8 mm)",
+     "lcsc": "C20415540",
+     "library": "Extended",
+     "mpn": "FCH0650-330M",
+     "need": 9,
+     "price": 0.161,
+     "stock": 1089,
+     "why": "Isat 3.2 A from the JLC listing only; no datasheet on file"
+    },
+    {
+     "check": "inductor_check: fails the limit",
+     "cites": [
+      [
+       "bourns-srr6038-datasheet",
+       1
+      ]
+     ],
+     "cls": "footprint change",
+     "id": "D",
+     "jlc_ok": true,
+     "label": "SRR6038-330Y (6.8 mm, par-09)",
+     "lcsc": "C2041395",
+     "library": "Extended",
+     "mpn": "SRR6038-330Y",
+     "need": 9,
+     "price": 1.059,
+     "stock": 88,
+     "why": "Isat 1.20 A: saturates before the LMR51420 limit"
+    },
+    {
+     "check": "inductor_check: fails the limit",
+     "cites": [
+      [
+       "sumida-cdrh6d28-datasheet",
+       2
+      ]
+     ],
+     "cls": "footprint change",
+     "id": "E",
+     "jlc_ok": true,
+     "label": "CDRH6D28NP-330NC (6.7 mm, par-09)",
+     "lcsc": "C313052",
+     "library": "Extended",
+     "mpn": "CDRH6D28NP-330NC",
+     "need": 9,
+     "price": 0.542,
+     "stock": 2386,
+     "why": "rated 0.97 A: saturates before the LMR51420 limit"
+    }
+   ],
+   "refs": [
+    "L5",
+    "L6",
+    "L7"
+   ]
+  },
+  "P1": {
+   "line_status": "fail",
+   "options": [
+    {
+     "check": "0-6 GHz, 0.15 dB at 6 GHz (p.4) covers 5.6-5.9 GHz; mounting fit is a layout and enclosure decision; no simulation covers the pad transition",
+     "cites": [
+      [
+       "batwireless-bwsma-ke-p001-datasheet",
+       3
+      ],
+      [
+       "batwireless-bwsma-ke-p001-datasheet",
+       4
+      ],
+      [
+       "batwireless-bwsma-ke-p001-datasheet",
+       6
+      ],
+      [
+       "dk-consma003.062",
+       1
+      ]
+     ],
+     "cls": "design change",
+     "id": "A",
+     "jlc_ok": true,
+     "label": "BWSMA-KE-P001 (Bat Wireless)",
+     "lcsc": "C496550",
+     "library": "Extended",
+     "mpn": "BWSMA-KE-P001",
+     "need": 6,
+     "price": 0.406,
+     "stock": 83911,
+     "why": "a vertical, screw-on SMA (6.5 mm square body, through-board pin) against the CONSMA003.062 edge-launch jack for a 0.062 in board: the cable direction and the board edge change, not only the land pattern"
+    },
+    {
+     "check": "user fetches amphenol-132134-datasheet, then compare land pattern and board thickness (the board is 1.5266 mm)",
+     "cites": [],
+     "cls": "footprint change",
+     "id": "B",
+     "jlc_ok": true,
+     "label": "132134-15 (Amphenol RF, edge-mount SMD)",
+     "lcsc": "C3172297",
+     "library": "Extended",
+     "mpn": "132134-15",
+     "need": 6,
+     "price": 9.489,
+     "stock": 556,
+     "why": "edge-mount SMA like the CONSMA; its datasheet is not on file (user-fetch row amphenol-132134-datasheet), so nothing about it is claimed beyond the JLC listing"
+    }
+   ],
+   "refs": [
+    "P1",
+    "U15"
+   ]
+  },
+  "U12": {
+   "line_status": "fail",
+   "options": [
+    {
+     "check": "stock only",
+     "cites": [
+      [
+       "pat1220-attenuator-datasheet",
+       1
+      ]
+     ],
+     "cls": "drop-in",
+     "id": "A",
+     "jlc_ok": true,
+     "label": "PAT1220-C-3DB-T5 (as is)",
+     "lcsc": "C2654158",
+     "library": "Extended",
+     "mpn": "PAT1220-C-3DB-T5",
+     "need": 3,
+     "price": 0.593,
+     "stock": 5,
+     "why": "stock is above the need of 3 but under twice it"
+    },
+    {
+     "check": "rf-01 level plan: power at U12 must stay below 64 mW (18 dBm); not run",
+     "cites": [
+      [
+       "pat1220-attenuator-datasheet",
+       1
+      ],
+      [
+       "pat1220-attenuator-datasheet",
+       2
+      ]
+     ],
+     "cls": "footprint change",
+     "id": "B",
+     "jlc_ok": true,
+     "label": "PAT0816-C-3DB-T5 (0603)",
+     "lcsc": "C2655485",
+     "library": "Extended",
+     "mpn": "PAT0816-C-3DB-T5",
+     "need": 3,
+     "price": 0.646,
+     "stock": 401,
+     "why": "1.6 x 0.8 mm against 2.0 x 1.25 mm, 64 mW against 100 mW"
+    }
+   ],
+   "refs": [
+    "U12"
+   ]
+  },
+  "U21": {
+   "line_status": "fail",
+   "options": [
+    {
+     "check": "stock only: fails",
+     "cites": [
+      [
+       "ti-lp2985-datasheet",
+       3
+      ],
+      [
+       "ti-lp2985-datasheet",
+       4
+      ]
+     ],
+     "cls": "drop-in",
+     "id": "A",
+     "jlc_ok": false,
+     "label": "LP2985-10DBVR (non-A)",
+     "lcsc": "C2861715",
+     "library": "Extended",
+     "mpn": "LP2985-10DBVR",
+     "need": 3,
+     "price": 0.425,
+     "stock": 0,
+     "why": "same pins, 1.5 percent instead of 1 percent; JLC stock is 0"
+    },
+    {
+     "check": "divider for 10 V (see ldo_check); dropout 250 mV max at 200 mA against 2 V headroom (p.6); noise 300 uVrms at 1.24 V (p.6) scales with the divider gain, against 30 uVrms for the LP2985 (p.1): not simulated, sim-01 / sim-spurs",
+     "cites": [
+      [
+       "ti-tps7a24-datasheet",
+       3
+      ],
+      [
+       "ti-tps7a24-datasheet",
+       6
+      ],
+      [
+       "ti-tps7a24-datasheet",
+       14
+      ],
+      [
+       "ti-lp2985-datasheet",
+       3
+      ]
+     ],
+     "cls": "design change",
+     "id": "B",
+     "jlc_ok": true,
+     "label": "TPS7A2401DBVR (adjustable, 200 mA)",
+     "lcsc": "C2693328",
+     "library": "Extended",
+     "mpn": "TPS7A2401DBVR",
+     "need": 3,
+     "price": 0.243,
+     "stock": 10425,
+     "why": "same SOT-23-5 pin positions (IN 1, GND 2, EN 3, FB 4, OUT 5); pin 4 BYPASS becomes FB, so two divider resistors are added and C95 becomes a feed-forward cap"
+    },
+    {
+     "check": "divider for 10 V (see ldo_check); 12 V input is inside the 16 V maximum; noise 260 nV/rtHz (p.4); not simulated",
+     "cites": [
+      [
+       "microchip-mic5205-datasheet",
+       2
+      ],
+      [
+       "microchip-mic5205-datasheet",
+       9
+      ],
+      [
+       "microchip-mic5205-datasheet",
+       11
+      ]
+     ],
+     "cls": "design change",
+     "id": "C",
+     "jlc_ok": true,
+     "label": "MIC5205YM5-TR (adjustable, 150 mA)",
+     "lcsc": "C412820",
+     "library": "Extended",
+     "mpn": "MIC5205YM5-TR",
+     "need": 3,
+     "price": 0.325,
+     "stock": 7432,
+     "why": "same SOT-23-5 outline; pin 4 is ADJ (p.9), two divider resistors added"
+    }
+   ],
+   "refs": [
+    "U21"
+   ]
+  },
+  "U26": {
+   "line_status": "fail",
+   "options": [
+    {
+     "check": "rf-01: amplitude balance +-2.5 dB against 2 dB, insertion loss 0.8 dB max, phase 170-190 deg (p.3); no TDK S-parameter file on file, so no simulation covers it",
+     "cites": [
+      [
+       "tdk-hhm1907b1-datasheet",
+       2
+      ],
+      [
+       "tdk-hhm1907b1-datasheet",
+       3
+      ],
+      [
+       "johanson-5400bl15b0050001e-datasheet",
+       1
+      ]
+     ],
+     "cls": "footprint change",
+     "id": "A",
+     "jlc_ok": true,
+     "label": "HHM1907B1 (TDK, 0402)",
+     "lcsc": "C531388",
+     "library": "Extended",
+     "mpn": "HHM1907B1",
+     "need": 6,
+     "price": 0.103,
+     "stock": 7754,
+     "why": "0402 four-terminal against the 0805 five-terminal 5400BL15B050E; par-09 option B"
+    }
+   ],
+   "refs": [
+    "U26",
+    "U27"
+   ]
+  },
+  "U29": {
+   "line_status": "thin",
+   "options": [
+    {
+     "check": "stock only; the stock must be re-read on the day of the order",
+     "cites": [
+      [
+       "adi-adl5802-datasheet",
+       30
+      ]
+     ],
+     "cls": "drop-in",
+     "id": "A",
+     "jlc_ok": true,
+     "label": "ADL5802ACPZ-R7 (as is, order at once)",
+     "lcsc": "C657785",
+     "library": "Extended",
+     "mpn": "ADL5802ACPZ-R7",
+     "need": 3,
+     "price": 19.649,
+     "stock": 3,
+     "why": "JLC stock equals the need of 3: it passes with no spare; it can only be drawn down"
+    },
+    {
+     "check": "needs the ADL5801 datasheet and rf-01; not evaluated",
+     "cites": [],
+     "cls": "design change",
+     "id": "B",
+     "jlc_ok": true,
+     "label": "ADL5801ACPZ-R7 (single mixer, same LFCSP-24)",
+     "lcsc": "C496495",
+     "library": "Extended",
+     "mpn": "ADL5801ACPZ-R7",
+     "need": 3,
+     "price": 46.985,
+     "stock": 159,
+     "why": "one mixer is enough for one chain, but the ADL5801 datasheet is not in the manifest, so its pinout, LO range and IF are not claimed here"
+    }
+   ],
+   "refs": [
+    "U29"
+   ]
+  },
+  "U3": {
+   "line_status": "fail",
+   "options": [
+    {
+     "check": "rf-01 level plan; no simulation yet",
+     "cites": [
+      [
+       "pat1220-attenuator-datasheet",
+       1
+      ],
+      [
+       "pat1220-attenuator-datasheet",
+       2
+      ]
+     ],
+     "cls": "drop-in",
+     "id": "A",
+     "jlc_ok": true,
+     "label": "PAT1220-C-6DB-T5",
+     "lcsc": "C32951947",
+     "library": "Extended",
+     "mpn": "PAT1220-C-6DB-T5",
+     "need": 3,
+     "price": 0.65,
+     "stock": 464,
+     "why": "same Susumu PAT1220 0805 part as U12, 6 dB; the user accepts the match (decisions.csv U3 is for-user). The JLC text says 0-3 GHz; the maker table says DC to 10 GHz for the PAT1220 (read from the page image) and governs"
+    }
+   ],
+   "refs": [
+    "U3"
+   ]
+  },
+  "U30": {
+   "line_status": "fail",
+   "options": [
+    {
+     "check": "par-03 choice 1 pin check (same 256 balls); Table 12 lists -1C and -1I",
+     "cites": [
+      [
+       "amd-ds180-7series-overview",
+       15
+      ],
+      [
+       "amd-xc7a100t-ftg256-pinout",
+       null
+      ]
+     ],
+     "cls": "drop-in",
+     "id": "A",
+     "jlc_ok": true,
+     "label": "XC7A100T-1FTG256I",
+     "lcsc": "C1521781",
+     "library": "Extended",
+     "mpn": "XC7A100T-1FTG256I",
+     "need": 3,
+     "price": 123.888,
+     "stock": 59,
+     "why": "same die and FTG256 package, grade C to I; par-03 choice 'fpga' option B (the user's choice list)"
+    },
+    {
+     "check": "no extra check; dearer",
+     "cites": [
+      [
+       "amd-ds180-7series-overview",
+       15
+      ]
+     ],
+     "cls": "drop-in",
+     "id": "B",
+     "jlc_ok": true,
+     "label": "XC7A100T-2FTG256I",
+     "lcsc": "C1521771",
+     "library": "Extended",
+     "mpn": "XC7A100T-2FTG256I",
+     "need": 3,
+     "price": 184.86,
+     "stock": 24,
+     "why": "speed grade -2 in the same package"
+    }
+   ],
+   "refs": [
+    "U30"
+   ]
+  },
+  "U45": {
+   "line_status": "fail",
+   "options": [
+    {
+     "check": "stock only: fails for 3 boards",
+     "cites": [
+      [
+       "adi-lt6232-datasheet",
+       3
+      ]
+     ],
+     "cls": "drop-in",
+     "id": "A",
+     "jlc_ok": false,
+     "label": "LT6232CGN#PBF (C grade, SSOP-16)",
+     "lcsc": "C673022",
+     "library": "Extended",
+     "mpn": "LT6232CGN#PBF",
+     "need": 3,
+     "price": 17.724,
+     "stock": 2,
+     "why": "same package and pinout; JLC stock is below the need of 3"
+    },
+    {
+     "check": "step 3 simulation (sim/adc_input.json) already runs the LT6231 subcircuit (adi-lt6231-ltspice-bundled): its swing, common mode, settling and IF response apply unchanged; C grade is 0 to 70 C specified (p.3 order table)",
+     "cites": [
+      [
+       "adi-lt6232-datasheet",
+       2
+      ],
+      [
+       "adi-lt6232-datasheet",
+       3
+      ]
+     ],
+     "cls": "footprint change",
+     "id": "B",
+     "jlc_ok": true,
+     "label": "LT6231CS8#TRPBF (C grade, SO-8), one per board",
+     "lcsc": "C4369556",
+     "library": "Extended",
+     "mpn": "LT6231CS8#TRPBF",
+     "need": 3,
+     "price": 13.059,
+     "qty_per_board": 1,
+     "stock": 54,
+     "why": "only amps A and B are used by the kept chain; pins 1-3 and 5-7 keep their numbers, V+ moves from pin 4 to pin 8 and V- from pin 13 to pin 4, so SSOP-16 becomes SO-8 and the unused C/D pair (and the VCMA merge of step 4) disappears"
+    },
+    {
+     "check": "as B",
+     "cites": [
+      [
+       "adi-lt6232-datasheet",
+       3
+      ]
+     ],
+     "cls": "footprint change",
+     "id": "C",
+     "jlc_ok": true,
+     "label": "LT6231CS8#PBF (C grade, SO-8, tube)",
+     "lcsc": "C580237",
+     "library": "Extended",
+     "mpn": "LT6231CS8#PBF",
+     "need": 3,
+     "price": 12.154,
+     "qty_per_board": 1,
+     "stock": 10,
+     "why": "same die as B, tube packing"
+    }
+   ],
+   "refs": [
+    "U45"
+   ]
+  }
+ },
+ "removed_refs": [
+  "C113",
+  "C114",
+  "C166",
+  "C167",
+  "C168",
+  "C19",
+  "C20",
+  "C206",
+  "C213",
+  "C22",
+  "C23",
+  "C36",
+  "C37",
+  "C38",
+  "C52",
+  "C53",
+  "C55",
+  "C57",
+  "C58",
+  "FB7",
+  "FB8",
+  "L14",
+  "L15",
+  "L3",
+  "L4",
+  "P2",
+  "R100",
+  "R20",
+  "R23",
+  "R31",
+  "R38",
+  "R55",
+  "R56",
+  "R63",
+  "R64",
+  "R98",
+  "U13",
+  "U16",
+  "U28",
+  "U31",
+  "U34",
+  "U48",
+  "U49",
+  "U8"
+ ],
+ "source": "analysis/11_board_1rx/stock_lines.py"
+}
