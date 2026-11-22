@@ -1,0 +1,59 @@
+slides:
+  - layout: title
+    title: "FMCW3 1-RX board: changes"
+    bullets:
+      - "U8 becomes the AD9237BCPZ-40, receive chain 2 not fitted, every line JLC-stocked for 3 boards"
+      - "JLC database 2026-11-22; firmware read at cb7f097 (read only)"
+    note: Every part claim cites a manifest id and PDF page in the report. Nothing under kicad/ or kicad-1rx/ was written. The recommendations are labelled; the choices are yours.
+  - layout: figure
+    title: "What changes: 87 rows in parts/rx1_changes.csv"
+    figure: change_summary.png
+    note: One row per ref or net, which rx1-03 applies and tests against. Option rows apply only when you accept that option of the named rx1- key. Each row has a docs/board-changes.md row (Board 1-RX) naming its check.
+  - layout: figure
+    title: "ADC pin map: signals (AD9237 Table 6, p.8)"
+    figure: pin_map_1.png
+    note: RX1 (P1) ends on AINA; the earlier reading that the chains cross the channel letters was wrong (the ADL5802 pairing, adi-adl5802-datasheet p.6). OE and PDWN are held low by the FPGA (control.vhd), which is run and enabled on the AD9237, direct connection.
+  - layout: figure
+    title: "Straps, references, decoupling, 1.5 V bias"
+    figure: pin_map_2.png
+    note: SENSE to AGND, MODE2 to AGND give the 2 V p-p span U45 drives today. MODE stays at 0.65 AVDD (R92 = 11k gives 0.669; choice rx1-mode). The bias divider goes on /ADC_VCMB for the kept chain. Existing 3V0 and 3V3D decoupling is assumed; rx1-03 checks 0.1 uF and 10 uF per group.
+  - layout: figure
+    title: "Input simulation: IF response, today against 1-RX"
+    figure: if_response.png
+    note: LTspice, U45 vendor model (the LT6231 subcircuit the LT6232 symbol uses), AD9237 load from Table 1 and Figure 35, bias from the 1 kohm divider. Identical in band; 0.056 dB at 20 MHz.
+  - layout: figure
+    title: "Peak swing against the span and common mode"
+    figure: swing_cm.png
+    note: Full scale 1.04 to 2.05 V on a 0.35 to 2.90 V output swing (lt6232 p.4). Clips at 3.01 V peak differential, 9.6 dB over the span peak, so OTR comes first. Pins reach 0.04 to 3.05 V when clipped, 0.25 V inside AVDD + 0.3 V; a 3V3A before 3V0 start-up could exceed it (not simulated).
+  - layout: figure
+    title: "Settling within half a 40 MHz period"
+    figure: settling.png
+    note: 0.53 LSB at 1 MHz (today 0.43), 0.11 LSB at 200 kHz; almost all of it a 46 ps delay, nonlinear part 0.04 LSB. The reset bound is 17.7 LSB, still mostly linear. Switch charge injection is not modelled.
+  - layout: figure
+    title: "3V0 rail, SNR and IF dynamic range"
+    figure: rail_snr.png
+    note: 3V0 load drops from 78.5 to 47.2 mA of the 250 mA LP5907. SNR 3.6 dB lower than the LTC2294 of the same family (the LTC2292 sheet is not on file). Dynamic range 2.7 dB lower over 20 MHz, 1.5 dB lower after decimation by 20.
+  - layout: figure
+    title: "RX2 not fitted: 43 refs DNP, shared parts kept"
+    figure: rx2_dnp.png
+    note: From the kicad/ netlist. R51 and R52 bias the shared mixer output; recommended kept fitted. U45 amps C and D are unused; merge /ADC_VCMA into /ADC_VCMB, or replace U45 with the LT6231. Three FPGA pins freed.
+  - layout: figure
+    title: "Stock-only lines: 6 footprint changes"
+    figure: stock_lines.png
+    note: Footprint changes U26+U27, U45, L5-L7, P1+U15 (no option recommended), CON2, J2; design change U21 (FB divider). Plus the U8 footprint. 68 of 87 lines pass at 3 times the need; U29 is thin (3 for 3).
+  - layout: figure
+    title: "Data path: decimated yes, raw no"
+    figure: data_path.png
+    note: Raw 60 MB/s packed against 25 MB/s stated, 40 MB/s maximum and the 60 MB/s bus ceiling of the FT2232H. Decimated by 20 needs 4 to 8 MB/s. Raw would need a faster USB bridge in place of U33; not made, not needed for decimated streaming.
+  - layout: figure
+    title: "Choices (parts/choices.json, keys rx1-)"
+    figure: choices.png
+    note: Accept with friday accept rx1-02 --note and one choice per key. The SMA has no recommendation.
+  - layout: decisions
+    title: "Open for your review"
+    bullets:
+      - "rx1-sma: BWSMA is a vertical screw-on jack; the edge-mount Amphenol needs its datasheet saved (docs/user-fetch.md), else a design change"
+      - "rx1-opamp: LT6231 SO-8 (JLC 54, covered by the simulation) or keep the quad and merge the bias nets"
+      - "rx1-ldo: U21 as TPS7A2401 needs a 10 V divider; its output noise is not simulated"
+      - "rx1-balun, rx1-inductor, rx1-atten, rx1-conn: footprint changes and checks as on the stock slide"
+    note: The recommendations are labelled; the choice per key is yours. Not covered by any simulation, as board-changes.md says; the TDK balun, LDO noise, PAT0816, SMA transition.

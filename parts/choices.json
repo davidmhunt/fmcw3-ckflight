@@ -184,6 +184,156 @@
    ],
    "consequence": "FB4 feeds the PA U14 from 5 V. The QPA9501 datasheet gives 650 mA max at 22 dBm and nothing at the 25.5 dBm target (par-07), so A's margin at full power has no datasheet number. Both rows from the Murata table (murata-blm18pg181sn1d-datasheet). B's impedance curve differs, so sim-01's 5 V branch has to use its model before B is final; recorded in docs/board-changes.md.",
    "recommendation": "B, for the current margin and lower DC drop, once sim-01 shows no new resonance on the 5 V branch."
+  },
+  "rx1-fpga": {
+   "title": "1-RX choice: FPGA U30 (JLC has the I grade only)",
+   "refs": "U30",
+   "cols": ["Option", "JLC (C number, stock for the need, USD each)", "Class", "Check and datasheet"],
+   "rows": [
+    ["A. XC7A100T-1FTG256I", "C1521781, stock 59 for 3 (ok), 123.888", "drop-in", "par-03 choice 1 pin check (same 256 balls); Table 12 lists -1C and -1I [amd-ds180-7series-overview p.15; amd-xc7a100t-ftg256-pinout]"],
+    ["B. XC7A100T-2FTG256I", "C1521771, stock 24 for 3 (ok), 184.86", "drop-in", "no extra check; dearer [amd-ds180-7series-overview p.15]"]
+   ],
+   "consequence": "JLC database 2026-11-22. The C grade has no JLC row; the I grade is the same die and 256 balls (par-03 choice 1 pin check), value C to I, so it is a drop-in.",
+   "recommendation": "A, XC7A100T-1FTG256I: JLC stock 59 for 3; B costs more and has less stock."
+  },
+  "rx1-balun": {
+   "title": "1-RX choice: baluns U26, U27 (U28 is receive chain 2)",
+   "refs": "U26,U27",
+   "cols": ["Option", "JLC (C number, stock for the need, USD each)", "Class", "Check and datasheet"],
+   "rows": [
+    ["A. HHM1907B1 (TDK, 0402)", "C531388, stock 7754 for 6 (ok), 0.103", "footprint change", "rf-01: amplitude balance +-2.5 dB against 2 dB, insertion loss 0.8 dB max, phase 170-190 deg (p.3); no TDK S-parameter file on file, so no simulation covers it [tdk-hhm1907b1-datasheet p.2; tdk-hhm1907b1-datasheet p.3; johanson-5400bl15b0050001e-datasheet p.1]"]
+   ],
+   "consequence": "The only JLC-stocked balun on file is the TDK HHM1907B1: 0402 four-terminal against the 0805 five-terminal part, so a footprint change. Amplitude balance 2.5 dB against 2 dB; no TDK S-parameter file is on file, so no simulation covers it (rf-01 uses the Johanson file).",
+   "recommendation": "A is the only JLC-stocked option; the RF effect is not simulated."
+  },
+  "rx1-opamp": {
+   "title": "1-RX choice: op-amp U45 (JLC lists the C grade only)",
+   "refs": "U45",
+   "cols": ["Option", "JLC (C number, stock for the need, USD each)", "Class", "Check and datasheet"],
+   "rows": [
+    ["A. LT6232CGN#PBF (C grade, SSOP-16)", "C673022, stock 2 for 3 (short), 17.724", "drop-in", "stock only: fails for 3 boards [adi-lt6232-datasheet p.3]"],
+    ["B. LT6231CS8#TRPBF (C grade, SO-8), one per board", "C4369556, stock 54 for 3 (ok), 13.059", "footprint change", "step 3 simulation (sim/adc_input.json) already runs the LT6231 subcircuit (adi-lt6231-ltspice-bundled): its swing, common mode, settling and IF response apply unchanged; C grade is 0 to 70 C specified (p.3 order table) [adi-lt6232-datasheet p.2; adi-lt6232-datasheet p.3]"],
+    ["C. LT6231CS8#PBF (C grade, SO-8, tube)", "C580237, stock 10 for 3 (ok), 12.154", "footprint change", "as B [adi-lt6232-datasheet p.3]"]
+   ],
+   "consequence": "The 1-RX chain uses amps A and B only, so one LT6231 (dual, SO-8) replaces the quad. The step 3 LTspice run already uses the LT6231 subcircuit, so swing, common mode, settling and IF response apply unchanged. C grade is 0 to 70 C. The LT6232CGN has stock 2 for a need of 3. If A is chosen, U45 amps C and D need the rx1-unused-amps choice.",
+   "recommendation": "B, LT6231CS8#TRPBF: JLC stock 54; footprint change SSOP-16 to SO-8; the unused pair and the /ADC_VCMA merge disappear."
+  },
+  "rx1-ldo": {
+   "title": "1-RX choice: LDO U21, 10 V output (LP2985A-10 not in JLC stock)",
+   "refs": "U21",
+   "cols": ["Option", "JLC (C number, stock for the need, USD each)", "Class", "Check and datasheet"],
+   "rows": [
+    ["A. LP2985-10DBVR (non-A)", "C2861715, stock 0 for 3 (short), 0.425", "drop-in", "stock only: fails [ti-lp2985-datasheet p.3; ti-lp2985-datasheet p.4]"],
+    ["B. TPS7A2401DBVR (adjustable, 200 mA)", "C2693328, stock 10425 for 3 (ok), 0.243", "design change", "divider for 10 V (see ldo_check); dropout 250 mV max at 200 mA against 2 V headroom (p.6); noise 300 uVrms at 1.24 V (p.6) scales with the divider gain, against 30 uVrms for the LP2985 (p.1): not simulated, sim-01 / sim-spurs [ti-tps7a24-datasheet p.3; ti-tps7a24-datasheet p.6; ti-tps7a24-datasheet p.14; ti-lp2985-datasheet p.3]"],
+    ["C. MIC5205YM5-TR (adjustable, 150 mA)", "C412820, stock 7432 for 3 (ok), 0.325", "design change", "divider for 10 V (see ldo_check); 12 V input is inside the 16 V maximum; noise 260 nV/rtHz (p.4); not simulated [microchip-mic5205-datasheet p.2; microchip-mic5205-datasheet p.9; microchip-mic5205-datasheet p.11]"]
+   ],
+   "consequence": "Design change: pin 4 BYPASS becomes FB, two divider resistors; for 10 V, R994 1.15 M / R995 162 k gives 10.04 V (9.71 to 10.39 V worst case). Output noise is not covered by any simulation: 300 uVrms at 1.24 V scales to about 2.4 mVrms unfiltered, against 30 uVrms for the LP2985; the 10 V rail feeds U7 (sim-01, sim-spurs).",
+   "recommendation": "B, TPS7A2401DBVR (stock 10425); C is the alternative; neither noise figure is simulated."
+  },
+  "rx1-sma": {
+   "title": "1-RX choice: SMA connectors P1, U15 (P2 is receive chain 2)",
+   "refs": "P1,U15",
+   "cols": ["Option", "JLC (C number, stock for the need, USD each)", "Class", "Check and datasheet"],
+   "rows": [
+    ["A. BWSMA-KE-P001 (Bat Wireless)", "C496550, stock 83911 for 6 (ok), 0.406", "design change", "0-6 GHz, 0.15 dB at 6 GHz (p.4) covers 5.6-5.9 GHz; mounting fit is a layout and enclosure decision; no simulation covers the pad transition [batwireless-bwsma-ke-p001-datasheet p.3; batwireless-bwsma-ke-p001-datasheet p.4; batwireless-bwsma-ke-p001-datasheet p.6; dk-consma003.062 p.1]"],
+    ["B. 132134-15 (Amphenol RF, edge-mount SMD)", "C3172297, stock 556 for 6 (ok), 9.489", "footprint change", "user fetches amphenol-132134-datasheet, then compare land pattern and board thickness (the board is 1.5266 mm) [no datasheet on file]"]
+   ],
+   "consequence": "A is a vertical, screw-on SMA (6.5 mm square body, through-board pin): a design change to the cable direction and board edge. B is an edge-mount SMD jack like today's, but its datasheet is not on file (docs/user-fetch.md row amphenol-132134-datasheet), so nothing is claimed about it.",
+   "recommendation": "none recommended: if you save the Amphenol datasheet, B is the like-for-like part; else A is the only option with a datasheet on file."
+  },
+  "rx1-inductor": {
+   "title": "1-RX choice: inductors L5-L7 (33 uH, LMR51420 current limit)",
+   "refs": "L5,L6,L7",
+   "cols": ["Option", "JLC (C number, stock for the need, USD each)", "Class", "Check and datasheet"],
+   "rows": [
+    ["A. APS1040M330A (11.5 x 10 mm)", "C47327250, stock 19638 for 9 (ok), 0.242", "footprint change", "inductor_check: Isat 5.05 A above the 3.5 A typ and below the 5.1 A max high-side peak limit (p.5); p.18 asks for Isat above the peak limit; well above the 2 A full-load peak [coilank-aps1040m330a-datasheet p.8; ti-lmr51420-datasheet p.5; ti-lmr51420-datasheet p.18]"],
+    ["B. SMS0650-330MT (7.1 x 6.6 mm)", "C5127476, stock 21320 for 9 (ok), 0.095", "footprint change", "inductor_check: 3.3 A is below the 3.5 A typ limit but above the 2 A full-load peak; no datasheet on file, so the rating is a listing figure [ti-lmr51420-datasheet p.5; ti-lmr51420-datasheet p.18]"],
+    ["C. FCH0650-330M (7.5 x 6.8 mm)", "C20415540, stock 1089 for 9 (ok), 0.161", "footprint change", "inductor_check as B [ti-lmr51420-datasheet p.18]"],
+    ["D. SRR6038-330Y (6.8 mm, par-09)", "C2041395, stock 88 for 9 (ok), 1.059", "footprint change", "inductor_check: fails the limit [bourns-srr6038-datasheet p.1]"],
+    ["E. CDRH6D28NP-330NC (6.7 mm, par-09)", "C313052, stock 2386 for 9 (ok), 0.542", "footprint change", "inductor_check: fails the limit [sumida-cdrh6d28-datasheet p.2]"]
+   ],
+   "consequence": "Only the APS1040M330A has Isat (5.05 A) near the LMR51420 high-side limit (3.5 A typ, 5.1 A max, ti-lmr51420-datasheet p.5; p.18: Isat above the limit). SMS0650 and FCH0650 clear the 2 A full-load peak only and their ratings are listing figures. The par-09 options saturate near 1 A.",
+   "recommendation": "A, APS1040M330A (11.5 x 10 mm footprint change, board room to check)."
+  },
+  "rx1-atten": {
+   "title": "1-RX choice: attenuators U3 and U12 (PAT1220, no MPN in the schematic)",
+   "refs": "U3,U12",
+   "cols": ["Option", "JLC (C number, stock for the need, USD each)", "Class", "Check and datasheet"],
+   "rows": [
+    ["A. PAT1220-C-6DB-T5", "C32951947, stock 464 for 3 (ok), 0.65", "drop-in", "rf-01 level plan; no simulation yet [pat1220-attenuator-datasheet p.1; pat1220-attenuator-datasheet p.2]"],
+    ["A. PAT1220-C-3DB-T5 (as is)", "C2654158, stock 5 for 3 (ok), 0.593", "drop-in", "stock only [pat1220-attenuator-datasheet p.1]"],
+    ["B. PAT0816-C-3DB-T5 (0603)", "C2655485, stock 401 for 3 (ok), 0.646", "footprint change", "rf-01 level plan: power at U12 must stay below 64 mW (18 dBm); not run [pat1220-attenuator-datasheet p.1; pat1220-attenuator-datasheet p.2]"]
+   ],
+   "consequence": "Same Susumu PAT1220 0805 part; the maker's table says DC to 10 GHz where the JLC text says 0-3 GHz. U12 has JLC stock 5 for a need of 3: order at once. PAT0816 is a 0603 footprint change at 64 mW.",
+   "recommendation": "A for both (drop-in; fields only)."
+  },
+  "rx1-led": {
+   "title": "1-RX choice: LEDs D1-D3, D5-D7 (colour)",
+   "refs": "D1,D2,D3,D5,D6,D7",
+   "cols": ["Option", "JLC (C number, stock for the need, USD each)", "Class", "Check and datasheet"],
+   "rows": [
+    ["A. KT-0603R red", "C2286, stock 8406815 for 18 (ok), 0.008", "drop-in", "Vf 1.8-2.4 V at 20 mA (p.3) [kento-kt-0603-led-datasheet p.3]"]
+   ],
+   "consequence": "Red is a drop-in; white, green and blue (Vf up to 3.1 V) need the series resistors re-sized.",
+   "recommendation": "A, red; the colour is yours."
+  },
+  "rx1-conn": {
+   "title": "1-RX choice: barrel jack CON2 and header J2 (through-hole)",
+   "refs": "CON2,J2",
+   "cols": ["Option", "JLC (C number, stock for the need, USD each)", "Class", "Check and datasheet"],
+   "rows": [
+    ["A. DC-005-A200 (Xunpu)", "C720557, stock 74631 for 3 (ok), 0.143", "footprint change", "compare the PCB layout on p.1 with the BarrelJack footprint; whether JLC places through-hole parts is for the user to confirm in the order tool [xunpu-dc-005-a200-datasheet p.1]"],
+    ["B. DC005 (Shou Han)", "C431533, stock 73257 for 3 (ok), 0.055", "footprint change", "as A [shouhan-dc005-datasheet p.1]"],
+    ["A. 2.54-2*8PPin (Boomele)", "C68234, stock 17000 for 3 (ok), 0.134", "footprint change", "the 0.04 mm per row mismatch (0.28 mm over 8 rows) means a new footprint at 2.54 mm [boomele-2-54-2x8-header-datasheet p.1]"],
+    ["B. HX PZ2.54-2x8P ZZ (Hanxia)", "C32713281, stock 6397 for 3 (ok), 0.125", "footprint change", "as A [hanxia-hx-pz2-54-2x8p-datasheet p.3]"]
+   ],
+   "consequence": "Both are footprint changes (J2: 2.54 mm part on 2.5 mm pads). Whether JLC places through-hole parts for this order is for you to confirm in the order tool.",
+   "recommendation": "A for both (stock 74631 and 17000)."
+  },
+  "rx1-mixer": {
+   "title": "1-RX choice: mixer U29 (JLC stock equals the need)",
+   "refs": "U29",
+   "cols": ["Option", "JLC (C number, stock for the need, USD each)", "Class", "Check and datasheet"],
+   "rows": [
+    ["A. ADL5802ACPZ-R7 (as is, order at once)", "C657785, stock 3 for 3 (ok), 19.649", "drop-in", "stock only; the stock must be re-read on the day of the order [adi-adl5802-datasheet p.30]"],
+    ["B. ADL5801ACPZ-R7 (single mixer, same LFCSP-24)", "C496495, stock 159 for 3 (ok), 46.985", "design change", "needs the ADL5801 datasheet and rf-01; not evaluated [no datasheet on file]"]
+   ],
+   "consequence": "Stock 3 for a need of 3 passes with no spare; the stock must be re-read on the day of the order. The ADL5801 is a single mixer but its datasheet is not in the manifest, so nothing is claimed.",
+   "recommendation": "A, order at once."
+  },
+  "rx1-mode": {
+   "title": "1-RX choice: MODE strap R92 (10k or 11k)",
+   "refs": "R92",
+   "cols": ["Option", "MODE level", "Class", "Note"],
+   "rows": [
+    ["A. keep R91 4.7k / R92 10k", "1.95 V = 0.65 AVDD (with the 70 kohm pull-down)", "netlist only", "within 2 percent of the 2/3 AVDD row; the datasheet gives nominal levels only"],
+    ["B. R92 = 11k", "0.669 AVDD", "value change", "no other change"]
+   ],
+   "consequence": "adi-ad9237-datasheet p.21 (Table 10: 2/3 AVDD is twos complement, DCS on) and p.10 (Figure 5, 70 kohm pull-down). The firmware reads signed twos complement (adc.vhd).",
+   "recommendation": "A: no thresholds are given, so a 2 percent offset needs no part change."
+  },
+  "rx1-unused-amps": {
+   "title": "1-RX choice: unused U45 amps C and D (only if U45 stays the SSOP-16 quad)",
+   "refs": "U45",
+   "cols": ["Option", "What changes", "Class", "Note"],
+   "rows": [
+    ["A. merge /ADC_VCMA into /ADC_VCMB", "R31, R38, R63, R64 not fitted; R39, R40, C39, C40 kept", "netlist only", "each unused amp is a unity follower on the bias, no floating node"],
+    ["B. also not fit R39, R40", "inverting input floats", "netlist only", "not recommended"],
+    ["C. tie the + inputs to GND", "outside the input range at 3.3 V", "netlist only", "not recommended"]
+   ],
+   "consequence": "adi-lt6232-datasheet p.3 (input common-mode range 1.15 to 2.65 V at 3.3 V). Not needed when rx1-opamp is B.",
+   "recommendation": "A."
+  },
+  "rx1-ifbias": {
+   "title": "1-RX choice: R51, R52 (IF1 pull-ups of the shared mixer)",
+   "refs": "R51,R52",
+   "cols": ["Option", "What changes", "Class", "Note"],
+   "rows": [
+    ["A. keep fitted", "none", "netlist only", "the ADL5802 IF1 open-collector output keeps its pull-up"],
+    ["B. not fitted", "two refs DNP", "netlist only", "your call; no check covers the unused IF1 output"]
+   ],
+   "consequence": "adi-adl5802-datasheet p.6 (Table 3: OP1+/- need a pull-up). They are receive-chain-2 only electrically but bias the shared part.",
+   "recommendation": "A: leaves the shared mixer exactly as in 2-RX."
   }
  }
 }

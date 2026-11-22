@@ -53,7 +53,9 @@ def load_choices(av, dec):
             return row[m.group(2)]
         return CELL.sub(sub, cell)
 
-    choices = json.loads(CHOICES_FILE.read_text())["choices"]
+    # keys prefixed rx1- are the 1-RX board's (analysis/11_board_1rx), not this 2-RX report's
+    choices = {k: v for k, v in json.loads(CHOICES_FILE.read_text())["choices"].items()
+               if not k.startswith("rx1-")}
     for c in choices.values():
         c["rows"] = [[fill(x) for x in row] for row in c["rows"]]
         c["consequence"] = fill(c["consequence"])
