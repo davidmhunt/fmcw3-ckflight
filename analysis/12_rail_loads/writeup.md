@@ -85,11 +85,13 @@ most {{fact:peak_limit}} A, DC at most {{fact:dc_limit}} A.
 
 ![Worst case against the limits](build/peak_vs_limit.png)
 
-Every rail passes on both boards. The 5V6 rail is the tightest: its worst-case DC load is
-{{fact:dc_5v6}} A, leaving {{fact:dc_5v6_margin}} A under the DC mark, and its worst-case peak is
-{{fact:pk_5v6}} A, leaving {{fact:pk_5v6_margin}} A under the peak mark. The 1V0 and 3V8 rails have more
-than a factor of two on the DC mark. The 1-RX board draws less on 3V8 (receive chain 2 not fitted, a
-different ADC) and the same on 5V6 and 1V0.
+Every rail passes on both boards. The tightest is 3V8 on the 2-RX board: its worst-case DC load is
+{{fact:dc_3v8}} A, leaving {{fact:dc_3v8_margin}} A under the DC mark, and its worst-case peak is
+{{fact:pk_3v8}} A, leaving {{fact:pk_3v8_margin}} A under the peak mark. 5V6 is close behind (DC
+{{fact:dc_5v6}} A, {{fact:dc_5v6_margin}} A under the mark; peak {{fact:pk_5v6}} A,
+{{fact:pk_5v6_margin}} A under). Both are about 1.3 times under the DC mark; 1V0 has more than a factor
+of three. The 1-RX board draws less on 3V8 (receive chain 2 not fitted, a different ADC) and the same
+on 5V6 and 1V0, so its tightest rail is 5V6.
 
 ## Ripple, peak and copper loss at both switching frequencies
 

@@ -12,7 +12,7 @@ slides:
   - layout: figure
     title: "Worst case against Isat and Irms"
     figure: peak_vs_limit.png
-    note: The tightest rail is 5V6, with the TQP5525 PA (850 mA maximum) and the ADL5802 mixer. The 1V0 and 3V8 rails have more than a factor of two under the DC mark. The result is the same at 1.1 MHz, where the ripple is less than half.
+    note: The tightest rail is 3V8 on the 2-RX board (DC 1.184 A, peak 1.282 A; with the FPGA VCCAUX bound from the routed power report), then 5V6 (DC 1.165 A, peak 1.278 A; the TQP5525 PA, 850 mA maximum, and the ADL5802 mixer). Both are about 1.3 times under the 1.547 A DC mark; 1V0 more than three times. On the 1-RX board 5V6 is the tightest. The result is the same at 1.1 MHz, where the ripple is less than half.
   - layout: figure
     title: "1V0 (U17, L5): consumers"
     figure: consumers_1V0.png
