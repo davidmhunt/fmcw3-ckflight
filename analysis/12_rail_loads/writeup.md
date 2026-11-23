@@ -160,6 +160,11 @@ loads. The sum rows are the DC load the buck delivers.
 6. The "typ" Isat of 3.53 A has no stated tolerance; the 60 % mark is the margin for it. The temperature
    rise of the inductor in the enclosure is covered only by the 2/3 Irms mark, not measured.
 7. Simulating the bucks is out of scope (the LMR51420 model loads in no engine here; sim-05).
+8. **FPGA VCCAUX and VCCADC (U30, 1V8 branch)** use the firmware's routed power report for the typical
+   (Vccaux 77 mA, of which 58 mA dynamic, plus Vccadc 20 mA = 97 mA), not the DS181 quiescent figure
+   (36 mA) used in the first pass. The maximum is DS181 ICCAUXQ 36 mA plus the report's VCCAUX dynamic
+   current times the same factor 4 as the 1V0 core, plus Vccadc: 268 + 20 = 288 mA. The 3V8 rail's maximum
+   is 1.184 A (2-RX) against the 1.55 A mark, so the result is unchanged.
 
 # 6. Reproduce
 

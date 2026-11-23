@@ -25,6 +25,8 @@ import sys
 
 import yaml
 
+import vccint as _vccint
+
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 HERE = pathlib.Path(__file__).resolve().parent
 CONSUMERS = HERE / "sim" / "consumers.json"
@@ -130,11 +132,17 @@ for ref in ("U11", "U16"):
 # ---- U23 1V8: FPGA VCCAUX ----------------------------------------------------------------------
 row("R45", ["3V8", "U23"], "FB divider R45 49.9k + R46 18.7k", "computed", div(1.83, 68.6), div(1.83, 68.6),
     why="V/(R45+R46) = 1.83 V / 68.6 k")
-row("U30", ["3V8", "U23"], "XC7A100T VCCAUX", "datasheet", 36, 76,
-    src=[("amd-ds181-artix7-datasheet", 6, "ICCAUXQ 36 mA, XC7A100T -1 (typical quiescent)"),
-         ("amd-ds181-artix7-datasheet", 8, "Table 6: ICCAUXMIN = ICCAUXQ + 40 mA for XC7A100T = 76 mA")],
-    note="typ is the quiescent figure (VCCAUX dynamic current is small: MMCM/PLL and I/O bias); max is the power-on "
-         "and configuration current the supply must give, which bounds the running value; the Vivado power report replaces both")
+_rpt = _vccint.parse(_vccint.RPT.read_text())
+_aux, _adc = _rpt["vccaux"], _rpt["vccadc"]
+_aux_max = 36 + round(_aux["dynamic_mA"] * _vccint.K_TOGGLE)    # DS181 ICCAUXQ + the report's dynamic x K_TOGGLE
+row("U30", ["3V8", "U23"], "XC7A100T VCCAUX + VCCADC (both 1.8 V)", "datasheet",
+    _aux["total_mA"] + _adc["total_mA"], _aux_max + _adc["total_mA"],
+    src=[("amd-ds181-artix7-datasheet", 6, "ICCAUXQ 36 mA, XC7A100T -1 (quiescent, the static term of the max)"),
+         ("amd-ds181-artix7-datasheet", 8, "Table 6: ICCAUXMIN = ICCAUXQ + 40 mA = 76 mA at power-on (below the max here)")],
+    note=f"typ is the Vivado routed power report of the firmware (sim/fw_power_routed.rpt): Vccaux {_aux['total_mA']} mA "
+         f"({_aux['dynamic_mA']} dynamic) + Vccadc {_adc['total_mA']} mA; max is DS181 ICCAUXQ 36 mA + the report's "
+         f"VCCAUX dynamic x {_vccint.K_TOGGLE:g} (the K_TOGGLE of vccint.py) + the Vccadc figure; the report has "
+         "confidence Low, the report of the final design replaces both")
 
 # ---- U24 3V3A: ADF4158, LT6232 --------------------------------------------------------------------
 row("R47", ["3V8", "U24"], "FB divider R47 18.7k + R48 3.3k", "computed", div(3.33, 22.0), div(3.33, 22.0),

@@ -60,6 +60,10 @@
   "tj_c": 26.3,
   "tool": "Vivado v.2025.2 (lin64) Build 6299465 Fri Nov 14 12:34:56 MST 2025",
   "total_w": 0.287,
+  "vccadc": {
+   "total_mA": 20,
+   "v": 1.8
+  },
   "vccaux": {
    "dynamic_mA": 58,
    "static_mA": 18,

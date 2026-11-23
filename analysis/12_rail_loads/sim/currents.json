@@ -253,9 +253,9 @@
     {
      "children": false,
      "how": "datasheet",
-     "max": 76,
-     "note": "typ is the quiescent figure (VCCAUX dynamic current is small: MMCM/PLL and I/O bias); max is the power-on and configuration current the supply must give, which bounds the running value; the Vivado power report replaces both",
-     "part": "XC7A100T VCCAUX",
+     "max": 288,
+     "note": "typ is the Vivado routed power report of the firmware (sim/fw_power_routed.rpt): Vccaux 77 mA (58 dynamic) + Vccadc 20 mA; max is DS181 ICCAUXQ 36 mA + the report's VCCAUX dynamic x 4 (the K_TOGGLE of vccint.py) + the Vccadc figure; the report has confidence Low, the report of the final design replaces both",
+     "part": "XC7A100T VCCAUX + VCCADC (both 1.8 V)",
      "path": [
       "3V8",
       "U23"
@@ -267,15 +267,15 @@
       [
        "amd-ds181-artix7-datasheet",
        6,
-       "ICCAUXQ 36 mA, XC7A100T -1 (typical quiescent)"
+       "ICCAUXQ 36 mA, XC7A100T -1 (quiescent, the static term of the max)"
       ],
       [
        "amd-ds181-artix7-datasheet",
        8,
-       "Table 6: ICCAUXMIN = ICCAUXQ + 40 mA for XC7A100T = 76 mA"
+       "Table 6: ICCAUXMIN = ICCAUXQ + 40 mA = 76 mA at power-on (below the max here)"
       ]
      ],
-     "typ": 36,
+     "typ": 97,
      "why": ""
     },
     {
@@ -1380,9 +1380,9 @@
     {
      "children": false,
      "how": "datasheet",
-     "max": 76,
-     "note": "typ is the quiescent figure (VCCAUX dynamic current is small: MMCM/PLL and I/O bias); max is the power-on and configuration current the supply must give, which bounds the running value; the Vivado power report replaces both",
-     "part": "XC7A100T VCCAUX",
+     "max": 288,
+     "note": "typ is the Vivado routed power report of the firmware (sim/fw_power_routed.rpt): Vccaux 77 mA (58 dynamic) + Vccadc 20 mA; max is DS181 ICCAUXQ 36 mA + the report's VCCAUX dynamic x 4 (the K_TOGGLE of vccint.py) + the Vccadc figure; the report has confidence Low, the report of the final design replaces both",
+     "part": "XC7A100T VCCAUX + VCCADC (both 1.8 V)",
      "path": [
       "3V8",
       "U23"
@@ -1394,15 +1394,15 @@
       [
        "amd-ds181-artix7-datasheet",
        6,
-       "ICCAUXQ 36 mA, XC7A100T -1 (typical quiescent)"
+       "ICCAUXQ 36 mA, XC7A100T -1 (quiescent, the static term of the max)"
       ],
       [
        "amd-ds181-artix7-datasheet",
        8,
-       "Table 6: ICCAUXMIN = ICCAUXQ + 40 mA for XC7A100T = 76 mA"
+       "Table 6: ICCAUXMIN = ICCAUXQ + 40 mA = 76 mA at power-on (below the max here)"
       ]
      ],
-     "typ": 36,
+     "typ": 97,
      "why": ""
     },
     {

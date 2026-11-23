@@ -32,23 +32,23 @@
     "vout_v": 1.008
    },
    "3V8": {
-    "copper_loss_max_w": 0.1254928154197415,
-    "copper_loss_typ_w": 0.01828707988263712,
-    "dc_margin_a": 0.7070144666666665,
-    "dc_max_a": 0.8396522,
+    "copper_loss_max_w": 0.1968630782581415,
+    "copper_loss_typ_w": 0.02590994312583712,
+    "dc_margin_a": 0.4950144666666665,
+    "dc_max_a": 1.0516522,
     "dc_ok": true,
-    "dc_typ_a": 0.3205252,
-    "peak_margin_a": 1.179870609813367,
+    "dc_typ_a": 0.3815252,
+    "peak_margin_a": 0.9678706098133671,
     "peak_max_a": {
-     "1.1 MHz": 0.8844145591757422,
-     "500 kHz": 0.9381293901866328
+     "1.1 MHz": 1.0964145591757422,
+     "500 kHz": 1.1501293901866327
     },
     "peak_ok": true,
     "peak_typ_a": {
-     "1.1 MHz": 0.3652875591757422,
-     "500 kHz": 0.4190023901866329
+     "1.1 MHz": 0.42628755917574224,
+     "500 kHz": 0.4800023901866328
     },
-    "peak_worst_a": 0.9381293901866328,
+    "peak_worst_a": 1.1501293901866327,
     "ripple_nominal_L_pp_a": {
      "1.1 MHz": 0.07161977468118752,
      "500 kHz": 0.15756350429861254
@@ -121,23 +121,23 @@
     "vout_v": 1.008
    },
    "3V8": {
-    "copper_loss_max_w": 0.16816885296122946,
-    "copper_loss_typ_w": 0.031829065972045115,
-    "dc_margin_a": 0.5746744666666666,
-    "dc_max_a": 0.9719921999999999,
+    "copper_loss_max_w": 0.24952708027962944,
+    "copper_loss_typ_w": 0.04167434465524512,
+    "dc_margin_a": 0.3626744666666666,
+    "dc_max_a": 1.1839921999999998,
     "dc_ok": true,
-    "dc_typ_a": 0.4228652,
-    "peak_margin_a": 1.0475306098133672,
+    "dc_typ_a": 0.4838652,
+    "peak_margin_a": 0.8355306098133672,
     "peak_max_a": {
-     "1.1 MHz": 1.016754559175742,
-     "500 kHz": 1.0704693901866327
+     "1.1 MHz": 1.228754559175742,
+     "500 kHz": 1.2824693901866326
     },
     "peak_ok": true,
     "peak_typ_a": {
-     "1.1 MHz": 0.46762755917574217,
-     "500 kHz": 0.5213423901866329
+     "1.1 MHz": 0.5286275591757422,
+     "500 kHz": 0.5823423901866328
     },
-    "peak_worst_a": 1.0704693901866327,
+    "peak_worst_a": 1.2824693901866326,
     "ripple_nominal_L_pp_a": {
      "1.1 MHz": 0.07161977468118752,
      "500 kHz": 0.15756350429861254
@@ -180,7 +180,7 @@
    }
   }
  },
- "dc_max_a": 1.1645999999999999,
+ "dc_max_a": 1.1839921999999998,
  "fault": {
   "hiccup": {
    "action": "the converter shuts down and stays off for tHICCUP, 135 ms typ, then restarts; it repeats while the fault remains",
@@ -235,7 +235,7 @@
   "peak_a": 2.118,
   "peak_frac": 0.6
  },
- "peak_max_a": 1.277731313131313,
+ "peak_max_a": 1.2824693901866326,
  "source": "analysis/12_rail_loads/loads.py; currents from currents.py, FPGA core from vccint.py; A",
  "vin_v": 12.0
 }

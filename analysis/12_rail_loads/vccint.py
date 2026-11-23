@@ -81,6 +81,7 @@ def parse(text):
         date=re.search(r"\| Date\s*:\s*(.+?)\s*\n", text).group(1),
         tool=re.search(r"\| Tool Version\s*:\s*(.+?)\s*\n", text).group(1),
         vccint=rail("Vccint"), vccbram=rail("Vccbram"), vccaux=rail("Vccaux"),
+        vccadc=dict(v=1.8, total_mA=round(float(re.search(r"\|\s*Vccadc\s*\|\s*[\d.]+\s*\|\s*([\d.]+)\s*\|", text).group(1)) * 1e3)),
         tj_c=float(field("Junction Temperature (C)")), total_w=float(field("Total On-Chip Power (W)")),
         confidence=field("Confidence Level"), simulation_activity=field("Simulation Activity File"),
         clocks_ns={m.group(1): float(m.group(2)) for m in
@@ -143,7 +144,7 @@ def show(d):
         print("  max:", a)
     print(f"  report confidence {p['confidence']}; replaced by the Vivado report of the final design")
     print(f"  also in the report: Vccaux {p['vccaux']['total_mA']} mA ({p['vccaux']['dynamic_mA']} dynamic), "
-          "against 36 typ / 76 max mA in currents.py")
+          f"+ Vccadc {p['vccadc']['total_mA']} mA: the U30 VCCAUX row of currents.py")
 
 
 def fetch():
