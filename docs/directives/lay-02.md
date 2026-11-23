@@ -47,6 +47,7 @@ with evidence for each check and each critical part.
 
 ## Rules
 - On 1-RX also check the AD9237 (U8) decoupling, exposed-pad vias and grounding against its datasheet, and every footprint `parts/rx1_changes.csv` changes; the rest is checked once on `kicad/`. (amended 2026-11-22 for the two-board plan)
+- On 1-RX check the TDK HHM1907B1 land pattern at U26 and U27 against tdk-hhm1907b1-datasheet p.2, and on both boards the Epson Y2 terminals against epson-tg2520smn-datasheet p.14 and the APS0650 L5-L7 pads against the Coilank APS sheet p.1. (amended 2026-11-23)
 
 ## Allowed commands
 - `./run *`

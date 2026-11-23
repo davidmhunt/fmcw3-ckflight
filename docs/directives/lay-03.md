@@ -43,6 +43,7 @@ gives an expected value for every step.
 
 ## Rules
 - Write the bring-up procedure in two variants, 1-RX (one channel, AD9237 straps, receive chain 2 not fitted) and 2-RX, sharing the common steps; test points cover both. (amended 2026-11-22 for the two-board plan)
+- 1-RX bring-up checks the receive gain early: a known-level 5.8 GHz tone into RF1 against the expected IF amplitude, because the TDK balun at U26 and U27 is not simulated. (amended 2026-11-23)
 
 ## Allowed commands
 - `./run *`
