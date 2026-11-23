@@ -39,6 +39,6 @@ slides:
       - "Yours to decide: nothing blocks the APS0650M330A; confirm it for L5-L7 on both boards"
       - "VCCINT is an estimate (report confidence Low); the final-design Vivado report replaces it, and 1V0 has a large margin"
       - "U17-U19 suffix (500 kHz or 1.1 MHz) is unresolved; the result holds at both"
-      - "Re-run when the PA is chosen (par-07): 5V6 has the least headroom; header J2 (100 mA allowance) and LED colours are not set"
+      - "Re-run when the PA is chosen (par-07): 3V8 on the 2-RX board has the least headroom, then 5V6; header J2 (100 mA allowance) and LED colours are not set"
       - "Isat has no stated tolerance (the 60 % mark is the margin); simulation of the bucks is out of scope (sim-05)"
     note: The agent records the result in docs/board-changes.md for the L5-L7 rows of both boards in the next step.
