@@ -1,0 +1,2179 @@
+{
+ "boards": {
+  "1rx": {
+   "problems": [],
+   "rows": [
+    {
+     "children": false,
+     "how": "computed",
+     "max": 0.006,
+     "note": "",
+     "part": "FB divider R32 68k + R33 100k",
+     "path": [
+      "1V0"
+     ],
+     "rail": "1V0",
+     "ref": "R32",
+     "role": "divider_top",
+     "src": [],
+     "typ": 0.006,
+     "why": "V/(R32+R33) = 1.0 V / 168 k; the divider is the load of the output, no datasheet needed"
+    },
+    {
+     "children": false,
+     "how": "step3",
+     "max": null,
+     "note": "",
+     "part": "XC7A100T-1FTG256C VCCINT + VCCBRAM",
+     "path": [
+      "1V0"
+     ],
+     "rail": "1V0",
+     "ref": "U30",
+     "role": "ic",
+     "src": [
+      [
+       "amd-ds181-artix7-datasheet",
+       5,
+       "ICCINTQ 155 mA (-1, 1.0 V) quiescent"
+      ],
+      [
+       "amd-ds181-artix7-datasheet",
+       7,
+       "ICCBRAMQ 4 mA quiescent"
+      ]
+     ],
+     "typ": null,
+     "why": "static plus dynamic current depends on the design; step 3 estimates it from the firmware repo"
+    },
+    {
+     "children": false,
+     "how": "computed",
+     "max": 2.0,
+     "note": "",
+     "part": "R24 1k + LED D1",
+     "path": [
+      "3V8"
+     ],
+     "rail": "3V8",
+     "ref": "R24",
+     "role": "led_branch",
+     "src": [
+      [
+       "kento-kt-0603-led-datasheet",
+       3,
+       "red VF 1.8 min, 2.4 max at 20 mA"
+      ],
+      [
+       "kento-kt-0603w-led-datasheet",
+       3,
+       "white VF 2.6 to 3.1 at 5 mA"
+      ]
+     ],
+     "typ": 1.7,
+     "why": "(3.8 V - Vf) / 1 k; LED colour not chosen, Vf 2.1 V typ (red mid) and 1.8 V (lowest candidate) for the max"
+    },
+    {
+     "children": false,
+     "how": "computed",
+     "max": 0.032,
+     "note": "",
+     "part": "FB divider R34 100k + R35 18.7k",
+     "path": [
+      "3V8"
+     ],
+     "rail": "3V8",
+     "ref": "R34",
+     "role": "divider_top",
+     "src": [],
+     "typ": 0.032,
+     "why": "V/(R34+R35) = 3.8 V / 118.7 k"
+    },
+    {
+     "children": false,
+     "how": "computed",
+     "max": 0.38,
+     "note": "",
+     "part": "R104 10k pull-up on U23 PG (open drain)",
+     "path": [
+      "3V8"
+     ],
+     "rail": "3V8",
+     "ref": "R104",
+     "role": "pullup",
+     "src": [],
+     "typ": 0.0,
+     "why": "idle high draws 0; PG pulled low draws 3.8 V / 10 k"
+    },
+    {
+     "children": true,
+     "how": "datasheet",
+     "max": 0.35,
+     "note": "max is the plot axis end (the table gives no maximum), above any load here",
+     "part": "LP5907-3.0 ground current",
+     "path": [
+      "3V8"
+     ],
+     "rail": "3V8",
+     "ref": "U20",
+     "role": "ldo",
+     "src": [
+      [
+       "ti-lp5907-datasheet",
+       5,
+       "IG 50 uA at IOUT 100 mA (typ); 14 uA at 0 mA"
+      ],
+      [
+       "ti-lp5907-datasheet",
+       7,
+       "Fig 5-5 ground current vs output current, 350 uA axis end at 250 mA"
+      ]
+     ],
+     "typ": 0.05,
+     "why": ""
+    },
+    {
+     "children": false,
+     "how": "datasheet",
+     "max": 65,
+     "note": "board supply is 3.0 V, inside the 3.0-3.45 V operating range (p4); current taken as for 3.3 V",
+     "part": "TRF37A73 gain block, ICC on RFOUT bias and VCC pin",
+     "path": [
+      "3V8",
+      "U20"
+     ],
+     "rail": "3V8",
+     "ref": "U9",
+     "role": "ic",
+     "src": [
+      [
+       "ti-trf37a73-datasheet",
+       5,
+       "Total supply current 55 typ, 65 max mA, VCC 3.3 V, PWDN low"
+      ]
+     ],
+     "typ": 55,
+     "why": ""
+    },
+    {
+     "children": false,
+     "how": "datasheet",
+     "max": 34,
+     "note": "max is the 3.25 V row of the table (the sheet gives no maximum); the rail is 3.0 V +-2 %",
+     "part": "HMC431LP4 VCO",
+     "path": [
+      "3V8",
+      "U20"
+     ],
+     "rail": "3V8",
+     "ref": "U10",
+     "role": "ic",
+     "src": [
+      [
+       "adi-hmc431lp4-datasheet",
+       1,
+       "Icc 27 mA at Vcc 3.0 V"
+      ],
+      [
+       "adi-hmc431lp4-datasheet",
+       3,
+       "Typical supply current vs Vcc: 19 / 27 / 34 mA at 2.75 / 3.0 / 3.25 V"
+      ]
+     ],
+     "typ": 27,
+     "why": ""
+    },
+    {
+     "children": false,
+     "how": "datasheet",
+     "max": 18.0,
+     "note": "IEN_HIGH row shows two values; taken as typ 2.3 and max 3.0 (the order of the Min/Typ/Max columns is not readable in the text layer)",
+     "part": "SKY65404-31 LNA: drain current plus V_ENABLE pin (tied to VCC)",
+     "path": [
+      "3V8",
+      "U20"
+     ],
+     "rail": "3V8",
+     "ref": "U11",
+     "role": "ic",
+     "src": [
+      [
+       "skyworks-sky65404-datasheet",
+       3,
+       "Drain current 10 min / 11 typ / 15 max mA at VCC 3 V, V_ENABLE 3 V"
+      ],
+      [
+       "skyworks-sky65404-datasheet",
+       3,
+       "V_ENABLE current IEN_HIGH 2.3 / 3.0 mA at V_ENABLE 3 V"
+      ]
+     ],
+     "typ": 13.3,
+     "why": ""
+    },
+    {
+     "children": true,
+     "how": "datasheet",
+     "max": 3.0,
+     "note": "IQ at 2 A is the largest row in the table, so it bounds every load",
+     "part": "LD39200 ground current (IQ at 2 A, covers every load)",
+     "path": [
+      "3V8"
+     ],
+     "rail": "3V8",
+     "ref": "U23",
+     "role": "ldo",
+     "src": [
+      [
+       "st-ld39200-datasheet",
+       7,
+       "IQ 1 mA typ / 3 mA max at IOUT 2 A, -40 to 125 C (Table 5, adjustable version)"
+      ]
+     ],
+     "typ": 1.0,
+     "why": ""
+    },
+    {
+     "children": false,
+     "how": "computed",
+     "max": 0.0267,
+     "note": "",
+     "part": "FB divider R45 49.9k + R46 18.7k",
+     "path": [
+      "3V8",
+      "U23"
+     ],
+     "rail": "3V8",
+     "ref": "R45",
+     "role": "divider_top",
+     "src": [],
+     "typ": 0.0267,
+     "why": "V/(R45+R46) = 1.83 V / 68.6 k"
+    },
+    {
+     "children": false,
+     "how": "datasheet",
+     "max": 76,
+     "note": "typ is the quiescent figure (VCCAUX dynamic current is small: MMCM/PLL and I/O bias); max is the power-on and configuration current the supply must give, which bounds the running value; the Vivado power report replaces both",
+     "part": "XC7A100T VCCAUX",
+     "path": [
+      "3V8",
+      "U23"
+     ],
+     "rail": "3V8",
+     "ref": "U30",
+     "role": "ic",
+     "src": [
+      [
+       "amd-ds181-artix7-datasheet",
+       6,
+       "ICCAUXQ 36 mA, XC7A100T -1 (typical quiescent)"
+      ],
+      [
+       "amd-ds181-artix7-datasheet",
+       8,
+       "Table 6: ICCAUXMIN = ICCAUXQ + 40 mA for XC7A100T = 76 mA"
+      ]
+     ],
+     "typ": 36,
+     "why": ""
+    },
+    {
+     "children": true,
+     "how": "datasheet",
+     "max": 3.0,
+     "note": "IQ at 2 A is the largest row in the table, so it bounds every load",
+     "part": "LD39200 ground current (IQ at 2 A, covers every load)",
+     "path": [
+      "3V8"
+     ],
+     "rail": "3V8",
+     "ref": "U24",
+     "role": "ldo",
+     "src": [
+      [
+       "st-ld39200-datasheet",
+       7,
+       "IQ 1 mA typ / 3 mA max at IOUT 2 A, -40 to 125 C (Table 5, adjustable version)"
+      ]
+     ],
+     "typ": 1.0,
+     "why": ""
+    },
+    {
+     "children": false,
+     "how": "computed",
+     "max": 0.1514,
+     "note": "",
+     "part": "FB divider R47 18.7k + R48 3.3k",
+     "path": [
+      "3V8",
+      "U24"
+     ],
+     "rail": "3V8",
+     "ref": "R47",
+     "role": "divider_top",
+     "src": [],
+     "typ": 0.1514,
+     "why": "V/(R47+R48) = 3.33 V / 22.0 k"
+    },
+    {
+     "children": false,
+     "how": "datasheet",
+     "max": 32,
+     "note": "",
+     "part": "ADF4158 AVDD + DVDD + SDVDD (pins 6,7,8,18,19)",
+     "path": [
+      "3V8",
+      "U24"
+     ],
+     "rail": "3V8",
+     "ref": "U1",
+     "role": "ic",
+     "src": [
+      [
+       "adi-adf4158-datasheet",
+       4,
+       "Power supplies IDD 23 typ / 32 max mA"
+      ]
+     ],
+     "typ": 23,
+     "why": ""
+    },
+    {
+     "children": false,
+     "how": "datasheet",
+     "max": 17.6,
+     "note": "LT6232 is the quad (p1); all four amplifiers draw supply current whether used or not. max uses the -40 to 85 C figure",
+     "part": "LT6232 quad op amp, 4 x supply current per amplifier",
+     "path": [
+      "3V8",
+      "U24"
+     ],
+     "rail": "3V8",
+     "ref": "U45",
+     "role": "ic",
+     "src": [
+      [
+       "adi-lt6232-datasheet",
+       4,
+       "IS 3.15 typ / 3.5 max mA per amplifier at 25 C, VS 3.3 V and 5 V"
+      ],
+      [
+       "adi-lt6232-datasheet",
+       6,
+       "IS 4.4 mA max per amplifier over -40 to 85 C"
+      ]
+     ],
+     "typ": 12.6,
+     "why": ""
+    },
+    {
+     "children": true,
+     "how": "datasheet",
+     "max": 3.0,
+     "note": "IQ at 2 A is the largest row in the table, so it bounds every load",
+     "part": "LD39200 ground current (IQ at 2 A, covers every load)",
+     "path": [
+      "3V8"
+     ],
+     "rail": "3V8",
+     "ref": "U25",
+     "role": "ldo",
+     "src": [
+      [
+       "st-ld39200-datasheet",
+       8,
+       "IQ 1 mA typ / 3 mA max at IOUT 2 A, -40 to 125 C (Table 6, fixed version)"
+      ]
+     ],
+     "typ": 1.0,
+     "why": ""
+    },
+    {
+     "children": false,
+     "how": "bound",
+     "max": 100.0,
+     "note": "",
+     "part": "J2 2x8 header, pins 13 and 15 (3V3D out)",
+     "path": [
+      "3V8",
+      "U25"
+     ],
+     "rail": "3V8",
+     "ref": "J2",
+     "role": "connector",
+     "src": [],
+     "typ": 0.0,
+     "why": "a header pin: the design does not say what is plugged in, and no datasheet of a connector gives a load. 100 mA is a stated allowance (about 5 % of the LD39200 2 A rating); anything above is the user's to set. open item for the report"
+    },
+    {
+     "children": false,
+     "how": "computed",
+     "max": 0.702,
+     "note": "",
+     "part": "R14 4.7k pull-up to 3V3D",
+     "path": [
+      "3V8",
+      "U25"
+     ],
+     "rail": "3V8",
+     "ref": "R14",
+     "role": "pullup",
+     "src": [],
+     "typ": 0.0,
+     "why": "idle high draws 0; held low draws 3.3 V / 4.7 k"
+    },
+    {
+     "children": false,
+     "how": "computed",
+     "max": 3.3,
+     "note": "",
+     "part": "R72 1k pull-up to 3V3D",
+     "path": [
+      "3V8",
+      "U25"
+     ],
+     "rail": "3V8",
+     "ref": "R72",
+     "role": "pullup",
+     "src": [],
+     "typ": 0.0,
+     "why": "idle high draws 0; held low draws 3.3 V / 1 k"
+    },
+    {
+     "children": false,
+     "how": "computed",
+     "max": 0.33,
+     "note": "",
+     "part": "R73 10k pull-up to 3V3D",
+     "path": [
+      "3V8",
+      "U25"
+     ],
+     "rail": "3V8",
+     "ref": "R73",
+     "role": "pullup",
+     "src": [],
+     "typ": 0.0,
+     "why": "idle high draws 0; held low draws 3.3 V / 10 k"
+    },
+    {
+     "children": false,
+     "how": "computed",
+     "max": 1.5,
+     "note": "",
+     "part": "R111 1k + LED D2",
+     "path": [
+      "3V8",
+      "U25"
+     ],
+     "rail": "3V8",
+     "ref": "R111",
+     "role": "led_branch",
+     "src": [
+      [
+       "kento-kt-0603-led-datasheet",
+       3,
+       "red VF 1.8 min, 2.4 max at 20 mA"
+      ],
+      [
+       "kento-kt-0603w-led-datasheet",
+       3,
+       "white VF 2.6 to 3.1 at 5 mA"
+      ]
+     ],
+     "typ": 1.2,
+     "why": "(3.3 V - Vf) / 1 k; Vf 2.1 V typ, 1.8 V for the max (colour not chosen)"
+    },
+    {
+     "children": false,
+     "how": "computed",
+     "max": 0.702,
+     "note": "",
+     "part": "R112 4.7k pull-up to 3V3D",
+     "path": [
+      "3V8",
+      "U25"
+     ],
+     "rail": "3V8",
+     "ref": "R112",
+     "role": "pullup",
+     "src": [],
+     "typ": 0.0,
+     "why": "idle high draws 0; held low draws 3.3 V / 4.7 k"
+    },
+    {
+     "children": false,
+     "how": "computed",
+     "max": 0.702,
+     "note": "",
+     "part": "R117 4.7k pull-up to 3V3D",
+     "path": [
+      "3V8",
+      "U25"
+     ],
+     "rail": "3V8",
+     "ref": "R117",
+     "role": "pullup",
+     "src": [],
+     "typ": 0.0,
+     "why": "idle high draws 0; held low draws 3.3 V / 4.7 k"
+    },
+    {
+     "children": false,
+     "how": "computed",
+     "max": 0.702,
+     "note": "",
+     "part": "R118 4.7k pull-up to 3V3D",
+     "path": [
+      "3V8",
+      "U25"
+     ],
+     "rail": "3V8",
+     "ref": "R118",
+     "role": "pullup",
+     "src": [],
+     "typ": 0.0,
+     "why": "idle high draws 0; held low draws 3.3 V / 4.7 k"
+    },
+    {
+     "children": false,
+     "how": "datasheet",
+     "max": 7.86,
+     "note": "typ scales the no-load current to 40 MHz (Y2 frequency); max adds 3 outputs x 15 pF x 3.3 V x 40 MHz. The sheet gives no maximum",
+     "part": "PL133-37 clock buffer, 3 outputs at 40 MHz",
+     "path": [
+      "3V8",
+      "U25"
+     ],
+     "rail": "3V8",
+     "ref": "U6",
+     "role": "ic",
+     "src": [
+      [
+       "microchip-pl133-37-datasheet",
+       3,
+       "IDD dynamic 1.2 mA at VDD 3.3 V, 25 MHz, no load; test load 15 pF"
+      ]
+     ],
+     "typ": 1.92,
+     "why": ""
+    },
+    {
+     "children": false,
+     "how": "datasheet",
+     "max": 15.84,
+     "note": "typ scales 4.5 mA by 3.3/2.5; max is 12 x 10 pF x 3.3 V x 40 MHz",
+     "part": "AD9237BCPZ-40 DRVDD (pin 16), 12 outputs",
+     "path": [
+      "3V8",
+      "U25"
+     ],
+     "rail": "3V8",
+     "ref": "U8",
+     "role": "ic",
+     "src": [
+      [
+       "adi-ad9237-datasheet",
+       3,
+       "IDRVDD 4.5 mA typ at DRVDD 2.5 V, 40 MHz grade, ~5 pF per bit"
+      ],
+      [
+       "adi-ad9237-datasheet",
+       19,
+       "IDRVDD = V x CLOAD x fCLK x N, N = 12"
+      ]
+     ],
+     "typ": 5.94,
+     "why": ""
+    },
+    {
+     "children": false,
+     "how": "datasheet",
+     "max": 204,
+     "note": "typ adds 8 output pins x 10 pF x 3.3 V x 30 MHz (the FT2232H FIFO bus) to ICCOQ; max is the per-bank power-on current, which bounds the running value",
+     "part": "XC7A100T VCCO, 5 banks (0, 14, 15, 34, 35) all on 3V3D",
+     "path": [
+      "3V8",
+      "U25"
+     ],
+     "rail": "3V8",
+     "ref": "U30",
+     "role": "ic",
+     "src": [
+      [
+       "amd-ds181-artix7-datasheet",
+       5,
+       "ICCOQ 4 mA quiescent, XC7A100T"
+      ],
+      [
+       "amd-ds181-artix7-datasheet",
+       8,
+       "Table 6: ICCOMIN = ICCOQ + 40 mA per bank; 5 banks = 204 mA"
+      ],
+      [
+       "amd-xc7a100t-ftg256-pinout",
+       1,
+       "VCCO pins of banks 0, 14, 15, 34, 35 are the 3V3D pins of U30"
+      ]
+     ],
+     "typ": 11.92,
+     "why": ""
+    },
+    {
+     "children": false,
+     "how": "datasheet",
+     "max": 2.0,
+     "note": "the EEPROM is read at USB enumeration; typ is the standby current",
+     "part": "93LC46B EEPROM",
+     "path": [
+      "3V8",
+      "U25"
+     ],
+     "rail": "3V8",
+     "ref": "U32",
+     "role": "ic",
+     "src": [
+      [
+       "microchip-93lc46b-datasheet",
+       3,
+       "ICC write 2 mA max, read 1 mA max (VCC 5.5 V, 3 MHz); standby 1 uA max"
+      ]
+     ],
+     "typ": 0.001,
+     "why": ""
+    },
+    {
+     "children": false,
+     "how": "datasheet",
+     "max": 157.92,
+     "note": "the core current comes through the internal regulator from the 3.3 V pin, so it loads 3V3D one for one; I/O adds 8 pins x 10 pF x 3.3 V x 30 MHz; max replaces Icc1 with Ireg (the sheet gives no maximum for Icc1)",
+     "part": "FT2232H: core 1.8 V from VREGIN 3.3 V, plus VCCIO",
+     "path": [
+      "3V8",
+      "U25"
+     ],
+     "rail": "3V8",
+     "ref": "U33",
+     "role": "ic",
+     "src": [
+      [
+       "ftdi-ft2232h-datasheet",
+       47,
+       "Icc1 70 mA normal operation (VCORE, from the internal regulator); Ireg 150 mA regulator current (the most it can supply)"
+      ]
+     ],
+     "typ": 77.92,
+     "why": ""
+    },
+    {
+     "children": false,
+     "how": "datasheet",
+     "max": 25.0,
+     "note": "typ is standby after FPGA configuration; max is a program or erase cycle, which a running radar does not issue",
+     "part": "W25Q128JV flash",
+     "path": [
+      "3V8",
+      "U25"
+     ],
+     "rail": "3V8",
+     "ref": "U40",
+     "role": "ic",
+     "src": [
+      [
+       "winbond-w25q128jv-datasheet",
+       63,
+       "ICC1 standby 10 uA typ; ICC3 read 8 / 15 mA at 50 MHz; ICC4-7 program and erase 20 / 25 mA"
+      ]
+     ],
+     "typ": 0.01,
+     "why": ""
+    },
+    {
+     "children": false,
+     "how": "datasheet",
+     "max": 2.5,
+     "note": "one figure, in the maximum column; typ is taken equal to it",
+     "part": "ECS-TXO-32CSMV-400 TCXO, 40 MHz",
+     "path": [
+      "3V8",
+      "U25"
+     ],
+     "rail": "3V8",
+     "ref": "Y2",
+     "role": "ic",
+     "src": [
+      [
+       "ecs-txo-32csmv-datasheet",
+       1,
+       "Current consumption 2.5 mA for 26.1 to 52 MHz"
+      ]
+     ],
+     "typ": 2.5,
+     "why": ""
+    },
+    {
+     "children": true,
+     "how": "datasheet",
+     "max": 0.35,
+     "note": "max is the plot axis end (the table gives no maximum), above any load here",
+     "part": "LP5907-3.0 ground current",
+     "path": [
+      "3V8"
+     ],
+     "rail": "3V8",
+     "ref": "U39",
+     "role": "ldo",
+     "src": [
+      [
+       "ti-lp5907-datasheet",
+       5,
+       "IG 50 uA at IOUT 100 mA (typ); 14 uA at 0 mA"
+      ],
+      [
+       "ti-lp5907-datasheet",
+       7,
+       "Fig 5-5 ground current vs output current, 350 uA axis end at 250 mA"
+      ]
+     ],
+     "typ": 0.05,
+     "why": ""
+    },
+    {
+     "children": false,
+     "how": "computed",
+     "max": 0.2041,
+     "note": "",
+     "part": "R91 4.7k + R92 10k MODE divider",
+     "path": [
+      "3V8",
+      "U39"
+     ],
+     "rail": "3V8",
+     "ref": "R91",
+     "role": "pullup",
+     "src": [],
+     "typ": 0.2041,
+     "why": "V/(R91+R92) = 3.0 V / 14.7 k, a standing divider (sets MODE to 2/3 VDD)"
+    },
+    {
+     "children": false,
+     "how": "power/V",
+     "max": 60.0,
+     "note": "the sheet gives IAVDD typ only; max is 180 mW / 3.0 V, which counts the DRVDD share too, so it is high",
+     "part": "AD9237BCPZ-40 AVDD (pins 27, 32)",
+     "path": [
+      "3V8",
+      "U39"
+     ],
+     "rail": "3V8",
+     "ref": "U8",
+     "role": "ic",
+     "src": [
+      [
+       "adi-ad9237-datasheet",
+       3,
+       "IAVDD 45.5 mA typ (BCP-40 column); power 150 typ / 180 max mW at AVDD 3 V, DRVDD 2.5 V, 40 MSPS"
+      ]
+     ],
+     "typ": 45.5,
+     "why": ""
+    },
+    {
+     "children": false,
+     "how": "computed",
+     "max": 1.5,
+     "note": "",
+     "part": "R990 1.0k (new, rx1-005) to ADC_VCMB",
+     "path": [
+      "3V8",
+      "U39"
+     ],
+     "rail": "3V8",
+     "ref": "R990",
+     "role": "divider_top",
+     "src": [],
+     "typ": 1.5,
+     "why": "3.0 V / (R990 + R991) = 3.0 V / 2 k, a standing divider (rx1-005, rx1-006)"
+    },
+    {
+     "children": false,
+     "how": "computed",
+     "max": 0.0,
+     "note": "",
+     "part": "R991 1.0k (new, rx1-006) to GND",
+     "path": [
+      "3V8",
+      "U39"
+     ],
+     "rail": "3V8",
+     "ref": "R991",
+     "role": "divider_bottom",
+     "src": [],
+     "typ": 0.0,
+     "why": "in series with R990; the 1.5 mA is counted once, on R990"
+    },
+    {
+     "children": false,
+     "how": "computed",
+     "max": 3.8,
+     "note": "",
+     "part": "R27 1k + LED D7",
+     "path": [
+      "5V6"
+     ],
+     "rail": "5V6",
+     "ref": "R27",
+     "role": "led_branch",
+     "src": [
+      [
+       "kento-kt-0603-led-datasheet",
+       3,
+       "red VF 1.8 min, 2.4 max at 20 mA"
+      ],
+      [
+       "kento-kt-0603w-led-datasheet",
+       3,
+       "white VF 2.6 to 3.1 at 5 mA"
+      ]
+     ],
+     "typ": 3.5,
+     "why": "(5.6 V - Vf) / 1 k; Vf 2.1 V typ, 1.8 V for the max (colour not chosen)"
+    },
+    {
+     "children": false,
+     "how": "computed",
+     "max": 0.05,
+     "note": "",
+     "part": "FB divider R36 100k + R37 12k",
+     "path": [
+      "5V6"
+     ],
+     "rail": "5V6",
+     "ref": "R36",
+     "role": "divider_top",
+     "src": [],
+     "typ": 0.05,
+     "why": "V/(R36+R37) = 5.6 V / 112 k"
+    },
+    {
+     "children": true,
+     "how": "datasheet",
+     "max": 3.0,
+     "note": "",
+     "part": "LD39200 ground current (IQ at 2 A)",
+     "path": [
+      "5V6"
+     ],
+     "rail": "5V6",
+     "ref": "U22",
+     "role": "ldo",
+     "src": [
+      [
+       "st-ld39200-datasheet",
+       7,
+       "IQ 1 mA typ / 3 mA max at IOUT 2 A, Table 5 adjustable version"
+      ]
+     ],
+     "typ": 1.0,
+     "why": ""
+    },
+    {
+     "children": false,
+     "how": "computed",
+     "max": 0.25,
+     "note": "",
+     "part": "FB divider R43 18k + R44 2k",
+     "path": [
+      "5V6",
+      "U22"
+     ],
+     "rail": "5V6",
+     "ref": "R43",
+     "role": "divider_top",
+     "src": [],
+     "typ": 0.25,
+     "why": "V/(R43+R44) = 5.0 V / 20 k"
+    },
+    {
+     "children": false,
+     "how": "bound",
+     "max": 2.5,
+     "note": "",
+     "part": "R49 2k from 5VF to U29 VSET",
+     "path": [
+      "5V6",
+      "U22"
+     ],
+     "rail": "5V6",
+     "ref": "R49",
+     "role": "bias_set",
+     "src": [],
+     "typ": 0.0,
+     "why": "the ADL5802 sheet gives no VSET pin current (VSET is a bias control node, p6). Bound: 5 V / 2 k = 2.5 mA, the current if the pin sat at ground; typ 0"
+    },
+    {
+     "children": false,
+     "how": "datasheet",
+     "max": 0.0,
+     "note": "counted in U29, not again here",
+     "part": "49.9 ohm IF output pull-up to 5VF",
+     "path": [
+      "5V6",
+      "U22"
+     ],
+     "rail": "5V6",
+     "ref": "R51",
+     "role": "if_output_bias",
+     "src": [
+      [
+       "adi-adl5802-datasheet",
+       4,
+       "note 2: supply is applied through the IF pull-ups; the 220/300 mA quiescent current of U29 includes the output pull-up current"
+      ]
+     ],
+     "typ": 0.0,
+     "why": ""
+    },
+    {
+     "children": false,
+     "how": "datasheet",
+     "max": 0.0,
+     "note": "counted in U29, not again here",
+     "part": "49.9 ohm IF output pull-up to 5VF",
+     "path": [
+      "5V6",
+      "U22"
+     ],
+     "rail": "5V6",
+     "ref": "R52",
+     "role": "if_output_bias",
+     "src": [
+      [
+       "adi-adl5802-datasheet",
+       4,
+       "note 2: supply is applied through the IF pull-ups; the 220/300 mA quiescent current of U29 includes the output pull-up current"
+      ]
+     ],
+     "typ": 0.0,
+     "why": ""
+    },
+    {
+     "children": false,
+     "how": "datasheet",
+     "max": 0.0,
+     "note": "counted in U29, not again here",
+     "part": "49.9 ohm IF output pull-up to 5VF",
+     "path": [
+      "5V6",
+      "U22"
+     ],
+     "rail": "5V6",
+     "ref": "R53",
+     "role": "if_output_bias",
+     "src": [
+      [
+       "adi-adl5802-datasheet",
+       4,
+       "note 2: supply is applied through the IF pull-ups; the 220/300 mA quiescent current of U29 includes the output pull-up current"
+      ]
+     ],
+     "typ": 0.0,
+     "why": ""
+    },
+    {
+     "children": false,
+     "how": "datasheet",
+     "max": 0.0,
+     "note": "counted in U29, not again here",
+     "part": "49.9 ohm IF output pull-up to 5VF",
+     "path": [
+      "5V6",
+      "U22"
+     ],
+     "rail": "5V6",
+     "ref": "R54",
+     "role": "if_output_bias",
+     "src": [
+      [
+       "adi-adl5802-datasheet",
+       4,
+       "note 2: supply is applied through the IF pull-ups; the 220/300 mA quiescent current of U29 includes the output pull-up current"
+      ]
+     ],
+     "typ": 0.0,
+     "why": ""
+    },
+    {
+     "children": false,
+     "how": "bound",
+     "max": 5.0,
+     "note": "",
+     "part": "ADF4158 VP, charge-pump supply (pin 22)",
+     "path": [
+      "5V6",
+      "U22"
+     ],
+     "rail": "5V6",
+     "ref": "U1",
+     "role": "ic",
+     "src": [
+      [
+       "adi-adf4158-datasheet",
+       4,
+       "charge pump ICP high value 5 mA with RSET 5.1 kohm; no VP supply current is given"
+      ]
+     ],
+     "typ": 0.0,
+     "why": "the sheet lists no VP current; the pump sources at most ICP, 5 mA, only while correcting phase error (about 0 mA locked). typ 0, max 5 mA"
+    },
+    {
+     "children": false,
+     "how": "datasheet",
+     "max": 850,
+     "note": "par-07 requires 25.5 dBm at the PA output; typ interpolates 600 -> 750 mA between +24 and +27.5 dBm (664.3 mA); max is the +27.5 dBm row, the highest the sheet gives (PA is at P1dB 30 dBm there)",
+     "part": "TQP5525 PA, VCC1+VCC2+VCC3, 25.5 dBm at the PA output",
+     "path": [
+      "5V6",
+      "U22"
+     ],
+     "rail": "5V6",
+     "ref": "U14",
+     "role": "ic",
+     "src": [
+      [
+       "qorvo-tqp5525-datasheet",
+       3,
+       "operating current: 600 typ / 675 max mA at +24 dBm; 750 / 850 mA at +27.5 dBm; quiescent 350 / 400 mA RF off"
+      ]
+     ],
+     "typ": 664.3,
+     "why": ""
+    },
+    {
+     "children": false,
+     "how": "datasheet",
+     "max": 300,
+     "note": "the row shows two values (220 and 300); read as typ and max",
+     "part": "ADL5802 mixer, VPOS pins 6, 13, 24",
+     "path": [
+      "5V6",
+      "U22"
+     ],
+     "rail": "5V6",
+     "ref": "U29",
+     "role": "ic",
+     "src": [
+      [
+       "adi-adl5802-datasheet",
+       3,
+       "power interface: quiescent current 220 typ / 300 max mA, 5 V"
+      ]
+     ],
+     "typ": 220,
+     "why": ""
+    }
+   ]
+  },
+  "2rx": {
+   "problems": [],
+   "rows": [
+    {
+     "children": false,
+     "how": "computed",
+     "max": 0.006,
+     "note": "",
+     "part": "FB divider R32 68k + R33 100k",
+     "path": [
+      "1V0"
+     ],
+     "rail": "1V0",
+     "ref": "R32",
+     "role": "divider_top",
+     "src": [],
+     "typ": 0.006,
+     "why": "V/(R32+R33) = 1.0 V / 168 k; the divider is the load of the output, no datasheet needed"
+    },
+    {
+     "children": false,
+     "how": "step3",
+     "max": null,
+     "note": "",
+     "part": "XC7A100T-1FTG256C VCCINT + VCCBRAM",
+     "path": [
+      "1V0"
+     ],
+     "rail": "1V0",
+     "ref": "U30",
+     "role": "ic",
+     "src": [
+      [
+       "amd-ds181-artix7-datasheet",
+       5,
+       "ICCINTQ 155 mA (-1, 1.0 V) quiescent"
+      ],
+      [
+       "amd-ds181-artix7-datasheet",
+       7,
+       "ICCBRAMQ 4 mA quiescent"
+      ]
+     ],
+     "typ": null,
+     "why": "static plus dynamic current depends on the design; step 3 estimates it from the firmware repo"
+    },
+    {
+     "children": false,
+     "how": "computed",
+     "max": 2.0,
+     "note": "",
+     "part": "R24 1k + LED D1",
+     "path": [
+      "3V8"
+     ],
+     "rail": "3V8",
+     "ref": "R24",
+     "role": "led_branch",
+     "src": [
+      [
+       "kento-kt-0603-led-datasheet",
+       3,
+       "red VF 1.8 min, 2.4 max at 20 mA"
+      ],
+      [
+       "kento-kt-0603w-led-datasheet",
+       3,
+       "white VF 2.6 to 3.1 at 5 mA"
+      ]
+     ],
+     "typ": 1.7,
+     "why": "(3.8 V - Vf) / 1 k; LED colour not chosen, Vf 2.1 V typ (red mid) and 1.8 V (lowest candidate) for the max"
+    },
+    {
+     "children": false,
+     "how": "computed",
+     "max": 0.032,
+     "note": "",
+     "part": "FB divider R34 100k + R35 18.7k",
+     "path": [
+      "3V8"
+     ],
+     "rail": "3V8",
+     "ref": "R34",
+     "role": "divider_top",
+     "src": [],
+     "typ": 0.032,
+     "why": "V/(R34+R35) = 3.8 V / 118.7 k"
+    },
+    {
+     "children": false,
+     "how": "computed",
+     "max": 0.38,
+     "note": "",
+     "part": "R104 10k pull-up on U23 PG (open drain)",
+     "path": [
+      "3V8"
+     ],
+     "rail": "3V8",
+     "ref": "R104",
+     "role": "pullup",
+     "src": [],
+     "typ": 0.0,
+     "why": "idle high draws 0; PG pulled low draws 3.8 V / 10 k"
+    },
+    {
+     "children": true,
+     "how": "datasheet",
+     "max": 0.35,
+     "note": "max is the plot axis end (the table gives no maximum), above any load here",
+     "part": "LP5907-3.0 ground current",
+     "path": [
+      "3V8"
+     ],
+     "rail": "3V8",
+     "ref": "U20",
+     "role": "ldo",
+     "src": [
+      [
+       "ti-lp5907-datasheet",
+       5,
+       "IG 50 uA at IOUT 100 mA (typ); 14 uA at 0 mA"
+      ],
+      [
+       "ti-lp5907-datasheet",
+       7,
+       "Fig 5-5 ground current vs output current, 350 uA axis end at 250 mA"
+      ]
+     ],
+     "typ": 0.05,
+     "why": ""
+    },
+    {
+     "children": false,
+     "how": "datasheet",
+     "max": 65,
+     "note": "board supply is 3.0 V, inside the 3.0-3.45 V operating range (p4); current taken as for 3.3 V",
+     "part": "TRF37A73 gain block, ICC on RFOUT bias and VCC pin",
+     "path": [
+      "3V8",
+      "U20"
+     ],
+     "rail": "3V8",
+     "ref": "U9",
+     "role": "ic",
+     "src": [
+      [
+       "ti-trf37a73-datasheet",
+       5,
+       "Total supply current 55 typ, 65 max mA, VCC 3.3 V, PWDN low"
+      ]
+     ],
+     "typ": 55,
+     "why": ""
+    },
+    {
+     "children": false,
+     "how": "datasheet",
+     "max": 34,
+     "note": "max is the 3.25 V row of the table (the sheet gives no maximum); the rail is 3.0 V +-2 %",
+     "part": "HMC431LP4 VCO",
+     "path": [
+      "3V8",
+      "U20"
+     ],
+     "rail": "3V8",
+     "ref": "U10",
+     "role": "ic",
+     "src": [
+      [
+       "adi-hmc431lp4-datasheet",
+       1,
+       "Icc 27 mA at Vcc 3.0 V"
+      ],
+      [
+       "adi-hmc431lp4-datasheet",
+       3,
+       "Typical supply current vs Vcc: 19 / 27 / 34 mA at 2.75 / 3.0 / 3.25 V"
+      ]
+     ],
+     "typ": 27,
+     "why": ""
+    },
+    {
+     "children": false,
+     "how": "datasheet",
+     "max": 18.0,
+     "note": "IEN_HIGH row shows two values; taken as typ 2.3 and max 3.0 (the order of the Min/Typ/Max columns is not readable in the text layer)",
+     "part": "SKY65404-31 LNA: drain current plus V_ENABLE pin (tied to VCC)",
+     "path": [
+      "3V8",
+      "U20"
+     ],
+     "rail": "3V8",
+     "ref": "U11",
+     "role": "ic",
+     "src": [
+      [
+       "skyworks-sky65404-datasheet",
+       3,
+       "Drain current 10 min / 11 typ / 15 max mA at VCC 3 V, V_ENABLE 3 V"
+      ],
+      [
+       "skyworks-sky65404-datasheet",
+       3,
+       "V_ENABLE current IEN_HIGH 2.3 / 3.0 mA at V_ENABLE 3 V"
+      ]
+     ],
+     "typ": 13.3,
+     "why": ""
+    },
+    {
+     "children": false,
+     "how": "datasheet",
+     "max": 65,
+     "note": "board supply is 3.0 V, inside the 3.0-3.45 V operating range (p4); current taken as for 3.3 V",
+     "part": "TRF37A73 gain block, ICC on RFOUT bias and VCC pin",
+     "path": [
+      "3V8",
+      "U20"
+     ],
+     "rail": "3V8",
+     "ref": "U13",
+     "role": "ic",
+     "src": [
+      [
+       "ti-trf37a73-datasheet",
+       5,
+       "Total supply current 55 typ, 65 max mA, VCC 3.3 V, PWDN low"
+      ]
+     ],
+     "typ": 55,
+     "why": ""
+    },
+    {
+     "children": false,
+     "how": "datasheet",
+     "max": 18.0,
+     "note": "IEN_HIGH row shows two values; taken as typ 2.3 and max 3.0 (the order of the Min/Typ/Max columns is not readable in the text layer)",
+     "part": "SKY65404-31 LNA: drain current plus V_ENABLE pin (tied to VCC)",
+     "path": [
+      "3V8",
+      "U20"
+     ],
+     "rail": "3V8",
+     "ref": "U16",
+     "role": "ic",
+     "src": [
+      [
+       "skyworks-sky65404-datasheet",
+       3,
+       "Drain current 10 min / 11 typ / 15 max mA at VCC 3 V, V_ENABLE 3 V"
+      ],
+      [
+       "skyworks-sky65404-datasheet",
+       3,
+       "V_ENABLE current IEN_HIGH 2.3 / 3.0 mA at V_ENABLE 3 V"
+      ]
+     ],
+     "typ": 13.3,
+     "why": ""
+    },
+    {
+     "children": true,
+     "how": "datasheet",
+     "max": 3.0,
+     "note": "IQ at 2 A is the largest row in the table, so it bounds every load",
+     "part": "LD39200 ground current (IQ at 2 A, covers every load)",
+     "path": [
+      "3V8"
+     ],
+     "rail": "3V8",
+     "ref": "U23",
+     "role": "ldo",
+     "src": [
+      [
+       "st-ld39200-datasheet",
+       7,
+       "IQ 1 mA typ / 3 mA max at IOUT 2 A, -40 to 125 C (Table 5, adjustable version)"
+      ]
+     ],
+     "typ": 1.0,
+     "why": ""
+    },
+    {
+     "children": false,
+     "how": "computed",
+     "max": 0.0267,
+     "note": "",
+     "part": "FB divider R45 49.9k + R46 18.7k",
+     "path": [
+      "3V8",
+      "U23"
+     ],
+     "rail": "3V8",
+     "ref": "R45",
+     "role": "divider_top",
+     "src": [],
+     "typ": 0.0267,
+     "why": "V/(R45+R46) = 1.83 V / 68.6 k"
+    },
+    {
+     "children": false,
+     "how": "datasheet",
+     "max": 76,
+     "note": "typ is the quiescent figure (VCCAUX dynamic current is small: MMCM/PLL and I/O bias); max is the power-on and configuration current the supply must give, which bounds the running value; the Vivado power report replaces both",
+     "part": "XC7A100T VCCAUX",
+     "path": [
+      "3V8",
+      "U23"
+     ],
+     "rail": "3V8",
+     "ref": "U30",
+     "role": "ic",
+     "src": [
+      [
+       "amd-ds181-artix7-datasheet",
+       6,
+       "ICCAUXQ 36 mA, XC7A100T -1 (typical quiescent)"
+      ],
+      [
+       "amd-ds181-artix7-datasheet",
+       8,
+       "Table 6: ICCAUXMIN = ICCAUXQ + 40 mA for XC7A100T = 76 mA"
+      ]
+     ],
+     "typ": 36,
+     "why": ""
+    },
+    {
+     "children": true,
+     "how": "datasheet",
+     "max": 3.0,
+     "note": "IQ at 2 A is the largest row in the table, so it bounds every load",
+     "part": "LD39200 ground current (IQ at 2 A, covers every load)",
+     "path": [
+      "3V8"
+     ],
+     "rail": "3V8",
+     "ref": "U24",
+     "role": "ldo",
+     "src": [
+      [
+       "st-ld39200-datasheet",
+       7,
+       "IQ 1 mA typ / 3 mA max at IOUT 2 A, -40 to 125 C (Table 5, adjustable version)"
+      ]
+     ],
+     "typ": 1.0,
+     "why": ""
+    },
+    {
+     "children": false,
+     "how": "computed",
+     "max": 0.1514,
+     "note": "",
+     "part": "FB divider R47 18.7k + R48 3.3k",
+     "path": [
+      "3V8",
+      "U24"
+     ],
+     "rail": "3V8",
+     "ref": "R47",
+     "role": "divider_top",
+     "src": [],
+     "typ": 0.1514,
+     "why": "V/(R47+R48) = 3.33 V / 22.0 k"
+    },
+    {
+     "children": false,
+     "how": "datasheet",
+     "max": 32,
+     "note": "",
+     "part": "ADF4158 AVDD + DVDD + SDVDD (pins 6,7,8,18,19)",
+     "path": [
+      "3V8",
+      "U24"
+     ],
+     "rail": "3V8",
+     "ref": "U1",
+     "role": "ic",
+     "src": [
+      [
+       "adi-adf4158-datasheet",
+       4,
+       "Power supplies IDD 23 typ / 32 max mA"
+      ]
+     ],
+     "typ": 23,
+     "why": ""
+    },
+    {
+     "children": false,
+     "how": "datasheet",
+     "max": 17.6,
+     "note": "LT6232 is the quad (p1); all four amplifiers draw supply current whether used or not. max uses the -40 to 85 C figure",
+     "part": "LT6232 quad op amp, 4 x supply current per amplifier",
+     "path": [
+      "3V8",
+      "U24"
+     ],
+     "rail": "3V8",
+     "ref": "U45",
+     "role": "ic",
+     "src": [
+      [
+       "adi-lt6232-datasheet",
+       4,
+       "IS 3.15 typ / 3.5 max mA per amplifier at 25 C, VS 3.3 V and 5 V"
+      ],
+      [
+       "adi-lt6232-datasheet",
+       6,
+       "IS 4.4 mA max per amplifier over -40 to 85 C"
+      ]
+     ],
+     "typ": 12.6,
+     "why": ""
+    },
+    {
+     "children": true,
+     "how": "datasheet",
+     "max": 3.0,
+     "note": "IQ at 2 A is the largest row in the table, so it bounds every load",
+     "part": "LD39200 ground current (IQ at 2 A, covers every load)",
+     "path": [
+      "3V8"
+     ],
+     "rail": "3V8",
+     "ref": "U25",
+     "role": "ldo",
+     "src": [
+      [
+       "st-ld39200-datasheet",
+       8,
+       "IQ 1 mA typ / 3 mA max at IOUT 2 A, -40 to 125 C (Table 6, fixed version)"
+      ]
+     ],
+     "typ": 1.0,
+     "why": ""
+    },
+    {
+     "children": false,
+     "how": "bound",
+     "max": 100.0,
+     "note": "",
+     "part": "J2 2x8 header, pins 13 and 15 (3V3D out)",
+     "path": [
+      "3V8",
+      "U25"
+     ],
+     "rail": "3V8",
+     "ref": "J2",
+     "role": "connector",
+     "src": [],
+     "typ": 0.0,
+     "why": "a header pin: the design does not say what is plugged in, and no datasheet of a connector gives a load. 100 mA is a stated allowance (about 5 % of the LD39200 2 A rating); anything above is the user's to set. open item for the report"
+    },
+    {
+     "children": false,
+     "how": "computed",
+     "max": 0.702,
+     "note": "",
+     "part": "R14 4.7k pull-up to 3V3D",
+     "path": [
+      "3V8",
+      "U25"
+     ],
+     "rail": "3V8",
+     "ref": "R14",
+     "role": "pullup",
+     "src": [],
+     "typ": 0.0,
+     "why": "idle high draws 0; held low draws 3.3 V / 4.7 k"
+    },
+    {
+     "children": false,
+     "how": "computed",
+     "max": 3.3,
+     "note": "",
+     "part": "R72 1k pull-up to 3V3D",
+     "path": [
+      "3V8",
+      "U25"
+     ],
+     "rail": "3V8",
+     "ref": "R72",
+     "role": "pullup",
+     "src": [],
+     "typ": 0.0,
+     "why": "idle high draws 0; held low draws 3.3 V / 1 k"
+    },
+    {
+     "children": false,
+     "how": "computed",
+     "max": 0.33,
+     "note": "",
+     "part": "R73 10k pull-up to 3V3D",
+     "path": [
+      "3V8",
+      "U25"
+     ],
+     "rail": "3V8",
+     "ref": "R73",
+     "role": "pullup",
+     "src": [],
+     "typ": 0.0,
+     "why": "idle high draws 0; held low draws 3.3 V / 10 k"
+    },
+    {
+     "children": false,
+     "how": "computed",
+     "max": 1.5,
+     "note": "",
+     "part": "R111 1k + LED D2",
+     "path": [
+      "3V8",
+      "U25"
+     ],
+     "rail": "3V8",
+     "ref": "R111",
+     "role": "led_branch",
+     "src": [
+      [
+       "kento-kt-0603-led-datasheet",
+       3,
+       "red VF 1.8 min, 2.4 max at 20 mA"
+      ],
+      [
+       "kento-kt-0603w-led-datasheet",
+       3,
+       "white VF 2.6 to 3.1 at 5 mA"
+      ]
+     ],
+     "typ": 1.2,
+     "why": "(3.3 V - Vf) / 1 k; Vf 2.1 V typ, 1.8 V for the max (colour not chosen)"
+    },
+    {
+     "children": false,
+     "how": "computed",
+     "max": 0.702,
+     "note": "",
+     "part": "R112 4.7k pull-up to 3V3D",
+     "path": [
+      "3V8",
+      "U25"
+     ],
+     "rail": "3V8",
+     "ref": "R112",
+     "role": "pullup",
+     "src": [],
+     "typ": 0.0,
+     "why": "idle high draws 0; held low draws 3.3 V / 4.7 k"
+    },
+    {
+     "children": false,
+     "how": "computed",
+     "max": 0.702,
+     "note": "",
+     "part": "R117 4.7k pull-up to 3V3D",
+     "path": [
+      "3V8",
+      "U25"
+     ],
+     "rail": "3V8",
+     "ref": "R117",
+     "role": "pullup",
+     "src": [],
+     "typ": 0.0,
+     "why": "idle high draws 0; held low draws 3.3 V / 4.7 k"
+    },
+    {
+     "children": false,
+     "how": "computed",
+     "max": 0.702,
+     "note": "",
+     "part": "R118 4.7k pull-up to 3V3D",
+     "path": [
+      "3V8",
+      "U25"
+     ],
+     "rail": "3V8",
+     "ref": "R118",
+     "role": "pullup",
+     "src": [],
+     "typ": 0.0,
+     "why": "idle high draws 0; held low draws 3.3 V / 4.7 k"
+    },
+    {
+     "children": false,
+     "how": "datasheet",
+     "max": 7.86,
+     "note": "typ scales the no-load current to 40 MHz (Y2 frequency); max adds 3 outputs x 15 pF x 3.3 V x 40 MHz. The sheet gives no maximum",
+     "part": "PL133-37 clock buffer, 3 outputs at 40 MHz",
+     "path": [
+      "3V8",
+      "U25"
+     ],
+     "rail": "3V8",
+     "ref": "U6",
+     "role": "ic",
+     "src": [
+      [
+       "microchip-pl133-37-datasheet",
+       3,
+       "IDD dynamic 1.2 mA at VDD 3.3 V, 25 MHz, no load; test load 15 pF"
+      ]
+     ],
+     "typ": 1.92,
+     "why": ""
+    },
+    {
+     "children": false,
+     "how": "datasheet",
+     "max": 31.68,
+     "note": "typ is the plot value scaled by 3.3/1.8; max is 24 pins x 10 pF x 3.3 V x 40 MHz (every pin toggling every cycle); the LTC2292 sheet gives no maximum for IOVDD",
+     "part": "LTC2292 OVDD (pins 32, 49), 24 outputs",
+     "path": [
+      "3V8",
+      "U25"
+     ],
+     "rail": "3V8",
+     "ref": "U8",
+     "role": "ic",
+     "src": [
+      [
+       "adi-ltc2293-2292-2291-datasheet",
+       9,
+       "LTC2292 IOVDD vs sample rate: 4.9 mA at 40 Msps, OVDD 1.8 V (plot read)"
+      ],
+      [
+       "adi-ad9237-datasheet",
+       19,
+       "IDRVDD = V x CLOAD x fCLK x N (the CV f bound used for the max)"
+      ]
+     ],
+     "typ": 8.98,
+     "why": ""
+    },
+    {
+     "children": false,
+     "how": "datasheet",
+     "max": 204,
+     "note": "typ adds 8 output pins x 10 pF x 3.3 V x 30 MHz (the FT2232H FIFO bus) to ICCOQ; max is the per-bank power-on current, which bounds the running value",
+     "part": "XC7A100T VCCO, 5 banks (0, 14, 15, 34, 35) all on 3V3D",
+     "path": [
+      "3V8",
+      "U25"
+     ],
+     "rail": "3V8",
+     "ref": "U30",
+     "role": "ic",
+     "src": [
+      [
+       "amd-ds181-artix7-datasheet",
+       5,
+       "ICCOQ 4 mA quiescent, XC7A100T"
+      ],
+      [
+       "amd-ds181-artix7-datasheet",
+       8,
+       "Table 6: ICCOMIN = ICCOQ + 40 mA per bank; 5 banks = 204 mA"
+      ],
+      [
+       "amd-xc7a100t-ftg256-pinout",
+       1,
+       "VCCO pins of banks 0, 14, 15, 34, 35 are the 3V3D pins of U30"
+      ]
+     ],
+     "typ": 11.92,
+     "why": ""
+    },
+    {
+     "children": false,
+     "how": "datasheet",
+     "max": 2.0,
+     "note": "the EEPROM is read at USB enumeration; typ is the standby current",
+     "part": "93LC46B EEPROM",
+     "path": [
+      "3V8",
+      "U25"
+     ],
+     "rail": "3V8",
+     "ref": "U32",
+     "role": "ic",
+     "src": [
+      [
+       "microchip-93lc46b-datasheet",
+       3,
+       "ICC write 2 mA max, read 1 mA max (VCC 5.5 V, 3 MHz); standby 1 uA max"
+      ]
+     ],
+     "typ": 0.001,
+     "why": ""
+    },
+    {
+     "children": false,
+     "how": "datasheet",
+     "max": 157.92,
+     "note": "the core current comes through the internal regulator from the 3.3 V pin, so it loads 3V3D one for one; I/O adds 8 pins x 10 pF x 3.3 V x 30 MHz; max replaces Icc1 with Ireg (the sheet gives no maximum for Icc1)",
+     "part": "FT2232H: core 1.8 V from VREGIN 3.3 V, plus VCCIO",
+     "path": [
+      "3V8",
+      "U25"
+     ],
+     "rail": "3V8",
+     "ref": "U33",
+     "role": "ic",
+     "src": [
+      [
+       "ftdi-ft2232h-datasheet",
+       47,
+       "Icc1 70 mA normal operation (VCORE, from the internal regulator); Ireg 150 mA regulator current (the most it can supply)"
+      ]
+     ],
+     "typ": 77.92,
+     "why": ""
+    },
+    {
+     "children": false,
+     "how": "datasheet",
+     "max": 25.0,
+     "note": "typ is standby after FPGA configuration; max is a program or erase cycle, which a running radar does not issue",
+     "part": "W25Q128JV flash",
+     "path": [
+      "3V8",
+      "U25"
+     ],
+     "rail": "3V8",
+     "ref": "U40",
+     "role": "ic",
+     "src": [
+      [
+       "winbond-w25q128jv-datasheet",
+       63,
+       "ICC1 standby 10 uA typ; ICC3 read 8 / 15 mA at 50 MHz; ICC4-7 program and erase 20 / 25 mA"
+      ]
+     ],
+     "typ": 0.01,
+     "why": ""
+    },
+    {
+     "children": false,
+     "how": "datasheet",
+     "max": 2.5,
+     "note": "one figure, in the maximum column; typ is taken equal to it",
+     "part": "ECS-TXO-32CSMV-400 TCXO, 40 MHz",
+     "path": [
+      "3V8",
+      "U25"
+     ],
+     "rail": "3V8",
+     "ref": "Y2",
+     "role": "ic",
+     "src": [
+      [
+       "ecs-txo-32csmv-datasheet",
+       1,
+       "Current consumption 2.5 mA for 26.1 to 52 MHz"
+      ]
+     ],
+     "typ": 2.5,
+     "why": ""
+    },
+    {
+     "children": true,
+     "how": "datasheet",
+     "max": 0.35,
+     "note": "max is the plot axis end (the table gives no maximum), above any load here",
+     "part": "LP5907-3.0 ground current",
+     "path": [
+      "3V8"
+     ],
+     "rail": "3V8",
+     "ref": "U39",
+     "role": "ldo",
+     "src": [
+      [
+       "ti-lp5907-datasheet",
+       5,
+       "IG 50 uA at IOUT 100 mA (typ); 14 uA at 0 mA"
+      ],
+      [
+       "ti-lp5907-datasheet",
+       7,
+       "Fig 5-5 ground current vs output current, 350 uA axis end at 250 mA"
+      ]
+     ],
+     "typ": 0.05,
+     "why": ""
+    },
+    {
+     "children": false,
+     "how": "computed",
+     "max": 0.2041,
+     "note": "",
+     "part": "R91 4.7k + R92 10k MODE divider",
+     "path": [
+      "3V8",
+      "U39"
+     ],
+     "rail": "3V8",
+     "ref": "R91",
+     "role": "pullup",
+     "src": [],
+     "typ": 0.2041,
+     "why": "V/(R91+R92) = 3.0 V / 14.7 k, a standing divider (sets MODE to 2/3 VDD)"
+    },
+    {
+     "children": false,
+     "how": "datasheet",
+     "max": 95,
+     "note": "pin leakage is microamps and not added",
+     "part": "LTC2292 VDD (pins 7, 10, 18, 63) + SENSE/MODE leakage",
+     "path": [
+      "3V8",
+      "U39"
+     ],
+     "rail": "3V8",
+     "ref": "U8",
+     "role": "ic",
+     "src": [
+      [
+       "adi-ltc2293-2292-2291-datasheet",
+       5,
+       "IVDD supply current, both ADCs at fS(MAX) 40 MHz: 78 typ / 95 max mA"
+      ],
+      [
+       "adi-ltc2293-2292-2291-datasheet",
+       3,
+       "input leakage 1 to 3 uA (MODE, analog inputs)"
+      ]
+     ],
+     "typ": 78,
+     "why": ""
+    },
+    {
+     "children": false,
+     "how": "computed",
+     "max": 3.8,
+     "note": "",
+     "part": "R27 1k + LED D7",
+     "path": [
+      "5V6"
+     ],
+     "rail": "5V6",
+     "ref": "R27",
+     "role": "led_branch",
+     "src": [
+      [
+       "kento-kt-0603-led-datasheet",
+       3,
+       "red VF 1.8 min, 2.4 max at 20 mA"
+      ],
+      [
+       "kento-kt-0603w-led-datasheet",
+       3,
+       "white VF 2.6 to 3.1 at 5 mA"
+      ]
+     ],
+     "typ": 3.5,
+     "why": "(5.6 V - Vf) / 1 k; Vf 2.1 V typ, 1.8 V for the max (colour not chosen)"
+    },
+    {
+     "children": false,
+     "how": "computed",
+     "max": 0.05,
+     "note": "",
+     "part": "FB divider R36 100k + R37 12k",
+     "path": [
+      "5V6"
+     ],
+     "rail": "5V6",
+     "ref": "R36",
+     "role": "divider_top",
+     "src": [],
+     "typ": 0.05,
+     "why": "V/(R36+R37) = 5.6 V / 112 k"
+    },
+    {
+     "children": true,
+     "how": "datasheet",
+     "max": 3.0,
+     "note": "",
+     "part": "LD39200 ground current (IQ at 2 A)",
+     "path": [
+      "5V6"
+     ],
+     "rail": "5V6",
+     "ref": "U22",
+     "role": "ldo",
+     "src": [
+      [
+       "st-ld39200-datasheet",
+       7,
+       "IQ 1 mA typ / 3 mA max at IOUT 2 A, Table 5 adjustable version"
+      ]
+     ],
+     "typ": 1.0,
+     "why": ""
+    },
+    {
+     "children": false,
+     "how": "computed",
+     "max": 0.25,
+     "note": "",
+     "part": "FB divider R43 18k + R44 2k",
+     "path": [
+      "5V6",
+      "U22"
+     ],
+     "rail": "5V6",
+     "ref": "R43",
+     "role": "divider_top",
+     "src": [],
+     "typ": 0.25,
+     "why": "V/(R43+R44) = 5.0 V / 20 k"
+    },
+    {
+     "children": false,
+     "how": "bound",
+     "max": 2.5,
+     "note": "",
+     "part": "R49 2k from 5VF to U29 VSET",
+     "path": [
+      "5V6",
+      "U22"
+     ],
+     "rail": "5V6",
+     "ref": "R49",
+     "role": "bias_set",
+     "src": [],
+     "typ": 0.0,
+     "why": "the ADL5802 sheet gives no VSET pin current (VSET is a bias control node, p6). Bound: 5 V / 2 k = 2.5 mA, the current if the pin sat at ground; typ 0"
+    },
+    {
+     "children": false,
+     "how": "datasheet",
+     "max": 0.0,
+     "note": "counted in U29, not again here",
+     "part": "49.9 ohm IF output pull-up to 5VF",
+     "path": [
+      "5V6",
+      "U22"
+     ],
+     "rail": "5V6",
+     "ref": "R51",
+     "role": "if_output_bias",
+     "src": [
+      [
+       "adi-adl5802-datasheet",
+       4,
+       "note 2: supply is applied through the IF pull-ups; the 220/300 mA quiescent current of U29 includes the output pull-up current"
+      ]
+     ],
+     "typ": 0.0,
+     "why": ""
+    },
+    {
+     "children": false,
+     "how": "datasheet",
+     "max": 0.0,
+     "note": "counted in U29, not again here",
+     "part": "49.9 ohm IF output pull-up to 5VF",
+     "path": [
+      "5V6",
+      "U22"
+     ],
+     "rail": "5V6",
+     "ref": "R52",
+     "role": "if_output_bias",
+     "src": [
+      [
+       "adi-adl5802-datasheet",
+       4,
+       "note 2: supply is applied through the IF pull-ups; the 220/300 mA quiescent current of U29 includes the output pull-up current"
+      ]
+     ],
+     "typ": 0.0,
+     "why": ""
+    },
+    {
+     "children": false,
+     "how": "datasheet",
+     "max": 0.0,
+     "note": "counted in U29, not again here",
+     "part": "49.9 ohm IF output pull-up to 5VF",
+     "path": [
+      "5V6",
+      "U22"
+     ],
+     "rail": "5V6",
+     "ref": "R53",
+     "role": "if_output_bias",
+     "src": [
+      [
+       "adi-adl5802-datasheet",
+       4,
+       "note 2: supply is applied through the IF pull-ups; the 220/300 mA quiescent current of U29 includes the output pull-up current"
+      ]
+     ],
+     "typ": 0.0,
+     "why": ""
+    },
+    {
+     "children": false,
+     "how": "datasheet",
+     "max": 0.0,
+     "note": "counted in U29, not again here",
+     "part": "49.9 ohm IF output pull-up to 5VF",
+     "path": [
+      "5V6",
+      "U22"
+     ],
+     "rail": "5V6",
+     "ref": "R54",
+     "role": "if_output_bias",
+     "src": [
+      [
+       "adi-adl5802-datasheet",
+       4,
+       "note 2: supply is applied through the IF pull-ups; the 220/300 mA quiescent current of U29 includes the output pull-up current"
+      ]
+     ],
+     "typ": 0.0,
+     "why": ""
+    },
+    {
+     "children": false,
+     "how": "bound",
+     "max": 5.0,
+     "note": "",
+     "part": "ADF4158 VP, charge-pump supply (pin 22)",
+     "path": [
+      "5V6",
+      "U22"
+     ],
+     "rail": "5V6",
+     "ref": "U1",
+     "role": "ic",
+     "src": [
+      [
+       "adi-adf4158-datasheet",
+       4,
+       "charge pump ICP high value 5 mA with RSET 5.1 kohm; no VP supply current is given"
+      ]
+     ],
+     "typ": 0.0,
+     "why": "the sheet lists no VP current; the pump sources at most ICP, 5 mA, only while correcting phase error (about 0 mA locked). typ 0, max 5 mA"
+    },
+    {
+     "children": false,
+     "how": "datasheet",
+     "max": 850,
+     "note": "par-07 requires 25.5 dBm at the PA output; typ interpolates 600 -> 750 mA between +24 and +27.5 dBm (664.3 mA); max is the +27.5 dBm row, the highest the sheet gives (PA is at P1dB 30 dBm there)",
+     "part": "TQP5525 PA, VCC1+VCC2+VCC3, 25.5 dBm at the PA output",
+     "path": [
+      "5V6",
+      "U22"
+     ],
+     "rail": "5V6",
+     "ref": "U14",
+     "role": "ic",
+     "src": [
+      [
+       "qorvo-tqp5525-datasheet",
+       3,
+       "operating current: 600 typ / 675 max mA at +24 dBm; 750 / 850 mA at +27.5 dBm; quiescent 350 / 400 mA RF off"
+      ]
+     ],
+     "typ": 664.3,
+     "why": ""
+    },
+    {
+     "children": false,
+     "how": "datasheet",
+     "max": 300,
+     "note": "the row shows two values (220 and 300); read as typ and max",
+     "part": "ADL5802 mixer, VPOS pins 6, 13, 24",
+     "path": [
+      "5V6",
+      "U22"
+     ],
+     "rail": "5V6",
+     "ref": "U29",
+     "role": "ic",
+     "src": [
+      [
+       "adi-adl5802-datasheet",
+       3,
+       "power interface: quiescent current 220 typ / 300 max mA, 5 V"
+      ]
+     ],
+     "typ": 220,
+     "why": ""
+    }
+   ]
+  }
+ },
+ "source": "analysis/12_rail_loads/currents.py; consumers from sim/consumers.json; mA"
+}
