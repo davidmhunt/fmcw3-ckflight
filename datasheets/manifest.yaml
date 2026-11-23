@@ -441,6 +441,17 @@ entries:
   sha256: 372fe1bc0e0b1b4ce7e18b61514e967c7c2f883f0c7fe1f4586b567785ee9cd2
   licence: GCT copyright; not redistributed here
   commit: 'no'
+- id: gct-usb4105-drawing
+  kind: datasheet
+  title: GCT USB4105 customer drawing (p.1 recommended PCB layout, ordering grid; suffix -060/-120 is
+    the shell stake length 0.60/1.20 mm, none is 0.95 mm; GF is gold-flash plating). Saved by the user
+    from the JLC part page C3020560 on 2026-11-23
+  url: https://jlcpcb.com/partdetail/C3020560
+  access: form
+  file: datasheets/files/gct/usb4105-drawing.pdf
+  sha256: 0ff2526fc28bbfdcb46a61fd394454be865854212c677e5aa55fc305368a01b1
+  licence: GCT copyright, marked confidential; not redistributed here
+  commit: 'no'
 - id: dk-cl05b104ko5nnnc
   kind: datasheet
   title: CL05B104KO5NNNC datasheet through DigiKey (C1, C2, C4, C6, C15, C17 and 41 more)
