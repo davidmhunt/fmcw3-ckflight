@@ -1,0 +1,2386 @@
+{
+ "boards": {
+  "1rx": {
+   "dnp_applied": [
+    "C113",
+    "C114",
+    "C166",
+    "C167",
+    "C168",
+    "C19",
+    "C20",
+    "C206",
+    "C213",
+    "C22",
+    "C23",
+    "C36",
+    "C37",
+    "C38",
+    "C52",
+    "C53",
+    "C55",
+    "C57",
+    "C58",
+    "FB7",
+    "FB8",
+    "L14",
+    "L15",
+    "L3",
+    "L4",
+    "P2",
+    "R100",
+    "R20",
+    "R23",
+    "R31",
+    "R38",
+    "R55",
+    "R56",
+    "R63",
+    "R64",
+    "R98",
+    "U13",
+    "U16",
+    "U28",
+    "U31",
+    "U34",
+    "U48",
+    "U49"
+   ],
+   "open_rows": [
+    "rx1-065",
+    "rx1-066",
+    "rx1-069",
+    "rx1-070",
+    "rx1-078",
+    "rx1-079",
+    "rx1-080",
+    "rx1-081",
+    "rx1-082",
+    "rx1-083",
+    "rx1-086",
+    "rx1-087",
+    "rx1-088",
+    "rx1-089"
+   ],
+   "rails": {
+    "1V0": {
+     "consumers": [
+      {
+       "fitted": true,
+       "other_net": "Net-(U17-FB)",
+       "other_parts": [
+        "R33=100k"
+       ],
+       "path": [
+        "1V0",
+        "/1V0"
+       ],
+       "pins": [
+        "1"
+       ],
+       "rail_net": "/1V0",
+       "ref": "R32",
+       "role": "divider_top",
+       "sheet": "/power/",
+       "value": "68k"
+      },
+      {
+       "fitted": true,
+       "nets": [
+        "/1V0"
+       ],
+       "path": [
+        "1V0",
+        "/1V0"
+       ],
+       "pins": [
+        "F7",
+        "F9",
+        "G6",
+        "H9",
+        "J6",
+        "K9",
+        "L8",
+        "E10",
+        "F11"
+       ],
+       "rail_net": "/1V0",
+       "ref": "U30",
+       "role": "ic",
+       "sheet": "/fpga/",
+       "strap_pins": [],
+       "value": "XC7A100T-1FTG256C"
+      }
+     ],
+     "inductor": "L5",
+     "net": "/1V0",
+     "regulator": "U17"
+    },
+    "3V8": {
+     "consumers": [
+      {
+       "fitted": true,
+       "other_net": "Net-(D1-A)",
+       "other_parts": [
+        "D1=LED"
+       ],
+       "path": [
+        "3V8",
+        "/3V8"
+       ],
+       "pins": [
+        "1"
+       ],
+       "rail_net": "/3V8",
+       "ref": "R24",
+       "role": "led_branch",
+       "sheet": "/power/",
+       "value": "1k"
+      },
+      {
+       "fitted": true,
+       "other_net": "Net-(U18-FB)",
+       "other_parts": [
+        "R35=18.7K"
+       ],
+       "path": [
+        "3V8",
+        "/3V8"
+       ],
+       "pins": [
+        "1"
+       ],
+       "rail_net": "/3V8",
+       "ref": "R34",
+       "role": "divider_top",
+       "sheet": "/power/",
+       "value": "100k"
+      },
+      {
+       "fitted": true,
+       "other_net": "Net-(U23-PG)",
+       "other_parts": [],
+       "path": [
+        "3V8",
+        "/3V8"
+       ],
+       "pins": [
+        "1"
+       ],
+       "rail_net": "/3V8",
+       "ref": "R104",
+       "role": "pullup",
+       "sheet": "/power/",
+       "value": "10k"
+      },
+      {
+       "children": [
+        {
+         "fitted": true,
+         "nets": [
+          "Net-(U9-RFOUT)",
+          "Net-(U9-VCC)"
+         ],
+         "path": [
+          "3V8",
+          "U20",
+          "Net-(U9-RFOUT)"
+         ],
+         "pins": [
+          "1",
+          "7"
+         ],
+         "rail_net": "Net-(U9-RFOUT)",
+         "ref": "U9",
+         "role": "ic",
+         "sheet": "/rx1/",
+         "strap_pins": [],
+         "value": "TRF37A73"
+        },
+        {
+         "fitted": true,
+         "nets": [
+          "Net-(U10-VCC)"
+         ],
+         "path": [
+          "3V8",
+          "U20",
+          "Net-(U10-VCC)"
+         ],
+         "pins": [
+          "20"
+         ],
+         "rail_net": "Net-(U10-VCC)",
+         "ref": "U10",
+         "role": "ic",
+         "sheet": "/tx/",
+         "strap_pins": [],
+         "value": "HMC431LP4"
+        },
+        {
+         "fitted": true,
+         "nets": [
+          "Net-(U11-VCC)",
+          "Net-(U11-V_ENABLE)"
+         ],
+         "path": [
+          "3V8",
+          "U20",
+          "Net-(U11-VCC)"
+         ],
+         "pins": [
+          "1",
+          "6"
+         ],
+         "rail_net": "Net-(U11-VCC)",
+         "ref": "U11",
+         "role": "ic",
+         "sheet": "/rx1/",
+         "strap_pins": [],
+         "value": "SKY65404"
+        },
+        {
+         "fitted": false,
+         "nets": [
+          "Net-(U13-RFOUT)",
+          "Net-(U13-VCC)"
+         ],
+         "path": [
+          "3V8",
+          "U20",
+          "Net-(U13-RFOUT)"
+         ],
+         "pins": [
+          "1",
+          "7"
+         ],
+         "rail_net": "Net-(U13-RFOUT)",
+         "ref": "U13",
+         "role": "ic",
+         "sheet": "/rx2/",
+         "strap_pins": [],
+         "value": "TRF37A73"
+        },
+        {
+         "fitted": false,
+         "nets": [
+          "Net-(U16-VCC)",
+          "Net-(U16-V_ENABLE)"
+         ],
+         "path": [
+          "3V8",
+          "U20",
+          "Net-(U16-VCC)"
+         ],
+         "pins": [
+          "1",
+          "6"
+         ],
+         "rail_net": "Net-(U16-VCC)",
+         "ref": "U16",
+         "role": "ic",
+         "sheet": "/rx2/",
+         "strap_pins": [],
+         "value": "SKY65404"
+        }
+       ],
+       "fitted": true,
+       "gnd_pin": "2",
+       "out_net": "/3V0",
+       "path": [
+        "3V8",
+        "/3V8"
+       ],
+       "pins": [
+        "1",
+        "3"
+       ],
+       "rail_net": "/3V8",
+       "ref": "U20",
+       "role": "ldo",
+       "sheet": "/power/",
+       "value": "LP5907-3.0"
+      },
+      {
+       "children": [
+        {
+         "fitted": true,
+         "other_net": "Net-(U23-ADJ)",
+         "other_parts": [
+          "R46=18.7k"
+         ],
+         "path": [
+          "3V8",
+          "U23",
+          "/1V8"
+         ],
+         "pins": [
+          "1"
+         ],
+         "rail_net": "/1V8",
+         "ref": "R45",
+         "role": "divider_top",
+         "sheet": "/power/",
+         "value": "49.9k"
+        },
+        {
+         "fitted": true,
+         "nets": [
+          "/1V8"
+         ],
+         "path": [
+          "3V8",
+          "U23",
+          "/1V8"
+         ],
+         "pins": [
+          "G8",
+          "G10",
+          "J10",
+          "K11",
+          "L10"
+         ],
+         "rail_net": "/1V8",
+         "ref": "U30",
+         "role": "ic",
+         "sheet": "/fpga/",
+         "strap_pins": [],
+         "value": "XC7A100T-1FTG256C"
+        }
+       ],
+       "fitted": true,
+       "gnd_pin": "4",
+       "out_net": "/1V8",
+       "path": [
+        "3V8",
+        "/3V8"
+       ],
+       "pins": [
+        "6",
+        "7",
+        "8"
+       ],
+       "rail_net": "/3V8",
+       "ref": "U23",
+       "role": "ldo",
+       "sheet": "/power/",
+       "value": "LD3920"
+      },
+      {
+       "children": [
+        {
+         "fitted": true,
+         "other_net": "Net-(U24-ADJ)",
+         "other_parts": [
+          "R48=3.3k"
+         ],
+         "path": [
+          "3V8",
+          "U24",
+          "/3V3A"
+         ],
+         "pins": [
+          "1"
+         ],
+         "rail_net": "/3V3A",
+         "ref": "R47",
+         "role": "divider_top",
+         "sheet": "/power/",
+         "value": "18.7k"
+        },
+        {
+         "fitted": true,
+         "nets": [
+          "/3V3A"
+         ],
+         "path": [
+          "3V8",
+          "U24",
+          "/3V3A"
+         ],
+         "pins": [
+          "6",
+          "7",
+          "8",
+          "18",
+          "19"
+         ],
+         "rail_net": "/3V3A",
+         "ref": "U1",
+         "role": "ic",
+         "sheet": "/tx/",
+         "strap_pins": [],
+         "value": "ADF4158"
+        },
+        {
+         "fitted": true,
+         "nets": [
+          "/3V3A"
+         ],
+         "path": [
+          "3V8",
+          "U24",
+          "/3V3A"
+         ],
+         "pins": [
+          "4"
+         ],
+         "rail_net": "/3V3A",
+         "ref": "U45",
+         "role": "ic",
+         "sheet": "/opamp_amp/",
+         "strap_pins": [],
+         "value": "LT6232"
+        }
+       ],
+       "fitted": true,
+       "gnd_pin": "4",
+       "out_net": "/3V3A",
+       "path": [
+        "3V8",
+        "/3V8"
+       ],
+       "pins": [
+        "6",
+        "7",
+        "8"
+       ],
+       "rail_net": "/3V8",
+       "ref": "U24",
+       "role": "ldo",
+       "sheet": "/power/",
+       "value": "LD3920"
+      },
+      {
+       "children": [
+        {
+         "fitted": true,
+         "nets": [
+          "/3V3D"
+         ],
+         "path": [
+          "3V8",
+          "U25",
+          "/3V3D"
+         ],
+         "pins": [
+          "13",
+          "15"
+         ],
+         "rail_net": "/3V3D",
+         "ref": "J2",
+         "role": "connector",
+         "sheet": "/fpga/fpga_config/",
+         "strap_pins": [],
+         "value": "Connector_02x08"
+        },
+        {
+         "fitted": true,
+         "other_net": "/fpga/RESET",
+         "other_parts": [],
+         "path": [
+          "3V8",
+          "U25",
+          "/3V3D"
+         ],
+         "pins": [
+          "1"
+         ],
+         "rail_net": "/3V3D",
+         "ref": "R14",
+         "role": "pullup",
+         "sheet": "/fpga/fpga_config/",
+         "value": "4.7k"
+        },
+        {
+         "fitted": true,
+         "other_net": "Net-(U33-RESET#)",
+         "other_parts": [],
+         "path": [
+          "3V8",
+          "U25",
+          "/3V3D"
+         ],
+         "pins": [
+          "2"
+         ],
+         "rail_net": "/3V3D",
+         "ref": "R72",
+         "role": "pullup",
+         "sheet": "/fpga/usb/",
+         "value": "1k"
+        },
+        {
+         "fitted": true,
+         "other_net": "/fpga/usb/DO",
+         "other_parts": [
+          "R79=2.2k"
+         ],
+         "path": [
+          "3V8",
+          "U25",
+          "/3V3D"
+         ],
+         "pins": [
+          "1"
+         ],
+         "rail_net": "/3V3D",
+         "ref": "R73",
+         "role": "pullup",
+         "sheet": "/fpga/usb/",
+         "value": "10k"
+        },
+        {
+         "fitted": true,
+         "other_net": "Net-(D2-A)",
+         "other_parts": [
+          "D2=LED"
+         ],
+         "path": [
+          "3V8",
+          "U25",
+          "/3V3D"
+         ],
+         "pins": [
+          "1"
+         ],
+         "rail_net": "/3V3D",
+         "ref": "R111",
+         "role": "led_branch",
+         "sheet": "/fpga/",
+         "value": "1k"
+        },
+        {
+         "fitted": true,
+         "other_net": "/fpga/PROG_B",
+         "other_parts": [],
+         "path": [
+          "3V8",
+          "U25",
+          "/3V3D"
+         ],
+         "pins": [
+          "1"
+         ],
+         "rail_net": "/3V3D",
+         "ref": "R112",
+         "role": "pullup",
+         "sheet": "/fpga/fpga_config/",
+         "value": "4.7k"
+        },
+        {
+         "fitted": true,
+         "other_net": "/fpga/INIT_B",
+         "other_parts": [],
+         "path": [
+          "3V8",
+          "U25",
+          "/3V3D"
+         ],
+         "pins": [
+          "1"
+         ],
+         "rail_net": "/3V3D",
+         "ref": "R117",
+         "role": "pullup",
+         "sheet": "/fpga/fpga_config/",
+         "value": "4.7k"
+        },
+        {
+         "fitted": true,
+         "other_net": "/fpga/SPI_CS",
+         "other_parts": [],
+         "path": [
+          "3V8",
+          "U25",
+          "/3V3D"
+         ],
+         "pins": [
+          "1"
+         ],
+         "rail_net": "/3V3D",
+         "ref": "R118",
+         "role": "pullup",
+         "sheet": "/fpga/fpga_config/",
+         "value": "4.7k"
+        },
+        {
+         "fitted": true,
+         "nets": [
+          "Net-(U6-VDD)"
+         ],
+         "path": [
+          "3V8",
+          "U25",
+          "Net-(U6-VDD)"
+         ],
+         "pins": [
+          "5"
+         ],
+         "rail_net": "Net-(U6-VDD)",
+         "ref": "U6",
+         "role": "ic",
+         "sheet": "/clock/",
+         "strap_pins": [],
+         "value": "PL133-37"
+        },
+        {
+         "fitted": true,
+         "nets": [
+          "/3V3D"
+         ],
+         "note": "AD9237BCPZ-40 in place of the LTC2292 (rx1-014 (AVDD pins 27, 32), rx1-016 (DRVDD pin 16))",
+         "path": [
+          "3V8",
+          "U25",
+          "/3V3D"
+         ],
+         "pins": [
+          "16"
+         ],
+         "pins_ltc2292": [
+          "32",
+          "49"
+         ],
+         "rail_net": "/3V3D",
+         "ref": "U8",
+         "role": "ic",
+         "sheet": "/fpga/adc/",
+         "strap_pins": [],
+         "value": "AD9237BCPZ-40 (LFCSP-32)"
+        },
+        {
+         "fitted": true,
+         "nets": [
+          "/3V3D",
+          "/fpga/M0"
+         ],
+         "path": [
+          "3V8",
+          "U25",
+          "/3V3D"
+         ],
+         "pins": [
+          "A6",
+          "B3",
+          "D7",
+          "E4",
+          "E7",
+          "F1",
+          "J2",
+          "L6",
+          "M3",
+          "P7",
+          "R4",
+          "T1",
+          "A16",
+          "B13",
+          "C10",
+          "E14",
+          "H15",
+          "J12",
+          "L16",
+          "M13",
+          "N10",
+          "R14",
+          "T11"
+         ],
+         "rail_net": "/3V3D",
+         "ref": "U30",
+         "role": "ic",
+         "sheet": "/fpga/",
+         "strap_pins": [
+          "M9"
+         ],
+         "value": "XC7A100T-1FTG256C"
+        },
+        {
+         "fitted": true,
+         "nets": [
+          "/3V3D"
+         ],
+         "path": [
+          "3V8",
+          "U25",
+          "/3V3D"
+         ],
+         "pins": [
+          "6"
+         ],
+         "rail_net": "/3V3D",
+         "ref": "U32",
+         "role": "ic",
+         "sheet": "/fpga/usb/",
+         "strap_pins": [],
+         "value": "93LC46B"
+        },
+        {
+         "fitted": true,
+         "nets": [
+          "/3V3D",
+          "Net-(U33-VPHY)",
+          "Net-(U33-VPLL)"
+         ],
+         "path": [
+          "3V8",
+          "U25",
+          "/3V3D"
+         ],
+         "pins": [
+          "4",
+          "9",
+          "20",
+          "31",
+          "42",
+          "50",
+          "56"
+         ],
+         "rail_net": "/3V3D",
+         "ref": "U33",
+         "role": "ic",
+         "sheet": "/fpga/usb/",
+         "strap_pins": [],
+         "value": "FT2232H"
+        },
+        {
+         "fitted": true,
+         "nets": [
+          "/3V3D"
+         ],
+         "path": [
+          "3V8",
+          "U25",
+          "/3V3D"
+         ],
+         "pins": [
+          "3",
+          "7",
+          "8"
+         ],
+         "rail_net": "/3V3D",
+         "ref": "U40",
+         "role": "ic",
+         "sheet": "/fpga/fpga_config/",
+         "strap_pins": [],
+         "value": "W25Q128JV"
+        },
+        {
+         "fitted": true,
+         "nets": [
+          "Net-(U6-VDD)"
+         ],
+         "path": [
+          "3V8",
+          "U25",
+          "Net-(U6-VDD)"
+         ],
+         "pins": [
+          "4"
+         ],
+         "rail_net": "Net-(U6-VDD)",
+         "ref": "Y2",
+         "role": "ic",
+         "sheet": "/clock/",
+         "strap_pins": [],
+         "value": "ECS ECS-TXO-32CSMV-400"
+        }
+       ],
+       "fitted": true,
+       "gnd_pin": "3",
+       "out_net": "/3V3D",
+       "path": [
+        "3V8",
+        "/3V8"
+       ],
+       "pins": [
+        "6"
+       ],
+       "rail_net": "/3V8",
+       "ref": "U25",
+       "role": "ldo",
+       "sheet": "/power/",
+       "value": "LD3920_33"
+      },
+      {
+       "children": [
+        {
+         "fitted": true,
+         "other_net": "Net-(U8-MODE)",
+         "other_parts": [
+          "R92=10k"
+         ],
+         "path": [
+          "3V8",
+          "U39",
+          "/fpga/adc/3V0"
+         ],
+         "pins": [
+          "1"
+         ],
+         "rail_net": "/fpga/adc/3V0",
+         "ref": "R91",
+         "role": "pullup",
+         "sheet": "/fpga/adc/",
+         "value": "4.7k"
+        },
+        {
+         "fitted": true,
+         "nets": [
+          "/fpga/adc/3V0",
+          "Net-(U8-SENSEA)",
+          "Net-(U8-SENSEB)"
+         ],
+         "note": "AD9237BCPZ-40 in place of the LTC2292 (rx1-014 (AVDD pins 27, 32), rx1-016 (DRVDD pin 16))",
+         "path": [
+          "3V8",
+          "U39",
+          "/fpga/adc/3V0"
+         ],
+         "pins": [
+          "27",
+          "32"
+         ],
+         "pins_ltc2292": [
+          "7",
+          "10",
+          "18",
+          "63"
+         ],
+         "rail_net": "/fpga/adc/3V0",
+         "ref": "U8",
+         "role": "ic",
+         "sheet": "/fpga/adc/",
+         "strap_pins": [
+          "19",
+          "62"
+         ],
+         "value": "AD9237BCPZ-40 (LFCSP-32)"
+        },
+        {
+         "fitted": true,
+         "note": "rx1-005: 3V0 to /ADC_VCMB, with R991 to GND (1.5 V bias)",
+         "other_net": "/ADC_VCMB",
+         "path": [
+          "3V8",
+          "U39",
+          "/fpga/adc/3V0"
+         ],
+         "pins": [
+          "1"
+         ],
+         "rail_net": "/fpga/adc/3V0",
+         "ref": "R990",
+         "role": "divider_top",
+         "sheet": "/fpga/adc/",
+         "value": "1.0 kohm 0402"
+        },
+        {
+         "fitted": true,
+         "note": "rx1-006: /ADC_VCMB to GND; the 3V0 current is 3.0 V / (R990 + R991)",
+         "other_net": "GND",
+         "path": [
+          "3V8",
+          "U39",
+          "/ADC_VCMB"
+         ],
+         "pins": [
+          "2"
+         ],
+         "rail_net": "/ADC_VCMB",
+         "ref": "R991",
+         "role": "divider_bottom",
+         "sheet": "/fpga/adc/",
+         "value": "1.0 kohm 0402"
+        }
+       ],
+       "fitted": true,
+       "gnd_pin": "2",
+       "out_net": "/fpga/adc/3V0",
+       "path": [
+        "3V8",
+        "/3V8"
+       ],
+       "pins": [
+        "1",
+        "3"
+       ],
+       "rail_net": "/3V8",
+       "ref": "U39",
+       "role": "ldo",
+       "sheet": "/fpga/adc/",
+       "value": "LP5907-3.0"
+      }
+     ],
+     "inductor": "L6",
+     "net": "/3V8",
+     "regulator": "U18"
+    },
+    "5V6": {
+     "consumers": [
+      {
+       "fitted": true,
+       "other_net": "Net-(D7-A)",
+       "other_parts": [
+        "D7=LED"
+       ],
+       "path": [
+        "5V6",
+        "/power/5V6"
+       ],
+       "pins": [
+        "1"
+       ],
+       "rail_net": "/power/5V6",
+       "ref": "R27",
+       "role": "led_branch",
+       "sheet": "/power/",
+       "value": "1k"
+      },
+      {
+       "fitted": true,
+       "other_net": "Net-(U19-FB)",
+       "other_parts": [
+        "R37=12k"
+       ],
+       "path": [
+        "5V6",
+        "/power/5V6"
+       ],
+       "pins": [
+        "1"
+       ],
+       "rail_net": "/power/5V6",
+       "ref": "R36",
+       "role": "divider_top",
+       "sheet": "/power/",
+       "value": "100k"
+      },
+      {
+       "children": [
+        {
+         "fitted": true,
+         "other_net": "Net-(U22-ADJ)",
+         "other_parts": [
+          "R44=2k"
+         ],
+         "path": [
+          "5V6",
+          "U22",
+          "/5V"
+         ],
+         "pins": [
+          "1"
+         ],
+         "rail_net": "/5V",
+         "ref": "R43",
+         "role": "divider_top",
+         "sheet": "/power/",
+         "value": "18k"
+        },
+        {
+         "fitted": true,
+         "other_net": "Net-(U29-VSET)",
+         "other_parts": [],
+         "path": [
+          "5V6",
+          "U22",
+          "/mixer/5VF"
+         ],
+         "pins": [
+          "1"
+         ],
+         "rail_net": "/mixer/5VF",
+         "ref": "R49",
+         "role": "bias_set",
+         "sheet": "/mixer/",
+         "value": "2k"
+        },
+        {
+         "fitted": true,
+         "other_net": "/mixer/IF1+",
+         "other_parts": [
+          "R56=0"
+         ],
+         "path": [
+          "5V6",
+          "U22",
+          "/mixer/5VF"
+         ],
+         "pins": [
+          "2"
+         ],
+         "rail_net": "/mixer/5VF",
+         "ref": "R51",
+         "role": "if_output_bias",
+         "sheet": "/mixer/",
+         "value": "49.9"
+        },
+        {
+         "fitted": true,
+         "other_net": "/mixer/IF1-",
+         "other_parts": [
+          "R55=0"
+         ],
+         "path": [
+          "5V6",
+          "U22",
+          "/mixer/5VF"
+         ],
+         "pins": [
+          "1"
+         ],
+         "rail_net": "/mixer/5VF",
+         "ref": "R52",
+         "role": "if_output_bias",
+         "sheet": "/mixer/",
+         "value": "49.9"
+        },
+        {
+         "fitted": true,
+         "other_net": "/mixer/IF2-",
+         "other_parts": [
+          "R58=0"
+         ],
+         "path": [
+          "5V6",
+          "U22",
+          "/mixer/5VF"
+         ],
+         "pins": [
+          "2"
+         ],
+         "rail_net": "/mixer/5VF",
+         "ref": "R53",
+         "role": "if_output_bias",
+         "sheet": "/mixer/",
+         "value": "49.9"
+        },
+        {
+         "fitted": true,
+         "other_net": "/mixer/IF2+",
+         "other_parts": [
+          "R57=0"
+         ],
+         "path": [
+          "5V6",
+          "U22",
+          "/mixer/5VF"
+         ],
+         "pins": [
+          "1"
+         ],
+         "rail_net": "/mixer/5VF",
+         "ref": "R54",
+         "role": "if_output_bias",
+         "sheet": "/mixer/",
+         "value": "49.9"
+        },
+        {
+         "fitted": true,
+         "nets": [
+          "Net-(U1-VP)"
+         ],
+         "path": [
+          "5V6",
+          "U22",
+          "Net-(U1-VP)"
+         ],
+         "pins": [
+          "22"
+         ],
+         "rail_net": "Net-(U1-VP)",
+         "ref": "U1",
+         "role": "ic",
+         "sheet": "/tx/",
+         "strap_pins": [],
+         "value": "ADF4158"
+        },
+        {
+         "fitted": true,
+         "nets": [
+          "Net-(U14-VCC1)",
+          "Net-(U14-VCC2)"
+         ],
+         "path": [
+          "5V6",
+          "U22",
+          "Net-(U14-VCC1)"
+         ],
+         "pins": [
+          "18",
+          "19",
+          "20"
+         ],
+         "rail_net": "Net-(U14-VCC1)",
+         "ref": "U14",
+         "role": "ic",
+         "sheet": "/tx/",
+         "strap_pins": [],
+         "value": "TQP5525"
+        },
+        {
+         "fitted": true,
+         "nets": [
+          "/mixer/5VF"
+         ],
+         "path": [
+          "5V6",
+          "U22",
+          "/mixer/5VF"
+         ],
+         "pins": [
+          "6",
+          "13",
+          "24"
+         ],
+         "rail_net": "/mixer/5VF",
+         "ref": "U29",
+         "role": "ic",
+         "sheet": "/mixer/",
+         "strap_pins": [],
+         "value": "ADL5802"
+        }
+       ],
+       "fitted": true,
+       "gnd_pin": "4",
+       "out_net": "/5V",
+       "path": [
+        "5V6",
+        "/power/5V6"
+       ],
+       "pins": [
+        "6",
+        "7",
+        "8"
+       ],
+       "rail_net": "/power/5V6",
+       "ref": "U22",
+       "role": "ldo",
+       "sheet": "/power/",
+       "value": "LD3920"
+      }
+     ],
+     "inductor": "L7",
+     "net": "/power/5V6",
+     "regulator": "U19"
+    }
+   },
+   "summary": {
+    "1V0": {
+     "ics": [
+      "U30"
+     ],
+     "ldos": [],
+     "not_fitted": [],
+     "resistors": [
+      "R32"
+     ]
+    },
+    "3V8": {
+     "ics": [
+      "J2",
+      "U1",
+      "U6",
+      "U8",
+      "U9",
+      "U10",
+      "U11",
+      "U30",
+      "U32",
+      "U33",
+      "U40",
+      "U45",
+      "Y2"
+     ],
+     "ldos": [
+      "U20",
+      "U23",
+      "U24",
+      "U25",
+      "U39"
+     ],
+     "not_fitted": [
+      "U13",
+      "U16"
+     ],
+     "resistors": [
+      "R14",
+      "R24",
+      "R34",
+      "R45",
+      "R47",
+      "R72",
+      "R73",
+      "R91",
+      "R104",
+      "R111",
+      "R112",
+      "R117",
+      "R118",
+      "R990",
+      "R991"
+     ]
+    },
+    "5V6": {
+     "ics": [
+      "U1",
+      "U14",
+      "U29"
+     ],
+     "ldos": [
+      "U22"
+     ],
+     "not_fitted": [],
+     "resistors": [
+      "R27",
+      "R36",
+      "R43",
+      "R49",
+      "R51",
+      "R52",
+      "R53",
+      "R54"
+     ]
+    }
+   }
+  },
+  "2rx": {
+   "dnp_applied": [],
+   "open_rows": [],
+   "rails": {
+    "1V0": {
+     "consumers": [
+      {
+       "fitted": true,
+       "other_net": "Net-(U17-FB)",
+       "other_parts": [
+        "R33=100k"
+       ],
+       "path": [
+        "1V0",
+        "/1V0"
+       ],
+       "pins": [
+        "1"
+       ],
+       "rail_net": "/1V0",
+       "ref": "R32",
+       "role": "divider_top",
+       "sheet": "/power/",
+       "value": "68k"
+      },
+      {
+       "fitted": true,
+       "nets": [
+        "/1V0"
+       ],
+       "path": [
+        "1V0",
+        "/1V0"
+       ],
+       "pins": [
+        "F7",
+        "F9",
+        "G6",
+        "H9",
+        "J6",
+        "K9",
+        "L8",
+        "E10",
+        "F11"
+       ],
+       "rail_net": "/1V0",
+       "ref": "U30",
+       "role": "ic",
+       "sheet": "/fpga/",
+       "strap_pins": [],
+       "value": "XC7A100T-1FTG256C"
+      }
+     ],
+     "inductor": "L5",
+     "net": "/1V0",
+     "regulator": "U17"
+    },
+    "3V8": {
+     "consumers": [
+      {
+       "fitted": true,
+       "other_net": "Net-(D1-A)",
+       "other_parts": [
+        "D1=LED"
+       ],
+       "path": [
+        "3V8",
+        "/3V8"
+       ],
+       "pins": [
+        "1"
+       ],
+       "rail_net": "/3V8",
+       "ref": "R24",
+       "role": "led_branch",
+       "sheet": "/power/",
+       "value": "1k"
+      },
+      {
+       "fitted": true,
+       "other_net": "Net-(U18-FB)",
+       "other_parts": [
+        "R35=18.7K"
+       ],
+       "path": [
+        "3V8",
+        "/3V8"
+       ],
+       "pins": [
+        "1"
+       ],
+       "rail_net": "/3V8",
+       "ref": "R34",
+       "role": "divider_top",
+       "sheet": "/power/",
+       "value": "100k"
+      },
+      {
+       "fitted": true,
+       "other_net": "Net-(U23-PG)",
+       "other_parts": [],
+       "path": [
+        "3V8",
+        "/3V8"
+       ],
+       "pins": [
+        "1"
+       ],
+       "rail_net": "/3V8",
+       "ref": "R104",
+       "role": "pullup",
+       "sheet": "/power/",
+       "value": "10k"
+      },
+      {
+       "children": [
+        {
+         "fitted": true,
+         "nets": [
+          "Net-(U9-RFOUT)",
+          "Net-(U9-VCC)"
+         ],
+         "path": [
+          "3V8",
+          "U20",
+          "Net-(U9-RFOUT)"
+         ],
+         "pins": [
+          "1",
+          "7"
+         ],
+         "rail_net": "Net-(U9-RFOUT)",
+         "ref": "U9",
+         "role": "ic",
+         "sheet": "/rx1/",
+         "strap_pins": [],
+         "value": "TRF37A73"
+        },
+        {
+         "fitted": true,
+         "nets": [
+          "Net-(U10-VCC)"
+         ],
+         "path": [
+          "3V8",
+          "U20",
+          "Net-(U10-VCC)"
+         ],
+         "pins": [
+          "20"
+         ],
+         "rail_net": "Net-(U10-VCC)",
+         "ref": "U10",
+         "role": "ic",
+         "sheet": "/tx/",
+         "strap_pins": [],
+         "value": "HMC431LP4"
+        },
+        {
+         "fitted": true,
+         "nets": [
+          "Net-(U11-VCC)",
+          "Net-(U11-V_ENABLE)"
+         ],
+         "path": [
+          "3V8",
+          "U20",
+          "Net-(U11-VCC)"
+         ],
+         "pins": [
+          "1",
+          "6"
+         ],
+         "rail_net": "Net-(U11-VCC)",
+         "ref": "U11",
+         "role": "ic",
+         "sheet": "/rx1/",
+         "strap_pins": [],
+         "value": "SKY65404"
+        },
+        {
+         "fitted": true,
+         "nets": [
+          "Net-(U13-RFOUT)",
+          "Net-(U13-VCC)"
+         ],
+         "path": [
+          "3V8",
+          "U20",
+          "Net-(U13-RFOUT)"
+         ],
+         "pins": [
+          "1",
+          "7"
+         ],
+         "rail_net": "Net-(U13-RFOUT)",
+         "ref": "U13",
+         "role": "ic",
+         "sheet": "/rx2/",
+         "strap_pins": [],
+         "value": "TRF37A73"
+        },
+        {
+         "fitted": true,
+         "nets": [
+          "Net-(U16-VCC)",
+          "Net-(U16-V_ENABLE)"
+         ],
+         "path": [
+          "3V8",
+          "U20",
+          "Net-(U16-VCC)"
+         ],
+         "pins": [
+          "1",
+          "6"
+         ],
+         "rail_net": "Net-(U16-VCC)",
+         "ref": "U16",
+         "role": "ic",
+         "sheet": "/rx2/",
+         "strap_pins": [],
+         "value": "SKY65404"
+        }
+       ],
+       "fitted": true,
+       "gnd_pin": "2",
+       "out_net": "/3V0",
+       "path": [
+        "3V8",
+        "/3V8"
+       ],
+       "pins": [
+        "1",
+        "3"
+       ],
+       "rail_net": "/3V8",
+       "ref": "U20",
+       "role": "ldo",
+       "sheet": "/power/",
+       "value": "LP5907-3.0"
+      },
+      {
+       "children": [
+        {
+         "fitted": true,
+         "other_net": "Net-(U23-ADJ)",
+         "other_parts": [
+          "R46=18.7k"
+         ],
+         "path": [
+          "3V8",
+          "U23",
+          "/1V8"
+         ],
+         "pins": [
+          "1"
+         ],
+         "rail_net": "/1V8",
+         "ref": "R45",
+         "role": "divider_top",
+         "sheet": "/power/",
+         "value": "49.9k"
+        },
+        {
+         "fitted": true,
+         "nets": [
+          "/1V8"
+         ],
+         "path": [
+          "3V8",
+          "U23",
+          "/1V8"
+         ],
+         "pins": [
+          "G8",
+          "G10",
+          "J10",
+          "K11",
+          "L10"
+         ],
+         "rail_net": "/1V8",
+         "ref": "U30",
+         "role": "ic",
+         "sheet": "/fpga/",
+         "strap_pins": [],
+         "value": "XC7A100T-1FTG256C"
+        }
+       ],
+       "fitted": true,
+       "gnd_pin": "4",
+       "out_net": "/1V8",
+       "path": [
+        "3V8",
+        "/3V8"
+       ],
+       "pins": [
+        "6",
+        "7",
+        "8"
+       ],
+       "rail_net": "/3V8",
+       "ref": "U23",
+       "role": "ldo",
+       "sheet": "/power/",
+       "value": "LD3920"
+      },
+      {
+       "children": [
+        {
+         "fitted": true,
+         "other_net": "Net-(U24-ADJ)",
+         "other_parts": [
+          "R48=3.3k"
+         ],
+         "path": [
+          "3V8",
+          "U24",
+          "/3V3A"
+         ],
+         "pins": [
+          "1"
+         ],
+         "rail_net": "/3V3A",
+         "ref": "R47",
+         "role": "divider_top",
+         "sheet": "/power/",
+         "value": "18.7k"
+        },
+        {
+         "fitted": true,
+         "nets": [
+          "/3V3A"
+         ],
+         "path": [
+          "3V8",
+          "U24",
+          "/3V3A"
+         ],
+         "pins": [
+          "6",
+          "7",
+          "8",
+          "18",
+          "19"
+         ],
+         "rail_net": "/3V3A",
+         "ref": "U1",
+         "role": "ic",
+         "sheet": "/tx/",
+         "strap_pins": [],
+         "value": "ADF4158"
+        },
+        {
+         "fitted": true,
+         "nets": [
+          "/3V3A"
+         ],
+         "path": [
+          "3V8",
+          "U24",
+          "/3V3A"
+         ],
+         "pins": [
+          "4"
+         ],
+         "rail_net": "/3V3A",
+         "ref": "U45",
+         "role": "ic",
+         "sheet": "/opamp_amp/",
+         "strap_pins": [],
+         "value": "LT6232"
+        }
+       ],
+       "fitted": true,
+       "gnd_pin": "4",
+       "out_net": "/3V3A",
+       "path": [
+        "3V8",
+        "/3V8"
+       ],
+       "pins": [
+        "6",
+        "7",
+        "8"
+       ],
+       "rail_net": "/3V8",
+       "ref": "U24",
+       "role": "ldo",
+       "sheet": "/power/",
+       "value": "LD3920"
+      },
+      {
+       "children": [
+        {
+         "fitted": true,
+         "nets": [
+          "/3V3D"
+         ],
+         "path": [
+          "3V8",
+          "U25",
+          "/3V3D"
+         ],
+         "pins": [
+          "13",
+          "15"
+         ],
+         "rail_net": "/3V3D",
+         "ref": "J2",
+         "role": "connector",
+         "sheet": "/fpga/fpga_config/",
+         "strap_pins": [],
+         "value": "Connector_02x08"
+        },
+        {
+         "fitted": true,
+         "other_net": "/fpga/RESET",
+         "other_parts": [],
+         "path": [
+          "3V8",
+          "U25",
+          "/3V3D"
+         ],
+         "pins": [
+          "1"
+         ],
+         "rail_net": "/3V3D",
+         "ref": "R14",
+         "role": "pullup",
+         "sheet": "/fpga/fpga_config/",
+         "value": "4.7k"
+        },
+        {
+         "fitted": true,
+         "other_net": "Net-(U33-RESET#)",
+         "other_parts": [],
+         "path": [
+          "3V8",
+          "U25",
+          "/3V3D"
+         ],
+         "pins": [
+          "2"
+         ],
+         "rail_net": "/3V3D",
+         "ref": "R72",
+         "role": "pullup",
+         "sheet": "/fpga/usb/",
+         "value": "1k"
+        },
+        {
+         "fitted": true,
+         "other_net": "/fpga/usb/DO",
+         "other_parts": [
+          "R79=2.2k"
+         ],
+         "path": [
+          "3V8",
+          "U25",
+          "/3V3D"
+         ],
+         "pins": [
+          "1"
+         ],
+         "rail_net": "/3V3D",
+         "ref": "R73",
+         "role": "pullup",
+         "sheet": "/fpga/usb/",
+         "value": "10k"
+        },
+        {
+         "fitted": true,
+         "other_net": "Net-(D2-A)",
+         "other_parts": [
+          "D2=LED"
+         ],
+         "path": [
+          "3V8",
+          "U25",
+          "/3V3D"
+         ],
+         "pins": [
+          "1"
+         ],
+         "rail_net": "/3V3D",
+         "ref": "R111",
+         "role": "led_branch",
+         "sheet": "/fpga/",
+         "value": "1k"
+        },
+        {
+         "fitted": true,
+         "other_net": "/fpga/PROG_B",
+         "other_parts": [],
+         "path": [
+          "3V8",
+          "U25",
+          "/3V3D"
+         ],
+         "pins": [
+          "1"
+         ],
+         "rail_net": "/3V3D",
+         "ref": "R112",
+         "role": "pullup",
+         "sheet": "/fpga/fpga_config/",
+         "value": "4.7k"
+        },
+        {
+         "fitted": true,
+         "other_net": "/fpga/INIT_B",
+         "other_parts": [],
+         "path": [
+          "3V8",
+          "U25",
+          "/3V3D"
+         ],
+         "pins": [
+          "1"
+         ],
+         "rail_net": "/3V3D",
+         "ref": "R117",
+         "role": "pullup",
+         "sheet": "/fpga/fpga_config/",
+         "value": "4.7k"
+        },
+        {
+         "fitted": true,
+         "other_net": "/fpga/SPI_CS",
+         "other_parts": [],
+         "path": [
+          "3V8",
+          "U25",
+          "/3V3D"
+         ],
+         "pins": [
+          "1"
+         ],
+         "rail_net": "/3V3D",
+         "ref": "R118",
+         "role": "pullup",
+         "sheet": "/fpga/fpga_config/",
+         "value": "4.7k"
+        },
+        {
+         "fitted": true,
+         "nets": [
+          "Net-(U6-VDD)"
+         ],
+         "path": [
+          "3V8",
+          "U25",
+          "Net-(U6-VDD)"
+         ],
+         "pins": [
+          "5"
+         ],
+         "rail_net": "Net-(U6-VDD)",
+         "ref": "U6",
+         "role": "ic",
+         "sheet": "/clock/",
+         "strap_pins": [],
+         "value": "PL133-37"
+        },
+        {
+         "fitted": true,
+         "nets": [
+          "/3V3D"
+         ],
+         "path": [
+          "3V8",
+          "U25",
+          "/3V3D"
+         ],
+         "pins": [
+          "32",
+          "49"
+         ],
+         "rail_net": "/3V3D",
+         "ref": "U8",
+         "role": "ic",
+         "sheet": "/fpga/adc/",
+         "strap_pins": [],
+         "value": "LTC2292"
+        },
+        {
+         "fitted": true,
+         "nets": [
+          "/3V3D",
+          "/fpga/M0"
+         ],
+         "path": [
+          "3V8",
+          "U25",
+          "/3V3D"
+         ],
+         "pins": [
+          "A6",
+          "B3",
+          "D7",
+          "E4",
+          "E7",
+          "F1",
+          "J2",
+          "L6",
+          "M3",
+          "P7",
+          "R4",
+          "T1",
+          "A16",
+          "B13",
+          "C10",
+          "E14",
+          "H15",
+          "J12",
+          "L16",
+          "M13",
+          "N10",
+          "R14",
+          "T11"
+         ],
+         "rail_net": "/3V3D",
+         "ref": "U30",
+         "role": "ic",
+         "sheet": "/fpga/",
+         "strap_pins": [
+          "M9"
+         ],
+         "value": "XC7A100T-1FTG256C"
+        },
+        {
+         "fitted": true,
+         "nets": [
+          "/3V3D"
+         ],
+         "path": [
+          "3V8",
+          "U25",
+          "/3V3D"
+         ],
+         "pins": [
+          "6"
+         ],
+         "rail_net": "/3V3D",
+         "ref": "U32",
+         "role": "ic",
+         "sheet": "/fpga/usb/",
+         "strap_pins": [],
+         "value": "93LC46B"
+        },
+        {
+         "fitted": true,
+         "nets": [
+          "/3V3D",
+          "Net-(U33-VPHY)",
+          "Net-(U33-VPLL)"
+         ],
+         "path": [
+          "3V8",
+          "U25",
+          "/3V3D"
+         ],
+         "pins": [
+          "4",
+          "9",
+          "20",
+          "31",
+          "42",
+          "50",
+          "56"
+         ],
+         "rail_net": "/3V3D",
+         "ref": "U33",
+         "role": "ic",
+         "sheet": "/fpga/usb/",
+         "strap_pins": [],
+         "value": "FT2232H"
+        },
+        {
+         "fitted": true,
+         "nets": [
+          "/3V3D"
+         ],
+         "path": [
+          "3V8",
+          "U25",
+          "/3V3D"
+         ],
+         "pins": [
+          "3",
+          "7",
+          "8"
+         ],
+         "rail_net": "/3V3D",
+         "ref": "U40",
+         "role": "ic",
+         "sheet": "/fpga/fpga_config/",
+         "strap_pins": [],
+         "value": "W25Q128JV"
+        },
+        {
+         "fitted": true,
+         "nets": [
+          "Net-(U6-VDD)"
+         ],
+         "path": [
+          "3V8",
+          "U25",
+          "Net-(U6-VDD)"
+         ],
+         "pins": [
+          "4"
+         ],
+         "rail_net": "Net-(U6-VDD)",
+         "ref": "Y2",
+         "role": "ic",
+         "sheet": "/clock/",
+         "strap_pins": [],
+         "value": "ECS ECS-TXO-32CSMV-400"
+        }
+       ],
+       "fitted": true,
+       "gnd_pin": "3",
+       "out_net": "/3V3D",
+       "path": [
+        "3V8",
+        "/3V8"
+       ],
+       "pins": [
+        "6"
+       ],
+       "rail_net": "/3V8",
+       "ref": "U25",
+       "role": "ldo",
+       "sheet": "/power/",
+       "value": "LD3920_33"
+      },
+      {
+       "children": [
+        {
+         "fitted": true,
+         "other_net": "Net-(U8-MODE)",
+         "other_parts": [
+          "R92=10k"
+         ],
+         "path": [
+          "3V8",
+          "U39",
+          "/fpga/adc/3V0"
+         ],
+         "pins": [
+          "1"
+         ],
+         "rail_net": "/fpga/adc/3V0",
+         "ref": "R91",
+         "role": "pullup",
+         "sheet": "/fpga/adc/",
+         "value": "4.7k"
+        },
+        {
+         "fitted": true,
+         "nets": [
+          "/fpga/adc/3V0",
+          "Net-(U8-SENSEA)",
+          "Net-(U8-SENSEB)"
+         ],
+         "path": [
+          "3V8",
+          "U39",
+          "/fpga/adc/3V0"
+         ],
+         "pins": [
+          "7",
+          "10",
+          "18",
+          "63"
+         ],
+         "rail_net": "/fpga/adc/3V0",
+         "ref": "U8",
+         "role": "ic",
+         "sheet": "/fpga/adc/",
+         "strap_pins": [
+          "19",
+          "62"
+         ],
+         "value": "LTC2292"
+        }
+       ],
+       "fitted": true,
+       "gnd_pin": "2",
+       "out_net": "/fpga/adc/3V0",
+       "path": [
+        "3V8",
+        "/3V8"
+       ],
+       "pins": [
+        "1",
+        "3"
+       ],
+       "rail_net": "/3V8",
+       "ref": "U39",
+       "role": "ldo",
+       "sheet": "/fpga/adc/",
+       "value": "LP5907-3.0"
+      }
+     ],
+     "inductor": "L6",
+     "net": "/3V8",
+     "regulator": "U18"
+    },
+    "5V6": {
+     "consumers": [
+      {
+       "fitted": true,
+       "other_net": "Net-(D7-A)",
+       "other_parts": [
+        "D7=LED"
+       ],
+       "path": [
+        "5V6",
+        "/power/5V6"
+       ],
+       "pins": [
+        "1"
+       ],
+       "rail_net": "/power/5V6",
+       "ref": "R27",
+       "role": "led_branch",
+       "sheet": "/power/",
+       "value": "1k"
+      },
+      {
+       "fitted": true,
+       "other_net": "Net-(U19-FB)",
+       "other_parts": [
+        "R37=12k"
+       ],
+       "path": [
+        "5V6",
+        "/power/5V6"
+       ],
+       "pins": [
+        "1"
+       ],
+       "rail_net": "/power/5V6",
+       "ref": "R36",
+       "role": "divider_top",
+       "sheet": "/power/",
+       "value": "100k"
+      },
+      {
+       "children": [
+        {
+         "fitted": true,
+         "other_net": "Net-(U22-ADJ)",
+         "other_parts": [
+          "R44=2k"
+         ],
+         "path": [
+          "5V6",
+          "U22",
+          "/5V"
+         ],
+         "pins": [
+          "1"
+         ],
+         "rail_net": "/5V",
+         "ref": "R43",
+         "role": "divider_top",
+         "sheet": "/power/",
+         "value": "18k"
+        },
+        {
+         "fitted": true,
+         "other_net": "Net-(U29-VSET)",
+         "other_parts": [],
+         "path": [
+          "5V6",
+          "U22",
+          "/mixer/5VF"
+         ],
+         "pins": [
+          "1"
+         ],
+         "rail_net": "/mixer/5VF",
+         "ref": "R49",
+         "role": "bias_set",
+         "sheet": "/mixer/",
+         "value": "2k"
+        },
+        {
+         "fitted": true,
+         "other_net": "/mixer/IF1+",
+         "other_parts": [
+          "R56=0"
+         ],
+         "path": [
+          "5V6",
+          "U22",
+          "/mixer/5VF"
+         ],
+         "pins": [
+          "2"
+         ],
+         "rail_net": "/mixer/5VF",
+         "ref": "R51",
+         "role": "if_output_bias",
+         "sheet": "/mixer/",
+         "value": "49.9"
+        },
+        {
+         "fitted": true,
+         "other_net": "/mixer/IF1-",
+         "other_parts": [
+          "R55=0"
+         ],
+         "path": [
+          "5V6",
+          "U22",
+          "/mixer/5VF"
+         ],
+         "pins": [
+          "1"
+         ],
+         "rail_net": "/mixer/5VF",
+         "ref": "R52",
+         "role": "if_output_bias",
+         "sheet": "/mixer/",
+         "value": "49.9"
+        },
+        {
+         "fitted": true,
+         "other_net": "/mixer/IF2-",
+         "other_parts": [
+          "R58=0"
+         ],
+         "path": [
+          "5V6",
+          "U22",
+          "/mixer/5VF"
+         ],
+         "pins": [
+          "2"
+         ],
+         "rail_net": "/mixer/5VF",
+         "ref": "R53",
+         "role": "if_output_bias",
+         "sheet": "/mixer/",
+         "value": "49.9"
+        },
+        {
+         "fitted": true,
+         "other_net": "/mixer/IF2+",
+         "other_parts": [
+          "R57=0"
+         ],
+         "path": [
+          "5V6",
+          "U22",
+          "/mixer/5VF"
+         ],
+         "pins": [
+          "1"
+         ],
+         "rail_net": "/mixer/5VF",
+         "ref": "R54",
+         "role": "if_output_bias",
+         "sheet": "/mixer/",
+         "value": "49.9"
+        },
+        {
+         "fitted": true,
+         "nets": [
+          "Net-(U1-VP)"
+         ],
+         "path": [
+          "5V6",
+          "U22",
+          "Net-(U1-VP)"
+         ],
+         "pins": [
+          "22"
+         ],
+         "rail_net": "Net-(U1-VP)",
+         "ref": "U1",
+         "role": "ic",
+         "sheet": "/tx/",
+         "strap_pins": [],
+         "value": "ADF4158"
+        },
+        {
+         "fitted": true,
+         "nets": [
+          "Net-(U14-VCC1)",
+          "Net-(U14-VCC2)"
+         ],
+         "path": [
+          "5V6",
+          "U22",
+          "Net-(U14-VCC1)"
+         ],
+         "pins": [
+          "18",
+          "19",
+          "20"
+         ],
+         "rail_net": "Net-(U14-VCC1)",
+         "ref": "U14",
+         "role": "ic",
+         "sheet": "/tx/",
+         "strap_pins": [],
+         "value": "TQP5525"
+        },
+        {
+         "fitted": true,
+         "nets": [
+          "/mixer/5VF"
+         ],
+         "path": [
+          "5V6",
+          "U22",
+          "/mixer/5VF"
+         ],
+         "pins": [
+          "6",
+          "13",
+          "24"
+         ],
+         "rail_net": "/mixer/5VF",
+         "ref": "U29",
+         "role": "ic",
+         "sheet": "/mixer/",
+         "strap_pins": [],
+         "value": "ADL5802"
+        }
+       ],
+       "fitted": true,
+       "gnd_pin": "4",
+       "out_net": "/5V",
+       "path": [
+        "5V6",
+        "/power/5V6"
+       ],
+       "pins": [
+        "6",
+        "7",
+        "8"
+       ],
+       "rail_net": "/power/5V6",
+       "ref": "U22",
+       "role": "ldo",
+       "sheet": "/power/",
+       "value": "LD3920"
+      }
+     ],
+     "inductor": "L7",
+     "net": "/power/5V6",
+     "regulator": "U19"
+    }
+   },
+   "summary": {
+    "1V0": {
+     "ics": [
+      "U30"
+     ],
+     "ldos": [],
+     "not_fitted": [],
+     "resistors": [
+      "R32"
+     ]
+    },
+    "3V8": {
+     "ics": [
+      "J2",
+      "U1",
+      "U6",
+      "U8",
+      "U9",
+      "U10",
+      "U11",
+      "U13",
+      "U16",
+      "U30",
+      "U32",
+      "U33",
+      "U40",
+      "U45",
+      "Y2"
+     ],
+     "ldos": [
+      "U20",
+      "U23",
+      "U24",
+      "U25",
+      "U39"
+     ],
+     "not_fitted": [],
+     "resistors": [
+      "R14",
+      "R24",
+      "R34",
+      "R45",
+      "R47",
+      "R72",
+      "R73",
+      "R91",
+      "R104",
+      "R111",
+      "R112",
+      "R117",
+      "R118"
+     ]
+    },
+    "5V6": {
+     "ics": [
+      "U1",
+      "U14",
+      "U29"
+     ],
+     "ldos": [
+      "U22"
+     ],
+     "not_fitted": [],
+     "resistors": [
+      "R27",
+      "R36",
+      "R43",
+      "R49",
+      "R51",
+      "R52",
+      "R53",
+      "R54"
+     ]
+    }
+   }
+  }
+ },
+ "source": "kicad-cli sch export netlist of kicad/ and kicad-1rx/; parts/rx1_changes.csv"
+}
