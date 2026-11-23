@@ -198,6 +198,19 @@ entries:
   sha256: c37046ada66d8357ec59dd9f001de8907978cef20e4761f7f3a4de64222a86fa
   licence: ECS copyright; not redistributed here
   commit: 'no'
+- id: epson-tg2520smn-datasheet
+  kind: datasheet
+  title: Epson TG2520SMN 40 MHz clipped-sine TCXO, X1G0054210307 (model TG2520SMN 40.000000 MHz
+    MCGNNM; JLC C3007519), Y2 candidate in the existing 2.5x2.0 mm footprint. p.1 part spec
+    (supply, output 0.8 V p-p min, external DC-cut capacitor 0.01 uF min), p.2 and p.14 pins
+    (pin 1 N.C., no Vc in the N code) and recommended footprint. Saved by the user from the JLC
+    part page on 2026-11-23
+  url: https://jlcpcb.com/partdetail/C3007519
+  access: form
+  file: datasheets/files/epson/tg2520smn-x1g0054210307.pdf
+  sha256: 710b61ebd4eae1272dd358727920bbdee58c50b20cf5a5db56d5bc6a427c634e
+  licence: Seiko Epson copyright; not redistributed here
+  commit: 'no'
 - id: microchip-pl133-37-datasheet
   kind: datasheet
   title: Microchip (Micrel) PL133-37 1:3 fanout clock buffer, Rev 02/24/15 (U6, clock buffer)
