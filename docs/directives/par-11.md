@@ -1,5 +1,5 @@
 # par-11: Load budget for the three buck rails and the APS0650M330A inductor check
-Status: approved
+Status: blocked: review gaps remain: results/par-11.json (metrics, recorded at commit b84104a) and reports/12_rail_loads.pdf: The recorded result was not rewritten after the VCCAUX fix in 5507711. It still holds dc_max_a=1.165 and peak_max_a=1.278, which are the 5V6 figures. The scripts now give 3V8 (2-RX) as the worst rail, with DC 1.184 A and peak 1.282 A. The PDF the result points to (sha ff4f3f...) is the build from before the fix, so it still shows the old 36/76 mA VCCAUX row. Step 6 asks for the worst-case peak and DC in the result, and the report as its file.; analysis/12_rail_loads/writeup.md:88-91; analysis/12_rail_loads/deck.yaml:15: The findings text still says 5V6 is the tightest rail and that 1V0 and 3V8 have more than a factor of two under the DC mark. After the fix, 3V8 on the 2-RX board is the tightest rail: DC 1.184 A against 1.165 A for 5V6, and peak 1.282 A against 1.278 A. Its DC margin is 1.547/1.184 = 1.31x, not more than 2x. The pass result does not change, but the report and deck now say something the scripts' figures contradict.; docs/board-changes.md:40 and :53 (L5-L7 rows, both boards): The step 7 numbers in board-changes still come from before the VCCAUX fix, so the 3V8 figures are stale. 2-RX board: peak 1.070 and DC 0.972 A are listed; the scripts now give 1.282 and 1.184 A. 1-RX board: 0.938 and 0.840 A are listed; the scripts now give 1.150 and 1.052 A. The 3V8 copper loss is listed as 32 and 18 mW; it is now 42 and 26 mW. Step 7 and the board-changes rule require the analysis's own numbers.
 Goal: parts
 Node: any
 Deliverable: slides
@@ -73,3 +73,18 @@ is below the limits in step 4, on both boards, and the report shows how each num
 - `friday result write par-11 *`
 
 ## Log
+
+### 2026-11-23
+Commits:
+- ed16b46 targets: default performance values from the user (max range 1500 m, antenna gain 18 dBi)
+- 50f1921 par-11 step 1: per-rail consumer list from the 2-RX and 1-RX netlists
+- 369fb53 par-11 step 2: per-consumer current, typical and maximum, with manifest id and page
+- 5997e18 par-11 step 3: 1V0 FPGA core (VCCINT+VCCBRAM) typical 96 mA, bounded worst case 475 mA
+- 439ed28 par-11 step 4: per-rail DC load, inductor ripple and peak against the APS0650M330A pass marks
+- b84104a par-11 step 5: tests for rail sums, ripple hand case and APS0650M330A pass marks
+- 4fa0010 par-11 step 6: rail load report and deck, APS0650M330A passes on all rails of both boards
+- 13f34b9 par-11 step 7: APS0650M330A check result in the L5-L7 rows of board-changes, both boards
+- 5507711 par-11: U30 VCCAUX row from the routed power report (typ 97 mA, bounded max 288 mA with VCCADC); open item added
+Verify: Verify passed: ./run tools/build_report.py analysis/12_rail_loads --check && friday result check par-11 --require 'aps0650_ok == 1' --files && ./run uv run pytest tests/test_rail_loads.py -q
+Independent review: not recorded
+Blocked: review gaps remain: results/par-11.json (metrics, recorded at commit b84104a) and reports/12_rail_loads.pdf: The recorded result was not rewritten after the VCCAUX fix in 5507711. It still holds dc_max_a=1.165 and peak_max_a=1.278, which are the 5V6 figures. The scripts now give 3V8 (2-RX) as the worst rail, with DC 1.184 A and peak 1.282 A. The PDF the result points to (sha ff4f3f...) is the build from before the fix, so it still shows the old 36/76 mA VCCAUX row. Step 6 asks for the worst-case peak and DC in the result, and the report as its file.; analysis/12_rail_loads/writeup.md:88-91; analysis/12_rail_loads/deck.yaml:15: The findings text still says 5V6 is the tightest rail and that 1V0 and 3V8 have more than a factor of two under the DC mark. After the fix, 3V8 on the 2-RX board is the tightest rail: DC 1.184 A against 1.165 A for 5V6, and peak 1.282 A against 1.278 A. Its DC margin is 1.547/1.184 = 1.31x, not more than 2x. The pass result does not change, but the report and deck now say something the scripts' figures contradict.; docs/board-changes.md:40 and :53 (L5-L7 rows, both boards): The step 7 numbers in board-changes still come from before the VCCAUX fix, so the 3V8 figures are stale. 2-RX board: peak 1.070 and DC 0.972 A are listed; the scripts now give 1.282 and 1.184 A. 1-RX board: 0.938 and 0.840 A are listed; the scripts now give 1.150 and 1.052 A. The 3V8 copper loss is listed as 32 and 18 mW; it is now 42 and 26 mW. Step 7 and the board-changes rule require the analysis's own numbers.
