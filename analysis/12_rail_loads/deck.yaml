@@ -1,0 +1,44 @@
+slides:
+  - layout: title
+    title: "Buck rail loads: APS0650M330A check"
+    bullets:
+      - "1V0 (U17), 3V8 (U18), 5V6 (U19), on the 2-RX and 1-RX boards"
+      - "Result: the inductor holds the worst-case load on every rail of both boards"
+    note: The user chose the APS0650M330A for L5-L7 on 2026-11-23, subject to this check. The inductor choice stays with the user; this deck is evidence. Nothing under kicad/ or kicad-1rx/ was changed.
+  - layout: table
+    title: "Peak and DC load against the pass marks"
+    table: summary.csv
+    note: Peak = DC max + ripple/2, ripple at 500 kHz (the worse of the two suffixes) with L 20 % low (26.4 uH), VIN 12 V, ti-lmr51420 equation 10 (p18). Pass marks are 60 % of Isat 3.53 A = 2.12 A for the peak and 2/3 of Irms 2.32 A = 1.55 A for DC (coilank-aps1040m330a-datasheet p6 and p1). Cu loss is I typ squared times the 178 mohm maximum DCR.
+  - layout: figure
+    title: "Worst case against Isat and Irms"
+    figure: peak_vs_limit.png
+    note: The tightest rail is 5V6, with the TQP5525 PA (850 mA maximum) and the ADL5802 mixer. The 1V0 and 3V8 rails have more than a factor of two under the DC mark. The result is the same at 1.1 MHz, where the ripple is less than half.
+  - layout: figure
+    title: "1V0 (U17, L5): consumers"
+    figure: consumers_1V0.png
+    note: The FPGA core has no datasheet number. Typical is from the Vivado routed power report committed in davidmhunt/fmcw3-ckflight-fw (confidence Low, no activity file); the worst case is DS181 static plus 4 times the report's dynamic current, a 50 % toggle rate on every net. The Vivado power report of the final design replaces it.
+  - layout: figure
+    title: "3V8 (U18, L6): consumers by LDO branch"
+    figure: consumers_3V8.png
+    note: Each branch includes the LDO's ground current, which the LDO passes back to the buck. The row-by-row table with manifest id and page is in the written report. The 1-RX board leaves out U13 and U16, uses the AD9237 in place of the LTC2292, and adds R990 and R991.
+  - layout: figure
+    title: "5V6 (U19, L7): consumers"
+    figure: consumers_5V6.png
+    note: Identical on both boards. U14 is the TQP5525 current; par-07 replaces that part and the QPA9501 current at 25.5 dBm is not in its datasheet. LED colour is not chosen, so Vf is bounded.
+  - layout: bullet
+    title: "Fault case (no pass mark)"
+    bullets:
+      - "LMR51420 high-side peak current limit 2.7 / 3.5 / 5.1 A min / typ / max (ti-lmr51420 p5) against Isat 3.53 A: 76 %, 99 %, 144 %"
+      - "At the typical limit the inductor is at its saturation point; at the maximum limit it saturates before the regulator limits"
+      - "Hiccup (p14): FB below 40 % of the reference with the low-side switch at its limit for 256 cycles; off for 135 ms typ, then restart; 33 ms blanking at power-up"
+      - "An overload that keeps FB above 40 % is limited cycle by cycle at the peak limit, not by hiccup"
+    note: The directive names page 18 for hiccup; hiccup is section 8.3.6 on PDF page 14, and page 18 holds the inductor equation 10. The working loads are far below Isat, so saturation can only occur in a fault. Whether that is acceptable is the user's call.
+  - layout: decisions
+    title: "Open items"
+    bullets:
+      - "Yours to decide: nothing blocks the APS0650M330A; confirm it for L5-L7 on both boards"
+      - "VCCINT is an estimate (report confidence Low); the final-design Vivado report replaces it, and 1V0 has a large margin"
+      - "U17-U19 suffix (500 kHz or 1.1 MHz) is unresolved; the result holds at both"
+      - "Re-run when the PA is chosen (par-07): 5V6 has the least headroom; header J2 (100 mA allowance) and LED colours are not set"
+      - "Isat has no stated tolerance (the 60 % mark is the margin); simulation of the bucks is out of scope (sim-05)"
+    note: The agent records the result in docs/board-changes.md for the L5-L7 rows of both boards in the next step.
