@@ -26,7 +26,9 @@ schematic alone has an MPN on every placed part and the netlist is unchanged.
    `./run checks/run_checks.sh`. Ask the user to reopen KiCad and spot-check (see Review).
    Apply the same fields to `kicad-1rx/` (rx1-01's copy), under the same `closed` check and
    netlist diff, so rx1-03 starts from a fielded 1-RX schematic. (Amended 2026-11-22 for the
-   two-board plan.)
+   two-board plan.) Where the par-03 accept note gives a choice per board, write each project its
+   own: today U6 is PL133-37TI-R in `kicad/` (2-RX) and PL133-37TC-R in `kicad-1rx/` (1-RX); the
+   dry run prints the per-board refs separately. (Amended 2026-11-23.)
 4. Remove the `parts/decisions.csv` merge path from `parts/bom.py` so the schematic is the only
    source; keep the CSV as the record of why. Re-run the BOM and commit `parts/out/`.
 
