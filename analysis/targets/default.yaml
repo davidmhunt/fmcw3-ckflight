@@ -46,7 +46,7 @@ design:
 # Optional extras: performance goals that analyses may use.
 performance:
   max_range_m:
-    value: 100
+    value: 1500
     unit: m
     status: assumed
     note: maximum detection range
@@ -55,6 +55,6 @@ performance:
     unit: s
     status: assumed
   antenna_gain_dbi:
-    value: 8
+    value: 18
     unit: dBi
     status: assumed
