@@ -1,0 +1,241 @@
+{
+ "aps0650_ok": 1,
+ "boards": {
+  "1rx": {
+   "1V0": {
+    "copper_loss_max_w": 0.040162264606407996,
+    "copper_loss_typ_w": 0.0016406530624079997,
+    "dc_margin_a": 1.0716606666666664,
+    "dc_max_a": 0.475006,
+    "dc_ok": true,
+    "dc_typ_a": 0.096006,
+    "peak_margin_a": 1.6080194545454545,
+    "peak_max_a": {
+     "1.1 MHz": 0.490903520661157,
+     "500 kHz": 0.5099805454545454
+    },
+    "peak_ok": true,
+    "peak_typ_a": {
+     "1.1 MHz": 0.11190352066115702,
+     "500 kHz": 0.13098054545454546
+    },
+    "peak_worst_a": 0.5099805454545454,
+    "ripple_nominal_L_pp_a": {
+     "1.1 MHz": 0.025436033057851245,
+     "500 kHz": 0.05595927272727274
+    },
+    "ripple_pp_a": {
+     "1.1 MHz": 0.031795041322314054,
+     "500 kHz": 0.06994909090909092
+    },
+    "ripple_worst_a": 0.06994909090909092,
+    "vout_v": 1.008
+   },
+   "3V8": {
+    "copper_loss_max_w": 0.1254928154197415,
+    "copper_loss_typ_w": 0.01828707988263712,
+    "dc_margin_a": 0.7070144666666665,
+    "dc_max_a": 0.8396522,
+    "dc_ok": true,
+    "dc_typ_a": 0.3205252,
+    "peak_margin_a": 1.179870609813367,
+    "peak_max_a": {
+     "1.1 MHz": 0.8844145591757422,
+     "500 kHz": 0.9381293901866328
+    },
+    "peak_ok": true,
+    "peak_typ_a": {
+     "1.1 MHz": 0.3652875591757422,
+     "500 kHz": 0.4190023901866329
+    },
+    "peak_worst_a": 0.9381293901866328,
+    "ripple_nominal_L_pp_a": {
+     "1.1 MHz": 0.07161977468118752,
+     "500 kHz": 0.15756350429861254
+    },
+    "ripple_pp_a": {
+     "1.1 MHz": 0.0895247183514844,
+     "500 kHz": 0.19695438037326568
+    },
+    "ripple_worst_a": 0.19695438037326568,
+    "vout_v": 3.8085561497326204
+   },
+   "5V6": {
+    "copper_loss_max_w": 0.24142018247999994,
+    "copper_loss_typ_w": 0.14070878817999996,
+    "dc_margin_a": 0.38206666666666655,
+    "dc_max_a": 1.1645999999999999,
+    "dc_ok": true,
+    "dc_typ_a": 0.8890999999999999,
+    "peak_margin_a": 0.8402686868686868,
+    "peak_max_a": {
+     "1.1 MHz": 1.2160233241505967,
+     "500 kHz": 1.277731313131313
+    },
+    "peak_ok": true,
+    "peak_typ_a": {
+     "1.1 MHz": 0.9405233241505968,
+     "500 kHz": 1.002231313131313
+    },
+    "peak_worst_a": 1.277731313131313,
+    "ripple_nominal_L_pp_a": {
+     "1.1 MHz": 0.08227731864095501,
+     "500 kHz": 0.18101010101010104
+    },
+    "ripple_pp_a": {
+     "1.1 MHz": 0.10284664830119376,
+     "500 kHz": 0.22626262626262628
+    },
+    "ripple_worst_a": 0.22626262626262628,
+    "vout_v": 5.6000000000000005
+   }
+  },
+  "2rx": {
+   "1V0": {
+    "copper_loss_max_w": 0.040162264606407996,
+    "copper_loss_typ_w": 0.0016406530624079997,
+    "dc_margin_a": 1.0716606666666664,
+    "dc_max_a": 0.475006,
+    "dc_ok": true,
+    "dc_typ_a": 0.096006,
+    "peak_margin_a": 1.6080194545454545,
+    "peak_max_a": {
+     "1.1 MHz": 0.490903520661157,
+     "500 kHz": 0.5099805454545454
+    },
+    "peak_ok": true,
+    "peak_typ_a": {
+     "1.1 MHz": 0.11190352066115702,
+     "500 kHz": 0.13098054545454546
+    },
+    "peak_worst_a": 0.5099805454545454,
+    "ripple_nominal_L_pp_a": {
+     "1.1 MHz": 0.025436033057851245,
+     "500 kHz": 0.05595927272727274
+    },
+    "ripple_pp_a": {
+     "1.1 MHz": 0.031795041322314054,
+     "500 kHz": 0.06994909090909092
+    },
+    "ripple_worst_a": 0.06994909090909092,
+    "vout_v": 1.008
+   },
+   "3V8": {
+    "copper_loss_max_w": 0.16816885296122946,
+    "copper_loss_typ_w": 0.031829065972045115,
+    "dc_margin_a": 0.5746744666666666,
+    "dc_max_a": 0.9719921999999999,
+    "dc_ok": true,
+    "dc_typ_a": 0.4228652,
+    "peak_margin_a": 1.0475306098133672,
+    "peak_max_a": {
+     "1.1 MHz": 1.016754559175742,
+     "500 kHz": 1.0704693901866327
+    },
+    "peak_ok": true,
+    "peak_typ_a": {
+     "1.1 MHz": 0.46762755917574217,
+     "500 kHz": 0.5213423901866329
+    },
+    "peak_worst_a": 1.0704693901866327,
+    "ripple_nominal_L_pp_a": {
+     "1.1 MHz": 0.07161977468118752,
+     "500 kHz": 0.15756350429861254
+    },
+    "ripple_pp_a": {
+     "1.1 MHz": 0.0895247183514844,
+     "500 kHz": 0.19695438037326568
+    },
+    "ripple_worst_a": 0.19695438037326568,
+    "vout_v": 3.8085561497326204
+   },
+   "5V6": {
+    "copper_loss_max_w": 0.24142018247999994,
+    "copper_loss_typ_w": 0.14070878817999996,
+    "dc_margin_a": 0.38206666666666655,
+    "dc_max_a": 1.1645999999999999,
+    "dc_ok": true,
+    "dc_typ_a": 0.8890999999999999,
+    "peak_margin_a": 0.8402686868686868,
+    "peak_max_a": {
+     "1.1 MHz": 1.2160233241505967,
+     "500 kHz": 1.277731313131313
+    },
+    "peak_ok": true,
+    "peak_typ_a": {
+     "1.1 MHz": 0.9405233241505968,
+     "500 kHz": 1.002231313131313
+    },
+    "peak_worst_a": 1.277731313131313,
+    "ripple_nominal_L_pp_a": {
+     "1.1 MHz": 0.08227731864095501,
+     "500 kHz": 0.18101010101010104
+    },
+    "ripple_pp_a": {
+     "1.1 MHz": 0.10284664830119376,
+     "500 kHz": 0.22626262626262628
+    },
+    "ripple_worst_a": 0.22626262626262628,
+    "vout_v": 5.6000000000000005
+   }
+  }
+ },
+ "dc_max_a": 1.1645999999999999,
+ "fault": {
+  "hiccup": {
+   "action": "the converter shuts down and stays off for tHICCUP, 135 ms typ, then restarts; it repeats while the fault remains",
+   "blanking": "tOCP_BLK 33 ms at power-up, so the soft-start inrush does not trigger it",
+   "note": "the directive names p.18; hiccup is on PDF page 14 (section 8.3.6), p.18 holds the inductor equation 10",
+   "page": 14,
+   "trigger": "FB below 40 % of VREF and the low-side switch at ILS_LIMIT for 256 consecutive cycles"
+  },
+  "ihs_pk_oc_a": {
+   "max": 5.1,
+   "min": 2.7,
+   "typ": 3.5
+  },
+  "ils_valley_a": {
+   "max": 3.4,
+   "min": 1.7,
+   "typ": 2.5
+  },
+  "iout_max_eq8_a": {
+   "max": 4.25,
+   "min": 2.2,
+   "typ": 3.0
+  },
+  "isat_a": 3.53,
+  "overload": "an overload that keeps FB above 40 % of VREF is limited cycle by cycle at the peak limit, not hiccup; the inductor then carries up to the peak limit",
+  "peak_limit_over_isat": {
+   "max": 1.4447592067988668,
+   "min": 0.764872521246459,
+   "typ": 0.991501416430595
+  },
+  "saturates_at": {
+   "max": true,
+   "min": false,
+   "typ": false
+  }
+ },
+ "inductor": {
+  "L_uH": 33.0,
+  "dcr_ohm": 0.178,
+  "irms_a": 2.32,
+  "isat_a": 3.53,
+  "manifest_id": "coilank-aps1040m330a-datasheet",
+  "page": 6,
+  "part": "APS0650M330A"
+ },
+ "l_low_uh": 26.400000000000002,
+ "l_nom_uh": 33.0,
+ "limits": {
+  "dc_a": 1.5466666666666664,
+  "dc_frac": 0.6666666666666666,
+  "lmr_rating_a": 2.0,
+  "peak_a": 2.118,
+  "peak_frac": 0.6
+ },
+ "peak_max_a": 1.277731313131313,
+ "source": "analysis/12_rail_loads/loads.py; currents from currents.py, FPGA core from vccint.py; A",
+ "vin_v": 12.0
+}
