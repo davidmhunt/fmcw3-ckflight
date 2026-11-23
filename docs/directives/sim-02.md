@@ -13,8 +13,10 @@ with the replacement 33 uH inductor, and the LT6232 IF amplifier and filter resp
 when each has a result against a limit written beforehand.
 
 ## Steps
-1. Buck (U17-U19): from the datasheet design equations, for each rail's load current (lay-02
-   budget): ripple current, peak current versus the chosen inductor's saturation current, output
+1. Buck (U17-U19): from the datasheet design equations, for each rail's load current (the par-11
+   load budget, `reports/12_rail_loads.pdf`; amended 2026-11-23: par-11 replaces the lay-02 budget
+   and its ripple and saturation check, so this step reuses it and adds output ripple, stability
+   and the model cross-check, for the APS0650M330A the user chose): ripple current, peak current versus the chosen inductor's saturation current, output
    ripple, and the stability conditions the datasheet gives. Cross-check one rail with the TI
    model in PSpice for TI if sim-05 found it runs; otherwise give the user a short
    WEBENCH (browser) checklist and record their result.

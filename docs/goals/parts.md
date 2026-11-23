@@ -37,12 +37,17 @@ quote page with every line in stock (rx1-04).
 9. rx1-01: 1-RX KiCad project, and tools that take a project (added 2026-11-22)
 10. rx1-02: 1-RX design: AD9237 ADC, RX2 not fitted, JLC-stock-only parts, each change checked
    (added 2026-11-22)
-11. par-04: Write MPN, DigiKey and LCSC fields into the schematic symbols (both projects,
+11. par-11: Load budget for the three buck rails and the APS0650M330A inductor check (added
+   2026-11-23 at the user's request)
+12. par-04: Write MPN, DigiKey and LCSC fields into the schematic symbols (both projects,
    amended 2026-11-22)
-12. rx1-03: Apply the 1-RX schematic changes in kicad-1rx/ (added 2026-11-22)
-13. par-05: Ordering BOMs from the schematic that DigiKey and JLCPCB ingest directly (added
+13. par-12: Apply the par-03 part changes to the 2-RX schematic, L5-L7 first (added 2026-11-23 at
+   the user's request)
+14. rx1-03: Apply the 1-RX schematic changes in kicad-1rx/ (added 2026-11-22; L5-L7 amended
+   2026-11-23)
+15. par-05: Ordering BOMs from the schematic that DigiKey and JLCPCB ingest directly (added
    2026-11-21 at the user's request; `--project`, amended 2026-11-22)
-14. rx1-04: 1-RX fabrication and JLCPCB order package (added 2026-11-22)
+16. rx1-04: 1-RX fabrication and JLCPCB order package (added 2026-11-22)
 
 ## Notes
 - Written 2026-11-19 with goal `foundation`; re-check against `docs/surveys/upstream-survey.md`
