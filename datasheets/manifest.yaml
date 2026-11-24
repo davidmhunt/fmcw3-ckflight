@@ -1496,6 +1496,18 @@ entries:
   sha256: eedd7e9a4df57c7ef52e811f7d2a1368c24b8c2f93f8b92722254e4bfa81ce49
   licence: Mini-Circuits copyright; not redistributed here
   commit: 'no'
+- id: minicircuits-mc1630-case
+  kind: drawing
+  title: Mini-Circuits case style MC1630 (MCLP 2 x 2 mm, YAT-3A+), 98-MC Rev. H 03/05/18, sheet 1.
+    Outline A = B 2.00, C 0.80 max, exposed pad D 1.20 x E 0.60; suggested land pattern L 2.70
+    overall, pads P 0.80 x Q 0.30 at H 0.65 pitch, centre pad M 1.25 x N 0.65 with a 45 degree
+    chamfer at pin 1. Saved by the user on 2026-11-24 (exact source URL not recorded)
+  url: https://www.minicircuits.com/
+  access: form
+  file: datasheets/files/minicircuits/mc1630-case.pdf
+  sha256: b0df6f6ef58dbb6b7ab66d89be19b95ac73dd04f1f61f20c8e8114b3ed4e2cd8
+  licence: Mini-Circuits copyright; not redistributed here
+  commit: 'no'
 - id: ti-tps7a24-datasheet
   kind: datasheet
   title: TI TPS7A24 adjustable 200 mA LDO (TPS7A2401DBVR; U21 substitute candidate, par-09)
