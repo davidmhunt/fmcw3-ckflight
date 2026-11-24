@@ -22,6 +22,8 @@ user on 2026-11-23 for both boards:
 - U21: the TI TPS7A4901DGNR (JLC C16430), adjustable, in place of the fixed 10 V LP2985A-10DBVR
   (chosen 2026-11-23, both boards, "if possible"; the fallback in `docs/par-03-choices.md` goes
   back to the user if step 5 shows it cannot fit).
+- U12: the Mini-Circuits YAT-3A+ 3 dB attenuator (JLC C5205332, MCLP 2 x 2 mm) in place of the
+  PAT1220-C-3DB-T5, which went out of stock (chosen 2026-11-24, both boards).
 It holds when every netlist difference from the par-04 state is a row of `parts/par03_changes.csv`,
 the new footprint matches the datasheet land pattern, and ERC has no error type above the baseline.
 (Y2 and R19 amended 2026-11-23; U21 amended 2026-11-24.)
@@ -50,6 +52,14 @@ the new footprint matches the datasheet land pattern, and ERC has no error type 
      current >= 5 uA (p.14), nominal output within 1 % of 10 V with VFB 1.185 V (p.6), for example
      165 k and 22.1 k (10.03 V); CFF 10 nF X7R from OUT to FB (p.14-15). Keep the existing input and
      output capacitors.
+   - U12: a 7-pin symbol for the YAT-3A+ (minicircuits-yat-3a-datasheet p.2: 2 RF-IN on
+     `Net-(R11-Pad1)`, 5 RF-OUT on `Net-(C300-Pad1)`, 1, 3, 4, 6 and the centre pad on GND) and a
+     project footprint `MC1630` in `kicad/` and `kicad-1rx/` (same file) from minicircuits-mc1630-case
+     sheet 1: pads 0.30 x 0.80 mm at 0.65 mm pitch in two rows 2.70 mm overall (row centres
+     1.90 mm apart), centre pad 1.25 x 0.65 mm with the 45 degree pin-1 chamfer, body 2.00 x 2.00 mm,
+     courtyard 0.25 mm. Orient it so RF-IN faces R11 and RF-OUT faces C300, as the PAT1220 pads do.
+     Ground vias in and around the centre pad as minicircuits-yat-3a-datasheet p.3 shows (0.2 mm,
+     in-pad vias filled and capped); placing them is the user's.
    Add any others the accept note names.
 3. Package scan, report only: for every placed part on both boards, compare the package size in
    the JLC database row of its LCSC number (or the datasheet when there is no JLC row) with its
@@ -75,6 +85,8 @@ the new footprint matches the datasheet land pattern, and ERC has no error type 
      move and by how much. TI wants every capacitor on the regulator's side, close, with no vias
      (ti-tps7a49-datasheet p.19). If it cannot fit without moving more than neighbouring passives,
      stop with `blocked` and put the fallback in `docs/par-03-choices.md` to the user.
+   - U12: place the MC1630 footprint at U12 and report the clearance to R11, C300 and the other
+     neighbours, and how far R11 or C300 must move (about 0.2 mm expected).
    Report any overlap or shortfall; do not move parts (placement is the user's).
 6. Apply in `kicad/` only: the rows of step 2, with fields `MPN`, `Manufacturer`, `LCSC` and
    `DigiKey` (DigiKey: say if none). `kicad-1rx/` gets the same changes in rx1-03.
@@ -82,7 +94,9 @@ the new footprint matches the datasheet land pattern, and ERC has no error type 
    the par-04 netlist is a row of `parts/par03_changes.csv`, every row is present, R19's
    replacement is a capacitor on the same two nets (`Net-(Y2-OUT)`, `Net-(U6-FIN)`), and the
    APS0650 footprint's pads match the datasheet numbers of step 4, U21's pins sit on the nets of
-   step 2 (pin 7 on no net), and the R1/R2 values give 10 V within 1 % at VFB 1.185 V.
+   step 2 (pin 7 on no net), and the R1/R2 values give 10 V within 1 % at VFB 1.185 V, and U12's
+   RF pins sit on the two old PAT1220 signal nets with every other pad on GND and the MC1630 pads
+   match the drawing numbers.
 8. ERC on `kicad/`; explain or fix any new error type. Add or update the `docs/board-changes.md`
    rows for every row of step 2 (status `applied (<commit>)`, the evidence, the par-11 load result
    for L5-L7, the fit check, and that the Y2 and R19 change has no simulation: the 10 nF
@@ -94,6 +108,8 @@ the new footprint matches the datasheet land pattern, and ERC has no error type 
 ## Review
 - Open `kicad/` sheet `power`: L5-L7 footprint and fields; U21 (TPS7A4901), its divider, CFF,
   C95 on NR/SS and the no-connect on pin 7.
+- Open `kicad/` sheet `tx`: U12 (YAT-3A+) and its pins; open the footprint `MC1630` and compare it
+  with the MC1630 drawing.
 - Open `kicad/` sheet `clock`: Y2 value and fields, and R19's replacement capacitor between Y2 OUT
   and U6 FIN.
 - Open the footprint `APS0650` in the footprint editor and compare its pads with the datasheet p.1.
