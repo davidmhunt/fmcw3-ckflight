@@ -21,7 +21,8 @@ working record. "Both" means the 2-RX board (`kicad/`) and the 1-RX board (`kica
 | atten | U12: Mini-Circuits YAT-3A+ (JLC C5205332, 95 in stock, 3.40 USD), a new option, on both boards. U3: PAT1220-C-6DB-T5 (JLC C32951947, 464 in stock) on both boards, drop-in | both | par-04 (U3 fields), par-12 (2-RX U12), rx1-03 (1-RX U12) | Chosen 2026-11-24 after the PAT1220-C-3DB-T5 (C2654158) went out of stock live and the PAT0816-C-3DB-T5 (C2655485) went to pre-order. YAT-3A+: 2.92 dB typ at 5.8 GHz, VSWR 1.20 typ / 1.7 max 5-15 GHz, 2 W (minicircuits-yat-3a-datasheet p.2, p.4); pads 2 RF-IN, 5 RF-OUT, 1/3/4/6 and centre pad GND (p.2); land pattern from minicircuits-mc1630-case (L 2.70, pads 0.30 x 0.80 at 0.65, centre 1.25 x 0.65). At U12 the land needs 2.70 mm along the path against about 2.56 mm between R11 and C300 courtyards: the user nudges one by about 0.2 mm. Level at U12 about -4 dBm (HMC431 +2 dBm, adi-hmc431lp4-datasheet p.1, less 6 dB in the R9/R11/R12 splitter). Earlier backups, not taken: PAT0816 (0603), a 10/120/10 ohm T pad of Basic 0402s. U12 feeds the PA (U14 RFIN through C300); U3 is on the LO path from coupler Z1 |
 
 2-RX JLC sourcing order so far (the user places it): LTC2292IUP#PBF (U8), PL133-37TI-R (U6),
-5400BL15B0050001E (U26-U28), 3 boards each; plus one LT6232CGN#PBF (U45) if JLC has not restocked.
+5400BL15B0050001E (U26-U28), ADL5802ACPZ-R7 (U29), 3 boards each; plus LT6232CGN#PBF (U45) x 3 if JLC has
+not restocked.
 
 Bought into the JLC parts library: ADL5802ACPZ-R7 x 3 (C657785, 2026-11-22, for 1-RX U29), YAT-3A+
 x 10 (C5205332, 2026-11-24: 6 needed, 4 for assembly attrition and rework).
@@ -30,9 +31,12 @@ Watching (2026-11-24): LT6232CGN#PBF (C673022) shows 2 but pre-order only. Plan 
 back: all three 2-RX U45 go on the JLC sourcing order (LT6232CGN#PBF, DigiKey 611, 12.63 USD; or
 the IGN, 63), same footprint, no design change.
 
-2-RX mixer U29 (ADL5802ACPZ-R7): JLC now 0 (the user bought the 3). The 2-RX needs 3 more on the
-sourcing order (DigiKey 1,470 cut tape, 24.93 USD), unless the 1-RX moves to the single-channel
-ADL5801 (open decision, see rx1-mixer), which would free the 3 bought for the 2-RX.
+Mixer U29, decided 2026-11-24: ADL5802ACPZ-R7 on both boards. The 1-RX uses the 3 the user bought;
+the 2-RX needs 3 more on the JLC sourcing order (DigiKey 1,470 cut tape, 24.93 USD; JLC now 0).
+The single-channel ADL5801 (rx1-mixer option, adi-adl5801-datasheet) was considered for the 1-RX
+and declined: at 5500 MHz about 2.2 dB more noise figure (16.2 against 14 dB) and less conversion
+gain (p.4 against adi-adl5802-datasheet), and every signal pin moves (LO 9/10 to 3/4, RF 22/23 to
+15/16, IF 3/4 to 20/21), so a full reroute around U29 and new rx1-02 IF simulations.
 
 DigiKey order for the user (hand-solder, both boards): CONSMA003.062 x 15 plus spares; the 1-RX
 six must arrive with the 1-RX boards.
