@@ -1,5 +1,5 @@
 # par-03: Resolve part numbers and report availability
-Status: awaiting review
+Status: done
 Goal: parts
 Node: any
 Deliverable: slides
@@ -190,3 +190,5 @@ Choice 6: kicad/libs/fmcw3.lib (96 symbols) still needed?
 Checks run: u30.py compared the 256 U30 netlist pins against the two AMD package files (256 / 256 identical, 0 problems); res.py and res2.py queried JLC and DigiKey; ind.py computed ripple; lib.py and lib2.py counted the fmcw3 library use. Scripts are in the session scratchpad, not committed.
 Verify: Verify passed: ./run tools/build_report.py analysis/01_parts --check && ./run uv run python parts/check_decisions.py
 Independent review: no gaps
+
+Accepted by user: 2026-11-24 Choices per docs/par-03-choices.md (2026-11-23/24). Both boards unless noted. fpga B XC7A100T-1FTG256I. adc B LTC2292IUP#PBF (2-RX, JLC sourcing; 1-RX AD9237 per rx1-02). usbc A USB4105-GF-A. inductor L5-L7 APS0650M330A (par-11 passed). y2 B Epson X1G0054210307, R19 to 10nF DC-cut cap. lmr A LMR51420YFDDCR. tgrade U6 per board: 2-RX PL133-37TI-R (sourced), 1-RX PL133-37TC-R. balun per board: 2-RX Johanson 5400BL15B0050001E (sourced), 1-RX TDK HHM1907B1. opamp U45 per board: 2-RX LT6232CGN#PBF (2 pre-order, rest sourced), 1-RX LT6231CS8#TRPBF. ldo U21 TPS7A4901DGNR if it fits (fallback 2-RX LP2985A-10 sourced, 1-RX TPS7A2401 + CFF). sma CONSMA003.062 DigiKey, hand-solder (Assembly=hand-solder). atten U12 Mini-Circuits YAT-3A+, U3 PAT1220-C-6DB-T5. fb4 B BLM18KG221SN1D (fallback A BLM18PG181SN1D). library A keep. LEDs KT-0603R red. J2 C68234 (no footprint change). CON2 CUI PJ-102AH (fits existing footprint). Mixer U29 ADL5802 both boards (ADL5801 declined). JLC places all else; 2-RX sourcing: LTC2292, PL133-37TI-R, Johanson x9, ADL5802 x3, LT6232CGN as needed.
