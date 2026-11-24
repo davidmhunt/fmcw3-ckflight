@@ -1515,7 +1515,7 @@ entries:
   digikey_url: https://www.digikey.com/en/products/detail/amphenol-rf/132134-15/3088347
 - id: batwireless-bwsma-ke-p001-datasheet
   kind: datasheet
-  title: Bat Wireless BWSMA-KE-P001 SMA edge-mount jack (JLC C496550; P1, P2, U15 substitute candidate, par-09; the LCSC copy returned an HTML page, so the user saves it from the JLC or LCSC part page)
+  title: Bat Wireless BWSMA-KE-P001 SMA vertical through-hole jack (not an edge mount, p.5-6; dropped 2026-11-24) (JLC C496550; P1, P2, U15 substitute candidate, par-09; the LCSC copy returned an HTML page, so the user saves it from the JLC or LCSC part page)
   url: https://www.lcsc.com/product-detail/C496550.html
   access: form
   file: datasheets/files/batwireless/bwsma-ke-p001.pdf

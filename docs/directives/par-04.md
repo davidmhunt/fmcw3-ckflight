@@ -30,7 +30,10 @@ schematic alone has an MPN on every placed part and the netlist is unchanged.
    own: today U6 is PL133-37TI-R in `kicad/` (2-RX) and PL133-37TC-R in `kicad-1rx/` (1-RX); the
    dry run prints the per-board refs separately. (Amended 2026-11-23.) U45 in `kicad/` becomes
    LT6232CGN#PBF (LCSC C673022; value and footprint unchanged); in `kicad-1rx/` U45 keeps the
-   par-03 fields only until rx1-03 swaps it to the LT6231CS8#TRPBF. (Amended 2026-11-23.)
+   par-03 fields only until rx1-03 swaps it to the LT6231CS8#TRPBF. (Amended 2026-11-23.) Parts
+   the user solders by hand get a field `Assembly` = `hand-solder` in both projects, so par-05 can
+   leave them out of the JLC files from the schematic alone: today P1, P2 and U15 (CONSMA003.062,
+   DigiKey; `kicad-1rx/` has P1 and U15 fitted). (Amended 2026-11-24.)
 4. Remove the `parts/decisions.csv` merge path from `parts/bom.py` so the schematic is the only
    source; keep the CSV as the record of why. Re-run the BOM and commit `parts/out/`.
 

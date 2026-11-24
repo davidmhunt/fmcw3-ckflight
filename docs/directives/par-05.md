@@ -30,7 +30,8 @@ recorded that each service matched every line. (Added 2026-11-21 at the user's r
    - quantities per board times the target set's `board_quantity`, plus spares;
    - DNP parts left out;
    - parts JLCPCB will not place (hand-solder, for example the SMA connectors) left out of
-     the JLC files and kept in the DigiKey file;
+     the JLC files and kept in the DigiKey file; they are the symbols with the field
+     `Assembly` = `hand-solder` that par-04 writes (today P1, P2, U15; amended 2026-11-24);
    - CPL rotations corrected for JLCPCB where a footprint's zero rotation differs, from a
      committed `parts/jlc_rotations.csv`, each row with a reason.
    `--check` exits non-zero on a placed part missing the fields its service needs, a designator in
