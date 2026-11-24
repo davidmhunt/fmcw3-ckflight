@@ -1482,6 +1482,20 @@ entries:
   sha256: f69e957b22bcc2db72149f57c96501aedeb4ed214f016c98f562d71411474182
   licence: vendor copyright; not redistributed here
   commit: 'no'
+- id: minicircuits-yat-3a-datasheet
+  kind: datasheet
+  title: Mini-Circuits YAT-3A+ 3 dB fixed attenuator, DC-18 GHz, MCLP 2 x 2 mm, case MC1630, Rev. A
+    (JLC C5205332; U12 backup candidate, 2026-11-24). p.2 specs (5-15 GHz 2.5 to 3.5 dB, VSWR 1.20
+    typ, 1.7 max), pads (2 RF-IN, 5 RF-OUT, 1/3/4/6 and exposed pad GND); p.3 suggested layout
+    PL-586 (CPW on RO4350B, vias only, no pad dimensions); p.4 typical data (2.91 dB at 5 GHz,
+    2.95 dB at 8 GHz). Pad dimensions need the separate PL-586 and MC1630 drawings. Saved by the
+    user from the JLC part page on 2026-11-24
+  url: https://jlcpcb.com/partdetail/C5205332
+  access: form
+  file: datasheets/files/minicircuits/yat-3a.pdf
+  sha256: eedd7e9a4df57c7ef52e811f7d2a1368c24b8c2f93f8b92722254e4bfa81ce49
+  licence: Mini-Circuits copyright; not redistributed here
+  commit: 'no'
 - id: ti-tps7a24-datasheet
   kind: datasheet
   title: TI TPS7A24 adjustable 200 mA LDO (TPS7A2401DBVR; U21 substitute candidate, par-09)
