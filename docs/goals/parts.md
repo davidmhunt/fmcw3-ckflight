@@ -43,15 +43,17 @@ quote page with every line in stock (rx1-04).
    to `reports/archive/` (added 2026-11-24 at the user's request)
 13. par-14: Repeatable parts-availability check and shortage report, both boards (added
    2026-11-24 at the user's request)
-14. par-04: Write MPN, DigiKey and LCSC fields into the schematic symbols (both projects,
+14. rx1-05: Power-up order of 3V3A and 3V0 at the 1-RX ADC inputs, simulated (added 2026-11-24
+   at the user's request)
+15. par-04: Write MPN, DigiKey and LCSC fields into the schematic symbols (both projects,
    amended 2026-11-22)
-15. par-12: Apply the par-03 part changes to the 2-RX schematic: L5-L7, Y2 and R19, and a package
+16. par-12: Apply the par-03 part changes to the 2-RX schematic: L5-L7, Y2 and R19, and a package
    scan of every placed part (added 2026-11-23 at the user's request)
-16. rx1-03: Apply the 1-RX schematic changes in kicad-1rx/ (added 2026-11-22; L5-L7, Y2 and R19
+17. rx1-03: Apply the 1-RX schematic changes in kicad-1rx/ (added 2026-11-22; L5-L7, Y2 and R19
    amended 2026-11-23)
-17. par-05: Ordering BOMs from the schematic that DigiKey and JLCPCB ingest directly (added
+18. par-05: Ordering BOMs from the schematic that DigiKey and JLCPCB ingest directly (added
    2026-11-21 at the user's request; `--project`, amended 2026-11-22)
-18. rx1-04: 1-RX fabrication and JLCPCB order package (added 2026-11-22)
+19. rx1-04: 1-RX fabrication and JLCPCB order package (added 2026-11-22)
 
 ## Notes
 - Written 2026-11-19 with goal `foundation`; re-check against `docs/surveys/upstream-survey.md`
