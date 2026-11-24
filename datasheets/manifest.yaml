@@ -1508,6 +1508,19 @@ entries:
   sha256: b0df6f6ef58dbb6b7ab66d89be19b95ac73dd04f1f61f20c8e8114b3ed4e2cd8
   licence: Mini-Circuits copyright; not redistributed here
   commit: 'no'
+- id: adi-adl5801-datasheet
+  kind: datasheet
+  title: ADI ADL5801 10 MHz to 6 GHz single active mixer, Rev. E (JLC C496495; 1-RX U29 option,
+    rx1-mixer). p.1 pinout (24-lead 4 x 4 LFCSP; RFIP/RFIN, LOIP/LOIN, IFOP/IFON open collector,
+    VSET, ENBL, DETO, VPDT), p.3 interfaces (IF LF to 600 MHz, IF bias externally 4.75 to 5.25 V,
+    130 mA), p.4 at 5500 MHz (power gain -5.2 dB, voltage gain 0.8 dB, SSB NF 16.2 dB, IIP3 22.7 dBm).
+    Saved by the user from the JLC part page on 2026-11-24
+  url: https://jlcpcb.com/partdetail/C496495
+  access: form
+  file: datasheets/files/adi/adl5801.pdf
+  sha256: 1bec1d50e4f55e2349c10b883a1461bab65358e647eb230709b221a0b1605297
+  licence: vendor copyright; not redistributed here
+  commit: 'no'
 - id: ti-tps7a24-datasheet
   kind: datasheet
   title: TI TPS7A24 adjustable 200 mA LDO (TPS7A2401DBVR; U21 substitute candidate, par-09)
