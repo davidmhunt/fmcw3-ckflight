@@ -1631,6 +1631,18 @@ entries:
   sha256: 3a4d6efa1f8e6c296308c7b77758c34168060dbb4eeb96bad996d6edafaf79ea
   licence: vendor copyright; not redistributed here
   commit: 'no'
+- id: cui-pj-102ah-datasheet
+  kind: datasheet
+  title: CUI Devices PJ-102AH DC power jack, 2.0 mm centre pin, 5 A, 24 V, dated 10/30/2019 (JLC
+    C3096093; CON2 on both boards, chosen 2026-11-24). p.1 ratings, p.2 drawing and PCB layout
+    (pins 1 and 2 6.0 mm apart, pin 3 4.7 mm off the axis, holes 1.00 x 1.60). Saved by the user
+    from the JLC part page on 2026-11-24
+  url: https://jlcpcb.com/partdetail/C3096093
+  access: form
+  file: datasheets/files/cui/pj-102ah.pdf
+  sha256: f2b67516f2b7fc59a1583591578fb2d203c4774fffb7a26d62bd93406dcc6f30
+  licence: CUI Devices copyright; not redistributed here
+  commit: 'no'
 - id: shouhan-dc005-datasheet
   kind: datasheet
   title: SHOU HAN DC005 DC barrel jack (JLC C431533; CON2 candidate, par-09; the LCSC datasheet link returned an HTML page, so the user saves it from the JLC or LCSC part page)
