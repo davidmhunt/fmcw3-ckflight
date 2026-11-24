@@ -23,9 +23,16 @@ working record. "Both" means the 2-RX board (`kicad/`) and the 1-RX board (`kica
 2-RX JLC sourcing order so far (the user places it): LTC2292IUP#PBF (U8), PL133-37TI-R (U6),
 5400BL15B0050001E (U26-U28), 3 boards each; plus one LT6232CGN#PBF (U45) if JLC has not restocked.
 
-Buy now into the JLC parts library (thin stock, 2026-11-24): LT6232CGN#PBF x 2 (C673022), YAT-3A+
-x 10 (C5205332: 6 needed, 4 for assembly attrition and rework). Already bought: ADL5802ACPZ-R7
-(2026-11-23).
+Bought into the JLC parts library: ADL5802ACPZ-R7 x 3 (C657785, 2026-11-22, for 1-RX U29), YAT-3A+
+x 10 (C5205332, 2026-11-24: 6 needed, 4 for assembly attrition and rework).
+
+Watching (2026-11-24): LT6232CGN#PBF (C673022) shows 2 but pre-order only. Plan if it does not come
+back: all three 2-RX U45 go on the JLC sourcing order (LT6232CGN#PBF, DigiKey 611, 12.63 USD; or
+the IGN, 63), same footprint, no design change.
+
+2-RX mixer U29 (ADL5802ACPZ-R7): JLC now 0 (the user bought the 3). The 2-RX needs 3 more on the
+sourcing order (DigiKey 1,470 cut tape, 24.93 USD), unless the 1-RX moves to the single-channel
+ADL5801 (open decision, see rx1-mixer), which would free the 3 bought for the 2-RX.
 
 DigiKey order for the user (hand-solder, both boards): CONSMA003.062 x 15 plus spares; the 1-RX
 six must arrive with the 1-RX boards.
