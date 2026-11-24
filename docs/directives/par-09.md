@@ -1,5 +1,5 @@
 # par-09: JLC sourcing plan for every line JLCPCB cannot place today
-Status: awaiting review
+Status: done
 Goal: parts
 Node: any
 Deliverable: slides
@@ -266,3 +266,5 @@ Notes:
 - Compared with consignment: sourcing removes the user DigiKey order and shipping to JLC; the user still waits 9-20 business days after paying, and cannot choose the distributor. The consign route lead times in step 3 (DigiKey weeks plus shipping) are unchanged.
 Verify: Verify passed: ./run tools/build_report.py analysis/03_sourcing --check && ./run uv run python parts/check_decisions.py
 Independent review: gaps fixed in second review: 1. analysis/03_sourcing/figures.py:286 (SUMMARY, 'Needing analysis or layout' row; shown on deck slide 2 and in the report summary table): The summary still says the SMA line P1/P2/U15 needs 'footprint, datasheets to fetch'. That is no longer true. The Bat Wireless datasheet is pinned and cited at p4 and p6, and the only unfetched sheet belonged to the Amphenol 132134-15 route, which c50ca87 dropped. The summary slide therefore tells the user the SMA substitute is still waiting on a fetch, which contradicts the routes table, deck.yaml:23, choices.json:161-164 and board-changes.md:33. This is a small correctness slip in the deliverable. It is the same kind of stale text the last review flagged in choices.json. (evidence: figures.py:286: 'P1/P2/U15 (footprint, datasheets to fetch)'. The routes for that line (figures.py:120-133) cite batwireless-bwsma-ke-p001-datasheet p4 and p6, and datasheets/manifest.yaml:1468-1476 has sha256 e4cdc514.... pdftotext of p4 shows 0-6000 MHz, 50 ohm and 0.15 dB at 6 GHz; p6 is the mechanical drawing.)
+
+Accepted by user: 2026-11-24 Routes per docs/par-03-choices.md (2026-11-24). JLC global sourcing, 2-RX only: U8 LTC2292IUP#PBF, U6 PL133-37TI-R, U26-U28 Johanson 5400BL15B0050001E, U29 ADL5802ACPZ-R7 x3, U45 LT6232CGN#PBF if JLC does not restock. Bought into the JLC parts library: ADL5802 x3 (1-RX), YAT-3A+ x10 (U12 both), QPA9501TR13 x8 (U14 both). Hand-solder from DigiKey: P1/P2/U15 CONSMA003.062. Replaced by JLC-stocked parts instead of sourcing: U21 TPS7A4901DGNR, U12 YAT-3A+, CON2 PJ-102AH, J2 C68234, LEDs KT-0603R. The BWSMA-KE-P001 option is dropped (vertical, not edge-mount).
