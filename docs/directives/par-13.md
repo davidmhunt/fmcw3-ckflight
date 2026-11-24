@@ -1,5 +1,5 @@
 # par-13: Final parts report for both boards: original vs chosen, and why
-Status: proposed
+Status: approved
 Goal: parts
 Node: any
 Deliverable: slides

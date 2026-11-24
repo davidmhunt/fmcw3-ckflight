@@ -1,5 +1,5 @@
 # par-14: Repeatable parts-availability check and shortage report, both boards
-Status: proposed
+Status: approved
 Goal: parts
 Node: any
 Deliverable: slides
