@@ -87,6 +87,10 @@ the new footprint matches the datasheet land pattern, and ERC has no error type 
      stop with `blocked` and put the fallback in `docs/par-03-choices.md` to the user.
    - U12: place the MC1630 footprint at U12 and report the clearance to R11, C300 and the other
      neighbours, and how far R11 or C300 must move (about 0.2 mm expected).
+   - CON2: compare the CUI PJ-102AH land pattern (its datasheet, saved by the user) with the
+     existing `BarrelJack` footprint: pin positions, slot sizes and the body against the board
+     edge. If it does not fit, add a footprint row to step 2 (and rx1-03 takes the same).
+     (Amended 2026-11-24.)
    Report any overlap or shortfall; do not move parts (placement is the user's).
 6. Apply in `kicad/` only: the rows of step 2, with fields `MPN`, `Manufacturer`, `LCSC` and
    `DigiKey` (DigiKey: say if none). `kicad-1rx/` gets the same changes in rx1-03.
