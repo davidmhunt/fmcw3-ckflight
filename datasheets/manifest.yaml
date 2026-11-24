@@ -1623,8 +1623,8 @@ entries:
   title: XUNPU DC-005-A200 DC barrel jack, a second copy saved by the user from the JLC part page on
     2026-11-24 (JLC C720557). Same drawing as xunpu-dc-005-a200-datasheet, but its specification 2
     reads 30 V DC / 0.5 A where the earlier copy reads 30 V DC / 3 A; the JLC listing says 3 A.
-    Recommended PCB layout: slots 3 x 0.8, pin 2 to pin 4 6.2 mm, pin 3 2.7 mm from pin 4 and
-    4.7 mm off the axis
+    Recommended PCB layout (slots 3 x 0.8, pin 2 to pin 4 6.2 mm, pin 3 2.7 mm from pin 4 and
+    4.7 mm off the axis)
   url: https://jlcpcb.com/partdetail/C720557
   access: form
   file: datasheets/files/xunpu/dc-005-a200-jlc-2026-11-24.pdf
