@@ -19,9 +19,12 @@ user on 2026-11-23 for both boards:
 - R19 (Y2 output to U6 FIN): 0 ohm becomes a 10 nF 0402 DC-cut capacitor, as Epson asks
   (epson-tg2520smn-datasheet p.1: external DC-cut capacitor, 0.01 uF min) and as the upstream note
   on the `clock` sheet offers ("Place 10nF cap or 0 ohm resistor").
+- U21: the TI TPS7A4901DGNR (JLC C16430), adjustable, in place of the fixed 10 V LP2985A-10DBVR
+  (chosen 2026-11-23, both boards, "if possible"; the fallback in `docs/par-03-choices.md` goes
+  back to the user if step 5 shows it cannot fit).
 It holds when every netlist difference from the par-04 state is a row of `parts/par03_changes.csv`,
 the new footprint matches the datasheet land pattern, and ERC has no error type above the baseline.
-(Y2 and R19 amended 2026-11-23.)
+(Y2 and R19 amended 2026-11-23; U21 amended 2026-11-24.)
 
 ## Steps
 1. Preconditions. Stop with `blocked` if par-03 is not accepted, par-04 is not done, or par-11 does
@@ -38,6 +41,15 @@ the new footprint matches the datasheet land pattern, and ERC has no error type 
      unchanged, a JLC Basic 10 nF 0402 part (`LCSC`, `MPN`). Keep the symbol's UUID so Update PCB
      keeps the footprint where it is. The reference becomes the next free C number; record the
      new reference in the row and in `docs/board-changes.md`.
+   - U21: symbol for the TPS7A4901 (pins per ti-tps7a49-datasheet p.4: 1 OUT, 2 FB, 3 NC, 4 GND,
+     5 EN, 6 NR/SS, 7 DNC, 8 IN, 9 PowerPAD), footprint
+     `Package_SO:HVSSOP-8-1EP_3x3mm_P0.65mm_EP1.57x1.89mm_ThermalVias` (checked against p.34 and
+     p.37). Nets: IN and EN on /power/12V, OUT on /10V, GND and the pad on GND, NR/SS on C95 (10 nF,
+     now CNR/SS), pin 7 a no-connect flag, pin 3 to GND. New parts, next free references, 0402,
+     JLC Basic where one exists: R1 OUT to FB and R2 FB to GND, 1 % E96, R2 <= 237 k (p.5), divider
+     current >= 5 uA (p.14), nominal output within 1 % of 10 V with VFB 1.185 V (p.6), for example
+     165 k and 22.1 k (10.03 V); CFF 10 nF X7R from OUT to FB (p.14-15). Keep the existing input and
+     output capacitors.
    Add any others the accept note names.
 3. Package scan, report only: for every placed part on both boards, compare the package size in
    the JLC database row of its LCSC number (or the datasheet when there is no JLC row) with its
@@ -57,13 +69,20 @@ the new footprint matches the datasheet land pattern, and ERC has no error type 
    - Y2: compare the Epson recommended land pattern (epson-tg2520smn-datasheet p.14: pads
      0.8 x 1.0 mm) and its terminal positions with the existing ECS 2520MV pads, and report whether
      every terminal lands fully on its pad.
+   - U21: place the HVSSOP-8 footprint at U21's position in both orientations (leads along X and
+     along Y) and report the courtyard clearance to every neighbour (C85, C88, C89, C95, C98,
+     C102, U7, U24 today), the top-side room for R1, R2 and CFF, and which neighbour would have to
+     move and by how much. TI wants every capacitor on the regulator's side, close, with no vias
+     (ti-tps7a49-datasheet p.19). If it cannot fit without moving more than neighbouring passives,
+     stop with `blocked` and put the fallback in `docs/par-03-choices.md` to the user.
    Report any overlap or shortfall; do not move parts (placement is the user's).
 6. Apply in `kicad/` only: the rows of step 2, with fields `MPN`, `Manufacturer`, `LCSC` and
    `DigiKey` (DigiKey: say if none). `kicad-1rx/` gets the same changes in rx1-03.
 7. `tests/test_par03_changes.py`: export the netlist headless and check that every difference from
    the par-04 netlist is a row of `parts/par03_changes.csv`, every row is present, R19's
    replacement is a capacitor on the same two nets (`Net-(Y2-OUT)`, `Net-(U6-FIN)`), and the
-   APS0650 footprint's pads match the datasheet numbers of step 4.
+   APS0650 footprint's pads match the datasheet numbers of step 4, U21's pins sit on the nets of
+   step 2 (pin 7 on no net), and the R1/R2 values give 10 V within 1 % at VFB 1.185 V.
 8. ERC on `kicad/`; explain or fix any new error type. Add or update the `docs/board-changes.md`
    rows for every row of step 2 (status `applied (<commit>)`, the evidence, the par-11 load result
    for L5-L7, the fit check, and that the Y2 and R19 change has no simulation: the 10 nF
@@ -73,7 +92,8 @@ the new footprint matches the datasheet land pattern, and ERC has no error type 
    reconnect the L5-L7 pads (the zones refill). Placement and routing are theirs.
 
 ## Review
-- Open `kicad/` sheet `power`: L5-L7 footprint and fields.
+- Open `kicad/` sheet `power`: L5-L7 footprint and fields; U21 (TPS7A4901), its divider, CFF,
+  C95 on NR/SS and the no-connect on pin 7.
 - Open `kicad/` sheet `clock`: Y2 value and fields, and R19's replacement capacitor between Y2 OUT
   and U6 FIN.
 - Open the footprint `APS0650` in the footprint editor and compare its pads with the datasheet p.1.

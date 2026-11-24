@@ -1468,6 +1468,20 @@ entries:
   sha256: e32b0aaaaa76f3398d1c8936d84f28bcd53c8b0a384f4bb72afa981b59ef82f8
   licence: vendor copyright; not redistributed here
   commit: 'no'
+- id: ti-tps7a49-datasheet
+  kind: datasheet
+  title: TI TPS7A49 36 V, 150 mA ultralow-noise positive LDO, SBVS121E (TPS7A4901DGNR, JLC
+    C16430; U21 replacement on both boards, chosen 2026-11-23). p.4 pins (7 DNC, 3 NC, PowerPAD
+    to GND), p.5 recommended conditions (R2 max 237 k, CNR and CFF 10 nF), p.6 noise (15.4 uVrms
+    at VREF, 21.15 uVrms at 5 V with CNR = CFF = 10 nF) and VFB 1.185 V, p.14 divider equation,
+    p.19 layout (all capacitors on the regulator's side, no vias), p.34 and p.37 land pattern
+    (DGN0008D and DGN0008G give the same 1.57 x 1.89 mm pad). Saved by the user on 2026-11-24
+  url: https://www.ti.com/lit/ds/symlink/tps7a49.pdf
+  access: direct
+  file: datasheets/files/ti/tps7a49.pdf
+  sha256: f69e957b22bcc2db72149f57c96501aedeb4ed214f016c98f562d71411474182
+  licence: vendor copyright; not redistributed here
+  commit: 'no'
 - id: ti-tps7a24-datasheet
   kind: datasheet
   title: TI TPS7A24 adjustable 200 mA LDO (TPS7A2401DBVR; U21 substitute candidate, par-09)
