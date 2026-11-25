@@ -238,6 +238,16 @@ def test_main_check_exits_1_on_bad_row_without_writing(tmp_path, capsys):
     assert "no LCSC number" in capsys.readouterr().err
 
 
+def test_main_check_on_good_input_writes_no_snapshot(tmp_path, capsys):
+    parts, inv, out = tmp_path / "p.csv", tmp_path / "i.csv", tmp_path / "out"
+    write_csv(parts, fp.COLUMNS, [row()])
+    write_csv(inv, fp.INV_COLUMNS, [])
+    rc = ar.main(["--offline", "--check", "--parts", str(parts), "--inventory", str(inv),
+                  "--out", str(out)])
+    assert rc == 0 and not out.exists()
+    assert "no snapshot written" in capsys.readouterr().out
+
+
 def test_main_check_exits_1_on_malformed_inventory(tmp_path):
     parts, inv, out = tmp_path / "p.csv", tmp_path / "i.csv", tmp_path / "out"
     write_csv(parts, fp.COLUMNS, [row()])

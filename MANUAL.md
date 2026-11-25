@@ -239,8 +239,8 @@ confidence and how to add keys: [`parts/README.md`](parts/README.md).
   library) and compares it with JLC stock (`jlc-stock`, and `jlc-library` after inventory) or
   DigiKey stock (`jlc-sourcing`, `hand-solder`). Status is `short`, `thin` (stock under 4 x need),
   `ok` or `unknown`; every short or thin line prints its fallback. `--refresh` downloads a fresh
-  JLC database first, `--offline` uses the caches only, `--check` exits 1 on a malformed input row
-  or a line with no data source.
+  JLC database first, `--offline` uses the caches only, `--check` only validates the inputs (exit 1 on a
+  malformed input row or a line with no data source, else 0) and writes no snapshot.
   - Snapshot: a new folder `parts/out/availability/<YYYY-MM-DD>/` per run (`-2` for a second run
     the same day), holding `lines.csv`, `summary.json`, `changes.csv` (what changed since the
     previous snapshot) and `provenance.md`. An earlier snapshot is never overwritten.

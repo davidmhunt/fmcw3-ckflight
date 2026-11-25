@@ -353,7 +353,8 @@ def main(argv=None) -> int:
     ap.add_argument("--out", type=Path, default=OUT)
     ap.add_argument("--cache", type=Path, default=None, help="JLCPCB database cache directory")
     ap.add_argument("--check", action="store_true",
-                    help="exit 1 on a malformed input row or a line with no data source")
+                    help="validate the inputs only: exit 1 on a malformed input row or a line with no "
+                         "data source, else exit 0; writes no snapshot")
     g = ap.add_mutually_exclusive_group()
     g.add_argument("--refresh", action="store_true", help="download the JLCPCB database again")
     g.add_argument("--offline", action="store_true", help="caches only; never touch the network")
@@ -365,6 +366,9 @@ def main(argv=None) -> int:
         print(f"input: {p}", file=sys.stderr)
     if problems and (a.check or any("lacks columns" in p for p in problems)):
         return 1
+    if a.check:     # validate only: a check run must not add a snapshot (it would become "latest")
+        print(f"inputs ok: {sum(r['fitted'] == 'yes' for r in rows)} fitted lines, no snapshot written")
+        return 0
 
     import bom
     import check_jlc as jl
