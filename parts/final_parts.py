@@ -16,7 +16,11 @@ and parts/inventory.csv, and checks:
                  (and fitted parts in rows with `fitted` yes). Rows not yet `applied` are planned
                  changes (applied_by rx1-03, par-12): the board may still differ, so their
                  fitted flag is not compared and a new ref (C992, R990...) need not exist yet
-  change         a row whose `change` is not `none` has a `reason` and an `evidence`
+  change         a row whose `change` is not `none` has a `reason` and an `evidence`, and if the
+                 evidence cites datasheet PDFs at least one carries a page ("id p.N"); ids of
+                 data files (S-parameters, models) have no pages
+  status         `applied` means nothing is left to write (no part to buy, or DNP as upstream):
+                 a part whose MPN/LCSC is not yet in the schematic is `decided`, applied_by par-04
   library        a `jlc-library` row has an inventory row for its `lcsc`
   columns        the required columns exist and `board`, `change`, `route`, `status`, `fitted`
                  hold only the allowed values
@@ -98,10 +102,23 @@ def placed_refs(project: str) -> dict[str, bool]:
     return {r["ref"]: bool(r["DNP"]) for r in rows}
 
 
+def manifest_pdf_ids(path: Path = MANIFEST) -> set[str]:
+    """Manifest ids whose file is a PDF (the only ones that have pages to cite)."""
+    import yaml
+    data = yaml.safe_load(Path(path).read_text())
+    return {e["id"] for e in data.get("entries", [])
+            if e.get("id") and str(e.get("file", "")).lower().endswith(".pdf")}
+
+
+def has_page(part: str) -> bool:
+    return bool(re.search(r"\s+pp?\.?\s*\S+$", part.strip()))
+
+
 def check(rows: list[dict], inventory: list[dict], manifest: set[str], lcsc_exists,
-          placed: dict[str, dict[str, bool]] | None) -> list[str]:
+          placed: dict[str, dict[str, bool]] | None, pdf_ids: set[str] | None = None) -> list[str]:
     """Problems found, one string each. `lcsc_exists(code) -> bool`; `placed` is
-    {board: {ref: dnp}} (None skips the ref checks)."""
+    {board: {ref: dnp}} (None skips the ref checks); `pdf_ids` is the set of manifest ids that are
+    PDFs (None skips the page check)."""
     problems: list[str] = []
     if rows and (missing := [c for c in COLUMNS if c not in rows[0]]):
         return [f"final_parts.csv lacks columns {missing}"]
@@ -123,6 +140,12 @@ def check(rows: list[dict], inventory: list[dict], manifest: set[str], lcsc_exis
                 problems.append(f"{where}: change {r['change']} has no reason")
             if not r["evidence"].strip():
                 problems.append(f"{where}: change {r['change']} has no evidence")
+            elif pdf_ids is not None:
+                parts = [p.strip() for p in r["evidence"].split(";") if p.strip()]
+                pdfs = [p for p in parts if evidence_ids(p)[0] in pdf_ids]
+                if pdfs and not any(has_page(p) for p in pdfs):
+                    problems.append(f"{where}: change {r['change']} cites datasheet PDFs but no page "
+                                    f"({'; '.join(pdfs)[:80]}): give 'id p.N'")
         if r["route"] == "jlc-library" and (not lcsc or lcsc not in inv_lcsc):
             problems.append(f"{where}: jlc-library row has no inventory row for lcsc {lcsc or '(none)'}")
     if placed is not None:
@@ -138,14 +161,15 @@ def check(rows: list[dict], inventory: list[dict], manifest: set[str], lcsc_exis
                     problems.append(f"{board} {ref}: placed on the board but in no row")
                 elif len(got) > 1:
                     problems.append(f"{board} {ref}: in {len(got)} rows")
-                elif got[0]["status"] != "applied":
+                elif got[0]["status"] != "applied" and got[0]["change"] != "none":
                     continue    # a planned change (rx1-03, par-12): the board may still differ
                 elif dnp and got[0]["fitted"] != "no":
                     problems.append(f"{board} {ref}: DNP on the board but its row says fitted {got[0]['fitted']}")
                 elif not dnp and got[0]["fitted"] == "no":
                     problems.append(f"{board} {ref}: fitted on the board but its row says fitted no")
             for ref in sorted(set(seen) - set(refs)):
-                if any(r["status"] == "applied" for r in seen[ref]) or not any(r["applied_by"] for r in seen[ref]):
+                if (any(r["status"] == "applied" or r["change"] == "none" for r in seen[ref])
+                        or not any(r["applied_by"] for r in seen[ref])):
                     problems.append(f"{board} {ref}: in a row but not placed on the board")
     return problems
 
@@ -227,7 +251,8 @@ def main(argv=None) -> int:
         print(f"error: {e}", file=sys.stderr)
         return 1
     placed = {b: placed_refs(d) for b, d in BOARDS.items()}
-    problems = check(rows, inventory, manifest_ids(a.manifest), lambda c: bool(db.by_lcsc(c)), placed)
+    problems = check(rows, inventory, manifest_ids(a.manifest), lambda c: bool(db.by_lcsc(c)), placed,
+                     manifest_pdf_ids(a.manifest))
     for p in problems:
         print(p)
     tables = write_tables(rows, inventory, a.build)

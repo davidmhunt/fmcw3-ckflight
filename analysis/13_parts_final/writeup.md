@@ -29,8 +29,11 @@ Routes: `jlc-stock` is bought and placed by JLCPCB; `jlc-library` is bought by t
 parts library; `jlc-sourcing` is consigned through JLC global sourcing (2-RX only: the 1-RX has no
 consignment); `hand-solder` is bought from DigiKey and soldered by the user. Change classes: `none`
 (as on upstream's schematic), `fields` (MPN or ordering fields only), `footprint` (new land pattern or
-pin map), `design` (circuit, net or DNP change). Status: `applied` is written into the board,
-`decided` waits for par-04, par-12 (2-RX) or rx1-03 (1-RX).
+pin map), `design` (circuit, net or DNP change). Status: `applied` means nothing is left to write (a ref
+with no part to buy, or DNP as on upstream's board); `decided` is every placed part whose MPN, LCSC or
+DigiKey field is not in the schematic yet, or whose change is not made yet: it waits for par-04
+(fields), par-12 (2-RX) or rx1-03 (1-RX). No MPN of the unchanged parts is in a schematic today (a
+headless BOM export of `kicad/` shows none for U1, U22, U25, U33 or C28), so they count as `decided`.
 
 {{fact:t_counts}}
 
@@ -61,8 +64,11 @@ simulation (sim-01), the LT6232CGN pre-order and the 1-RX start-up simulation (r
 Each entry gives the original and chosen part, the board or boards, the reason, the evidence (datasheet
 manifest id and PDF page, from `datasheets/manifest.yaml`), the analysis behind it, the alternatives
 that were considered with the fallback, and the directive that applies it. Where the two boards
-differ, the entry shows `2-RX:` and `1-RX:` separately. "none recorded" means the record names no
-alternative or analysis; it is not a claim that none exists.
+differ, the entry shows `2-RX:` and `1-RX:` separately. An evidence id with no page is a data file
+(S-parameters or a model), which has no pages; `parts/final_parts.py --check` requires a page for a
+changed row that cites datasheet PDFs. "none recorded" means the record names no alternative or analysis;
+it is not a claim that none exists. Every substitution with no fallback on record is listed in section
+4.1 for the user to answer.
 
 ## 2.1 FPGA, ADC and clock
 
@@ -130,8 +136,9 @@ Parts that JLC does not stock, consigned through JLC global sourcing. The 1-RX h
 ## 3.3 Inventory
 
 The parts the user has bought into the JLC parts library (`parts/inventory.csv`). Need is the fitted
-`jlc-library` refs times `board_quantity`; spare is bought minus need. {{fact:inventory_missing_dates}}
-line(s) have no date in the file.
+`jlc-library` refs times `board_quantity`; spare is bought minus need. Dates are from the file
+(`docs/par-03-choices.md` for the 2026-11-24 purchases of the YAT-3A+ and the QPA9501TR13);
+{{fact:inventory_missing_dates}} line(s) have no date.
 
 {{fact:t_inventory_need}}
 
@@ -162,9 +169,17 @@ in `docs/board-changes.md` and the records read for this report. None was decide
   bias (`docs/board-changes.md`, open findings); a part choice for the user.
 - **Records out of date.** `docs/board-changes.md` and `parts/decisions.csv` still show several par-03
   choices as proposed or for-user although the accept note decided them; the par-03 choices have no row
-  in `docs/board-changes.md` yet. `parts/inventory.csv` has no date for two lines, and PL133-37TI-R has no
-  LCSC or DigiKey number in `parts/final_parts.csv`.
+  in `docs/board-changes.md` yet. PL133-37TI-R has no LCSC or DigiKey number in `parts/final_parts.csv`.
 
 Records that name an analysis as planned or not run:
 
 {{fact:t_open_analyses}}
+
+## 4.1 Substitutions with no fallback on record
+
+The records name no fallback for these {{fact:no_fallback_n}} lines. Anything missing goes back to the
+user; the agent did not pick one. For the 1-RX a fallback must be in JLC stock (no consignment): the
+record's only other U6 and U26/U27 parts are consign-only. Where the record does name one (for
+example U45 on the 1-RX: rx1-opamp options C and A) it is in the entry.
+
+{{fact:t_no_fallback}}

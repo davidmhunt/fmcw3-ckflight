@@ -229,7 +229,9 @@ confidence and how to add keys: [`parts/README.md`](parts/README.md).
   decision. Details: [`parts/README.md`](parts/README.md#stock-watch-before-ordering).
 - `./run parts/final_parts.py [--check] [--offline]`: checks the one parts record for both boards
   (`parts/final_parts.csv`, with `parts/inventory.csv`) and writes the tables for
-  `analysis/13_parts_final`. `--check` exits 1 when a check fails.
+  `analysis/13_parts_final`. `--check` exits 1 when a check fails, among them a changed row whose
+  evidence cites datasheet PDFs without a page (`id p.N`). Status `applied` means nothing is left to
+  write; a part whose MPN is not in the schematic yet is `decided`, applied by par-04.
 - `./run uv run python parts/check_decisions.py [--bom FILE] [--decisions FILE]`: exits 0 only
   when every placed line of `parts/out/bom.csv` (not DNP, not a pad or via) has a row in
   `parts/decisions.csv`; run `parts/bom.py` first.

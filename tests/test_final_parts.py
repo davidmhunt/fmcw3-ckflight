@@ -36,6 +36,16 @@ def test_unknown_manifest_id():
     assert len(probs) == 1 and "'nope'" in probs[0]
 
 
+def test_changed_row_citing_pdfs_needs_a_page():
+    def go(evidence):
+        return fp.check([row(change="fields", reason="why", evidence=evidence)], [], MANIFEST,
+                        lambda c: True, None, pdf_ids={"ds-a"})
+    probs = go("ds-a; ds-b")
+    assert len(probs) == 1 and "no page" in probs[0]
+    assert go("ds-a p.2; ds-b") == []
+    assert go("ds-b") == []          # a data file has no pages
+
+
 def test_ref_in_no_row():
     probs = run([row()], placed={"2rx": {"U1": False, "U9": False}})
     assert any("2rx U9" in p and "no row" in p for p in probs)

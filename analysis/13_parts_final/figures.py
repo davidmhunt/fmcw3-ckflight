@@ -56,7 +56,7 @@ GROUPS = [
 ]
 ORDER = {
     "fpga": ["U30", "U8", "U6", "Y2", "R19"],
-    "power": ["L5", "U17", "U21", "FB4"],
+    "power": ["L5", "U17", "U21", "U22", "U25", "FB4"],
     "rf": ["U14", "U12", "U3", "U10", "U26", "U29", "P1"],
     "if": ["U45"],
     "conn": ["CON2", "J2", "D1", "J1"],
@@ -66,7 +66,7 @@ ORDER = {
 STRAPS = {"R91", "R92", "R93", "R990", "R991", "R992", "R993", "R996"}
 FIRST_OF = {
     "fpga": {"U30", "U8", "U6", "Y2", "R19"},
-    "power": {"L5", "U21", "FB4", "U17"},
+    "power": {"L5", "U21", "FB4", "U17", "U22", "U25"},
     "rf": {"U14", "U12", "U3", "U10", "U26", "U29", "P1"},
     "if": {"U45"},
     "conn": {"CON2", "J2", "D1", "J1"},
@@ -364,8 +364,8 @@ def main():
                    ["Change class fields (MPN or ordering fields only)", cnt[0]["change:fields"], cnt[1]["change:fields"]],
                    ["Change class footprint (land pattern or pin map)", cnt[0]["change:footprint"], cnt[1]["change:footprint"]],
                    ["Change class design (circuit or net change, DNP)", cnt[0]["change:design"], cnt[1]["change:design"]],
-                   ["Status applied (written into the board)", cnt[0]["status:applied"], cnt[1]["status:applied"]],
-                   ["Status decided (waiting for par-04, par-12, rx1-03)", cnt[0]["status:decided"], cnt[1]["status:decided"]],
+                   ["Status applied (nothing to write: no part, or DNP as upstream)", cnt[0]["status:applied"], cnt[1]["status:applied"]],
+                   ["Status decided (part fields or change still to write: par-04, par-12, rx1-03)", cnt[0]["status:decided"], cnt[1]["status:decided"]],
                    ["Status pending review", cnt[0]["status:pending review"], cnt[1]["status:pending review"]]]
     hdr = ["Count of refs", "2-RX (kicad/)", "1-RX (kicad-1rx/)"]
     write_csv("counts.csv", hdr, route_rows + change_rows)
@@ -506,6 +506,15 @@ def main():
     write_csv("inventory_need.csv", i_head, i_rows)
     render_table(BUILD / "inventory_need.png", i_head, i_rows, [0.15, 0.09, 0.07, 0.12, 0.10, 0.22, 0.15, 0.10], font=13)
     facts["inventory_missing_dates"] = sum(1 for inv in inventory if not inv["date"])
+
+    # ---- substitutions whose fallback the record does not name (sent back to the user)
+    nf = [r for r in rows if r["change"] != "none" and r["fitted"] == "yes"
+          and r["fallback"].strip().lower().startswith("none")]
+    write_csv("no_fallback.csv", ["Board", "Refs", "Role", "Original", "Chosen"],
+              [[LABEL[r["board"]], ", ".join(split(r["refs"])), r["role"], r["original_mpn"], r["chosen_mpn"]]
+               for r in nf])
+    facts["no_fallback_n"] = len(nf)
+    facts["no_fallback_refs"] = ", ".join(dict.fromkeys(x for r in nf for x in split(r["refs"])[:1]))
 
     # ---- records that still name an open analysis (PDF)
     op = {}

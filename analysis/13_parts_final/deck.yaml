@@ -12,7 +12,7 @@ slides:
   - layout: figure
     title: "Both boards side by side: change class and status"
     figure: counts_change.png
-    note: "none = the part is as on upstream's schematic; fields = MPN or ordering fields only; footprint = new land pattern or pin map; design = circuit, net or DNP change. applied means written into the board; decided waits for par-04, par-12 (2-RX) or rx1-03 (1-RX). The 1-RX has many design refs because the receive chain 2 parts are rows with fitted no."
+    note: "none = the part is as on upstream's schematic; fields = MPN or ordering fields only; footprint = new land pattern or pin map; design = circuit, net or DNP change. applied means nothing is left to write (no part, or DNP as upstream); decided waits for par-04 (fields), par-12 (2-RX) or rx1-03 (1-RX): no MPN of the unchanged parts is in a schematic yet. The 1-RX has many design refs because the receive chain 2 parts are rows with fitted no."
   - layout: figure
     title: "Refs by route and by change class"
     figure: counts.png
@@ -24,7 +24,7 @@ slides:
   - layout: figure
     title: "Power: inductors, bucks, LDO, FB4"
     figure: group_power.png
-    note: "L5-L7 APS0650M330A passes the par-11 check on every rail of both boards (aps0650_ok = 1, analysis/12_rail_loads). U21 is a design change to an adjustable LDO; its fit is open (par-12 step 5). FB4 needs sim-01 with the BLM18KG221SN1D model. The buck variant is the 1.1 MHz YFDDCR (par-03 choice lmr A)."
+    note: "L5-L7 APS0650M330A passes the par-11 check on every rail of both boards (aps0650_ok = 1, analysis/12_rail_loads). U21 is a design change to an adjustable LDO; its fit is open (par-12 step 5). FB4 needs sim-01 with the BLM18KG221SN1D model. The buck variant is the 1.1 MHz YFDDCR (par-03 choice lmr A). U22-U25: the LD3920 values become the orderable LD39200DPUR and LD39200PU33R (fields only, board-changes row)."
   - layout: figure
     title: "RF: PA, attenuators, VCO"
     figure: group_rfa.png
@@ -60,7 +60,7 @@ slides:
   - layout: figure
     title: "Inventory: bought into the JLC library"
     figure: inventory_need.png
-    note: "From parts/inventory.csv; par-14 reads it. Need is the fitted jlc-library refs times board_quantity; spare is bought minus need. Dates for the YAT-3A+ and QPA9501 lines are not recorded in the file."
+    note: "From parts/inventory.csv; par-14 reads it. Need is the fitted jlc-library refs times board_quantity; spare is bought minus need. Dates are from docs/par-03-choices.md (YAT-3A+ and QPA9501TR13 bought 2026-11-24)."
   - layout: decisions
     title: "Open items (1 of 2): checks not yet done"
     bullets:
@@ -76,6 +76,6 @@ slides:
       - "1-RX baluns (HHM1907B1): no simulation covers them; amplitude balance 2.5 dB against 2 dB, no S-parameter file"
       - "10 uF 25 V caps on 12 V lose about 80 % of their capacitance (board-changes open finding); a part choice for you"
       - "docs/board-changes.md and parts/decisions.csv still show several par-03 choices as proposed or for-user; they are decided in the accept note"
-      - "parts/inventory.csv has no date for the YAT-3A+ and QPA9501 lines; PL133-37TI-R has no LCSC or DigiKey number in the record"
+      - "No fallback on record for 25 substitutions, among them U3, U10, U22-U25, L5-L7, J2, R19 (both boards) and 1-RX U6, U8, U26/U27: please name one (PDF section 4.1 lists all); PL133-37TI-R has no LCSC or DigiKey number"
       - "Through-hole CON2 and J2: JLC placement to be confirmed in the order tool; U12 land pattern needs R11 or C300 nudged"
-    note: "The first two are findings you already hold; the last three are gaps in the records found while building this report. Nothing here was decided by the agent."
+    note: "The first two are findings you already hold; the last three are gaps in the records found while building this report (the missing fallbacks go back to you). Nothing here was decided by the agent."
