@@ -1,0 +1,37 @@
+{
+  "jlc_database_date": "2026-11-25",
+  "digikey": "live, cached under parts/cache/digikey/",
+  "boards": 3,
+  "spares": 2,
+  "lines": 179,
+  "counts": {
+    "short": 2,
+    "thin": 1,
+    "unknown": 2,
+    "ok": 164,
+    "no part": 10
+  },
+  "counts_by_board": {
+    "1rx": {
+      "short": 1,
+      "thin": 1,
+      "unknown": 1,
+      "ok": 86,
+      "no part": 5
+    },
+    "2rx": {
+      "short": 1,
+      "unknown": 1,
+      "ok": 78,
+      "no part": 5
+    }
+  },
+  "short": 2,
+  "thin": 1,
+  "unknown": 2,
+  "ok": 164,
+  "previous_snapshot": "",
+  "changes_since_previous": 0,
+  "lag_note": "The JLC database is a daily snapshot that can lag the live site: check every short and thin JLC line on the JLC page (pre-order status is not in the database).",
+  "snapshot": "2026-11-25"
+}

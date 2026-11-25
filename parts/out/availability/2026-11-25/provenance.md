@@ -1,0 +1,7 @@
+- command: parts/availability_report.py --refresh
+- snapshot: 2026-11-25
+- JLC database file date: 2026-11-25 (daily snapshot, can lag the live site)
+- DigiKey: live, cached under parts/cache/digikey/
+- boards: 3, spares: 2 per non-Basic line
+- previous snapshot: none
+- The JLC database is a daily snapshot that can lag the live site: check every short and thin JLC line on the JLC page (pre-order status is not in the database).
