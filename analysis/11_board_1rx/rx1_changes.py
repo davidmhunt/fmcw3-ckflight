@@ -302,6 +302,7 @@ def changes() -> list[dict]:
         status="decided", choice="rx1-seq", option="A", cls="netlist only",
         evidence="ti-lp5907-datasheet p.6 (turn-on 80 typ, 150 max us); st-ld39200-datasheet p.7 (EN high 1.2 V, low 0.5 V, 10 nA); " f"{AD} p.7 (VIN abs max AVDD + 0.3 V)",
         check="rx1-05 simulates the sequenced start-up and power-down; lay-03 1-RX bring-up scopes the order; "
+              "route_space.py: a route exists on today's board, 29.8 mm, 1 via, L1 and L6, to the U39 output; "
               "chosen by the user 2026-11-25", board_row=R_SEQ)
     add(kind="net", refs="U23", group="power", **{"from": "U23 (LD39200, 1V8) EN on /3V8"},
         to="U23 EN on /fpga/adc/3V0: 1V8 and then 3V3D (U25 EN from U23 PG, unchanged) start after 3V0, so U6 "
@@ -311,7 +312,8 @@ def changes() -> list[dict]:
                  "1V0 is a buck from 12 V and still comes first)" f"; {AD} p.7 (CLK, PDWN abs max AVDD + 0.3 V), "
                  "p.10 (Figure 7: CLK clamp diodes at the pin, ahead of 375 ohm)",
         check="rx1-05 simulates it with the CLK case; the FPGA order stays as DS181 recommends; the FPGA rails now "
-              "need U39 working; chosen by the user 2026-11-25", board_row=R_SEQ)
+              "need U39 working; route_space.py: a route exists on today's board, 42.3 mm, 1 via, L1 and L6 (through "
+              "the L6 GND pour), to the U39 output; chosen by the user 2026-11-25", board_row=R_SEQ)
     for i, r in enumerate(rows, 1):
         r["id"] = f"rx1-{i:03d}"
     return rows
