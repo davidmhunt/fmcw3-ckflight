@@ -53,6 +53,7 @@ R_ATT = "U3, U12 (attenuators), 1-RX"
 R_LED = "D1-D3, D5-D7 (LEDs), 1-RX"
 R_CON = "CON2, J2 (barrel jack, header), 1-RX"
 R_USB = "U33 (USB bridge), 1-RX"
+R_SEQ = "U24, U23 enables from 3V0 (rail order), 1-RX"
 BOARD_ROWS = [R_U8, R_STRAP, R_REF, R_DNP, R_VCM, R_FPGA, R_BALUN, R_OPAMP, R_LDO, R_SMA, R_IND,
               R_ATT, R_LED, R_CON, R_USB]
 
@@ -295,6 +296,22 @@ def changes() -> list[dict]:
         check="kicad-1rx/ board: C63, C216, C219 are the only pads on /ADC_VCMA besides U8.61 and U45.12/14; "
               "rx1-unused-amps does not apply (rx1-opamp B); chosen by the user 2026-11-25",
         board_row=R_VCM)
+    # Rail order by design (the user 2026-11-25), last so the earlier ids keep their numbers
+    add(kind="net", refs="U24", group="power", **{"from": "U24 (LD39200, 3V3A) EN on /3V8"},
+        to="U24 EN on /fpga/adc/3V0 (U39 out): 3V3A (U45, U1) cannot start before 3V0 passes the EN threshold",
+        status="decided", choice="rx1-seq", option="A", cls="netlist only",
+        evidence="ti-lp5907-datasheet p.6 (turn-on 80 typ, 150 max us); st-ld39200-datasheet p.7 (EN high 1.2 V, low 0.5 V, 10 nA); " f"{AD} p.7 (VIN abs max AVDD + 0.3 V)",
+        check="rx1-05 simulates the sequenced start-up and power-down; lay-03 1-RX bring-up scopes the order; "
+              "chosen by the user 2026-11-25", board_row=R_SEQ)
+    add(kind="net", refs="U23", group="power", **{"from": "U23 (LD39200, 1V8) EN on /3V8"},
+        to="U23 EN on /fpga/adc/3V0: 1V8 and then 3V3D (U25 EN from U23 PG, unchanged) start after 3V0, so U6 "
+           "(clock to CLK), Y2 and the FPGA pins on PDWN and OE come up after the ADC supply",
+        status="decided", choice="rx1-seq", option="A", cls="netlist only",
+        evidence="ti-lp5907-datasheet p.6 (turn-on 80 typ, 150 max us); st-ld39200-datasheet p.7 (EN high 1.2 V, low 0.5 V, 10 nA); amd-ds181-artix7-datasheet p.8 (power-on order VCCINT, VCCBRAM, VCCAUX, VCCO; "
+                 "1V0 is a buck from 12 V and still comes first)" f"; {AD} p.7 (CLK, PDWN abs max AVDD + 0.3 V), "
+                 "p.10 (Figure 7: CLK clamp diodes at the pin, ahead of 375 ohm)",
+        check="rx1-05 simulates it with the CLK case; the FPGA order stays as DS181 recommends; the FPGA rails now "
+              "need U39 working; chosen by the user 2026-11-25", board_row=R_SEQ)
     for i, r in enumerate(rows, 1):
         r["id"] = f"rx1-{i:03d}"
     return rows
@@ -411,6 +428,16 @@ def choices() -> dict:
               ["C. remove with the net", "schematic and board edit", "rx1-03 edit time", "no leftover net or parts"]],
         consequence="With the LT6231 (rx1-opamp B) amps C and D are gone, so rx1-unused-amps does not apply.",
         recommendation="C, chosen by the user 2026-11-25.")
+    c["rx1-seq"] = dict(
+        title="1-RX choice: rail order at the AD9237 (3V0 first) by design", refs="U24;U23",
+        cols=["Option", "Change", "Cost", "Effect"],
+        rows=[["A. U24 and U23 EN from 3V0", "two net changes", "no parts; two low-current traces",
+               "3V3A, 1V8 and 3V3D (U6 clock, FPGA pins) start only after 3V0 passes 0.5-1.2 V"],
+              ["B. supervisor on 3V0 drives the enables", "one IC", "part, space", "strict 3V0-good signal"],
+              ["C. as is (all EN on 3V8)", "none", "none", "order set by timing only; rx1-05 and bring-up check it"]],
+        consequence="st-ld39200-datasheet p.7; ti-lp5907-datasheet p.6 (no power-good output on U39); "
+                    "amd-ds181-artix7-datasheet p.8 (FPGA order kept); adi-ad9237-datasheet p.7 and p.10.",
+        recommendation="A, chosen by the user 2026-11-25; rx1-05 checks it, lay-03 measures it.")
     c["rx1-unused-amps"] = dict(
         title="1-RX choice: unused U45 amps C and D (only if U45 stays the SSOP-16 quad)", refs="U45",
         cols=["Option", "What changes", "Class", "Note"],
