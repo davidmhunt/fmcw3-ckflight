@@ -61,10 +61,27 @@ What `JLC can place now` means for the par-09 route of that part:
 - No line: JLC stock is below the need, so the par-09 route stands. The tool only reads public
   stock data; it never quotes or orders.
 
+## Final parts record, inventory and availability snapshots
+
+- `final_parts.csv`: the one parts record for both boards (par-13), one row per line: `board`,
+  `refs`, `role`, `original_mpn`, `chosen_mpn`, `lcsc`, `digikey_pn`, `route` (`jlc-stock`,
+  `jlc-library`, `jlc-sourcing`, `hand-solder`), `status` (`applied`, `decided`, ...), `evidence`,
+  `fallback` and `fitted`. Checked by `./run parts/final_parts.py --check`.
+- `inventory.csv`: parts the user already holds (`mpn`, `lcsc`, `qty`, `date`, `held`, `for`). A
+  `jlc-library` line takes inventory first, then JLC stock.
+- `out/availability/<YYYY-MM-DD>/`: one folder per run of `./run parts/availability_report.py`
+  (`-2` if run again the same day; never overwritten). It holds `lines.csv` (every fitted line
+  with need, stock, inventory, route, status, fallback), `summary.json` (counts by status and
+  board, the JLC database date), `changes.csv` (status or stock changes against the latest
+  earlier snapshot) and `provenance.md` (command, database date, DigiKey cache or live).
+  The JLC database is a daily snapshot that can lag the live site: check short and thin JLC
+  lines on the JLC page. `analysis/14_parts_availability` builds the deck from the latest folder.
+
 ## Files
 
 | File | What |
 |------|------|
+| `availability_report.py` | The repeatable both-board availability check (above). |
 | `bom.py` | The command above. |
 | `check_digikey.py`, `check_jlc.py` | The two sources: importable, each with a quick CLI (`--boards`, `--spares`, `--limit`; `check_jlc.py` also `--refresh`, `--offline`). |
 | `out/bom.csv` | Grouped BOM: `class, refs, qty, value, footprint, MPN, Manufacturer, LCSC, DigiKey PN`. |

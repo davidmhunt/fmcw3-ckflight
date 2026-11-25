@@ -232,6 +232,24 @@ confidence and how to add keys: [`parts/README.md`](parts/README.md).
   `analysis/13_parts_final`. `--check` exits 1 when a check fails, among them a changed row whose
   evidence cites datasheet PDFs without a page (`id p.N`). Status `applied` means nothing is left to
   write; a part whose MPN is not in the schematic yet is `decided`, applied by par-04.
+- `./run parts/availability_report.py [--refresh] [--offline] [--boards N] [--spares N] [--check]`:
+  the repeatable availability check for both boards. It reads the fitted rows of
+  `parts/final_parts.csv` and `parts/inventory.csv`, works out the need per line (refs per board x
+  `board_quantity`, or `--boards`, plus `--spares`, default 2, for parts not in the JLC Basic
+  library) and compares it with JLC stock (`jlc-stock`, and `jlc-library` after inventory) or
+  DigiKey stock (`jlc-sourcing`, `hand-solder`). Status is `short`, `thin` (stock under 4 x need),
+  `ok` or `unknown`; every short or thin line prints its fallback. `--refresh` downloads a fresh
+  JLC database first, `--offline` uses the caches only, `--check` exits 1 on a malformed input row
+  or a line with no data source.
+  - Snapshot: a new folder `parts/out/availability/<YYYY-MM-DD>/` per run (`-2` for a second run
+    the same day), holding `lines.csv`, `summary.json`, `changes.csv` (what changed since the
+    previous snapshot) and `provenance.md`. An earlier snapshot is never overwritten.
+  - Rerun the report: after a new snapshot, `./run tools/build_report.py
+    analysis/14_parts_availability` builds `reports/14_parts_availability.pdf`, `.pptx` and
+    `_ppt.pdf` from the latest snapshot (short lines first, then thin, changes, sourced lines).
+  - Lag: the JLC database is a daily snapshot that can lag the live site. Check every `short` and
+    `thin` JLC line on the JLC page before acting; pre-order status is not in the database.
+  - It reads stock data only: it never logs in, quotes or orders.
 - `./run uv run python parts/check_decisions.py [--bom FILE] [--decisions FILE]`: exits 0 only
   when every placed line of `parts/out/bom.csv` (not DNP, not a pad or via) has a row in
   `parts/decisions.csv`; run `parts/bom.py` first.
