@@ -285,6 +285,16 @@ def changes() -> list[dict]:
               "AGND, to keep firmware power-down); space: cap_space.py search, 0402 fits on the bottom side behind "
               "pin 4 or on the top 1.7 mm from it; placement is the user's",
         board_row=R_STRAP)
+    # /ADC_VCMA leftovers (rx1-vcma C, the user 2026-11-25), last so the earlier ids keep their numbers
+    add(kind="net", refs="C63;C216;C219", group="adc",
+        **{"from": "/ADC_VCMA decoupling: C63 100n, C216 2.2u, C219 100n (LTC2292 VCMA pin 61 to U45 pins 12, 14)"},
+        to="removed from the 1-RX schematic and board together with the /ADC_VCMA net: no source or load is left "
+           "once U8 is the AD9237 (no VCM pin) and U45 the LT6231 (no pins 12, 14)",
+        status="decided", choice="rx1-vcma", option="C", applies_when="rx1-opamp == B", cls="netlist only",
+        evidence=f"{AD} p.8 (Table 6, no VCM pin); adi-lt6232-datasheet p.2 (LT6231 SO-8 pinout)",
+        check="kicad-1rx/ board: C63, C216, C219 are the only pads on /ADC_VCMA besides U8.61 and U45.12/14; "
+              "rx1-unused-amps does not apply (rx1-opamp B); chosen by the user 2026-11-25",
+        board_row=R_VCM)
     for i, r in enumerate(rows, 1):
         r["id"] = f"rx1-{i:03d}"
     return rows
@@ -393,6 +403,14 @@ def choices() -> dict:
         consequence="adi-ad9237-datasheet p.7 and p.20 (Table 9); amd-ug470-7series-config p.22 (PUDC_B) and p.81; "
                     "amd-ds181-artix7-datasheet p.3 (IRPU). PUDC_B is tied to GND by R70 (R69 not fitted).",
         recommendation="B, chosen by the user 2026-11-25 (keeps power-down; fits, cap_space.py search).")
+    c["rx1-vcma"] = dict(
+        title="1-RX choice: C63, C216, C219 left on /ADC_VCMA with no source or load", refs="C63;C216;C219",
+        cols=["Option", "Change", "Cost", "Effect"],
+        rows=[["A. not fitted (DNP)", "3 DNP marks", "none", "parts stay in the schematic, as the RX2 parts do"],
+              ["B. leave fitted", "none", "3 parts placed", "no function; an isolated net with only passives"],
+              ["C. remove with the net", "schematic and board edit", "rx1-03 edit time", "no leftover net or parts"]],
+        consequence="With the LT6231 (rx1-opamp B) amps C and D are gone, so rx1-unused-amps does not apply.",
+        recommendation="C, chosen by the user 2026-11-25.")
     c["rx1-unused-amps"] = dict(
         title="1-RX choice: unused U45 amps C and D (only if U45 stays the SSOP-16 quad)", refs="U45",
         cols=["Option", "What changes", "Class", "Note"],

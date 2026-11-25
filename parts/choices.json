@@ -325,6 +325,18 @@
    "consequence": "adi-ad9237-datasheet p.7 and p.20 (Table 9); amd-ug470-7series-config p.22 (PUDC_B) and p.81; amd-ds181-artix7-datasheet p.3 (IRPU). PUDC_B is tied to GND by R70 (R69 not fitted).",
    "recommendation": "B, chosen by the user 2026-11-25 (keeps power-down; fits, cap_space.py search)."
   },
+  "rx1-vcma": {
+   "title": "1-RX choice: C63, C216, C219 left on /ADC_VCMA with no source or load",
+   "refs": "C63;C216;C219",
+   "cols": ["Option", "Change", "Cost", "Effect"],
+   "rows": [
+    ["A. not fitted (DNP)", "3 DNP marks", "none", "parts stay in the schematic, as the RX2 parts do"],
+    ["B. leave fitted", "none", "3 parts placed", "no function; an isolated net with only passives"],
+    ["C. remove with the net", "schematic and board edit", "rx1-03 edit time", "no leftover net or parts"]
+   ],
+   "consequence": "With the LT6231 (rx1-opamp B) amps C and D are gone, so rx1-unused-amps does not apply.",
+   "recommendation": "C, chosen by the user 2026-11-25."
+  },
   "rx1-unused-amps": {
    "title": "1-RX choice: unused U45 amps C and D (only if U45 stays the SSOP-16 quad)",
    "refs": "U45",
