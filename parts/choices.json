@@ -313,6 +313,18 @@
    "consequence": "adi-ad9237-datasheet p.21 (Table 10: 2/3 AVDD is twos complement, DCS on) and p.10 (Figure 5, 70 kohm pull-down). The firmware reads signed twos complement (adc.vhd).",
    "recommendation": "C, chosen by the user 2026-11-25: on the nominal level with no new BOM line."
   },
+  "rx1-pdwn": {
+   "title": "1-RX choice: AD9237 PDWN from the FPGA (abs max AVDD + 0.3 V)",
+   "refs": "R992",
+   "cols": ["Option", "Change", "Cost", "Effect"],
+   "rows": [
+    ["A. as is, firmware rule", "none", "none", "pull-ups (90-330 uA) take PDWN to 3V3D in every configuration; a driven high sits at the limit"],
+    ["B. R992 10k in series", "one 0402, C25744 (on the BOM)", "one part to place", "clamp current held to 0.33 mA in every case; firmware power-down kept"],
+    ["C. PDWN to AGND", "net change, U30.B1 freed", "none", "no exposure; ADC always on (as today); no firmware power-down"]
+   ],
+   "consequence": "adi-ad9237-datasheet p.7 and p.20 (Table 9); amd-ug470-7series-config p.22 (PUDC_B) and p.81; amd-ds181-artix7-datasheet p.3 (IRPU). PUDC_B is tied to GND by R70 (R69 not fitted).",
+   "recommendation": "B, chosen by the user 2026-11-25 (keeps power-down; fits, cap_space.py search)."
+  },
   "rx1-unused-amps": {
    "title": "1-RX choice: unused U45 amps C and D (only if U45 stays the SSOP-16 quad)",
    "refs": "U45",

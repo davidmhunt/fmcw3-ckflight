@@ -39,7 +39,7 @@ COLS = ["id", "kind", "refs", "group", "from", "to", "status", "choice", "option
 
 # Ref cells of the docs/board-changes.md rows (Board 1-RX) the changes belong to.
 R_U8 = "U8 (ADC), 1-RX"
-R_STRAP = "U8 straps and the VCMB bias divider, 1-RX (R91, R92, R93, R990, R991)"
+R_STRAP = "U8 straps and the VCMB bias divider, 1-RX (R91, R92, R93, R990, R991, R992)"
 R_REF = "U8 reference, VREF and supply caps, 1-RX (C217, C218, C220, C992, C993, C994, C995)"
 R_DNP = "Receive chain 2 not fitted, 1-RX"
 R_VCM = "U45 unused pair and /ADC_VCMA, 1-RX"
@@ -273,6 +273,18 @@ def changes() -> list[dict]:
         status="option", choice="rx1-ldo", option="B", cls="design change",
         evidence="ti-tps7a24-datasheet p.14 (Eq. 2); ti-tps7a24-datasheet p.6", check="as R994",
         board_row=R_LDO)
+    # PDWN series resistor (rx1-pdwn B, the user 2026-11-25), last so the earlier ids keep their numbers
+    add(kind="new", refs="R992", group="adc", **{"from": "/fpga/ADC_SHDN1 straight from U30.B1 to the PDWN pin"},
+        to="10k 0402 (C25744, Basic, already on the BOM) in series between U30.B1 and PDWN (pin 4), next to U8",
+        status="decided", choice="rx1-pdwn", option="B", cls="netlist only",
+        evidence=f"{AD} p.7 (PDWN abs max AVDD + 0.3 V), p.20 (Table 9); amd-ug470-7series-config p.22 "
+                 "(Table 2-4: PUDC_B Low enables the SelectIO pull-ups after power-up and during configuration), "
+                 "p.81; amd-ds181-artix7-datasheet p.3 (IRPU 90 to 330 uA at VCCO 3.3 V)",
+        check="netlist: PUDC_B (U30.L15) to GND through R70, R69 not fitted, bank 35 VCCO = 3V3D; a push-pull 3.3 V "
+              "high into an unpowered AVDD is held to 0.33 mA; chosen by the user 2026-11-25 (B over tying PDWN to "
+              "AGND, to keep firmware power-down); space: cap_space.py search, 0402 fits on the bottom side behind "
+              "pin 4 or on the top 1.7 mm from it; placement is the user's",
+        board_row=R_STRAP)
     for i, r in enumerate(rows, 1):
         r["id"] = f"rx1-{i:03d}"
     return rows
@@ -369,6 +381,18 @@ def choices() -> dict:
         consequence="adi-ad9237-datasheet p.21 (Table 10: 2/3 AVDD is twos complement, DCS on) and p.10 (Figure 5, "
                     "70 kohm pull-down). The firmware reads signed twos complement (adc.vhd).",
         recommendation="C, chosen by the user 2026-11-25: on the nominal level with no new BOM line.")
+    c["rx1-pdwn"] = dict(
+        title="1-RX choice: AD9237 PDWN from the FPGA (abs max AVDD + 0.3 V)", refs="R992",
+        cols=["Option", "Change", "Cost", "Effect"],
+        rows=[["A. as is, firmware rule", "none", "none",
+               "pull-ups (90-330 uA) take PDWN to 3V3D in every configuration; a driven high sits at the limit"],
+              ["B. R992 10k in series", "one 0402, C25744 (on the BOM)", "one part to place",
+               "clamp current held to 0.33 mA in every case; firmware power-down kept"],
+              ["C. PDWN to AGND", "net change, U30.B1 freed", "none",
+               "no exposure; ADC always on (as today); no firmware power-down"]],
+        consequence="adi-ad9237-datasheet p.7 and p.20 (Table 9); amd-ug470-7series-config p.22 (PUDC_B) and p.81; "
+                    "amd-ds181-artix7-datasheet p.3 (IRPU). PUDC_B is tied to GND by R70 (R69 not fitted).",
+        recommendation="B, chosen by the user 2026-11-25 (keeps power-down; fits, cap_space.py search).")
     c["rx1-unused-amps"] = dict(
         title="1-RX choice: unused U45 amps C and D (only if U45 stays the SSOP-16 quad)", refs="U45",
         cols=["Option", "What changes", "Class", "Note"],
