@@ -1,5 +1,5 @@
 # par-14: Repeatable parts-availability check and shortage report, both boards
-Status: approved
+Status: awaiting review
 Goal: parts
 Node: any
 Deliverable: slides
@@ -78,3 +78,16 @@ what changed since the previous snapshot. (Added 2026-11-24 at the user's reques
 - `friday result write par-14 *`
 
 ## Log
+
+### 2026-11-25
+Commits:
+- 4113245 par-14 step 2: parts/availability_report.py, need against JLC/DigiKey/inventory stock with dated snapshots
+- 0bc3796 par-14 step 4: analysis/14_parts_availability, report and deck built from the latest availability snapshot
+- 0411192 par-14 step 5: tests/test_availability_report.py, need, inventory first, status boundaries, snapshot naming, diff, --check failures
+- a7471cd par-14 step 6: MANUAL and parts/README for the availability report, snapshots, final_parts and inventory
+- 1def7ed par-14 step 7: first availability snapshot 2026-11-25 (--refresh) and rebuilt deck
+- 3c63a96 par-14: --check validates inputs only and writes no snapshot
+Notes:
+- step 1: preconditions met. parts/final_parts.csv (214 rows per par-13 step 2) and parts/inventory.csv (3 rows: ADL5802, YAT-3A+, QPA9501) are committed and clean; par-13 results recorded (69cdba7). No tracked files changed.
+Verify: Verify passed: ./run uv run pytest tests/test_availability_report.py -q && ./run parts/availability_report.py --offline --check && ./run tools/build_report.py analysis/14_parts_availability --check && ./run uv run pytest tests/test_manual.py -q
+Independent review: gaps fixed in second review: 1. parts/availability_report.py:362-394 (main), together with the Verify line in docs/directives/par-14.md:7: '--check' only adds an exit-1 condition. On good input it still writes a full dated snapshot. So every run of this directive's Verify ('./run parts/availability_report.py --offline --check') adds another snapshot folder made from cached DigiKey data only, and that folder becomes the 'latest snapshot' the report is built from and diffed against. The PDF/PPTX the user is told to open under ## Review now come from that Verify run, not from the recorded '--refresh' snapshot. The tracked, generated deck.yaml is also left modified after every Verify. (evidence: Untracked parts/out/availability/2026-11-25-2/provenance.md reads 'command: parts/availability_report.py --offline --check', 'DigiKey: cache only', 'previous snapshot: 2026-11-25'. git status shows 'M analysis/14_parts_availability/deck.yaml', whose title is now 'Parts availability 2026-11-25-2' with note 'DigiKey: cache only'. The committed version (1def7ed) says 2026-11-25 with live DigiKey. results/par-14.json records the 2026-11-25 snapshot.)
