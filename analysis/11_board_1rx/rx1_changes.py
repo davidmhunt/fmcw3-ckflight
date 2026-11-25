@@ -173,8 +173,10 @@ def changes() -> list[dict]:
     add(kind="new", refs="C992", group="adc", **{"from": ""}, to="100n 0402, VREF (pin 24) to AGND",
         status="proposed", cls="netlist only", evidence=f"{AD} p.18 (Figure 39); p.19 (2 mA reference load)",
         check="datasheet values", board_row=R_REF)
-    add(kind="new", refs="C993", group="adc", **{"from": ""}, to="10u 0603, VREF (pin 24) to AGND",
-        status="proposed", cls="netlist only", evidence=f"{AD} p.18 (Figure 39)", check="datasheet values",
+    add(kind="new", refs="C993", group="adc", **{"from": ""}, to="10u 0805 (C15850, Basic, the board's 10u part), VREF (pin 24) to AGND",
+        status="decided", cls="netlist only", evidence=f"{AD} p.18 (Figure 39)",
+        check="datasheet values; 0805 chosen by the user 2026-11-25 (rx1-02 review); fits on the "
+              "bottom side behind the pin, outside the exposed-pad via field (cap_space.py 2026-11-25, AD9237 pins 25-32 facing the input network)",
         board_row=R_REF)
     add(kind="net", refs="C24;C27;C223;C224;C222;C249", group="adc",
         **{"from": "LTC2292 VDD 7, 10, 18, 63 (/fpga/adc/3V0): 4 x 100n, 2 x 1u"},
@@ -183,10 +185,10 @@ def changes() -> list[dict]:
         check="kicad/ netlist (analysis/11_board_1rx/supply_decoupling.py): these six are the only caps "
               "on the net; all within 10 mm of U8", board_row=R_REF)
     add(kind="new", refs="C994", group="adc", **{"from": ""},
-        to="10u 0603, 3V0 (AVDD, pins 27 and 32) to AGND; the net has no 10u today",
-        status="proposed", cls="netlist only", evidence=f"{AD} p.8 (Table 6: 0.1 uF with 10 uF recommended)",
-        check="kicad/ netlist: 3V0 has 100n and 1u only; datasheet values, no simulation needed; "
-              "placement is the user's", board_row=R_REF)
+        to="10u 0805 (C15850, Basic, the board's 10u part), 3V0 (AVDD, pins 27 and 32) to AGND; the net has no 10u today",
+        status="decided", cls="netlist only", evidence=f"{AD} p.8 (Table 6: 0.1 uF with 10 uF recommended)",
+        check="kicad/ netlist: 3V0 has 100n and 1u only; datasheet values, no simulation needed; 0805 chosen by "
+              "the user 2026-11-25; fits on the bottom side behind the pin, outside the exposed-pad via field (cap_space.py 2026-11-25, AD9237 pins 25-32 facing the input network); placement is the user's", board_row=R_REF)
     add(kind="net", refs="C25;C225;C252", group="adc",
         **{"from": "LTC2292 OVDD 32, 49 (/3V3D, shared rail)"},
         to="kept on DRVDD (pin 16): 100n, the three nearest 3V3D caps (5.9 to 10.9 mm from U8)",
@@ -194,9 +196,11 @@ def changes() -> list[dict]:
         check="kicad/ netlist and kicad_pcb positions (supply_decoupling.py); 3V3D is shared with the FPGA",
         board_row=R_REF)
     add(kind="new", refs="C995", group="adc", **{"from": ""},
-        to="10u 0603, 3V3D (DRVDD, pin 16) to GND; the nearest 10u on 3V3D today is C106, 32 mm from U8",
-        status="proposed", cls="netlist only", evidence=f"{AD} p.8 (Table 6: 0.1 uF with 10 uF recommended)",
-        check="kicad/ netlist and kicad_pcb positions (supply_decoupling.py); datasheet values; "
+        to="10u 0805 (C15850, Basic, the board's 10u part), 3V3D (DRVDD, pin 16) to GND; the nearest 10u on 3V3D "
+           "today is C106, 32 mm from U8",
+        status="decided", cls="netlist only", evidence=f"{AD} p.8 (Table 6: 0.1 uF with 10 uF recommended)",
+        check="kicad/ netlist and kicad_pcb positions (supply_decoupling.py); datasheet values; 0805 chosen by the "
+              "user 2026-11-25; fits on the bottom side behind the pin, outside the exposed-pad via field (cap_space.py 2026-11-25, AD9237 pins 25-32 facing the input network), beside C25, clear of the data lines to the FPGA; "
               "placement is the user's", board_row=R_REF)
     for net, pin in (("/fpga/OFB", "M1"), ("/fpga/ADC_OE2", "P1"), ("/fpga/ADC_SHDN2", "N2")):
         add(kind="net", refs=net, group="fpga", **{"from": f"U8 channel B to U30.{pin}"},
