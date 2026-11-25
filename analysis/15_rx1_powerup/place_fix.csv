@@ -1,0 +1,11 @@
+part,what,role,pad,found,anchor,side,x,y,part_x,part_y,rot,dist_from_anchor_mm
+C_DLY,"1u 0402, EN node to GND (RC delay on U23 EN)",EN,1,True,U23.6,F,120.4,77.31,120.8,77.3,0,1.7
+C_DLY,"1u 0402, EN node to GND (RC delay on U23 EN)",GND,2,True,U23.6,F,121.3,77.31,120.8,77.3,0,1.7
+SUP1,"SOT-23-5 supervisor on 1V0, open-drain OUT on the U23 EN node",OUT,1,True,U23.6,B,116.1,84.25,115.1,83.1,90,7.7
+SUP1,"SOT-23-5 supervisor on 1V0, open-drain OUT on the U23 EN node",GND,2,True,U23.6,B,115.15,84.25,115.1,83.1,90,7.7
+SUP1,"SOT-23-5 supervisor on 1V0, open-drain OUT on the U23 EN node",SENSE,3,True,U23.6,B,114.2,84.25,115.1,83.1,90,7.7
+SUP1,"SOT-23-5 supervisor on 1V0, open-drain OUT on the U23 EN node",VDD,5,True,U23.6,B,116.1,81.97,115.1,83.1,90,7.7
+C_HOLD,10u 0805 on 3V0 to GND (hold-up),3V0,1,True,U39.5,F,162.78,85.1,162.8,86.0,90,4.7
+C_HOLD,10u 0805 on 3V0 to GND (hold-up),GND,2,True,U39.5,F,162.78,86.8,162.8,86.0,90,4.7
+R_BLEED,0402 bleeder 3V3D to GND,3V3D,1,True,U25.1,F,118.8,87.5,119.2,87.5,0,3.1
+R_BLEED,0402 bleeder 3V3D to GND,GND,2,True,U25.1,F,119.7,87.5,119.2,87.5,0,3.1

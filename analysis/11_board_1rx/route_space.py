@@ -36,7 +36,31 @@ POUR_OK = {'L1_SIG', 'L4_PWR_SIG', 'L6_SIG'}
 CHANGES = [
     dict(name='U24 EN to 3V0', ref='U24', pad='6', old='/3V8', new='/fpga/adc/3V0'),
     dict(name='U23 EN to 3V0', ref='U23', pad='6', old='/3V8', new='/fpga/adc/3V0'),
+    # rx1-05 step 2: the proposed fixes for the timing-only orderings. Each pad of a new part is
+    # placed by analysis/15_rx1_powerup/fix_space.py (place_fix.csv), then routed here. U23 pin 6
+    # (EN) is the target for the fixes that act on the 1V8 enable; the 3V0 route from the
+    # rx1-seq change above is not on the board yet, so it does not block these routes.
+    # F1b: RC delay, 1u from the U23 EN node to GND.
+    dict(name='F1b cap to U23 EN', part='C_DLY', role='EN', to_pad=('U23', '6'), cut=('U23', '6', '/3V8'),
+         png='route_f1b_en.png'),
+    dict(name='F1b cap to GND', part='C_DLY', role='GND', new='GND', reach=10.0, png='route_f1b_gnd.png'),
+    # F1c: supervisor on 1V0 that pulls the U23 EN node low (VDD from 3V8 beside U23).
+    dict(name='F1c supervisor OUT to U23 EN', part='SUP1', role='OUT', to_pad=('U23', '6'),
+         cut=('U23', '6', '/3V8'), png='route_f1c_out.png'),
+    dict(name='F1c supervisor SENSE to 1V0', part='SUP1', role='SENSE', new='/1V0', reach=40.0,
+         png='route_f1c_sense.png'),
+    dict(name='F1c supervisor VDD to 3V8', part='SUP1', role='VDD', new='/3V8', reach=10.0,
+         png='route_f1c_vdd.png'),
+    dict(name='F1c supervisor GND', part='SUP1', role='GND', new='GND', reach=10.0, png='route_f1c_gnd.png'),
+    # F2a: hold-up capacitor on 3V0 (AVDD outlasts 3V3D at power-off).
+    dict(name='F2a hold-up cap to 3V0', part='C_HOLD', role='3V0', new='/fpga/adc/3V0', reach=15.0,
+         png='route_f2a_3v0.png'),
+    dict(name='F2a hold-up cap to GND', part='C_HOLD', role='GND', new='GND', reach=10.0, png='route_f2a_gnd.png'),
+    # F2b: bleeder resistor from 3V3D to GND (3V3D falls first at power-off).
+    dict(name='F2b bleeder to 3V3D', part='R_BLEED', role='3V3D', new='/3V3D', reach=15.0, png='route_f2b_3v3d.png'),
+    dict(name='F2b bleeder to GND', part='R_BLEED', role='GND', new='GND', reach=10.0, png='route_f2b_gnd.png'),
 ]
+PLACE_FIX = 'analysis/15_rx1_powerup/place_fix.csv'
 
 mm, MM = pcbnew.ToMM, pcbnew.FromMM
 
@@ -54,18 +78,37 @@ def seg_mask(xs, ys, x0, y0, x1, y1, r):
 
 
 def route(b, ch, margin=12.0):
+    """ch: ref/pad/old/new (a pad that moves to net `new`), or at=(x, y, 'F'|'B') for a pad of a new
+    part, a target net `new` or a target pad to_pad=(ref, pad), cut=(ref, pad, oldnet) for copper
+    that the change cuts, and reach=mm to look only at target copper that close to the start."""
     lid = {b.GetLayerName(l): l for l in b.GetEnabledLayers().CuStack()}
-    fp = b.FindFootprintByReference(ch['ref'])
-    pad = [p for p in fp.Pads() if p.GetNumber() == ch['pad']][0]
-    sx, sy = mm(pad.GetPosition().x), mm(pad.GetPosition().y)
-    new = ch['new']
+    at = ch.get('at')
+    if at:
+        pad = None
+        sx, sy = at[0], at[1]
+        src_l = 'L1_SIG' if at[2] == 'F' else 'L6_SIG'
+    else:
+        fp = b.FindFootprintByReference(ch['ref'])
+        pad = [p for p in fp.Pads() if p.GetNumber() == ch['pad']][0]
+        sx, sy = mm(pad.GetPosition().x), mm(pad.GetPosition().y)
+        src_l = 'L1_SIG' if pad.IsOnLayer(lid['L1_SIG']) else 'L6_SIG'
+    new = ch.get('new')
+    to_pad = tuple(ch['to_pad']) if ch.get('to_pad') else None
+    reach = ch.get('reach')
+    near = (lambda x, y: True) if not reach else (lambda x, y: math.hypot(x - sx, y - sy) <= reach)
     # target copper of the new net: nearest point bounds the window
-    tgt_pts = [(mm(p.GetPosition().x), mm(p.GetPosition().y)) for p in b.GetPads() if p.GetNetname() == new]
-    tgt_pts += [(mm(t.GetStart().x), mm(t.GetStart().y)) for t in b.GetTracks() if t.GetNetname() == new]
+    tgt_pts = [(mm(p.GetPosition().x), mm(p.GetPosition().y)) for p in b.GetPads() if new and p.GetNetname() == new]
+    tgt_pts += [(mm(t.GetStart().x), mm(t.GetStart().y)) for t in b.GetTracks() if new and t.GetNetname() == new]
+    if to_pad:
+        tp = [p for p in b.FindFootprintByReference(to_pad[0]).Pads() if p.GetNumber() == to_pad[1]][0]
+        tgt_pts.append((mm(tp.GetPosition().x), mm(tp.GetPosition().y)))
+    tgt_pts = [q for q in tgt_pts if near(*q)]
     for z in b.Zones():
-        if z.GetNetname() == new and not z.GetIsRuleArea():
+        if new and z.GetNetname() == new and not z.GetIsRuleArea() and not reach:
             k = z.GetBoundingBox()
             tgt_pts += [(mm(k.GetLeft()), mm(k.GetTop())), (mm(k.GetRight()), mm(k.GetBottom()))]
+    if reach:
+        margin = min(margin, reach / 2)
     x0 = min([sx] + [p[0] for p in tgt_pts]) - margin
     x1 = max([sx] + [p[0] for p in tgt_pts]) + margin
     y0 = min([sy] + [p[1] for p in tgt_pts]) - margin
@@ -88,10 +131,14 @@ def route(b, ch, margin=12.0):
         return i0, i1, j0, j1
 
     # copper joining the pad to its old net, which the change cuts: tracks touching the pad
-    pbb = pad.GetBoundingBox()
+    cut_pad, old = pad, ch.get('old')
+    if ch.get('cut'):
+        cut_pad = [p for p in b.FindFootprintByReference(ch['cut'][0]).Pads() if p.GetNumber() == ch['cut'][1]][0]
+        old = ch['cut'][2]
     cut = set()
+    pbb = cut_pad.GetBoundingBox() if cut_pad else None
     for t in b.GetTracks():
-        if t.GetNetname() != ch['old'] or t.Type() == pcbnew.PCB_VIA_T:
+        if pbb is None or t.GetNetname() != old or t.Type() == pcbnew.PCB_VIA_T:
             continue
         for e in (t.GetStart(), t.GetEnd()):
             if pbb.Contains(e):
@@ -103,8 +150,13 @@ def route(b, ch, margin=12.0):
         ax0, ay0, ax1, ay1 = mm(k.GetLeft()), mm(k.GetTop()), mm(k.GetRight()), mm(k.GetBottom())
         if ax1 < x0 or ax0 > x1 or ay1 < y0 or ay0 > y1:
             continue
-        same = p.GetNetname() == new
-        is_src = p.GetParentFootprint().GetReference() == ch['ref'] and p.GetNumber() == ch['pad']
+        same = bool(new) and p.GetNetname() == new
+        if to_pad and (p.GetParentFootprint().GetReference(), p.GetNumber()) == to_pad:
+            same = True
+        is_src = (pad is not None and p.GetParentFootprint().GetReference() == ch['ref']
+                  and p.GetNumber() == ch['pad'])
+        if cut_pad is not None and p.m_Uuid == cut_pad.m_Uuid and not same:
+            is_src = True  # the pad whose net the change moves
         i0, i1, j0, j1 = idx_box(ax0 - VIA_R, ay0 - VIA_R, ax1 + VIA_R, ay1 + VIA_R)
         X, Y = np.meshgrid(xs[i0:i1], ys[j0:j1])
         dx = np.maximum(np.maximum(ax0 - X, X - ax1), 0)
@@ -128,7 +180,7 @@ def route(b, ch, margin=12.0):
             continue
         if t.m_Uuid.AsString() in cut:
             continue
-        same = t.GetNetname() == new
+        same = bool(new) and t.GetNetname() == new
         ax, ay, bx, by = mm(t.GetStart().x), mm(t.GetStart().y), mm(t.GetEnd().x), mm(t.GetEnd().y)
         w = mm(t.GetWidth()) / 2
         i0, i1, j0, j1 = idx_box(min(ax, bx) - w - VIA_R, min(ay, by) - w - VIA_R,
@@ -166,7 +218,7 @@ def route(b, ch, margin=12.0):
                 if not z.IsFilled():
                     continue
                 poly = z.GetFilledPolysList(lid[ln])
-            same = z.GetNetname() == new and not z.GetIsRuleArea()
+            same = bool(new) and z.GetNetname() == new and not z.GetIsRuleArea()
             if not same and not z.GetIsRuleArea() and z.GetNetname() == 'GND' and ln in POUR_OK:
                 continue
             i0, i1, j0, j1 = idx_box(mm(k.GetLeft()), mm(k.GetTop()), mm(k.GetRight()), mm(k.GetBottom()))
@@ -184,8 +236,15 @@ def route(b, ch, margin=12.0):
     blocked[l3] |= ~target[l3]
 
     si, sj = int(round((sx - x0) / STEP)), int(round((sy - y0) / STEP))
-    sl = LAYERS.index('L1_SIG') if pad.IsOnLayer(lid['L1_SIG']) else LAYERS.index('L6_SIG')
+    sl = LAYERS.index(src_l)
     blocked[sl, max(0, sj - 3):sj + 4, max(0, si - 3):si + 4] = False  # leave the pad
+    if to_pad:  # reach the target pad: open the clearance ring of its neighbours around it
+        k = tp.GetBoundingBox()
+        i0, i1, j0, j1 = idx_box(mm(k.GetLeft()) - 0.25, mm(k.GetTop()) - 0.25,
+                                 mm(k.GetRight()) + 0.25, mm(k.GetBottom()) + 0.25)
+        for li, ln in enumerate(LAYERS):
+            if tp.IsOnLayer(lid[ln]) and ln != 'L3_PWR':
+                blocked[li, j0:j1, i0:i1] = False
     # A*
     goal = target & ~blocked | target
     tj, ti = np.nonzero(goal.any(axis=0))
@@ -283,15 +342,30 @@ def main():
     os.makedirs(a.out, exist_ok=True)
     b = pcbnew.LoadBoard(a.board)
     rows = []
+    placed = {}
+    if os.path.exists(PLACE_FIX):
+        with open(PLACE_FIX) as fh:
+            placed = {(r['part'], r['role']): r for r in csv.DictReader(fh) if r['found'] == 'True'}
     for ch in CHANGES:
+        ch = dict(ch)
+        if 'part' in ch:  # a pad of a new part, placed by analysis/15_rx1_powerup/fix_space.py
+            pl = placed.get((ch['part'], ch['role']))
+            if pl is None:
+                print('skipped (no placement):', ch['name'])
+                continue
+            ch['at'] = (float(pl['x']), float(pl['y']), pl['side'])
+            ch['ref'], ch['pad'] = ch['part'], ch['role']
+            ch.setdefault('old', '')
         r = route(b, ch)
-        row = dict(change=ch['name'], pad=f"{ch['ref']}.{ch['pad']}", old_net=ch['old'], new_net=ch['new'],
+        row = dict(change=ch['name'], pad=f"{ch['ref']}.{ch['pad']}", old_net=ch['old'],
+                   new_net=ch.get('new') or '.'.join(ch['to_pad']),
                    found=r['found'], length_mm=r.get('length_mm', ''), straight_mm=r.get('straight_mm', ''),
                    vias=r.get('vias', ''), layers=r.get('layers', ''), note=r.get('why', ''))
         rows.append(row)
         print(row)
         if r['found']:
-            plot(r, ch['name'], os.path.join(a.out, 'route_' + ch['ref'].lower() + '_en.png'))
+            png = ch.get('png') or 'route_' + ch['ref'].lower() + '_en.png'
+            plot(r, ch['name'], os.path.join(a.out, png))
     with open('analysis/11_board_1rx/route_space.csv', 'w', newline='') as fh:
         w = csv.DictWriter(fh, fieldnames=list(rows[0]))
         w.writeheader()
