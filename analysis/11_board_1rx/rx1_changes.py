@@ -314,6 +314,15 @@ def changes() -> list[dict]:
         check="rx1-05 simulates it with the CLK case; the FPGA order stays as DS181 recommends; the FPGA rails now "
               "need U39 working; route_space.py: a route exists on today's board, 42.3 mm, 1 via, L1 and L6 (through "
               "the L6 GND pour), to the U39 output; chosen by the user 2026-11-25", board_row=R_SEQ)
+    # EN isolation resistors at the 3V0 tap (the user 2026-11-25), last so the earlier ids keep their numbers
+    for ref, en in (("R993", "U24"), ("R996", "U23")):
+        add(kind="new", refs=ref, group="power", **{"from": ""},
+            to=f"10k 0402 (C25744, Basic, on the BOM) in series from /fpga/adc/3V0 to {en} EN, at the 3V0 end next to "
+               f"U39: keeps noise picked up on the long EN trace off the ADC supply",
+            status="decided", choice="rx1-seq", option="A", cls="netlist only",
+            evidence="st-ld39200-datasheet p.7 (EN 10 nA: 0.1 mV across 10k; EN high 1.2 V)",
+            check="place_space.py: R993 fits on the top side and R996 on the bottom side, 3.8 mm from U39.5; "
+                  "chosen by the user 2026-11-25", board_row=R_SEQ)
     for i, r in enumerate(rows, 1):
         r["id"] = f"rx1-{i:03d}"
     return rows
@@ -433,7 +442,8 @@ def choices() -> dict:
     c["rx1-seq"] = dict(
         title="1-RX choice: rail order at the AD9237 (3V0 first) by design", refs="U24;U23",
         cols=["Option", "Change", "Cost", "Effect"],
-        rows=[["A. U24 and U23 EN from 3V0", "two net changes", "no parts; two low-current traces",
+        rows=[["A. U24 and U23 EN from 3V0", "two net changes, a 10k at the 3V0 end of each",
+               "two 0402 (C25744, on the BOM); two low-current traces",
                "3V3A, 1V8 and 3V3D (U6 clock, FPGA pins) start only after 3V0 passes 0.5-1.2 V"],
               ["B. supervisor on 3V0 drives the enables", "one IC", "part, space", "strict 3V0-good signal"],
               ["C. as is (all EN on 3V8)", "none", "none", "order set by timing only; rx1-05 and bring-up check it"]],

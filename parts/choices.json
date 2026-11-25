@@ -342,7 +342,7 @@
    "refs": "U24;U23",
    "cols": ["Option", "Change", "Cost", "Effect"],
    "rows": [
-    ["A. U24 and U23 EN from 3V0", "two net changes", "no parts; two low-current traces", "3V3A, 1V8 and 3V3D (U6 clock, FPGA pins) start only after 3V0 passes 0.5-1.2 V"],
+    ["A. U24 and U23 EN from 3V0", "two net changes, a 10k at the 3V0 end of each", "two 0402 (C25744, on the BOM); two low-current traces", "3V3A, 1V8 and 3V3D (U6 clock, FPGA pins) start only after 3V0 passes 0.5-1.2 V"],
     ["B. supervisor on 3V0 drives the enables", "one IC", "part, space", "strict 3V0-good signal"],
     ["C. as is (all EN on 3V8)", "none", "none", "order set by timing only; rx1-05 and bring-up check it"]
    ],

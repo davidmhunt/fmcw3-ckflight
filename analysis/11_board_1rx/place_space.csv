@@ -1,0 +1,3 @@
+group,part,anchor,found,side,x,y,rot,dist_from_anchor_mm
+EN isolation at the 3V0 tap (rx1-seq-r),R993,U39.5,True,top,162.4,88.2,90,3.8
+EN isolation at the 3V0 tap (rx1-seq-r),R996,U39.5,True,bottom,158.6,92.0,0,3.8
