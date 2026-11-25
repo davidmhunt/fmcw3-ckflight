@@ -1,3 +1,4 @@
+archive: true
 slides:
   - layout: title
     title: "U14 PA: replacing the TQP5525"

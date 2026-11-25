@@ -3,6 +3,8 @@
 
 usage: build_report.py <analysis dir> [--targets NAME] [--check] [--out DIR]
 
+An analysis whose deck.yaml has `archive: true` is written to <out>/archive/ (reports/archive/).
+
 Runs <dir>/figures.py (cwd = the analysis dir, env FMCW_TARGETS = target set name), then
 --check: validates deck.yaml and writeup.md references and text fit, builds nothing;
 otherwise: builds the PDF with pandoc, the deck with python-pptx and the deck as a PDF
@@ -52,6 +54,17 @@ def load_deck(adir: Path) -> list[dict]:
     if not isinstance(slides, list) or not slides:
         raise SystemExit(f"error: {p} has no 'slides' list")
     return slides
+
+
+def is_archived(adir: Path) -> bool:
+    """True when deck.yaml has `archive: true`: the built files go to <out>/archive/."""
+    p = adir / "deck.yaml"
+    data = yaml.safe_load(p.read_text()) if p.is_file() else None
+    return bool(isinstance(data, dict) and data.get("archive") is True)
+
+
+def output_dir(adir: Path, out: Path) -> Path:
+    return out / "archive" if is_archived(adir) else out
 
 
 def check_deck(slides: list[dict], build: Path) -> list[str]:
@@ -232,7 +245,7 @@ def main(argv: list[str] | None = None) -> int:
     if a.check:
         print(f"check ok: {adir.name} ({len(slides)} slides)")
         return 0
-    out = Path(a.out)
+    out = output_dir(adir, Path(a.out))
     out.mkdir(parents=True, exist_ok=True)
     build_pdf(adir, out / f"{adir.name}.pdf", ts)
     build_pptx(slides, build, out / f"{adir.name}.pptx")

@@ -1,3 +1,4 @@
+archive: true
 slides:
   - layout: title
     title: "FMCW3 board: state as inherited"

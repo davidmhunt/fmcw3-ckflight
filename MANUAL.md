@@ -83,7 +83,11 @@ Convention: [`analysis/README.md`](analysis/README.md).
   `reports/NN_name.pdf`, `reports/NN_name.pptx` and `reports/NN_name_ppt.pdf` (the slides as a
   PDF).
 - `./run tools/build_all.py [--check]` rebuilds every analysis.
-- Built files are gitignored and never committed: rebuild them locally.
+- `archive: true` as a top-level key in `deck.yaml` (next to `slides:`) makes both tools write that
+  analysis to `reports/archive/` instead of `reports/`. The sources stay in place. Archived:
+  `00_baseline`, `01_parts`, `02_pa`, `03_sourcing`, `11_board_1rx`, `12_rail_loads`.
+  [`reports/README.md`](reports/README.md) lists the current reports first, then the archive.
+- Built files are gitignored and never committed (`reports/archive/` too): rebuild them locally.
 - Target sets live in `analysis/targets/*.yaml` and load through `tools/targets.py`:
   - a `design` group (required, printed first): frequency range, chirp bandwidth, sample
     rate, TX power, TX/RX isolation, board quantity;
@@ -223,6 +227,9 @@ confidence and how to add keys: [`parts/README.md`](parts/README.md).
   consignment to JLC in the par-09 route, no redesign. On a `substitute` row it only means the
   substitute is in stock: read its `drop_in` and note first, because choosing it is your design
   decision. Details: [`parts/README.md`](parts/README.md#stock-watch-before-ordering).
+- `./run parts/final_parts.py [--check] [--offline]`: checks the one parts record for both boards
+  (`parts/final_parts.csv`, with `parts/inventory.csv`) and writes the tables for
+  `analysis/13_parts_final`. `--check` exits 1 when a check fails.
 - `./run uv run python parts/check_decisions.py [--bom FILE] [--decisions FILE]`: exits 0 only
   when every placed line of `parts/out/bom.csv` (not DNP, not a pad or via) has a row in
   `parts/decisions.csv`; run `parts/bom.py` first.

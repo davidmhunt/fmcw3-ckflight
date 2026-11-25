@@ -64,6 +64,24 @@ def test_check_ok(fixture, capsys):
     assert "check ok" in capsys.readouterr().out
 
 
+def test_archive_key_picks_output_dir(fixture, tmp_path):
+    out = tmp_path / "reports"
+    assert not br.is_archived(fixture)
+    assert br.output_dir(fixture, out) == out
+    (fixture / "deck.yaml").write_text("archive: true\n" + DECK)
+    assert br.is_archived(fixture)
+    assert br.output_dir(fixture, out) == out / "archive"
+    assert br.main([str(fixture), "--check"]) == 0
+
+
+def test_repo_archive_set():
+    root = Path(__file__).resolve().parent.parent / "analysis"
+    old = {"00_baseline", "01_parts", "02_pa", "03_sourcing", "11_board_1rx", "12_rail_loads"}
+    for d in sorted(root.glob("[0-9][0-9]_*")):
+        if (d / "deck.yaml").is_file():
+            assert br.is_archived(d) == (d.name in old), d.name
+
+
 def test_check_missing_figure(fixture, capsys):
     (fixture / "deck.yaml").write_text(DECK.replace("fig.png", "nope.png"))
     assert br.main([str(fixture), "--check"]) == 1

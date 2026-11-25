@@ -3,6 +3,8 @@
 
 usage: build_all.py [--targets NAME] [--check] [--out DIR] [--analysis-root DIR]
 
+An analysis whose deck.yaml has `archive: true` is built into <out>/archive/ (build_report.py).
+
 Built files (report PDF, deck .pptx and deck PDF NN_name_ppt.pdf) are never committed
 (reports/*.pdf and *.pptx are gitignored); run this to recreate them. --check validates every analysis and builds nothing. Exit 1 if any fails.
 Run through ./run so pandoc and LaTeX are available.

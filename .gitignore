@@ -18,6 +18,8 @@ analysis/*/build/
 # built reports and decks: rebuilt locally, never committed (tools/build_all.py)
 reports/*.pdf
 reports/*.pptx
+reports/archive/*.pdf
+reports/archive/*.pptx
 # LibreOffice lock files
 .~lock*
 
