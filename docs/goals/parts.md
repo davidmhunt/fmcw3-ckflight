@@ -43,8 +43,8 @@ quote page with every line in stock (rx1-04).
    to `reports/archive/` (added 2026-11-24 at the user's request)
 13. par-14: Repeatable parts-availability check and shortage report, both boards (added
    2026-11-24 at the user's request)
-14. rx1-05: Rail order at the 1-RX ADC, sequenced by design (U24, U23 EN from 3V0), simulated for
-   VIN, CLK and PDWN (added 2026-11-24 at the user's request; rescoped 2026-11-25)
+14. rx1-05: 1-RX power-up and power-down order for the ADC and the FPGA, guaranteed by design where
+   possible, simulated (added 2026-11-24 at the user's request; rescoped 2026-11-25)
 15. par-04: Write MPN, DigiKey and LCSC fields into the schematic symbols (both projects,
    amended 2026-11-22)
 16. par-12: Apply the par-03 part changes to the 2-RX schematic: L5-L7, Y2 and R19, and a package

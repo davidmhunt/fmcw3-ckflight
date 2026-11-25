@@ -45,7 +45,7 @@ gives an expected value for every step.
 - Write the bring-up procedure in two variants, 1-RX (one channel, AD9237 straps, receive chain 2 not fitted) and 2-RX, sharing the common steps; test points cover both. (amended 2026-11-22 for the two-board plan)
 - 1-RX bring-up checks the receive gain early: a known-level 5.8 GHz tone into RF1 against the expected IF amplitude, because the TDK balun at U26 and U27 is not simulated. (amended 2026-11-23)
 
-- 1-RX bring-up measures the rail order at the first power-on, before the ADC is used: 3V8, 3V0, 3V3A, 1V8 and 3V3D together, and the AD9237 VIN+, CLK and PDWN, triggered on 3V8; pass when 3V3A, 1V8 and 3V3D start only after 3V0 and no ADC pin goes above 3V0 + 0.3 V; compare with the rx1-05 waveforms and give the probe point for each signal. Repeat for power-off. (amended 2026-11-25, the user's choice in the rx1-02 review)
+- 1-RX bring-up measures the rail order at the first power-on, before the ADC is used: 3V8, 1V0, 3V0, 3V3A, 1V8 and 3V3D, and the AD9237 VIN+, CLK and PDWN (in groups if the scope has fewer channels, always triggered on 3V8); pass when 3V3A, 1V8 and 3V3D start only after 3V0, the FPGA rails follow the DS181 order (1V0, 1V8, 3V3D) as in the rx1-05 order map, and no ADC pin goes above 3V0 + 0.3 V; compare with the rx1-05 waveforms and give the probe point for each signal. Repeat for power-off. (amended 2026-11-25, the user's choice in the rx1-02 review)
 
 ## Allowed commands
 - `./run *`
