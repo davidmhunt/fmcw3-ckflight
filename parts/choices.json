@@ -302,15 +302,16 @@
    "recommendation": "A, order at once."
   },
   "rx1-mode": {
-   "title": "1-RX choice: MODE strap R92 (10k or 11k)",
-   "refs": "R92",
+   "title": "1-RX choice: MODE strap R91 / R92",
+   "refs": "R91;R92",
    "cols": ["Option", "MODE level", "Class", "Note"],
    "rows": [
-    ["A. keep R91 4.7k / R92 10k", "1.95 V = 0.65 AVDD (with the 70 kohm pull-down)", "netlist only", "within 2 percent of the 2/3 AVDD row; the datasheet gives nominal levels only"],
-    ["B. R92 = 11k", "0.669 AVDD", "value change", "no other change"]
+    ["A. keep R91 4.7k / R92 10k", "1.95 V = 0.651 AVDD (with the 70 kohm pull-down)", "netlist only", "2.5 percent below the 2/3 AVDD row; the datasheet gives nominal levels only"],
+    ["B. R92 = 11k", "0.669 AVDD", "value change", "11k 0402 is a JLC Extended part (C25749), a new BOM line"],
+    ["C. R91 5.1k / R92 12k", "0.668 AVDD", "value change", "both JLC Basic and already on the 1-RX BOM (C25905, C25752)"]
    ],
    "consequence": "adi-ad9237-datasheet p.21 (Table 10: 2/3 AVDD is twos complement, DCS on) and p.10 (Figure 5, 70 kohm pull-down). The firmware reads signed twos complement (adc.vhd).",
-   "recommendation": "A: no thresholds are given, so a 2 percent offset needs no part change."
+   "recommendation": "C, chosen by the user 2026-11-25: on the nominal level with no new BOM line."
   },
   "rx1-unused-amps": {
    "title": "1-RX choice: unused U45 amps C and D (only if U45 stays the SSOP-16 quad)",

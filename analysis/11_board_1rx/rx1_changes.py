@@ -39,7 +39,7 @@ COLS = ["id", "kind", "refs", "group", "from", "to", "status", "choice", "option
 
 # Ref cells of the docs/board-changes.md rows (Board 1-RX) the changes belong to.
 R_U8 = "U8 (ADC), 1-RX"
-R_STRAP = "U8 straps and the VCMB bias divider, 1-RX (R92, R93, R990, R991)"
+R_STRAP = "U8 straps and the VCMB bias divider, 1-RX (R91, R92, R93, R990, R991)"
 R_REF = "U8 reference, VREF and supply caps, 1-RX (C217, C218, C220, C992, C993, C994, C995)"
 R_DNP = "Receive chain 2 not fitted, 1-RX"
 R_VCM = "U45 unused pair and /ADC_VCMA, 1-RX"
@@ -140,11 +140,13 @@ def changes() -> list[dict]:
         to="MODE2 (pin 1) to GND: span factor 2, power scaling off; GC (pin 5) to GND: no gray code",
         status="proposed", cls="netlist only", evidence=f"{AD} p.20 (Table 8); p.21 (GC); p.8 (Table 6)",
         check="pin map table (pin_map.csv); static strap, no simulation needed", board_row=R_STRAP)
-    add(kind="net", refs="R91;R92", group="adc", **{"from": "MODE divider 4.7k / 10k on 3V0"},
-        to="kept: MODE (pin 22) at 0.65 AVDD, the 2/3 AVDD row (twos complement, DCS on)",
-        status="option", choice="rx1-mode", option="A", cls="netlist only",
+    add(kind="value", refs="R91;R92", group="adc", **{"from": "MODE divider 4.7k / 10k on 3V0"},
+        to="R91 5.1k (C25905, Basic) / R92 12k (C25752, Basic): MODE (pin 22) at 0.668 AVDD, on the 2/3 AVDD "
+           "row (twos complement, DCS on); both values already on the 1-RX BOM (R3, R8; R37, R71)",
+        status="decided", choice="rx1-mode", option="C", cls="value only",
         evidence=f"{AD} p.21 (Table 10); p.10 (Figure 5, 70 kohm pull-down)",
-        check="hand calculation in the report (1.95 V against 2.0 V); R92 = 11k gives 0.669 AVDD",
+        check="hand calculation with the 70 kohm pull-down: 4.7k/10k 0.651 AVDD (A), 4.7k/11k 0.669 (B, 11k is "
+              "Extended C25749), 5.1k/12k 0.668 (C, chosen by the user 2026-11-25)",
         board_row=R_STRAP)
     add(kind="new", refs="R990", group="adc", **{"from": ""},
         to="1.0 kohm 0402, 3V0 to /ADC_VCMB (1.5 V bias divider, top)", status="proposed",
@@ -354,13 +356,15 @@ def choices() -> dict:
                  "The ADL5801 is a single mixer but its datasheet is not in the manifest, so nothing is claimed.",
                  "A, order at once.")
     c["rx1-mode"] = dict(
-        title="1-RX choice: MODE strap R92 (10k or 11k)", refs="R92", cols=["Option", "MODE level", "Class", "Note"],
-        rows=[["A. keep R91 4.7k / R92 10k", "1.95 V = 0.65 AVDD (with the 70 kohm pull-down)", "netlist only",
-               "within 2 percent of the 2/3 AVDD row; the datasheet gives nominal levels only"],
-              ["B. R92 = 11k", "0.669 AVDD", "value change", "no other change"]],
+        title="1-RX choice: MODE strap R91 / R92", refs="R91;R92", cols=["Option", "MODE level", "Class", "Note"],
+        rows=[["A. keep R91 4.7k / R92 10k", "1.95 V = 0.651 AVDD (with the 70 kohm pull-down)", "netlist only",
+               "2.5 percent below the 2/3 AVDD row; the datasheet gives nominal levels only"],
+              ["B. R92 = 11k", "0.669 AVDD", "value change", "11k 0402 is a JLC Extended part (C25749), a new BOM line"],
+              ["C. R91 5.1k / R92 12k", "0.668 AVDD", "value change",
+               "both JLC Basic and already on the 1-RX BOM (C25905, C25752)"]],
         consequence="adi-ad9237-datasheet p.21 (Table 10: 2/3 AVDD is twos complement, DCS on) and p.10 (Figure 5, "
                     "70 kohm pull-down). The firmware reads signed twos complement (adc.vhd).",
-        recommendation="A: no thresholds are given, so a 2 percent offset needs no part change.")
+        recommendation="C, chosen by the user 2026-11-25: on the nominal level with no new BOM line.")
     c["rx1-unused-amps"] = dict(
         title="1-RX choice: unused U45 amps C and D (only if U45 stays the SSOP-16 quad)", refs="U45",
         cols=["Option", "What changes", "Class", "Note"],
