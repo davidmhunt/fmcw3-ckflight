@@ -1,0 +1,81 @@
+slides:
+  - layout: title
+    title: "Final parts, both boards"
+    bullets:
+      - "2-RX (kicad/) and 1-RX (kicad-1rx/), built from parts/final_parts.csv"
+      - "Pending review: none. par-03 (accepted 2026-11-24), par-09 (2026-11-24) and rx1-02 (2026-11-25) are accepted"
+    note: "Condenses the par-03, par-07, par-09, par-11 and rx1-02 decks. Every row, number and page comes from parts/final_parts.csv, parts/inventory.csv and the records they cite; nothing under kicad/ or kicad-1rx/ was changed. figures.py stops the build if a row is pending review, so this line cannot go stale silently."
+  - layout: figure
+    title: "Both boards side by side: route and fitted counts"
+    figure: counts_route.png
+    note: "Counts of refs, from parts/final_parts.csv (route counts only for fitted parts). jlc-stock is bought and placed by JLCPCB; jlc-library is bought by the user into the JLC parts library; jlc-sourcing is consigned through JLC global sourcing (2-RX only); hand-solder is the DigiKey SMA connectors. The 1-RX has no consignment."
+  - layout: figure
+    title: "Both boards side by side: change class and status"
+    figure: counts_change.png
+    note: "none = the part is as on upstream's schematic; fields = MPN or ordering fields only; footprint = new land pattern or pin map; design = circuit, net or DNP change. applied means written into the board; decided waits for par-04, par-12 (2-RX) or rx1-03 (1-RX). The 1-RX has many design refs because the receive chain 2 parts are rows with fitted no."
+  - layout: figure
+    title: "Refs by route and by change class"
+    figure: counts.png
+    note: "Same counts as the two tables, as bars."
+  - layout: figure
+    title: "FPGA, ADC and clock"
+    figure: group_fpga.png
+    note: "U30 C to I grade (par-03 choice fpga B, pin check; amd-ds180-7series-overview p.15-16). U8 on the 2-RX stays the LTC2292I, sourced (par-09; the ADCs JLC stocks change footprint, pins and firmware). U6 grade per board (tgrade). Y2 Epson TG2520SMN keeps the 2.5 x 2.0 mm footprint, so R19 becomes a DC-cut capacitor (par-12). 1-RX U8 is the AD9237, on its own slide."
+  - layout: figure
+    title: "Power: inductors, bucks, LDO, FB4"
+    figure: group_power.png
+    note: "L5-L7 APS0650M330A passes the par-11 check on every rail of both boards (aps0650_ok = 1, analysis/12_rail_loads). U21 is a design change to an adjustable LDO; its fit is open (par-12 step 5). FB4 needs sim-01 with the BLM18KG221SN1D model. The buck variant is the 1.1 MHz YFDDCR (par-03 choice lmr A)."
+  - layout: figure
+    title: "RF: PA, attenuators, VCO"
+    figure: group_rfa.png
+    note: "QPA9501TR13 replaces the discontinued TQP5525 (par-07, accepted 2026-11-21); 8 bought into the JLC library. U12 is the YAT-3A+ (10 bought) on a new land pattern; the user nudges R11 or C300 by about 0.2 mm. U3, U10 are ordering-field changes. Still open, the PA supply current at 25.5 dBm and band-edge power."
+  - layout: figure
+    title: "RF: baluns, mixer, SMA connectors"
+    figure: group_rfb.png
+    note: "2-RX keeps the Johanson baluns (sourced); the 1-RX takes the TDK HHM1907B1, which no simulation covers (rf-01 would, with an S-parameter file). U29 ADL5802 stays on both boards; the 3 bought into the JLC library are for the 1-RX and the 2-RX needs 3 more on the sourcing order. SMA connectors are bought from DigiKey and hand-soldered."
+  - layout: figure
+    title: "IF op-amp, connectors and LEDs"
+    figure: group_ifconn.png
+    note: "U45 is the LT6232 C grade on the 2-RX (JLC lists only the C grade) and the LT6231 dual on the 1-RX (adc_input_sim.py runs its subcircuit). Connector and LED parts are JLC stock; CON2 and J2 are through-hole, so JLC placement is confirmed in the order tool. LED colour is the user's choice."
+  - layout: figure
+    title: "1-RX only: AD9237 and its decoupling"
+    figure: group_rx1adc.png
+    note: "The AD9237BCPZ-40 (LFCSP-32) replaces the LTC2292 (QFN-64): one channel, JLC stock. The capacitor values follow datasheet Figure 39 (adi-ad9237-datasheet p.18); no simulation, the datasheet values are used. Placement of C993-C995 is the user's. Applied by rx1-03."
+  - layout: figure
+    title: "1-RX only: receive chain 2 not fitted"
+    figure: group_rx1rx2.png
+    note: "One receive chain; the shared mixer, quad op-amp and LO split stay. Covered by rx2_dnp.py and tests/test_rx1_rx2_dnp.py (analysis/11_board_1rx). Three FPGA pins are freed. R51 and R52 stay fitted (rx1-ifbias)."
+  - layout: figure
+    title: "1-RX only: straps, bias and rail order"
+    figure: group_rx1straps.png
+    note: "R91/R92 MODE divider, R93 SENSE strap, R990/R991 common-mode bias for the amps, R992 PDWN series resistor, R993/R996 enable resistors that put 3V3A, 1V8 and 3V3D after the 3V0 ADC supply. Bias is simulated (adc_input_sim.py); straps are static levels; the start-up behaviour is rx1-05 (planned). Routing of the enables is the user's."
+  - layout: figure
+    title: "Sourcing: the 2-RX JLC sourcing order"
+    figure: sourcing_2rx.png
+    note: "Parts JLC does not stock, consigned through JLC global sourcing (2-RX only; the 1-RX has no consignment). Quantity is refs per board times board_quantity of the target set. The LT6232CGN third unit is open (see open items). PL133-37TI-R has no LCSC or DigiKey part number in the record."
+  - layout: figure
+    title: "Sourcing: DigiKey hand-solder order"
+    figure: handsolder.png
+    note: "The SMA edge-launch connectors are not in the JLC database; the user buys them from DigiKey and solders them, so the Assembly field is hand-solder and the parts stay out of the JLC files. Quantity is refs per board times board_quantity."
+  - layout: figure
+    title: "Inventory: bought into the JLC library"
+    figure: inventory_need.png
+    note: "From parts/inventory.csv; par-14 reads it. Need is the fitted jlc-library refs times board_quantity; spare is bought minus need. Dates for the YAT-3A+ and QPA9501 lines are not recorded in the file."
+  - layout: decisions
+    title: "Open items (1 of 2): checks not yet done"
+    bullets:
+      - "U21 fit: TPS7A4901DGNR in the LP2985 space is tight (about 3.6 x 5.7 mm free against about 3.1 x 5.8 mm); par-12 step 5 decides; fallback in the record"
+      - "FB4: sim-01 must use the BLM18KG221SN1D model in the 5 V branch before it is final; fallback is the original bead"
+      - "LT6232CGN: pre-order only on 2026-11-24, 2 in stock for 3 boards; the third unit needs a restock or the sourcing order"
+      - "TX is 0.7 to 1.7 dB short of 25 dBm (board-changes open findings); QPA9501 supply current at 25.5 dBm is not in its datasheet"
+      - "rx1-05 start-up simulation (R992, R993/R996, AD9237 pins) and the clock-path check (Y2) are planned, not run"
+    note: "Sources are the Analysis and Fallback columns of parts/final_parts.csv and the open findings in docs/board-changes.md. The full list is in the PDF."
+  - layout: decisions
+    title: "Open items (2 of 2): records and purchases"
+    bullets:
+      - "1-RX baluns (HHM1907B1): no simulation covers them; amplitude balance 2.5 dB against 2 dB, no S-parameter file"
+      - "10 uF 25 V caps on 12 V lose about 80 % of their capacitance (board-changes open finding); a part choice for you"
+      - "docs/board-changes.md and parts/decisions.csv still show several par-03 choices as proposed or for-user; they are decided in the accept note"
+      - "parts/inventory.csv has no date for the YAT-3A+ and QPA9501 lines; PL133-37TI-R has no LCSC or DigiKey number in the record"
+      - "Through-hole CON2 and J2: JLC placement to be confirmed in the order tool; U12 land pattern needs R11 or C300 nudged"
+    note: "The first two are findings you already hold; the last three are gaps in the records found while building this report. Nothing here was decided by the agent."
