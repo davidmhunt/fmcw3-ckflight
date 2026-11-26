@@ -1,5 +1,5 @@
 # parts: BOM from the schematic with DigiKey and JLCPCB availability, and datasheets
-Status: running
+Status: blocked: rx1-05
 Base: falcon_development
 Land: pr
 
