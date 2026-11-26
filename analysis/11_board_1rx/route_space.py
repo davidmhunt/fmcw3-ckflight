@@ -59,6 +59,10 @@ CHANGES = [
     # F2b: bleeder resistor from 3V3D to GND (3V3D falls first at power-off).
     dict(name='F2b bleeder to 3V3D', part='R_BLEED', role='3V3D', new='/3V3D', reach=15.0, png='route_f2b_3v3d.png'),
     dict(name='F2b bleeder to GND', part='R_BLEED', role='GND', new='GND', reach=10.0, png='route_f2b_gnd.png'),
+    # F3a (step 6): CLK divider, a 680 ohm shunt from the /ADC_CLK node (R15 pad 1) to GND.
+    dict(name='F3a CLK shunt to ADC_CLK', part='R_CLK', role='CLK', new='/ADC_CLK', reach=10.0,
+         png='route_f3a_clk.png'),
+    dict(name='F3a CLK shunt to GND', part='R_CLK', role='GND', new='GND', reach=10.0, png='route_f3a_gnd.png'),
 ]
 PLACE_FIX = 'analysis/15_rx1_powerup/place_fix.csv'
 

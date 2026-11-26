@@ -55,6 +55,10 @@ def parts():
              pads=two_pad(0.8, 1.4, 1.7, ('3V0', 'GND'))),
         dict(part='R_BLEED', what='0402 bleeder 3V3D to GND', anchor=('U25', '1'),
              pads=two_pad(0.4, 0.6, 0.9, ('3V3D', 'GND'))),
+        # step 6: the CLK divider (R15 33 -> 68 ohm in place, plus 680 ohm from the CLK node to GND).
+        # Anchored at R15 pad 1 (/ADC_CLK): the AD9237 CLK pin is not on kicad-1rx/ until rx1-03.
+        dict(part='R_CLK', what='680 ohm 0402 shunt, CLK node to GND (divider with R15 68 ohm)', anchor=('R15', '1'),
+             pads=two_pad(0.4, 0.6, 0.9, ('CLK', 'GND'))),
     ]
 
 
