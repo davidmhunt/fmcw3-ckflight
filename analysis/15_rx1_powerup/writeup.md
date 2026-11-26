@@ -165,7 +165,7 @@ The fast LD39200 corner reads 0.10 ms from GND to 90 %, below the 0.2 ms minimum
 {{fact:md_fixes}}
 
 Room: `analysis/11_board_1rx/route_space.py` routes each new connection on the board as it is today (grid router, trace 0.15 mm, clearance 0.15 mm, via 0.46 / 0.254 mm,
-route and via counts in the table) and `analysis/15_rx1_powerup/fix_space.py` searches the placement of each new part within 12 mm of its anchor (`place_fix.csv`).
+route and via counts in the table) and `analysis/15_rx1_powerup/fix_space.py` searches the placement of each new part within 12 mm of its anchor (`place_fix.csv`): its pads plus 0.15 mm clear of every pad, track, via and non-GND pour, and its courtyard (KiCad's library courtyard for the SOT-23-5 and SOD-323, the pads plus 0.25 mm for a chip part) clear of every other part's courtyard on that side, each placed part blocking the next.
 Every fix that adds a part found room. The F1b capacitor is placed as an 0805, the largest footprint of the 4.7u class, so an 0603 fits where it does. F3a and F4b are anchored at existing parts (R15 pad 1 for the CLK
 shunt; R97 and R99 pad 1, the nets of the VIN pins, for the two Schottky diodes) because U8 on `kicad-1rx/` is still the LTC2292 and the AD9237 pins do not exist yet; the real pad positions come with rx1-03. Layout and part choices are the user's.
 
