@@ -261,7 +261,8 @@ def main():
         for p in dn:
             if dn[p]["over_max_v"] > worst_dn[p]["over"]:
                 worst_dn[p] = dict(over=dn[p]["over_max_v"], ma=dn[p]["i_clamp_up_peak_ma"], case=k,
-                                   us=dn[p]["t_above_10ua_us"], nc=dn[p]["q_clamp_nc"], peak=dn[p]["peak_v"])
+                                   us=dn[p]["t_above_10ua_us"], nc=dn[p]["q_clamp_nc"], peak=dn[p]["peak_v"],
+                                   v_at=dn[p]["v_at_over_max"], avdd_at=dn[p]["avdd_at_over_max"])
         peak_up_vin = max(peak_up_vin, c["pins"]["vinp"]["up"]["peak_v"], c["pins"]["vinn"]["up"]["peak_v"])
         up_ok = all(v["over_max_v"] <= 0 for v in up.values())
         dn_ok = all(v["over_max_v"] <= 0 for v in dn.values())
@@ -282,6 +283,7 @@ def main():
         up_vin_margin=num(-worst_up["vin"], 3), vin_up_peak=num(peak_up_vin, 2),
         dn_clk_over=num(worst_dn["clk"]["over"], 3), dn_clk_ma=num(worst_dn["clk"]["ma"], 1),
         dn_clk_us=num(worst_dn["clk"]["us"] / 1000, 2), dn_clk_peak=num(worst_dn["clk"]["peak"], 3),
+        dn_clk_v_at=num(worst_dn["clk"]["v_at"], 2), dn_clk_avdd_at=num(worst_dn["clk"]["avdd_at"], 2),
         dn_vin_over=num(worst_dn["vin"]["over"], 3), dn_vin_ma=num(worst_dn["vin"]["ma"], 1),
         dn_vin_us=num(worst_dn["vin"]["us"] / 1000, 2), dn_vin_peak=num(worst_dn["vin"]["peak"], 2),
         dn_pdwn_over=num(worst_dn["pdwn"]["over"], 3), dn_pdwn_ma=num(worst_dn["pdwn"]["ma"], 3),
@@ -379,8 +381,9 @@ def main():
     write_csv("steady.csv", shdr, srow)
     image_table("steady.png", shdr, srow, [0.26, 0.06, 0.06, 0.06, 0.08, 0.08, 0.17, 0.07, 0.07, 0.09], 10, notes=[
         "40 MHz CLK (1 ns edges assumed, R15 33 ohm, U6 output 20 ohm typical, microchip-pl133-37-datasheet p.2) with the "
-        "limit AVDD + 0.3 V. 3V3D is the LD39200PU33R and 3V0 the LP5907-3.0; the +/-2 % and +/-5 % corners are "
-        "assumed tolerances (the sheets' own tolerance is in the report). PDWN held high by the FPGA sits at 3V3D."])
+        "limit AVDD + 0.3 V. 3V3D is the LD39200PU33R and 3V0 the LP5907-3.0. +/-2 % is the output accuracy of both over "
+        "temperature (st-ld39200-datasheet p.7: -2 to +2 %; ti-lp5907-datasheet p.5: -2 to +2 %). +/-5 % is not on any "
+        "sheet: it is an assumed wider spread (assumption 8 of the report). PDWN held high by the FPGA sits at 3V3D."])
     s2 = [v for k, v in st.items() if k == "2pct 3V3D high, 3V0 low clk"][0]["clk"]
     s5 = [v for k, v in st.items() if k == "5pct 3V3D high, 3V0 low clk"][0]["clk"]
     s0 = [v for k, v in st.items() if k == "2pct nominal clk"][0]["clk"]
@@ -429,6 +432,21 @@ def main():
                  f2a100_up_clk=num(fx_up("F2a +100u", "clk"), 2), f2a220_up_clk=num(fx_up("F2a +220u", "clk"), 2),
                  f2a47_dn_nosink=num(f2a_pw("47", "nosink"), 3))
 
+    f4 = json.load(open(HERE / "sim" / "f4a_vin.json"))["values"]
+    f4b_ma = {}
+    for mode in ("ti", "nosink"):
+        for k, v in d["fixes"].items():
+            if k.startswith("F4b") and k.endswith(f"{mode}]"):
+                f4b_ma[mode] = max(max(c["schottky_ma"]["dskp"], c["schottky_ma"]["dskn"]) for c in v.values())
+    facts.update(f4a_gain1m_200=num(f4["200"]["gain_db_1M"] - f4["49.9"]["gain_db_1M"], 2),
+                 f4a_gain1m_499=num(f4["499"]["gain_db_1M"] - f4["49.9"]["gain_db_1M"], 2),
+                 f4a_reset_200=num(f4["200"]["settling"][1]["err_lsb_max"], 0),
+                 f4a_reset_499=num(f4["499"]["settling"][1]["err_lsb_max"], 0),
+                 f4a_reset_today=num(f4["49.9"]["settling"][1]["err_lsb_max"], 0),
+                 f4b_vin_ti=num(fx("F4b", "ti", "vinp"), 2), f4b_vin_ns=num(fx("F4b", "nosink", "vinp"), 2),
+                 f4b_ma_ti=num(f4b_ma["ti"], 1), f4b_ma_ns=num(f4b_ma["nosink"], 1),
+                 f4b_ad_ma_ti=num(fx("F4b", "ti", "vinp", "i_clamp_up_peak_ma"), 2),
+                 vin_today_over=num(fx("no fix", "ti", "vinp"), 2))
     fhdr = ["Fix", "For", "Cost", "Simulated result", "Room on today's board"]
     frow = [
         ["F1c supervisor on 1V0, OUT pulls the U23 EN node low until 1V0 is above 0.9 V", "1V0 before 1V8 and 3V3D (on)",
@@ -436,7 +454,7 @@ def main():
          f"becomes design; 1V8 follows 1V0 by at least the LD39200 start-up: worst {f1c['on-VCCINT-VCCAUX']['worst_ms']:+.2f} ms (8 corners); no pin over at power-up",
          f"placed {pl('SUP1')}; OUT {rt('F1c supervisor OUT to U23 EN')}; SENSE {rt('F1c supervisor SENSE to 1V0')}; VDD {rt('F1c supervisor VDD to 3V8')}"],
         ["F1b RC on the U23 EN node: capacitor to GND (R996 10k is the resistor)", "1V0 before 1V8 and 3V3D (on)",
-         "1 capacitor (4.7u is the smallest of 1u, 2.2u, 4.7u with a positive worst case); delays 1V8 and 3V3D after 3V0; at power-off holds U23 on about 18 ms per uF",
+         "1 capacitor (4.7u, smallest of 1u, 2.2u, 4.7u with a positive worst case; room checked as an 0805); delays 1V8 and 3V3D; at power-off holds U23 on 18 ms per uF",
          f"stays timing: worst/best 1V0 before 1V8 {f1b['1u']['on-VCCINT-VCCAUX']['worst_ms']:+.2f}/{f1b['1u']['on-VCCINT-VCCAUX']['best_ms']:+.2f} ms (1u), "
          f"{f1b['2.2u']['on-VCCINT-VCCAUX']['worst_ms']:+.2f}/{f1b['2.2u']['on-VCCINT-VCCAUX']['best_ms']:+.2f} (2.2u), "
          f"{f1b['4.7u']['on-VCCINT-VCCAUX']['worst_ms']:+.2f}/{f1b['4.7u']['on-VCCINT-VCCAUX']['best_ms']:+.2f} (4.7u); no pin over at power-up",
@@ -447,7 +465,7 @@ def main():
         ["F2a more hold-up on 3V0: +10u / +47u 0805 next to U39", "power-off orders and CLK at 12 V removal",
          "1 capacitor (10u 0805 C15850); 3V0 goes from 12.4 uF to 22.4 uF; more in-rush on the LP5907 at start",
          f"removal CLK over: +10u {f2a_pw('10', 'ti'):+.2f} V (TI model) / {f2a_pw('10', 'nosink'):+.2f} V (one-way); +47u {f2a_pw('47', 'ti'):+.2f} / {f2a_pw('47', 'nosink'):+.2f} V, "
-         f"but the larger 3V0 capacitance slows 3V0 while 3V3D follows its EN: at 47u the power-up VIN+ is {fx_up('F2a +47u', 'vinp'):+.2f} V over, at 100u CLK is {fx_up('F2a +100u', 'clk'):+.2f} V over; rejected at 47u and above",
+         f"but a larger 3V0 capacitance slows 3V0: at 47u power-up VIN+ is {fx_up('F2a +47u', 'vinp'):+.2f} V over, at 100u CLK {fx_up('F2a +100u', 'clk'):+.2f} V over; rejected from 47u",
          f"placed {pl('C_HOLD')}; 3V0 {rt('F2a hold-up cap to 3V0')}"],
         ["F2b bleeder on 3V3D: 330 ohm or 100 ohm to GND next to U25", "power-off orders",
          "1 resistor 0402; 3.3 V over 330 ohm is 10 mA continuous on 3V3D (100 ohm: 33 mA)",
@@ -457,19 +475,43 @@ def main():
          "none exists: an EN or PG chain acts after its source has fallen; only a feed from the earlier rail forces the order and the LDOs all run from 3V8", "n/a"],
         ["F3a CLK divider: R15 33 -> 68 ohm and 680 ohm from the CLK node to GND at the pin", "CLK steady state and removal",
          "1 resistor 0402 added, R15 value change, no new net name; U6 load 4.3 mA (IOSD 12 mA, microchip-pl133-37 p.3); the clock swing falls to about 3 V",
-         f"steady state +2 %: peak {f3a['peak_v']:.2f} V ({f3a['over_v']:+.2f} V), +5 %: {f3a5['peak_v']:.2f} V ({f3a5['over_v']:+.2f} V); rise {f3a['rise_10_90_ns']:.2f} ns, duty {f3a['duty'] * 100:.1f} %; at removal the clamp conducts only above the divided level (not rerun)",
+         f"steady state +2 %: peak {f3a['peak_v']:.2f} V ({f3a['over_v']:+.2f} V), +5 %: {f3a5['peak_v']:.2f} V ({f3a5['over_v']:+.2f} V); rise {f3a['rise_10_90_ns']:.2f} ns, duty {f3a['duty'] * 100:.1f} %; removal not rerun",
          f"placed {pl('R_CLK')} (at R15, the AD9237 CLK pin is not on kicad-1rx/ yet); CLK {rt('F3a CLK shunt to ADC_CLK')}; GND {rt('F3a CLK shunt to GND')}"],
         ["F3b R15 100 ohm only", "CLK", "value change, no part", f"steady state +2 %: over {f3b['over_v']:+.3f} V (unchanged; it limits the clamp current only); rise {f3b['rise_10_90_ns']:.2f} ns, duty {f3b['duty'] * 100:.1f} %",
          "no new connection: same footprint"],
         ["F4a VIN series resistance: R97/R99 49.9 -> 200 or 499 ohm", "VIN at 12 V removal",
-         "2 value changes, no part; noise and a lower corner with C163-C165; the settling and IF response of rx1-02 are NOT rerun",
-         f"removal VIN clamp current {fx('F3 R97/R99 200', 'ti', 'vinp', 'i_clamp_up_peak_ma'):.1f} mA at 200 ohm, {fx('F3 R97/R99 499', 'ti', 'vinp', 'i_clamp_up_peak_ma'):.1f} mA at 499 ohm (11.8 mA today); still over the limit by {fx('F3 R97/R99 499', 'ti', 'vinp'):+.2f} V",
+         "2 value changes, no part. Cost to the signal path (rx1-02 chain rerun, `f4a_vin_rerun.py`): "
+         f"gain at 1 MHz {f4['49.9']['gain_db_1M']:.2f} dB today, {f4['200']['gain_db_1M']:.2f} dB at 200 ohm, {f4['499']['gain_db_1M']:.2f} dB at 499 ohm; "
+         f"-3 dB top {f4['49.9']['f3db_high_hz'] / 1e6:.2f} / {f4['200']['f3db_high_hz'] / 1e6:.2f} / {f4['499']['f3db_high_hz'] / 1e6:.2f} MHz; "
+         f"gain at 200 kHz {f4['49.9']['gain_db_200k']:.2f} / {f4['200']['gain_db_200k']:.2f} / {f4['499']['gain_db_200k']:.2f} dB; "
+         f"noise to 20 MHz {f4['49.9']['noise_rms_to_20MHz_uv']:.0f} / {f4['200']['noise_rms_to_20MHz_uv']:.0f} / {f4['499']['noise_rms_to_20MHz_uv']:.0f} uV rms",
+         f"removal VIN clamp current {fx('F3 R97/R99 200', 'ti', 'vinp', 'i_clamp_up_peak_ma'):.1f} mA at 200 ohm, {fx('F3 R97/R99 499', 'ti', 'vinp', 'i_clamp_up_peak_ma'):.1f} mA at 499 ohm (11.8 mA today); still over the limit by {fx('F3 R97/R99 499', 'ti', 'vinp'):+.2f} V. "
+         f"Settling of a 1 MHz tone at -1 dBFS, error at the sample (LSB, sample cap kept / reset, Ron 10): {f4['49.9']['settling'][0]['err_lsb_max']:.2f} / {f4['49.9']['settling'][1]['err_lsb_max']:.1f} today, "
+         f"{f4['200']['settling'][0]['err_lsb_max']:.2f} / {f4['200']['settling'][1]['err_lsb_max']:.1f} at 200 ohm, {f4['499']['settling'][0]['err_lsb_max']:.2f} / {f4['499']['settling'][1]['err_lsb_max']:.1f} at 499 ohm "
+         "(the reset case is the pessimistic assumption of rx1-02)",
          "no new connection: same footprint"],
-        ["F4b Schottky clamp from each VIN to 3V0", "VIN at 12 V removal", "2 parts per side or a dual; not simulated", "not simulated",
-         "not checked: needs the AD9237 pads, which kicad-1rx/ does not have until rx1-03"],
+        ["F4b Schottky clamp from each VIN pin to 3V0 (BAT54-class SOD-323, one per side)", "VIN at 12 V removal",
+         "2 diodes (part and JLC stock to choose; no sheet on file), 2 new connections each, no new net name; about 10 pF added on each VIN pin (assumed Cjo, A10), against the 100 pF of C163-C165",
+         f"removal: VIN clamp current into the AD9237 {fx('F4b', 'ti', 'vinp', 'i_clamp_up_peak_ma'):.2f} mA (TI U39) / {fx('F4b', 'nosink', 'vinp', 'i_clamp_up_peak_ma'):.2f} mA (one-way), against 11.8 mA today; "
+         f"the Schottky takes {f4b_ma['ti']:.1f} mA (TI) / {f4b_ma['nosink']:.1f} mA (one-way) and holds VIN {fx('F4b', 'ti', 'vinp'):+.2f} V against AVDD + 0.3 V (TI) / {fx('F4b', 'nosink', 'vinp'):+.2f} V (one-way), "
+         f"where today it is {fx('no fix', 'ti', 'vinp'):+.2f} V; CLK and PDWN are not touched ({fx('F4b', 'ti', 'clk'):+.2f} V CLK); power-up VIN {fx_up('F4b', 'vinp'):+.2f} V",
+         f"placed {pl('D_VINP')} and {pl('D_VINN')}; VIN+ anode {rt('F4b VIN+ clamp anode to VIN+')}, cathode {rt('F4b VIN+ clamp cathode to 3V0')}; "
+         f"VIN- anode {rt('F4b VIN- clamp anode to VIN-')}, cathode {rt('F4b VIN- clamp cathode to 3V0')} (at R97 / R99 pad 1: the AD9237 pins are not on kicad-1rx/ yet)"],
     ]
     write_csv("fixes_all.csv", fhdr, frow)
-    image_table("fixes.png", fhdr, frow, [0.19, 0.09, 0.21, 0.29, 0.22], 7.5)
+    # the picture carries a short form of the two VIN rows (the written report has the full cells above)
+    short = [
+        ["F4a VIN series resistance: R97/R99 49.9 -> 200 or 499 ohm", "VIN at 12 V removal",
+         f"2 values. rx1-02 rerun: 1 MHz gain {f4['49.9']['gain_db_1M']:.1f} dB today, {f4['200']['gain_db_1M']:.1f} (200 ohm), {f4['499']['gain_db_1M']:.1f} dB (499 ohm); "
+         f"pessimistic settling error of a 1 MHz tone {f4['49.9']['settling'][1]['err_lsb_max']:.0f} LSB today, {f4['200']['settling'][1]['err_lsb_max']:.0f} / {f4['499']['settling'][1]['err_lsb_max']:.0f} LSB",
+         f"VIN clamp current {fx('F3 R97/R99 200', 'ti', 'vinp', 'i_clamp_up_peak_ma'):.1f} mA (200 ohm), {fx('F3 R97/R99 499', 'ti', 'vinp', 'i_clamp_up_peak_ma'):.1f} mA (499 ohm) against 11.8 mA; still {fx('F3 R97/R99 499', 'ti', 'vinp'):+.2f} V over",
+         "no new connection: same footprint"],
+        ["F4b Schottky clamp from each VIN pin to 3V0 (BAT54-class SOD-323)", "VIN at 12 V removal",
+         "2 diodes (part to choose); about 10 pF per VIN pin assumed",
+         f"AD9237 VIN clamp current {fx('F4b', 'ti', 'vinp', 'i_clamp_up_peak_ma'):.2f} mA, diode {f4b_ma['ti']:.1f} mA (one-way U39 {f4b_ma['nosink']:.1f}); VIN {fx('F4b', 'ti', 'vinp'):+.2f} V ({fx('F4b', 'nosink', 'vinp'):+.2f} one-way) against {fx('no fix', 'ti', 'vinp'):+.2f} V; CLK, PDWN unchanged",
+         f"{pl('D_VINP')}, {pl('D_VINN')}; anodes {rt('F4b VIN+ clamp anode to VIN+')} / {rt('F4b VIN- clamp anode to VIN-')}; cathodes {rt('F4b VIN+ clamp cathode to 3V0')} / {rt('F4b VIN- clamp cathode to 3V0')}"],
+    ]
+    image_table("fixes.png", fhdr, frow[:-2] + short, [0.19, 0.09, 0.21, 0.29, 0.22], 7.5)
 
     # ---- waveform figures ------------------------------------------------------------------------------
     def tr(c, which, k):
@@ -597,7 +639,7 @@ def main():
         dd = [cases[k]["falls"][r]["t_fall90_ms"] - cases[k]["falls"]["3V0"]["t_fall90_ms"] for k in ifc]
         lrow.append([f"{r} falls to 90 % relative to 3V0 at 12 V removal", f"{min(dd):+.2f} to {max(dd):+.2f} ms",
                      "negative = before 3V0; load constant resistance assumed; the bench decides"])
-    lrow.append(["CLK at 12 V removal", f"peak {facts['dn_clk_peak']} V while AVDD is near 0 V (+{facts['dn_clk_over']} V over); the TI U39 model gives {facts['dn_clk_ma']} mA, a one-way output {facts['ns_clk_ma']} mA",
+    lrow.append(["CLK at 12 V removal", f"CLK is {facts['dn_clk_v_at']} V when it is furthest over AVDD + 0.3 V, on an AVDD of {facts['dn_clk_avdd_at']} V (+{facts['dn_clk_over']} V over); it sat at {facts['dn_clk_peak']} V before 12 V was removed; the TI U39 model gives {facts['dn_clk_ma']} mA, a one-way output {facts['ns_clk_ma']} mA",
                  "the U39 output behaviour is an assumption; capture 3V0 and CLK together with a trigger on 12 V"])
     write_csv("lay03.csv", lhdr, lrow)
 

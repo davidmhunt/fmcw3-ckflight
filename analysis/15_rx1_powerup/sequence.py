@@ -364,7 +364,7 @@ def build_fixes(m_none, route_rows, place_rows):
         fix='F1b', for_rows='on-VCCINT-VCCAUX;on-VCCINT-VCCO', kind='timing',
         what=(f'RC delay on U23 EN: with R996 10k, a capacitor from the U23 EN node to GND next to U23 (time constant '
               f'{tau_ms(1.0):g} ms per uF); the smallest of 1u, 2.2u, 4.7u that keeps the worst-case margin positive is {pick} uF'),
-        parts='1 x capacitor (4.7u is 0603/0805 class, 1u and 2.2u 0402/0603; the footprint used for the space check is 0402); stock checked at order time',
+        parts='1 x capacitor (4.7u is 0603/0805 class, 1u and 2.2u 0402/0603; the footprint used for the space check is the 4.7u 0805, the largest of the class, so an 0603 fits where it does); stock checked at order time',
         nets='0 new nets (one pad on the U23 EN node, one on GND)', margin_ms=rc_txt,
         en_check='EN node settles at 3V0 (2.85 V min) > 1.2 V VIH; it crosses 1.2 V (VIH min) about 0.5 x R x C after 3V0 has settled, and falls through 0.5 V (VIL max) about 1.8 x R x C after 3V0 falls (power-off tail)',
         side_effects=(f'still `timing`: the margin is the datasheet spread of two bucks and one RC; at power-off the EN node holds U23 on '

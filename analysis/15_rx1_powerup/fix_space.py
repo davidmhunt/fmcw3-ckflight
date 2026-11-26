@@ -34,8 +34,9 @@ def two_pad(pl, pw, pitch, roles):
     return [(roles[0], '1', -pitch / 2, 0.0, pl, pw), (roles[1], '2', pitch / 2, 0.0, pl, pw)]
 
 
-def sot23_5(roles):
-    fp = pcbnew.FootprintLoad('/usr/share/kicad/footprints/Package_TO_SOT_SMD.pretty', 'SOT-23-5')
+def sot23_5(roles, lib='Package_TO_SOT_SMD', name='SOT-23-5'):
+    """Pads of a KiCad library footprint (role by pad number)."""
+    fp = pcbnew.FootprintLoad('/usr/share/kicad/footprints/%s.pretty' % lib, name)
     out = []
     for p in fp.Pads():
         n = p.GetNumber()
@@ -47,8 +48,9 @@ def sot23_5(roles):
 # part: anchor pad, pads (role, number, dx, dy, size x, size y) for rotation 0
 def parts():
     return [
-        dict(part='C_DLY', what='1u 0402, EN node to GND (RC delay on U23 EN)', anchor=('U23', '6'),
-             pads=two_pad(0.4, 0.6, 0.9, ('EN', 'GND'))),
+        # the recommended 4.7u is 0603/0805 class: searched as an 0805 (the larger; where it fits an 0603 fits)
+        dict(part='C_DLY', what='4.7u 0805 (largest footprint of the class), EN node to GND (RC delay on U23 EN)',
+             anchor=('U23', '6'), pads=two_pad(0.8, 1.4, 1.7, ('EN', 'GND'))),
         dict(part='SUP1', what='SOT-23-5 supervisor on 1V0, open-drain OUT on the U23 EN node', anchor=('U23', '6'),
              pads=sot23_5({'1': 'OUT', '2': 'GND', '3': 'SENSE', '5': 'VDD'})),
         dict(part='C_HOLD', what='10u 0805 on 3V0 to GND (hold-up)', anchor=('U39', '5'),
@@ -59,6 +61,12 @@ def parts():
         # Anchored at R15 pad 1 (/ADC_CLK): the AD9237 CLK pin is not on kicad-1rx/ until rx1-03.
         dict(part='R_CLK', what='680 ohm 0402 shunt, CLK node to GND (divider with R15 68 ohm)', anchor=('R15', '1'),
              pads=two_pad(0.4, 0.6, 0.9, ('CLK', 'GND'))),
+        # step 6 F4b: a Schottky clamp from each VIN pin to 3V0 (KiCad D_SOD-323: pad 1 cathode, pad 2 anode).
+        # Anchored at R97 pad 1 / R99 pad 1 (the nets Net-(U8-AINA+) / Net-(U8-AINA-), the AD9237 pin side).
+        dict(part='D_VINP', what='Schottky SOD-323, VIN+ anode, 3V0 cathode', anchor=('R97', '1'),
+             pads=sot23_5({'1': '3V0', '2': 'VIN'}, 'Diode_SMD', 'D_SOD-323')),
+        dict(part='D_VINN', what='Schottky SOD-323, VIN- anode, 3V0 cathode', anchor=('R99', '1'),
+             pads=sot23_5({'1': '3V0', '2': 'VIN'}, 'Diode_SMD', 'D_SOD-323')),
     ]
 
 

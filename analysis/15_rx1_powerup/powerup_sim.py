@@ -3,7 +3,8 @@
 Runs in the fmcw3-sim image (LTspice under Wine, through spicelib), from the repo root:
     ./run --sim sh -c "xvfb-run -a python3 -u analysis/15_rx1_powerup/powerup_sim.py"
 (xvfb-run must not be the container's PID 1, hence the `sh -c`, as in adc_input_sim.py.)
-Options: --quick runs two cases only (debugging); --no-sweep skips the sweeps.
+Options: --quick runs two cases only (debugging); --no-sweep skips the sweeps; --f4b adds only the F4b
+fix (Schottky clamps from VIN to 3V0) to an existing sim/powerup.json.
 Writes analysis/15_rx1_powerup/sim/powerup.json (the report figures read it, so the report
 rebuilds without the sim image) and prints a summary. It exits non-zero only when a sanity
 check against a hand calculation fails; the design result (a pin above AVDD + 0.3 V, a rail out
@@ -45,6 +46,8 @@ Assumptions (stated again in the writeup; each is swept below or is a datasheet 
      reference to 0 V once VIN is below its 2.2 V threshold), a real LDO cannot. Case "ti" is the model
      as supplied; case "nosink" puts an ideal one-way element after it and the pass device's body
      diode (Is 1e-11, Rs 0.3 ohm, assumed) from OUT to IN. Both are run; the truth lies between.
+  A10 F4b Schottky clamp: BAT54-class, Is 2e-8 A, N 1.05, Rs 3 ohm, Cjo 10 pF (Vf about 0.3 V at 1 mA, 0.4 V
+     at 10 mA); assumed, no part is chosen and no sheet for one is on file.
 Loads and caps are lumped per rail (CAP_UF, load_table()); the LD39200 and the bucks are one-way
 current sources (no sinking), as their sheets state for reverse current (st-ld39200-datasheet p.9).
 Each LTspice run is rerun when it stalls or diverges (run()), and uses method=gear.
@@ -109,6 +112,7 @@ NOM = {"12V": 12.0, "3V8": 3.809, "5V6": 5.6, "1V0": 1.008, "3V0": 3.0, "3V3A": 
 NODE = {"12V": "v12", "3V8": "v3v8", "5V6": "v5v6", "1V0": "v1v0", "3V0": "v3v0", "3V3A": "v3v3a",
         "1V8": "v1v8", "3V3D": "v3v3d"}
 DIODES = {"weak": (1e-15, 10.0), "typ": (1e-14, 5.0), "strong": (1e-12, 2.0)}   # Is, Rs: A1
+SCHOTTKY = (2e-8, 1.05, 3.0, 10.0)   # F4b clamp: Is, N, Rs, Cjo in pF; assumed, BAT54-class (A10)
 PINS = {"vinp": ("pinp", C_VIN), "vinn": ("pinn", C_VIN), "clk": ("clk", C_LOGIC), "pdwn": ("pdwn", C_LOGIC)}
 
 T_OFF_MS = 14.0
@@ -211,7 +215,7 @@ def base_params(**kw) -> dict:
              ld_t90=T90_LD_MS[0], von=EN_VIL, vpgmin=1.25, if_amp=0.0, diode="typ", ro=RO_U6,
              ipu=IRPU[1], avdd_r=AVDD_NOM / IAVDD_RUN, ty2=0.0, y2_vstart=U6_VDD_MIN, load3d=1.0,
              t_off=T_OFF_MS, tstop=T_STOP_MS, maxstep_us=5.0, r15=33.0, rsh=0.0,
-             c3v0_extra_uf=0.0, rbleed=0.0, c_en23_uf=0.0, sup1v0=False, rvin=49.9, u39="ti",
+             c3v0_extra_uf=0.0, rbleed=0.0, c_en23_uf=0.0, sup1v0=False, rvin=49.9, u39="ti", sch=False,
              opts="method=gear")      # gear: the default trapezoidal rule stalls on some corners (switch events)
     p.update(kw)
     return p
@@ -288,6 +292,11 @@ def netlist_transient(p: dict, loads: dict, fit: dict) -> tuple[str, list[str]]:
          ".model DCL D(Is=%g N=1 Rs=%g Cjo=0)" % (is_, rs_)]
     for nm, (node, cpf) in PINS.items():
         pin_block(L, nm, node, cpf, p["diode"])
+    if p["sch"]:
+        L += ["* F4b: a Schottky clamp from each VIN pin to AVDD (3V0), BAT54-class; Is, N, Rs and Cjo are assumed",
+              "* (no sheet on file for a chosen part): Vf about 0.3 V at 1 mA and 0.4 V at 10 mA",
+              "Dskp pinp v3v0 DSK", "Dskn pinn v3v0 DSK",
+              ".model DSK D(Is=%g N=%g Rs=%g Cjo=%gp)" % SCHOTTKY]
     L += ["* CLK: U6 on 3V3D (held high while Y2 runs: A8), RO, R15 (+ optional shunt)",
           "Bf3d f3d 0 V=limit((V(v3v3d)-%g)*50,0,1)" % p["y2_vstart"],
           "Bosc osc 0 V=delay(V(f3d),%gm)*limit((V(v3v3d)-%g)*50,0,1)" % (p["ty2"], U6_VDD_MIN),
@@ -299,7 +308,8 @@ def netlist_transient(p: dict, loads: dict, fit: dict) -> tuple[str, list[str]]:
           "Rpu v3v3d pds %g" % (3.3 / p["ipu"]), "R992 pds pdwn 10k"]
     save = (".save V(v12) V(v3v8) V(v5v6) V(v1v0) V(v3v0) V(v3v3a) V(v1v8) V(v3v3d) V(pg23) V(pinp) V(pinn) "
             "V(clk) V(pdwn) V(outc) V(outd) V(vcm) V(en23) V(en24) "
-            + " ".join("I(D%s%s)" % (n, s) for n in PINS for s in ("u", "d")))
+            + " ".join("I(D%s%s)" % (n, s) for n in PINS for s in ("u", "d"))
+            + (" I(Dskp) I(Dskn)" if p["sch"] else ""))
     L += [".options plotwinsize=0 gmin=1e-12 abstol=1e-10 " + p["opts"], save,
           ".tran 0 %gm 0 %gus" % (p["tstop"], p["maxstep_us"]), ".end", ""]
     return "\n".join(L), []
@@ -476,6 +486,10 @@ def case_result(name, p, loads, fit, save_traces):
     t_off = p["t_off"] * 1e-3
     pins = {n: pin_metrics(t, w[{"vinp": "pinp", "vinn": "pinn", "clk": "clk", "pdwn": "pdwn"}[n]], w["v3v0"],
                            cur[n][0], cur[n][1], t_off) for n in PINS}
+    sch_ma = None
+    if p["sch"]:
+        sch_ma = {"dskp": float(wave(raw, "I(Dskp)").max() * 1e3), "dskn": float(wave(raw, "I(Dskn)").max() * 1e3),
+                  "t_above_10ua_us": float(np.diff(t, prepend=t[0])[np.maximum(wave(raw, "I(Dskp)"), wave(raw, "I(Dskn)")) > I_LOGIC_MAX].sum() * 1e6)}
     rails = rail_times(t, w)
     falls = fall_times(t, w, t_off)
     en_t = first_cross(t, w["v3v0"], p["von"])
@@ -484,6 +498,8 @@ def case_result(name, p, loads, fit, save_traces):
     res = {"params": p, "rails": rails, "falls": falls, "pins": pins, "t_3v0_en_ms": _ms(en_t),
            "start_after_3v0_en": start_ok, "vcco_minus_vccaux": vcco_minus_vcco_aux(t, w, t_off),
            "log_warn": bool(re.search(r"timestep too small|singular matrix", log, re.I))}
+    if sch_ma:
+        res["schottky_ma"] = sch_ma
     if save_traces:
         res["traces"] = {
             "up_ms": np.linspace(0, p["t_off"] - 1, 500).round(4).tolist(),
@@ -594,7 +610,49 @@ def summarise_case(c):
     return worst, pins[worst]["all"]["over_max_v"]
 
 
+def run_fix(fname0, fkw, corners, modes, fixes, res, loads, fit, amp_fs):
+    """One proposed fix on its corners and U39 modes; fills fixes[name][corner] and res['fix_order'][name]."""
+    for mode in modes:
+        fname = "%s [U39 %s]" % (fname0, mode)
+        fixes[fname] = {}
+        for nm, kw in corners:
+            long_run = "t_off" in fkw
+            p = base_params(**kw, if_amp=0.0 if long_run else amp_fs, maxstep_us=5.0 if long_run else 0.4,
+                            u39=mode, **fkw)
+            c = case_result("fx_%s_%s_%s" % (re.sub(r"\W+", "_", fname0), mode, nm), p, loads, fit, save_traces=False)
+            fixes[fname][nm] = c
+        worst_ = {ph: max(max(c["pins"][n][ph]["over_max_v"] for n in PINS) for c in fixes[fname].values())
+                  for ph in ("up", "down")}
+        pk = {n: max(c["pins"][n]["all"]["i_clamp_up_peak_ma"] for c in fixes[fname].values()) for n in PINS}
+        res.setdefault("fix_order", {})[fname] = order_checks(fixes[fname])
+        fo = res["fix_order"][fname]["rows"]
+        print("fix %-38s over AVDD+0.3: power-up %+.3f V, power-down %+.3f V; peak clamp mA vinp %.1f clk %.1f | "
+              "worst margin ms 1V0<1V8 %+.2f, 1V0<3V3D %+.2f, 3V3D off<3V0 off %+.2f, 3V3A off<3V0 off %+.2f" % (
+                  fname, worst_["up"], worst_["down"], pk["vinp"], pk["clk"], fo["on-VCCINT-VCCAUX"]["worst_ms"],
+                  fo["on-VCCINT-VCCO"]["worst_ms"], fo["off-3V3D-3V0"]["worst_ms"], fo["off-3V3A-3V0"]["worst_ms"]), flush=True)
+        if "sch" in fkw:
+            print("    Schottky peak current mA: " + ", ".join(
+                "%s p %.1f n %.1f" % (k, c["schottky_ma"]["dskp"], c["schottky_ma"]["dskn"]) for k, c in fixes[fname].items()), flush=True)
+
+
+def main_f4b() -> int:
+    """--f4b: add only the F4b fix (Schottky clamps from VIN to 3V0) to the existing sim/powerup.json, on the
+    two corners of the other power-down fixes, the IF at full scale; every other result is left as it is."""
+    setup_wine()
+    WORK.mkdir(parents=True, exist_ok=True)
+    res = json.loads(OUT.read_text())
+    fit, loads, amp_fs = res["fit"], res["loads_a"], res["if_amp_fs_v"]
+    two = [c for c in power_cases() if c[0] in ("u17f_u18f_ldof", "u17s_u18s_ldos")]
+    res["schottky_model"] = {"Is": SCHOTTKY[0], "N": SCHOTTKY[1], "Rs": SCHOTTKY[2], "Cjo_pf": SCHOTTKY[3]}
+    run_fix("F4b Schottky VIN to 3V0", dict(sch=True), two, ("ti", "nosink"), res["fixes"], res, loads, fit, amp_fs)
+    OUT.write_text(json.dumps(res, indent=0, default=float))
+    print("wrote %s (%d LTspice runs)" % (OUT.relative_to(ROOT), _RUN["n"]))
+    return 0
+
+
 def main() -> int:
+    if "--f4b" in sys.argv:
+        return main_f4b()
     quick = "--quick" in sys.argv
     sweep = "--no-sweep" not in sys.argv
     setup_wine()
@@ -680,28 +738,13 @@ def main() -> int:
                  ("F1b 1u on U23 EN", dict(c_en23_uf=1.0, t_off=24.0, tstop=54.0), cases, ("ti",)),
                  ("F1b 2.2u on U23 EN", dict(c_en23_uf=2.2, t_off=40.0, tstop=70.0), cases, ("ti",)),
                  ("F1b 4.7u on U23 EN", dict(c_en23_uf=4.7, t_off=80.0, tstop=110.0), cases, ("ti",)),
-                 ("F1c supervisor on 1V0", dict(sup1v0=True), cases, ("ti",))]
+                 ("F1c supervisor on 1V0", dict(sup1v0=True), cases, ("ti",)),
+                 ("F4b Schottky VIN to 3V0", dict(sch=True), two, ("ti", "nosink"))]
         for fname0, fkw, corners, modes in specs:
-            for mode in modes:
-                fname = "%s [U39 %s]" % (fname0, mode)
-                fixes[fname] = {}
-                for nm, kw in corners:
-                    long_run = "t_off" in fkw
-                    p = base_params(**kw, if_amp=0.0 if long_run else amp_fs, maxstep_us=5.0 if long_run else 0.4,
-                                    u39=mode, **fkw)
-                    c = case_result("fx_%s_%s_%s" % (re.sub(r"\W+", "_", fname0), mode, nm), p, loads, fit, save_traces=False)
-                    fixes[fname][nm] = c
-                worst_ = {ph: max(max(c["pins"][n][ph]["over_max_v"] for n in PINS) for c in fixes[fname].values())
-                          for ph in ("up", "down")}
-                pk = {n: max(c["pins"][n]["all"]["i_clamp_up_peak_ma"] for c in fixes[fname].values()) for n in PINS}
-                res.setdefault("fix_order", {})[fname] = order_checks(fixes[fname])
-                fo = res["fix_order"][fname]["rows"]
-                print("fix %-38s over AVDD+0.3: power-up %+.3f V, power-down %+.3f V; peak clamp mA vinp %.1f clk %.1f | "
-                      "worst margin ms 1V0<1V8 %+.2f, 1V0<3V3D %+.2f, 3V3D off<3V0 off %+.2f, 3V3A off<3V0 off %+.2f" % (
-                          fname, worst_["up"], worst_["down"], pk["vinp"], pk["clk"], fo["on-VCCINT-VCCAUX"]["worst_ms"],
-                          fo["on-VCCINT-VCCO"]["worst_ms"], fo["off-3V3D-3V0"]["worst_ms"], fo["off-3V3A-3V0"]["worst_ms"]), flush=True)
+            run_fix(fname0, fkw, corners, modes, fixes, res, loads, fit, amp_fs)
         res["fixes"] = fixes
-    # steady state at the tolerance limits (LD39200 and LP5907 +/-2 %, and +/-5 % as a system margin)
+    # steady state at the tolerance limits: +/-2 % is the LD39200 and LP5907 output accuracy (TOL_LD, TOL_LP);
+    # +/-5 % is an ASSUMED wider spread (no datasheet gives it), run to show how the margin scales
     if not quick:
         st = {}
         for lab, tol in (("2pct", 0.02), ("5pct", 0.05)):

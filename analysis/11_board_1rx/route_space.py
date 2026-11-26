@@ -40,7 +40,7 @@ CHANGES = [
     # placed by analysis/15_rx1_powerup/fix_space.py (place_fix.csv), then routed here. U23 pin 6
     # (EN) is the target for the fixes that act on the 1V8 enable; the 3V0 route from the
     # rx1-seq change above is not on the board yet, so it does not block these routes.
-    # F1b: RC delay, 1u from the U23 EN node to GND.
+    # F1b: RC delay, 4.7u (placed as an 0805, the largest footprint of its class) from the U23 EN node to GND.
     dict(name='F1b cap to U23 EN', part='C_DLY', role='EN', to_pad=('U23', '6'), cut=('U23', '6', '/3V8'),
          png='route_f1b_en.png'),
     dict(name='F1b cap to GND', part='C_DLY', role='GND', new='GND', reach=10.0, png='route_f1b_gnd.png'),
@@ -63,6 +63,16 @@ CHANGES = [
     dict(name='F3a CLK shunt to ADC_CLK', part='R_CLK', role='CLK', new='/ADC_CLK', reach=10.0,
          png='route_f3a_clk.png'),
     dict(name='F3a CLK shunt to GND', part='R_CLK', role='GND', new='GND', reach=10.0, png='route_f3a_gnd.png'),
+    # F4b (rx1-05): a Schottky clamp from each VIN pin net (R97 / R99 pad 1) to 3V0. Anode on the pin net,
+    # cathode on 3V0; the diodes are placed by fix_space.py at those pads.
+    dict(name='F4b VIN+ clamp anode to VIN+', part='D_VINP', role='VIN', new='Net-(U8-AINA+)', reach=10.0,
+         png='route_f4b_vinp_a.png'),
+    dict(name='F4b VIN+ clamp cathode to 3V0', part='D_VINP', role='3V0', new='/fpga/adc/3V0', reach=15.0,
+         png='route_f4b_vinp_k.png'),
+    dict(name='F4b VIN- clamp anode to VIN-', part='D_VINN', role='VIN', new='Net-(U8-AINA-)', reach=10.0,
+         png='route_f4b_vinn_a.png'),
+    dict(name='F4b VIN- clamp cathode to 3V0', part='D_VINN', role='3V0', new='/fpga/adc/3V0', reach=15.0,
+         png='route_f4b_vinn_k.png'),
 ]
 PLACE_FIX = 'analysis/15_rx1_powerup/place_fix.csv'
 

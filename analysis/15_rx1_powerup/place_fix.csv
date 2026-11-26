@@ -1,6 +1,6 @@
 part,what,role,pad,found,anchor,side,x,y,part_x,part_y,rot,dist_from_anchor_mm
-C_DLY,"1u 0402, EN node to GND (RC delay on U23 EN)",EN,1,True,U23.6,F,120.4,77.31,120.8,77.3,0,1.7
-C_DLY,"1u 0402, EN node to GND (RC delay on U23 EN)",GND,2,True,U23.6,F,121.3,77.31,120.8,77.3,0,1.7
+C_DLY,"4.7u 0805 (largest footprint of the class), EN node to GND (RC delay on U23 EN)",EN,1,True,U23.6,F,120.75,75.46,120.8,76.3,90,2.6
+C_DLY,"4.7u 0805 (largest footprint of the class), EN node to GND (RC delay on U23 EN)",GND,2,True,U23.6,F,120.75,77.16,120.8,76.3,90,2.6
 SUP1,"SOT-23-5 supervisor on 1V0, open-drain OUT on the U23 EN node",OUT,1,True,U23.6,B,116.1,84.25,115.1,83.1,90,7.7
 SUP1,"SOT-23-5 supervisor on 1V0, open-drain OUT on the U23 EN node",GND,2,True,U23.6,B,115.15,84.25,115.1,83.1,90,7.7
 SUP1,"SOT-23-5 supervisor on 1V0, open-drain OUT on the U23 EN node",SENSE,3,True,U23.6,B,114.2,84.25,115.1,83.1,90,7.7
@@ -11,3 +11,7 @@ R_BLEED,0402 bleeder 3V3D to GND,3V3D,1,True,U25.1,F,118.8,87.5,119.2,87.5,0,3.1
 R_BLEED,0402 bleeder 3V3D to GND,GND,2,True,U25.1,F,119.7,87.5,119.2,87.5,0,3.1
 R_CLK,"680 ohm 0402 shunt, CLK node to GND (divider with R15 68 ohm)",CLK,1,True,R15.1,F,145.45,83.59,145.9,83.6,0,1.0
 R_CLK,"680 ohm 0402 shunt, CLK node to GND (divider with R15 68 ohm)",GND,2,True,R15.1,F,146.35,83.59,145.9,83.6,0,1.0
+D_VINP,"Schottky SOD-323, VIN+ anode, 3V0 cathode",3V0,1,True,R97.1,B,149.37,101.25,148.3,101.2,0,0.2
+D_VINP,"Schottky SOD-323, VIN+ anode, 3V0 cathode",VIN,2,True,R97.1,B,147.27,101.25,148.3,101.2,0,0.2
+D_VINN,"Schottky SOD-323, VIN- anode, 3V0 cathode",3V0,1,True,R99.1,B,150.33,100.45,149.3,100.4,0,1.0
+D_VINN,"Schottky SOD-323, VIN- anode, 3V0 cathode",VIN,2,True,R99.1,B,148.23,100.45,149.3,100.4,0,1.0

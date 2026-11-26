@@ -24,7 +24,7 @@ against AVDD 3.0 V. The FPGA rails are checked against the DS181 power order. No
   the 2-RX board tolerates over 100 mA (`adi-ltc2293-2292-2291-datasheet` p.5 note 3). With a one-way U39 output the
   CLK current is {{fact:ns_clk_ma}} mA and VIN has none; the truth lies between the two (section 6).
 - **CLK steady state fails at the tolerance limits.** Nominal 3V3D 3.3 V against AVDD 3.0 V sits exactly on the
-  limit (over by {{fact:st_nom_over}} V); at 3V3D +2 % and 3V0 -2 % CLK is {{fact:st2_over}} V over, at +/-5 % {{fact:st5_over}} V over. A larger R15 does not
+  limit (over by {{fact:st_nom_over}} V); at the sheets' 3V3D +2 % and 3V0 -2 % (LD39200 p.7, LP5907 p.5) CLK is {{fact:st2_over}} V over, at an assumed +/-5 % {{fact:st5_over}} V over. A larger R15 does not
   lower the pin voltage; a divider does (F3a).
 - **The FPGA order is timing, not design, for {{fact:n_timing_on}} of {{fact:n_on}} power-up rows and {{fact:n_timing_off}} of {{fact:n_off}} power-off rows.** 1V0 (U17)
   before 1V8 and 3V3D is not forced: U17 and U18 both start from 12 V. Fixes F1c (design) and F1b (timing) are
@@ -43,9 +43,11 @@ of section 3.
   capacitance 7 pF per VIN pin (p.3 Table 1); logic inputs 2 pF, input current +/-10 uA (p.4 Table 2).
 - **LTC2292** (`adi-ltc2293-2292-2291-datasheet` p.5 note 3): inputs are clamped by internal diodes and take more
   than 100 mA without latch-up, which is why the 2-RX board is the reference and out of scope.
-- **LP5907** (`ti-lp5907-datasheet`), U39 3V0: turn-on time 80 typ / 150 max us, EN high 1.2 V min, low
+- **LP5907** (`ti-lp5907-datasheet`), U39 3V0: output voltage tolerance -2 to +2 % (p.5; the -3 to +3 % line is for
+  outputs under 1.8 V), the other source of the +/-2 % corner of section 7; turn-on time 80 typ / 150 max us, EN high 1.2 V min, low
   0.4 V max (p.6). Its IN and EN are on 3V8.
-- **LD39200** (`st-ld39200-datasheet`), U23, U24, U25: EN high 1.2 V min, low 0.5 V max (p.7, p.8); PG rising
+- **LD39200** (`st-ld39200-datasheet`), U23, U24, U25: output accuracy -2 to +2 % over -40 to 125 C (+/-1 % at 25 C; p.7 Table 6), the
+  source of the +/-2 % corner of section 7; EN high 1.2 V min, low 0.5 V max (p.7, p.8); PG rising
   threshold 0.92 x VOUT, falling 0.8 x VOUT, open drain, 0.4 V at 6 mA (p.7, p.8); start-up plots p.13 Figures 21 to 24
   (Figure 23: EN start-up, no bypass capacitor, VIN 3.7 V). ST publishes no model (`parts/models_needed.csv`).
 - **LMR51420** (`ti-lmr51420-datasheet`), U17 (1V0), U18 (3V8), U19 (5V6): EN rising 1.1 / 1.227 / 1.36 V, falling
@@ -90,6 +92,10 @@ Assumptions, each stated and swept (table in section 6):
    disconnected at once at removal. With no load left the 12 V node stays at the buck UVLO (3.58 V) in the simulation, which does not change the pin results.
 7. **U39 at removal.** The TI model sinks current once its VIN is below 2.2 V, so 3V0 collapses faster than a real LDO. Run as supplied (`ti`) and with a one-way
    output and the pass-device body diode (`nosink`, assumed Is 1e-11 A, Rs 0.3 ohm). The truth lies between.
+8. **Tolerance corners of the CLK steady state.** +/-2 % is on file: the output accuracy of the LD39200 (`st-ld39200-datasheet` p.7) and of the LP5907
+   (`ti-lp5907-datasheet` p.5), both over temperature. +/-5 % is **not on any sheet**; it is an assumed wider spread (initial accuracy, load, ageing and
+   a measurement error are not in the +/-2 %), run only to show how the CLK margin scales. The result and the fixes are judged on the +/-2 % corner.
+9. **Schottky clamp (F4b).** BAT54-class: Is 2e-8 A, N 1.05, Rs 3 ohm, 10 pF (about 0.3 V at 1 mA, 0.4 V at 10 mA). No part is chosen and no sheet for one is on file.
 
 # 4. The order map
 
@@ -143,7 +149,7 @@ VIN no clamp current; PDWN {{fact:ns_pdwn_ma}} mA.
 {{fact:md_steady}}
 
 At nominal the CLK high level equals the limit (3V3D 3.3 V, AVDD 3.0 V + 0.3 V): the margin is {{fact:st_nom_over}} V. At 3V3D +2 % and 3V0 -2 % the peak is {{fact:st2_peak}} V against {{fact:st2_lim}} V ({{fact:st2_over}} V over; mean clamp
-current {{fact:st2_mean}} uA); at +/-5 % it is {{fact:st5_peak}} V against {{fact:st5_lim}} V ({{fact:st5_over}} V over, {{fact:st5_ma}} mA peak, {{fact:st5_mean}} uA mean). PDWN held high by the FPGA is the same ({{fact:st2_pdwn_over}} V over at +2 %).
+current {{fact:st2_mean}} uA); at the assumed +/-5 % (assumption 8, on no sheet) it is {{fact:st5_peak}} V against {{fact:st5_lim}} V ({{fact:st5_over}} V over, {{fact:st5_ma}} mA peak, {{fact:st5_mean}} uA mean). PDWN held high by the FPGA is the same ({{fact:st2_pdwn_over}} V over at +2 %).
 Raising R15 to 100 ohm does not change the pin voltage (over {{fact:f3b_over}} V): it limits only the clamp current. A divider does: F3a (R15 68 ohm and 680 ohm to GND at the pin)
 gives {{fact:f3a_peak}} V ({{fact:f3a_over}} V) at +2 % and {{fact:f3a5_peak}} V ({{fact:f3a5_over}} V) at +5 %, rise {{fact:f3a_rise}} ns and duty {{fact:f3a_duty}} % at 40 MHz.
 
@@ -160,8 +166,14 @@ The fast LD39200 corner reads 0.10 ms from GND to 90 %, below the 0.2 ms minimum
 
 Room: `analysis/11_board_1rx/route_space.py` routes each new connection on the board as it is today (grid router, trace 0.15 mm, clearance 0.15 mm, via 0.46 / 0.254 mm,
 route and via counts in the table) and `analysis/15_rx1_powerup/fix_space.py` searches the placement of each new part within 12 mm of its anchor (`place_fix.csv`).
-Every fix that adds a part found room. F3a was added here (R15 pad 1 is the anchor, because U8 on `kicad-1rx/` is still the LTC2292 and the AD9237 CLK pin does not exist yet); F4b (Schottky clamps)
-has not been searched, for the same reason, and F4a's settling and IF response have not been rerun. Layout and part choices are the user's.
+Every fix that adds a part found room. The F1b capacitor is placed as an 0805, the largest footprint of the 4.7u class, so an 0603 fits where it does. F3a and F4b are anchored at existing parts (R15 pad 1 for the CLK
+shunt; R97 and R99 pad 1, the nets of the VIN pins, for the two Schottky diodes) because U8 on `kicad-1rx/` is still the LTC2292 and the AD9237 pins do not exist yet; the real pad positions come with rx1-03. Layout and part choices are the user's.
+
+F4a rerun (`f4a_vin_rerun.py`, the rx1-02 chain with the AD9237 load): R97/R99 at 200 ohm costs {{fact:f4a_gain1m_200}} dB at 1 MHz and at 499 ohm {{fact:f4a_gain1m_499}} dB
+(the gain at 200 kHz, the top of the beat band, moves by less than 0.2 dB); the pessimistic settling error (sample capacitor discharged) of a 1 MHz tone grows from {{fact:f4a_reset_today}} LSB today to {{fact:f4a_reset_200}} LSB (200 ohm) and {{fact:f4a_reset_499}} LSB (499 ohm),
+so a larger R97/R99 trades signal-path accuracy for a lower clamp current and still does not bring VIN inside the limit.
+F4b (simulated with an assumed BAT54-class diode, assumption 9): the clamp current into the AD9237 falls from 11.8 mA to {{fact:f4b_ad_ma_ti}} mA, the Schottky takes {{fact:f4b_ma_ti}} mA (TI U39 model) or {{fact:f4b_ma_ns}} mA (one-way U39),
+and VIN ends {{fact:f4b_vin_ti}} V against AVDD + 0.3 V ({{fact:f4b_vin_ns}} V one-way), where it is {{fact:vin_today_over}} V today. Its Vf is similar to the 0.3 V margin, so it moves the clamp current out of the AD9237 but does not guarantee the voltage limit.
 
 # 10. The waveforms lay-03 should match at bring-up
 
@@ -172,8 +184,8 @@ Capture 12 V, 3V8, 3V0, 3V3A, 1V8, 3V3D, CLK and PDWN; times are from the simula
 # 11. Result and what the user decides
 
 1. **Order, FPGA:** choose F1c (a supervisor on 1V0, design) or F1b (RC on the U23 EN, timing), or accept 1V0 before 1V8 as timing. Power-off orders have no design fix (F2c).
-2. **12 V removal, AD9237 pins:** choose one or accept it. F2a and F2b do not fix it with the TI U39 model; F4a lowers the VIN clamp current but not the voltage; no fix is simulated that
-   passes every case. The alternative is to judge the {{fact:ns_clk_ma}} to {{fact:dn_clk_ma}} mA CLK clamp current acceptable against a sheet that gives none; a fix that stops the case is not yet simulated.
+2. **12 V removal, AD9237 pins:** choose one or accept it. F2a and F2b do not fix it with the TI U39 model; F4a lowers the VIN clamp current but not the voltage, at a cost in gain and settling (section 9); F4b takes the VIN clamp current out of the AD9237 and leaves VIN {{fact:f4b_vin_ti}} V
+   over (TI U39 model); neither touches CLK and PDWN. No fix is simulated that passes every case. The alternative is to judge the {{fact:ns_clk_ma}} to {{fact:dn_clk_ma}} mA CLK clamp current acceptable against a sheet that gives none; a fix that stops the case is not yet simulated.
 3. **CLK steady state:** F3a (divider) is the one that works; the choice of values stays open.
 4. **Assumption 5 (PG at low VIN)** decides whether power-up passes with {{fact:up_clk_margin}} V of margin or fails by {{fact:vpgmin_2_up_over}} V; lay-03 should measure it.
 
